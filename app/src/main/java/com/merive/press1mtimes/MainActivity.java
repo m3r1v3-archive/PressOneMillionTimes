@@ -21,16 +21,20 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         scoreTV = findViewById(R.id.score);
+        // Get score
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this.getBaseContext());
         String score = sharedPreferences.getString("score", "");
-        while (score.length() != 6) {
+        // Add 0s for scoreTV
+        while (score.length() != 6)
             score = "0" + score;
-        }
+        // Start set scoreTV
         scoreTV.setText(score);
     }
 
     public void buttonClick(View view) {
+        // Click red button
         int score = Integer.parseInt(String.valueOf(scoreTV.getText()));
+
         if (score == 999999) {
             Toast.makeText(MainActivity.this, "You press button 1M times...",
                     Toast.LENGTH_LONG).show();
