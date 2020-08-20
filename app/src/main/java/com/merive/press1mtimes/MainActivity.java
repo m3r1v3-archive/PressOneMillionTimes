@@ -17,11 +17,13 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // Init Activity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        // Init scoreTV
         scoreTV = findViewById(R.id.score);
-        // Get score
+        /* Get score in storage */
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this.getBaseContext());
         String score = sharedPreferences.getString("score", "");
         // Add 0s for scoreTV
@@ -32,20 +34,25 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void buttonClick(View view) {
-        // Click red button
+        /** Click red button **/
         int score = Integer.parseInt(String.valueOf(scoreTV.getText()));
-
+        /* If score == 999999, them scoreTV = "000000" & make Toast */
         if (score == 999999) {
             Toast.makeText(MainActivity.this, "You press button 1M times...",
                     Toast.LENGTH_LONG).show();
+            /* Fix bug #1 (Check GitHub Issues) */
+            sharedPreferences.edit().putString("score", "000000").apply();
             scoreTV.setText("000000");
         } else {
+            // Update score
             score += 1;
             String result = String.valueOf(score);
             while (result.length() != 6) {
                 result = "0" + result;
             }
+            // Edit score in storage
             sharedPreferences.edit().putString("score", result).apply();
+            /* Set score in scoreTV */
             scoreTV.setText(result);
         }
     }
