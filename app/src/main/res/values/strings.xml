@@ -3,4 +3,11 @@
     <string name="press">Press</string>
     <string name="press_1m_times">Press 1M times</string>
     <string name="_000000">000000</string>
+    <string name="all_rights_reserved">All rights reserved</string>
+    <string name="creators">Creators</string>
+    <string name="github_merive">GitHub: <a href="https://github.com/merive">@merive</a></string>
+    <string name="idea_author_design_code">Idea author, design, code:</string>
+    <string name="merive">merive_</string>
+    <string name="reddit_merive">Reddit: <a href="https://www.reddit.com/user/merive_">@merive_</a></string>
+    <string name="twitter_merive">Twitter: <a href="https://twitter.com/merive_">@merive_</a></string>
 </resources>

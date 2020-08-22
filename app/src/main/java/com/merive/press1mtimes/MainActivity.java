@@ -1,5 +1,6 @@
 package com.merive.press1mtimes;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
@@ -43,6 +44,9 @@ public class MainActivity extends AppCompatActivity {
             /* Fix bug #1 (Check GitHub Issues) */
             sharedPreferences.edit().putString("score", "000000").apply();
             scoreTV.setText("000000");
+            /* Switch activity */
+            Intent intent = new Intent(this, About.class);
+            startActivity(intent);
         } else {
             // Update score
             score += 1;
