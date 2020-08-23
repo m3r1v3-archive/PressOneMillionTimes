@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -39,8 +38,6 @@ public class MainActivity extends AppCompatActivity {
         int score = Integer.parseInt(String.valueOf(scoreTV.getText()));
         /* If score == 999999, them scoreTV = "000000" & make Toast */
         if (score == 999999) {
-            Toast.makeText(MainActivity.this, "You press button 1M times...",
-                    Toast.LENGTH_LONG).show();
             /* Fix bug #1 (Check GitHub Issues) */
             sharedPreferences.edit().putString("score", "000000").apply();
             scoreTV.setText("000000");
