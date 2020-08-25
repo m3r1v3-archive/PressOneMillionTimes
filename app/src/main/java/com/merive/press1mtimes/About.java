@@ -1,5 +1,6 @@
 package com.merive.press1mtimes;
 
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.View;
 
@@ -12,6 +13,7 @@ public class About extends AppCompatActivity {
         /* Init Activity */
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
     }
 
     public void exitClick(View view) {
