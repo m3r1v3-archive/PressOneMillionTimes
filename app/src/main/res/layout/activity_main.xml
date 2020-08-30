@@ -12,7 +12,7 @@
         android:layout_width="406dp"
         android:layout_height="53dp"
         android:fontFamily="sans-serif-light"
-        android:text="@string/press_1m_times"
+        android:text="@string/app_name"
         android:textAlignment="center"
         android:textAllCaps="true"
         android:textColor="@color/colorPrimaryDark"
@@ -35,10 +35,10 @@
         android:textSize="36sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.499"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.778" />
+        app:layout_constraintVertical_bias="0.779" />
 
     <TextView
         android:id="@+id/score"
