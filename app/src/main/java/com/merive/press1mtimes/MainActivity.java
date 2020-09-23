@@ -12,7 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
 
-    TextView scoreTV;
+    TextView counter;
     SharedPreferences sharedPreferences;
 
     @Override
@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         // Init scoreTV
-        scoreTV = findViewById(R.id.score);
+        counter = findViewById(R.id.counter);
         /* Get score in storage */
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this.getBaseContext());
         String score = sharedPreferences.getString("score", "");
@@ -31,31 +31,29 @@ public class MainActivity extends AppCompatActivity {
         while (score.length() != 6)
             score = "0" + score;
         // Start set scoreTV
-        scoreTV.setText(score);
+        counter.setText(score);
     }
 
     public void buttonClick(View view) {
         /** Click red button **/
-        int score = Integer.parseInt(String.valueOf(scoreTV.getText()));
+        int score = Integer.parseInt(String.valueOf(counter.getText()));
         /* If score == 999999, them scoreTV = "000000" & make Toast */
         if (score == 999999) {
             /* Fix bug #1 (Check GitHub Issues) */
             sharedPreferences.edit().putString("score", "000000").apply();
-            scoreTV.setText("000000");
+            counter.setText("000000");
             /* Switch activity */
             Intent intent = new Intent(this, About.class);
             startActivity(intent);
         } else {
             // Update score
             score += 1;
-            String result = String.valueOf(score);
-            while (result.length() != 6) {
-                result = "0" + result;
-            }
+            // Format score
+            String result = String.format("%06d", score);
             // Edit score in storage
             sharedPreferences.edit().putString("score", result).apply();
             /* Set score in scoreTV */
-            scoreTV.setText(result);
+            counter.setText(result);
         }
     }
 
