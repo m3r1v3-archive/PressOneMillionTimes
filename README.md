@@ -3,8 +3,13 @@
 A simple game in which the main task is to find out what happens after a million clicks on the red button...
 _____
 ### _Installing_
-1. Run [Android Studio](https://developer.android.com/studio);
-2. Clone repository (_git clone https://github.com/merive/Press1MTimes.git_);
-3. Build & run application;
+1. Run [Android Studio](https://developer.android.com/studio),
+2. Clone repository (_git clone https://github.com/merive/Press1MTimes.git_),
+3. Build & run application,
+4. Play to game.
+##### _or_
+1. Clone repository (_git clone https://github.com/merive/Press1MTimes.git_),
+2. Transfer APK file to device,
+3. Install app,
 4. Play to game.
 _____
