@@ -12,7 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 public class About extends AppCompatActivity {
 
     Button exit;
-    ImageView pascal;
+    ImageView easter;
     Handler handler;
 
 
@@ -25,19 +25,28 @@ public class About extends AppCompatActivity {
 
         /* Init variables */
         exit = findViewById(R.id.exit);
-        pascal = findViewById(R.id.pascal);
+        easter = findViewById(R.id.pascal);
     }
 
     public void exitClick(View view) {
         /* Set visibility exit & pascal */
         exit.setVisibility(View.INVISIBLE);
-        pascal.setVisibility(View.VISIBLE);
+        easter.setVisibility(View.VISIBLE);
 
+        /* Start easter egg animation */
+        easter.animate().translationY(-100f).setDuration(200L).start();
         handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            public void run() {
+                easter.animate().translationY(100f).setDuration(200L).start();
+            }
+        }, 300);
+
+        /* Finish layout */
         handler.postDelayed(new Runnable() {
             public void run() {
                 finish();
             }
-        }, 10);
+        }, 500);
     }
 }
