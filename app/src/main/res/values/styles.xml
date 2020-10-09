@@ -3,14 +3,20 @@
     <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
         <!-- App Theme. -->
         <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorPrimaryDark">@color/colorAccent</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:actionBarStyle">@color/colorPrimaryDark</item>
     </style>
     <!-- Splash theme. -->
     <style name="SplashTheme" parent="Theme.AppCompat.NoActionBar">
+        <!--    Set splash.    -->
         <item name="android:windowBackground">@drawable/splash</item>
+
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+
+        <!--    Hide status bar.    -->
+        <item name="android:windowFullscreen">true</item>
     </style>
 </resources>
