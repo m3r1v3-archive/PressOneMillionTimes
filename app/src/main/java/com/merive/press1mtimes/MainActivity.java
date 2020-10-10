@@ -26,22 +26,22 @@ public class MainActivity extends AppCompatActivity {
         counter = findViewById(R.id.counter);
         /* Get score in storage */
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this.getBaseContext());
-        String score = sharedPreferences.getString("score", "");
+        StringBuilder score = new StringBuilder(sharedPreferences.getString("score", ""));
         // Add 0s for scoreTV
         while (score.length() != 6)
-            score = "0" + score;
+            score.insert(0, "0");
         // Start set scoreTV
-        counter.setText(score);
+        counter.setText(score.toString());
     }
 
     public void buttonClick(View view) {
-        /** Click red button **/
+        /* Click red button */
         int score = Integer.parseInt(String.valueOf(counter.getText()));
         /* If score == 999999, them scoreTV = "000000" & make Toast */
         if (score == 999999) {
             /* Fix bug #1 (Check GitHub Issues) */
             sharedPreferences.edit().putString("score", "000000").apply();
-            counter.setText("000000");
+            counter.setText(R.string.counter);
             /* Switch activity */
             Intent intent = new Intent(this, About.class);
             startActivity(intent);

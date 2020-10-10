@@ -3,17 +3,23 @@ package com.merive.press1mtimes;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
+import java.util.Objects;
 
 public class About extends AppCompatActivity {
 
     Button exit;
     ImageView easter;
     Handler handler;
+    Handler.Callback callback;
 
 
     @Override
@@ -26,6 +32,14 @@ public class About extends AppCompatActivity {
         /* Init variables */
         exit = findViewById(R.id.exit);
         easter = findViewById(R.id.pascal);
+
+        /* Init callback for Handler */
+        callback = new Handler.Callback() {
+            @Override
+            public boolean handleMessage(@NonNull Message message) {
+                return false;
+            }
+        };
     }
 
     public void exitClick(View view) {
@@ -35,7 +49,7 @@ public class About extends AppCompatActivity {
 
         /* Start easter egg animation */
         easter.animate().translationY(-100f).setDuration(200L).start();
-        handler = new Handler();
+        handler = new Handler(Objects.requireNonNull(Looper.myLooper()), callback);
         handler.postDelayed(new Runnable() {
             public void run() {
                 easter.animate().translationY(100f).setDuration(200L).start();
