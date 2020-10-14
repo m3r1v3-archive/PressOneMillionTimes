@@ -31,7 +31,7 @@ public class About extends AppCompatActivity {
 
         /* Init variables */
         exit = findViewById(R.id.exit);
-        easter = findViewById(R.id.pascal);
+        easter = findViewById(R.id.easter_egg);
 
         /* Init callback for Handler */
         callback = new Handler.Callback() {

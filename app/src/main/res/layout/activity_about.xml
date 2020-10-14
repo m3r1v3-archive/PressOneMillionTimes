@@ -6,6 +6,19 @@
     android:layout_height="match_parent"
     tools:context=".About">
 
+    <ImageView
+        android:id="@+id/easter_egg"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:contentDescription="@string/todo"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/exit"
+        app:layout_constraintEnd_toEndOf="@+id/exit"
+        app:layout_constraintStart_toStartOf="@+id/exit"
+        app:layout_constraintTop_toTopOf="@+id/exit"
+        app:srcCompat="@drawable/easter_egg"
+        tools:visibility="invisible" />
+
     <Button
         android:id="@+id/exit"
         android:layout_width="200dp"
@@ -21,13 +34,14 @@
         app:layout_constraintHorizontal_bias="0.500"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.780" />
+        app:layout_constraintVertical_bias="0.8" />
 
     <TextView
         android:id="@+id/title"
         android:layout_width="406dp"
         android:layout_height="53dp"
         android:fontFamily="sans-serif-light"
+        android:rotationX="18"
         android:text="@string/you_won"
         android:textAlignment="center"
         android:textAllCaps="true"
@@ -37,12 +51,12 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.095" />
+        app:layout_constraintVertical_bias="0.100000024" />
 
     <TextView
         android:id="@+id/label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="250dp"
+        android:layout_height="60dp"
         android:fontFamily="sans-serif-light"
         android:text="@string/congratulations"
         android:textAlignment="center"
@@ -53,12 +67,12 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.236" />
+        app:layout_constraintVertical_bias="0.25" />
 
     <TextView
         android:id="@+id/footer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="165dp"
+        android:layout_height="24dp"
         android:fontFamily="sans-serif-light"
         android:text="@string/hope"
         android:textAlignment="center"
@@ -70,19 +84,6 @@
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.976" />
-
-    <ImageView
-        android:id="@+id/pascal"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:contentDescription="@string/todo"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="@+id/exit"
-        app:layout_constraintEnd_toEndOf="@+id/exit"
-        app:layout_constraintStart_toStartOf="@+id/exit"
-        app:layout_constraintTop_toTopOf="@+id/exit"
-        app:srcCompat="@drawable/easter_egg"
-        tools:visibility="invisible" />
+        app:layout_constraintVertical_bias="0.95" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
