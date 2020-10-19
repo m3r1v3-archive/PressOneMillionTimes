@@ -12,7 +12,7 @@
         android:theme="@style/Theme.AppCompat.NoActionBar"
         tools:ignore="AllowBackup">
         <activity
-            android:name=".About"
+            android:name=".Finish"
             android:theme="@style/AppTheme">
             <intent-filter>
                 <category android:name="android.intent.category.DEFAULT" />

@@ -13,13 +13,18 @@ import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import static com.merive.press1mtimes.Rotation.setRotation;
+
 public class MainActivity extends AppCompatActivity implements SensorEventListener {
 
     TextView label, counter;
+    Button button;
+
     SharedPreferences sharedPreferences;
     int score;
 
@@ -35,12 +40,16 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        // Init counter & title
+
+        // Init counter, title, button
         counter = findViewById(R.id.counter);
         label = findViewById(R.id.label);
+        button = findViewById(R.id.button);
+
         /* Get score in storage */
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this.getBaseContext());
         StringBuilder score = new StringBuilder(sharedPreferences.getString("score", ""));
+
         // Add 0s for scoreTV
         while (score.length() != 6)
             score.insert(0, "0");
@@ -62,7 +71,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             sharedPreferences.edit().putString("score", "000000").apply();
             counter.setText(R.string.counter);
             /* Switch activity */
-            Intent intent = new Intent(this, About.class);
+            Intent intent = new Intent(this, Finish.class);
             startActivity(intent);
         } else {
             // Update score
@@ -103,23 +112,14 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             return;
         }
 
-        /* Set rotation for title */
-        setXData(axisData[1], label);
-        setYData(axisData[0], label);
+        /* Set rotation for elements */
+        setRotation(axisData[1], axisData[0], label);
+        setRotation(axisData[1], axisData[0], counter);
+        setRotation(axisData[1], axisData[0], button);
     }
 
     @Override
     public void onAccuracyChanged(Sensor sensor, int i) {
         /* Don't write */
-    }
-
-    public void setXData(float data, View view) {
-        if (Math.abs(data) * 10 < 40)
-            view.animate().rotationX(data * 10).setDuration(200L).start();
-    }
-
-    public void setYData(float data, View view) {
-        if (Math.abs(data) * 10 < 20)
-            view.animate().rotationY(data * 10).setDuration(200L).start();
     }
 }

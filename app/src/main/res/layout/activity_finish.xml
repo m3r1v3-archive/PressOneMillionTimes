@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".About">
+    tools:context=".Finish">
 
     <ImageView
         android:id="@+id/easter_egg"
@@ -41,7 +41,6 @@
         android:layout_width="406dp"
         android:layout_height="53dp"
         android:fontFamily="sans-serif-light"
-        android:rotationX="18"
         android:text="@string/you_won"
         android:textAlignment="center"
         android:textAllCaps="true"
@@ -54,6 +53,7 @@
         app:layout_constraintVertical_bias="0.100000024" />
 
     <TextView
+        android:id="@+id/label"
         android:layout_width="250dp"
         android:layout_height="60dp"
         android:fontFamily="sans-serif-light"

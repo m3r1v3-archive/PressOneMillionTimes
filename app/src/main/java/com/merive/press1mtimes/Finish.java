@@ -20,13 +20,15 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.Objects;
 
-public class About extends AppCompatActivity implements SensorEventListener {
+import static com.merive.press1mtimes.Rotation.setRotation;
+
+public class Finish extends AppCompatActivity implements SensorEventListener {
 
     Button exit;
     ImageView easter;
     Handler handler;
     Handler.Callback callback;
-    TextView title;
+    TextView title, label, footer;
 
     // Variables for accelerometer
     SensorManager sensorManager;
@@ -37,13 +39,15 @@ public class About extends AppCompatActivity implements SensorEventListener {
     protected void onCreate(Bundle savedInstanceState) {
         /* Init Activity */
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_about);
+        setContentView(R.layout.activity_finish);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         /* Init variables */
         exit = findViewById(R.id.exit);
         easter = findViewById(R.id.easter_egg);
         title = findViewById(R.id.title);
+        label = findViewById(R.id.label);
+        footer = findViewById(R.id.footer);
 
         /* Init callback for Handler */
         callback = new Handler.Callback() {
@@ -93,39 +97,22 @@ public class About extends AppCompatActivity implements SensorEventListener {
     }
 
     @Override
-    protected void onStop() {
-        super.onStop();
-        /* Stop accelerometer listener */
-        sensorManager.unregisterListener(this);
-    }
-
-    @Override
     public void onSensorChanged(SensorEvent sensorEvent) {
         /* Get values */
         int sensorType = sensorEvent.sensor.getType();
         if (sensorType == Sensor.TYPE_ACCELEROMETER) {
             axisData = sensorEvent.values.clone();
-        } else {
-            return;
-        }
 
-        /* Set rotation for title */
-        setXData(axisData[1], title);
-        setYData(axisData[0], title);
+            /* Set rotation for elements */
+            setRotation(axisData[1], axisData[0], title);
+            setRotation(axisData[1], axisData[0], label);
+            setRotation(axisData[1], axisData[0], footer);
+            setRotation(axisData[1], axisData[0], exit);
+        }
     }
 
     @Override
     public void onAccuracyChanged(Sensor sensor, int i) {
         /* Don't write */
-    }
-
-    public void setXData(float data, View view) {
-        if (Math.abs(data) * 10 < 40)
-            view.animate().rotationX(data * 10).setDuration(200L).start();
-    }
-
-    public void setYData(float data, View view) {
-        if (Math.abs(data) * 10 < 20)
-            view.animate().rotationY(data * 10).setDuration(200L).start();
     }
 }
