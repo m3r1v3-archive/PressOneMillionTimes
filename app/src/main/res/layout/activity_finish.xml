@@ -19,14 +19,14 @@
         app:srcCompat="@drawable/easter_egg"
         tools:visibility="invisible" />
 
-    <Button
+    <ImageButton
         android:id="@+id/exit"
         android:layout_width="200dp"
         android:layout_height="200dp"
-        android:background="@drawable/button"
+        android:background="@drawable/exit"
+        android:contentDescription="@string/todo"
         android:fontFamily="sans-serif-medium"
         android:onClick="exitClick"
-        android:text="@string/exit"
         android:textColor="@color/colorAccent"
         android:textSize="36sp"
         app:layout_constraintBottom_toBottomOf="parent"

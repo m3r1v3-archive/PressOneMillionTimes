@@ -15,7 +15,8 @@ public class Rotation {
                 rotation(axisXRounded, 0, view);
             else if (Math.abs(axisXRounded) < Math.abs(axisYRounded))
                 rotation(0, axisYRounded, view);
-            else rotation(0, 0, view);
+            else if (Math.abs(axisXRounded) == Math.abs(axisYRounded))
+                rotation(0, 0, view);
     }
 
     public static void rotation(float X, float Y, View view) {

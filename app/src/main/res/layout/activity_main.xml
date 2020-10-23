@@ -25,16 +25,16 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.100000024" />
 
-    <Button
+    <ImageButton
         android:id="@+id/button"
         android:layout_width="200dp"
         android:layout_height="200dp"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
         android:background="@drawable/button"
+        android:contentDescription="@string/todo"
         android:fontFamily="sans-serif-medium"
         android:onClick="buttonClick"
-        android:text="@string/press"
         android:textAlignment="center"
         android:textColor="@color/colorAccent"
         android:textSize="36sp"

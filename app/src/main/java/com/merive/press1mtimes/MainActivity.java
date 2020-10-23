@@ -13,7 +13,7 @@ import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.View;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,7 +23,7 @@ import static com.merive.press1mtimes.Rotation.setRotation;
 public class MainActivity extends AppCompatActivity implements SensorEventListener {
 
     TextView label, counter;
-    Button button;
+    ImageButton button;
 
     SharedPreferences sharedPreferences;
     int score;

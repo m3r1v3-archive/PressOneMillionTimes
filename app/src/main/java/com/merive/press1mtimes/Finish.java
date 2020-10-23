@@ -11,7 +11,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.view.View;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -24,7 +24,7 @@ import static com.merive.press1mtimes.Rotation.setRotation;
 
 public class Finish extends AppCompatActivity implements SensorEventListener {
 
-    Button exit;
+    ImageButton exit;
     ImageView easter;
     Handler handler;
     Handler.Callback callback;

@@ -1,13 +1,11 @@
 <resources>
     <!--  Main Activity  -->
     <string name="app_name">Press 1M Times</string>
-    <string name="press">Press</string>
     <string name="counter">000000</string>
 
     <!--  About Activity  -->
     <string name="you_won">You won!</string>
     <string name="congratulations">Congratulations,\nyou passed my game</string>
     <string name="hope">I hope you enjoyed it)</string>
-    <string name="exit">Exit</string>
     <string name="todo">TODO</string>
 </resources>
