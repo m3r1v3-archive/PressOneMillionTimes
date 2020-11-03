@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this.getBaseContext());
         StringBuilder score = new StringBuilder(sharedPreferences.getString("score", ""));
 
-        // Add 0s for scoreTV
+        // Add 0s for counter
         while (score.length() != 6)
             score.insert(0, "0");
         counter.setText(score);
@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     public void buttonClick(View view) {
         /* Click red button */
         score = Integer.parseInt(String.valueOf(counter.getText()));
-        /* If score == 999999, them scoreTV = "000000" & make Toast */
+        /* If score == 999999, them counter = "000000", run FinishLayout */
         if (score == 999999) {
             /* Fix bug #1 (Check GitHub Issues) */
             sharedPreferences.edit().putString("score", "000000").apply();
@@ -108,14 +108,12 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         int sensorType = sensorEvent.sensor.getType();
         if (sensorType == Sensor.TYPE_ACCELEROMETER) {
             axisData = sensorEvent.values.clone();
-        } else {
-            return;
-        }
 
-        /* Set rotation for elements */
-        setRotation(axisData[1], axisData[0], label);
-        setRotation(axisData[1], axisData[0], counter);
-        setRotation(axisData[1], axisData[0], button);
+            /* Set rotation for elements */
+            setRotation(axisData[1], axisData[0], label);
+            setRotation(axisData[1], axisData[0], counter);
+            setRotation(axisData[1], axisData[0], button);
+        }
     }
 
     @Override

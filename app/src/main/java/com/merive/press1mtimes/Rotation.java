@@ -1,11 +1,11 @@
+// BETTER DO NOT TOUCH
 package com.merive.press1mtimes;
 
 import android.view.View;
 
 public class Rotation {
-
-    static long DURATION = 350L;
-    static int FACTOR = 10;
+    static final long DURATION = 350L;
+    static final int FACTOR = 10;
 
     public static void setRotation(float axisX, float axisY, View view) {
         int axisXRounded = Math.round(axisX * FACTOR);

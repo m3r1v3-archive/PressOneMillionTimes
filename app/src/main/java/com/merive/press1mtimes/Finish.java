@@ -65,7 +65,7 @@ public class Finish extends AppCompatActivity implements SensorEventListener {
     }
 
     public void exitClick(View view) {
-        /* Set visibility exit & pascal */
+        /* Set visibility exit & easter */
         exit.setVisibility(View.INVISIBLE);
         easter.setVisibility(View.VISIBLE);
 
@@ -74,7 +74,7 @@ public class Finish extends AppCompatActivity implements SensorEventListener {
         handler = new Handler(Objects.requireNonNull(Looper.myLooper()), callback);
         handler.postDelayed(new Runnable() {
             public void run() {
-                easter.animate().translationY(100f).setDuration(200L).start();
+                easter.animate().translationY(75f).setDuration(200L).start();
             }
         }, 300);
 
