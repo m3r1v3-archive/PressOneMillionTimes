@@ -48,9 +48,9 @@
 
     <TextView
         android:id="@+id/counter"
-        android:layout_width="105dp"
+        android:layout_width="110dp"
         android:layout_height="32dp"
-        android:background="@drawable/counter"
+        android:background="@color/colorAccent"
         android:fontFamily="sans-serif-smallcaps"
         android:text="@string/counter"
         android:textAlignment="center"

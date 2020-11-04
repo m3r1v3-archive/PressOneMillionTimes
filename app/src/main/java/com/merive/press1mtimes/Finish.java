@@ -20,7 +20,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.Objects;
 
-import static com.merive.press1mtimes.Rotation.setRotation;
+import static com.merive.press1mtimes.Rotation.runRotation;
 
 public class Finish extends AppCompatActivity implements SensorEventListener {
 
@@ -37,12 +37,10 @@ public class Finish extends AppCompatActivity implements SensorEventListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        /* Init Activity */
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_finish);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
-        /* Init variables */
         exit = findViewById(R.id.exit);
         easter = findViewById(R.id.easter_egg);
         title = findViewById(R.id.title);
@@ -65,25 +63,28 @@ public class Finish extends AppCompatActivity implements SensorEventListener {
     }
 
     public void exitClick(View view) {
-        /* Set visibility exit & easter */
         exit.setVisibility(View.INVISIBLE);
         easter.setVisibility(View.VISIBLE);
 
-        /* Start easter egg animation */
-        easter.animate().translationY(-100f).setDuration(200L).start();
-        handler = new Handler(Objects.requireNonNull(Looper.myLooper()), callback);
-        handler.postDelayed(new Runnable() {
-            public void run() {
-                easter.animate().translationY(75f).setDuration(200L).start();
-            }
-        }, 300);
+        easterAnim(easter);
 
-        /* Finish layout */
+        /* Finish this layout */
         handler.postDelayed(new Runnable() {
             public void run() {
                 finish();
             }
         }, 500);
+
+    }
+
+    private void easterAnim(final View view) {
+        view.animate().translationY(-100f).setDuration(200L).start();
+        handler = new Handler(Objects.requireNonNull(Looper.myLooper()), callback);
+        handler.postDelayed(new Runnable() {
+            public void run() {
+                view.animate().translationY(75f).setDuration(200L).start();
+            }
+        }, 300);
     }
 
     @Override
@@ -104,10 +105,10 @@ public class Finish extends AppCompatActivity implements SensorEventListener {
             axisData = sensorEvent.values.clone();
 
             /* Set rotation for elements */
-            setRotation(axisData[1], axisData[0], title);
-            setRotation(axisData[1], axisData[0], label);
-            setRotation(axisData[1], axisData[0], footer);
-            setRotation(axisData[1], axisData[0], exit);
+            runRotation(axisData[1], axisData[0], title);
+            runRotation(axisData[1], axisData[0], label);
+            runRotation(axisData[1], axisData[0], footer);
+            runRotation(axisData[1], axisData[0], exit);
         }
     }
 

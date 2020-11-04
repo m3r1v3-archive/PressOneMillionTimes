@@ -18,7 +18,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import static com.merive.press1mtimes.Rotation.setRotation;
+import static com.merive.press1mtimes.Rotation.runRotation;
 
 public class MainActivity extends AppCompatActivity implements SensorEventListener {
 
@@ -35,13 +35,11 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // Init Activity
         setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
-        // Init counter, title, button
         counter = findViewById(R.id.counter);
         label = findViewById(R.id.label);
         button = findViewById(R.id.button);
@@ -63,24 +61,19 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     }
 
     public void buttonClick(View view) {
-        /* Click red button */
         score = Integer.parseInt(String.valueOf(counter.getText()));
-        /* If score == 999999, them counter = "000000", run FinishLayout */
         if (score == 999999) {
             /* Fix bug #1 (Check GitHub Issues) */
             sharedPreferences.edit().putString("score", "000000").apply();
             counter.setText(R.string.counter);
-            /* Switch activity */
+
             Intent intent = new Intent(this, Finish.class);
             startActivity(intent);
         } else {
-            // Update score
             score += 1;
-            // Format score
             @SuppressLint("DefaultLocale") String result = String.format("%06d", score);
-            // Edit score in storage
+
             sharedPreferences.edit().putString("score", result).apply();
-            /* Set score in counter */
             counter.setText(result);
         }
     }
@@ -109,10 +102,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         if (sensorType == Sensor.TYPE_ACCELEROMETER) {
             axisData = sensorEvent.values.clone();
 
-            /* Set rotation for elements */
-            setRotation(axisData[1], axisData[0], label);
-            setRotation(axisData[1], axisData[0], counter);
-            setRotation(axisData[1], axisData[0], button);
+            /* Set rotation for views */
+            runRotation(axisData[1], axisData[0], label);
+            runRotation(axisData[1], axisData[0], counter);
+            runRotation(axisData[1], axisData[0], button);
         }
     }
 
