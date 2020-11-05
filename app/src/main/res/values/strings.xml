@@ -3,7 +3,7 @@
     <string name="app_name">Press 1M Times</string>
     <string name="counter">000000</string>
 
-    <!--  About Activity  -->
+    <!--  Finish Activity  -->
     <string name="you_won">You won!</string>
     <string name="congratulations">Congratulations,\nyou passed my game</string>
     <string name="hope">I hope you enjoyed it)</string>

@@ -39,7 +39,6 @@ public class Finish extends AppCompatActivity implements SensorEventListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_finish);
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         exit = findViewById(R.id.exit);
         easter = findViewById(R.id.easter_egg);

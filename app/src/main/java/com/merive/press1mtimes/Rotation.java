@@ -10,7 +10,7 @@ public class Rotation {
     public static void runRotation(float axisX, float axisY, View view) {
         int axisXRounded = Math.round(axisX * FACTOR);
         int axisYRounded = Math.round(axisY * FACTOR);
-        if (Math.abs(axisXRounded) < 50 && Math.abs(axisYRounded) < 50)
+        if (Math.abs(axisXRounded) < 45 && Math.abs(axisYRounded) < 45)
             if (Math.abs(axisXRounded) > Math.abs(axisYRounded))
                 setRotation(axisXRounded, 0, view);
             else if (Math.abs(axisXRounded) < Math.abs(axisYRounded))
@@ -20,8 +20,6 @@ public class Rotation {
     }
 
     public static void setRotation(float X, float Y, View view) {
-        view.animate().rotationX(X).setDuration(DURATION).start();
-        view.animate().rotationY(Y).setDuration(DURATION).start();
-
+        view.animate().rotationX(X).rotationY(Y).setDuration(DURATION).start();
     }
 }

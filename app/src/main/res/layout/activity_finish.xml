@@ -5,42 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimaryDark"
-    tools:context=".Finish">
-
-    <ImageView
-        android:id="@+id/easter_egg"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:contentDescription="@string/todo"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="@+id/exit"
-        app:layout_constraintEnd_toEndOf="@+id/exit"
-        app:layout_constraintStart_toStartOf="@+id/exit"
-        app:layout_constraintTop_toTopOf="@+id/exit"
-        app:srcCompat="@drawable/easter_egg" />
-
-    <ImageButton
-        android:id="@+id/exit"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:background="@drawable/exit"
-        android:contentDescription="@string/todo"
-        android:fontFamily="sans-serif-medium"
-        android:onClick="exitClick"
-        android:textColor="@color/colorAccent"
-        android:textSize="36sp"
-        android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.500"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.8" />
+    tools:context=".Finish"
+    tools:ignore="Overdraw">
 
     <TextView
         android:id="@+id/title"
-        android:layout_width="406dp"
-        android:layout_height="53dp"
+        android:layout_width="405dp"
+        android:layout_height="54dp"
         android:fontFamily="sans-serif-light"
         android:text="@string/you_won"
         android:textAlignment="center"
@@ -69,10 +40,41 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.25" />
 
+    <ImageView
+        android:id="@+id/easter_egg"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:contentDescription="@string/todo"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.8"
+        app:srcCompat="@drawable/easter_egg" />
+
+    <ImageButton
+        android:id="@+id/exit"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:background="@drawable/exit"
+        android:contentDescription="@string/todo"
+        android:fontFamily="sans-serif-medium"
+        android:onClick="exitClick"
+        android:textColor="@color/colorAccent"
+        android:textSize="36sp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.500"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.8" />
+
     <TextView
         android:id="@+id/footer"
         android:layout_width="165dp"
-        android:layout_height="24dp"
+        android:layout_height="25dp"
         android:fontFamily="sans-serif-light"
         android:text="@string/hope"
         android:textAlignment="center"
