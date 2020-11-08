@@ -1,11 +1,5 @@
 package com.merive.press1mtimes;
 
-import android.content.Context;
-import android.content.pm.ActivityInfo;
-import android.hardware.Sensor;
-import android.hardware.SensorEvent;
-import android.hardware.SensorEventListener;
-import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -20,20 +14,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.Objects;
 
-import static com.merive.press1mtimes.Rotation.runRotation;
-
-public class Finish extends AppCompatActivity implements SensorEventListener {
+public class Finish extends AppCompatActivity {
 
     ImageButton exit;
     ImageView easter;
     Handler handler;
     Handler.Callback callback;
     TextView title, label, footer;
-
-    // Variables for accelerometer
-    SensorManager sensorManager;
-    Sensor accelerometer;
-    float[] axisData = new float[3];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,12 +40,6 @@ public class Finish extends AppCompatActivity implements SensorEventListener {
                 return false;
             }
         };
-
-        /* Init sensorManager & accelerometer */
-        sensorManager = (SensorManager) getSystemService(
-                Context.SENSOR_SERVICE);
-        accelerometer = sensorManager.getDefaultSensor(
-                Sensor.TYPE_ACCELEROMETER);
     }
 
     public void exitClick(View view) {
@@ -84,35 +65,5 @@ public class Finish extends AppCompatActivity implements SensorEventListener {
                 view.animate().translationY(75f).setDuration(200L).start();
             }
         }, 300);
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        /* Set accelerometer listener */
-        if (accelerometer != null) {
-            sensorManager.registerListener(this, accelerometer,
-                    SensorManager.SENSOR_DELAY_NORMAL);
-        }
-    }
-
-    @Override
-    public void onSensorChanged(SensorEvent sensorEvent) {
-        /* Get values */
-        int sensorType = sensorEvent.sensor.getType();
-        if (sensorType == Sensor.TYPE_ACCELEROMETER) {
-            axisData = sensorEvent.values.clone();
-
-            /* Set rotation for elements */
-            runRotation(axisData[1], axisData[0], title);
-            runRotation(axisData[1], axisData[0], label);
-            runRotation(axisData[1], axisData[0], footer);
-            runRotation(axisData[1], axisData[0], exit);
-        }
-    }
-
-    @Override
-    public void onAccuracyChanged(Sensor sensor, int i) {
-        /* Don't write */
     }
 }

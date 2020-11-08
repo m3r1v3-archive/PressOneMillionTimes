@@ -101,13 +101,13 @@
         android:layout_marginTop="50dp"
 
         android:fontFamily="monospace"
+        android:onClick="clickVibration"
         android:padding="18dp"
         android:switchPadding="10dp"
         android:text="@string/vibration"
         android:textColor="@color/colorPrimary"
         android:textSize="18sp"
         android:thumbTextPadding="100dp"
-        android:onClick="clickVibration"
 
         app:layout_constraintEnd_toStartOf="@id/settings"
         app:layout_constraintStart_toEndOf="@id/dial_pad"
@@ -144,6 +144,7 @@
         android:layout_marginTop="50dp"
 
         android:fontFamily="monospace"
+        android:onClick="clickAcceleration"
         android:padding="18dp"
         android:switchPadding="10dp"
         android:text="@string/acceleration"

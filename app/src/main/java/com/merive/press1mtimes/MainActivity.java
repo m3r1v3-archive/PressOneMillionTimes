@@ -13,24 +13,23 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
-import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
+import androidx.preference.PreferenceManager;
 
 import static com.merive.press1mtimes.Rotation.runRotation;
 
 public class MainActivity extends AppCompatActivity implements SensorEventListener {
 
+    public static SharedPreferences sharedPreferences;
+    public String vibrationState, accelerationState;
     TextView label, counter;
     ImageButton button;
-    SwitchCompat vibration;
-
-    SharedPreferences sharedPreferences;
-    String vibrationState;
+    SwitchCompat vibration, acceleration;
     int score;
 
     // Variables for accelerometer
@@ -50,6 +49,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
         // Settings
         vibration = findViewById(R.id.vibration);
+        acceleration = findViewById(R.id.acceleration);
 
         /* Get score in storage */
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this.getBaseContext());
@@ -60,10 +60,16 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             score.insert(0, "0");
         counter.setText(score);
 
+        /* Set vibration */
         vibrationState = sharedPreferences.getString("vibration", "");
-
         if (vibrationState.equals("on")) {
             vibration.setChecked(true);
+        }
+
+        /* Set acceleration */
+        accelerationState = sharedPreferences.getString("acceleration", "");
+        if (accelerationState.equals("on")) {
+            acceleration.setChecked(true);
         }
 
         /* Init sensorManager & accelerometer */
@@ -76,7 +82,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     public void buttonClick(View view) {
         score = Integer.parseInt(String.valueOf(counter.getText()));
         if (score == 999999) {
-            /* Fix bug #1 (Check GitHub Issues) */
             sharedPreferences.edit().putString("score", "000000").apply();
             counter.setText(R.string.counter);
 
@@ -100,7 +105,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             v.vibrate(VibrationEffect.createOneShot(250, VibrationEffect.DEFAULT_AMPLITUDE));
         } else {
-            // deprecated in API 26
             v.vibrate(250);
         }
     }
@@ -113,10 +117,20 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         }
     }
 
+    public void clickAcceleration(View view) {
+        if (acceleration.isChecked()) {
+            sharedPreferences.edit().putString("acceleration", "on").apply();
+        } else {
+            sharedPreferences.edit().putString("acceleration", "off").apply();
+        }
+        runRotation(0, 0, label);
+        runRotation(0, 0, counter);
+        runRotation(0, 0, button);
+    }
+
     @Override
     protected void onStart() {
         super.onStart();
-        /* Set accelerometer listener */
         if (accelerometer != null) {
             sensorManager.registerListener(this, accelerometer,
                     SensorManager.SENSOR_DELAY_NORMAL);
@@ -126,21 +140,22 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     @Override
     protected void onStop() {
         super.onStop();
-        /* Stop accelerometer listener */
         sensorManager.unregisterListener(this);
     }
 
     @Override
     public void onSensorChanged(SensorEvent sensorEvent) {
-        /* Get values */
-        int sensorType = sensorEvent.sensor.getType();
-        if (sensorType == Sensor.TYPE_ACCELEROMETER) {
-            axisData = sensorEvent.values.clone();
+        if (sharedPreferences.getString("acceleration", "").equals("on")) {
+            /* Get values */
+            int sensorType = sensorEvent.sensor.getType();
+            if (sensorType == Sensor.TYPE_ACCELEROMETER) {
+                axisData = sensorEvent.values.clone();
 
-            /* Set rotation for views */
-            runRotation(axisData[1], axisData[0], label);
-            runRotation(axisData[1], axisData[0], counter);
-            runRotation(axisData[1], axisData[0], button);
+                /* Set rotation for views */
+                runRotation(axisData[1], axisData[0], label);
+                runRotation(axisData[1], axisData[0], counter);
+                runRotation(axisData[1], axisData[0], button);
+            }
         }
     }
 
