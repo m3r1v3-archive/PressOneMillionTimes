@@ -1,5 +1,11 @@
 package com.merive.press1mtimes;
 
+import android.content.Context;
+import android.content.pm.ActivityInfo;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -14,7 +20,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.Objects;
 
-public class Finish extends AppCompatActivity {
+import static com.merive.press1mtimes.Rotation.setRotation;
+
+public class Finish extends AppCompatActivity implements SensorEventListener {
 
     ImageButton exit;
     ImageView easter;
@@ -22,10 +30,16 @@ public class Finish extends AppCompatActivity {
     Handler.Callback callback;
     TextView title, label, footer;
 
+    // Variables for accelerometer
+    SensorManager sensorManager;
+    Sensor accelerometer;
+    float[] axisData = new float[3];
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_finish);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         exit = findViewById(R.id.exit);
         easter = findViewById(R.id.easter_egg);
@@ -40,30 +54,63 @@ public class Finish extends AppCompatActivity {
                 return false;
             }
         };
+
+        /* Init sensorManager & accelerometer */
+        sensorManager = (SensorManager) getSystemService(
+                Context.SENSOR_SERVICE);
+        accelerometer = sensorManager.getDefaultSensor(
+                Sensor.TYPE_ACCELEROMETER);
     }
 
     public void exitClick(View view) {
+        /* Set visibility exit & pascal */
         exit.setVisibility(View.INVISIBLE);
         easter.setVisibility(View.VISIBLE);
 
-        easterAnim(easter);
+        /* Start easter egg animation */
+        easter.animate().translationY(-100f).setDuration(200L).start();
+        handler = new Handler(Objects.requireNonNull(Looper.myLooper()), callback);
+        handler.postDelayed(new Runnable() {
+            public void run() {
+                easter.animate().translationY(100f).setDuration(200L).start();
+            }
+        }, 300);
 
-        /* Finish this layout */
+        /* Finish layout */
         handler.postDelayed(new Runnable() {
             public void run() {
                 finish();
             }
         }, 500);
-
     }
 
-    private void easterAnim(final View view) {
-        view.animate().translationY(-100f).setDuration(200L).start();
-        handler = new Handler(Objects.requireNonNull(Looper.myLooper()), callback);
-        handler.postDelayed(new Runnable() {
-            public void run() {
-                view.animate().translationY(75f).setDuration(200L).start();
-            }
-        }, 300);
+    @Override
+    protected void onStart() {
+        super.onStart();
+        /* Set accelerometer listener */
+        if (accelerometer != null) {
+            sensorManager.registerListener(this, accelerometer,
+                    SensorManager.SENSOR_DELAY_NORMAL);
+        }
+    }
+
+    @Override
+    public void onSensorChanged(SensorEvent sensorEvent) {
+        /* Get values */
+        int sensorType = sensorEvent.sensor.getType();
+        if (sensorType == Sensor.TYPE_ACCELEROMETER) {
+            axisData = sensorEvent.values.clone();
+
+            /* Set rotation for elements */
+            setRotation(axisData[1], axisData[0], title);
+            setRotation(axisData[1], axisData[0], label);
+            setRotation(axisData[1], axisData[0], footer);
+            setRotation(axisData[1], axisData[0], exit);
+        }
+    }
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int i) {
+        /* Don't write */
     }
 }

@@ -2,7 +2,9 @@ package com.merive.press1mtimes;
 
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.hardware.Sensor;
@@ -25,8 +27,8 @@ import static com.merive.press1mtimes.Rotation.runRotation;
 
 public class MainActivity extends AppCompatActivity implements SensorEventListener {
 
-    public static SharedPreferences sharedPreferences;
-    public String vibrationState, accelerationState;
+    SharedPreferences sharedPreferences;
+    String vibrationState, accelerationState;
     TextView label, counter;
     ImageButton button;
     SwitchCompat vibration, acceleration;
@@ -98,6 +100,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             if (sharedPreferences.getString("vibration", "").equals("on"))
                 vibration();
         }
+        Intent intent = new Intent(this, Finish.class);
+        startActivity(intent);
     }
 
     public void vibration() {
@@ -126,6 +130,26 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         runRotation(0, 0, label);
         runRotation(0, 0, counter);
         runRotation(0, 0, button);
+    }
+
+    public void clickReset(View view) {
+        DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                switch (which) {
+                    case DialogInterface.BUTTON_POSITIVE:
+                        sharedPreferences.edit().putString("score", "000000").apply();
+                        counter.setText(R.string.counter);
+                        break;
+                    case DialogInterface.BUTTON_NEGATIVE:
+                        break;
+                }
+            }
+        };
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Are you sure?").setPositiveButton("Yes", dialogClickListener)
+                .setNegativeButton("No", dialogClickListener).show();
     }
 
     @Override
