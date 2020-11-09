@@ -100,8 +100,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             if (sharedPreferences.getString("vibration", "").equals("on"))
                 vibration();
         }
-        Intent intent = new Intent(this, Finish.class);
-        startActivity(intent);
     }
 
     public void vibration() {
