@@ -121,8 +121,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
-
         android:fontFamily="monospace"
+
+        android:onClick="clickNotification"
         android:padding="18dp"
         android:switchPadding="10dp"
         android:text="@string/notification"
@@ -166,10 +167,10 @@
         android:layout_marginLeft="50dp"
         android:layout_marginTop="90dp"
         android:layout_marginRight="50dp"
-        android:onClick="clickReset"
-
         android:background="@drawable/reset_button"
+
         android:fontFamily="monospace"
+        android:onClick="clickReset"
         android:text="@string/reset"
         android:textColor="@color/colorPrimary"
 

@@ -1,6 +1,5 @@
 package com.merive.press1mtimes;
 
-
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -18,6 +17,7 @@ import android.os.Vibrator;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
@@ -25,13 +25,14 @@ import androidx.preference.PreferenceManager;
 
 import static com.merive.press1mtimes.Rotation.runRotation;
 
+
 public class MainActivity extends AppCompatActivity implements SensorEventListener {
 
     SharedPreferences sharedPreferences;
-    String vibrationState, accelerationState;
+    String vibrationState, notificationState, accelerationState;
     TextView label, counter;
     ImageButton button;
-    SwitchCompat vibration, acceleration;
+    SwitchCompat vibration, notification, acceleration;
     int score;
 
     // Variables for accelerometer
@@ -49,38 +50,50 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         label = findViewById(R.id.label);
         button = findViewById(R.id.button);
 
-        // Settings
         vibration = findViewById(R.id.vibration);
         acceleration = findViewById(R.id.acceleration);
 
-        /* Get score in storage */
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this.getBaseContext());
-        StringBuilder score = new StringBuilder(sharedPreferences.getString("score", ""));
+        /* Not used yet */
+        notification = findViewById(R.id.notification);
 
-        // Add 0s for counter
-        while (score.length() != 6)
-            score.insert(0, "0");
-        counter.setText(score);
+        setCounter();
+        setSwitches();
 
-        /* Set vibration */
-        vibrationState = sharedPreferences.getString("vibration", "");
-        if (vibrationState.equals("on")) {
-            vibration.setChecked(true);
-        }
-
-        /* Set acceleration */
-        accelerationState = sharedPreferences.getString("acceleration", "");
-        if (accelerationState.equals("on")) {
-            acceleration.setChecked(true);
-        }
-
-        /* Init sensorManager & accelerometer */
         sensorManager = (SensorManager) getSystemService(
                 Context.SENSOR_SERVICE);
         accelerometer = sensorManager.getDefaultSensor(
                 Sensor.TYPE_ACCELEROMETER);
     }
 
+    /* Set methods */
+    public void setCounter() {
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this.getBaseContext());
+        StringBuilder score = new StringBuilder(sharedPreferences.getString("score", ""));
+        // Add 0s for counter
+        while (score.length() != 6)
+            score.insert(0, "0");
+        counter.setText(score);
+    }
+
+    public void setSwitches() {
+        vibrationState = sharedPreferences.getString("vibration", "");
+        if (vibrationState.equals("on")) {
+            vibration.setChecked(true);
+        }
+
+        /* Not used yet */
+        notificationState = sharedPreferences.getString("notification", "");
+        if (notificationState.equals("on")) {
+            notification.setChecked(true);
+        }
+
+        accelerationState = sharedPreferences.getString("acceleration", "");
+        if (accelerationState.equals("on")) {
+            acceleration.setChecked(true);
+        }
+    }
+
+    /* Click methods */
     public void buttonClick(View view) {
         score = Integer.parseInt(String.valueOf(counter.getText()));
         if (score == 999999) {
@@ -88,6 +101,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             counter.setText(R.string.counter);
 
             Intent intent = new Intent(this, Finish.class);
+            intent.putExtra("accelerationState", accelerationState);
             startActivity(intent);
         } else {
             score += 1;
@@ -114,16 +128,33 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     public void clickVibration(View view) {
         if (vibration.isChecked()) {
             sharedPreferences.edit().putString("vibration", "on").apply();
+            vibrationState = "on";
         } else {
             sharedPreferences.edit().putString("vibration", "off").apply();
+            vibrationState = "off";
         }
+    }
+
+    public void clickNotification(View view) {
+//        if (notification.isChecked()) {
+//            sharedPreferences.edit().putString("notification", "on").apply();
+//            notificationState = "on";
+//        } else {
+//            sharedPreferences.edit().putString("notification", "off").apply();
+//            notificationState = "off";
+//        }
+        Toast.makeText(this, "Coming soon...", Toast.LENGTH_SHORT).show();
+        sharedPreferences.edit().putString("notification", "off").apply();
+        notification.setChecked(false);
     }
 
     public void clickAcceleration(View view) {
         if (acceleration.isChecked()) {
             sharedPreferences.edit().putString("acceleration", "on").apply();
+            accelerationState = "on";
         } else {
             sharedPreferences.edit().putString("acceleration", "off").apply();
+            accelerationState = "off";
         }
         runRotation(0, 0, label);
         runRotation(0, 0, counter);
@@ -150,6 +181,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 .setNegativeButton("No", dialogClickListener).show();
     }
 
+
+    /* ACCELEROMETER METHODS */
     @Override
     protected void onStart() {
         super.onStart();

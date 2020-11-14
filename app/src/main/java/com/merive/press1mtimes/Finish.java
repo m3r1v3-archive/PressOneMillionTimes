@@ -20,7 +20,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.Objects;
 
-import static com.merive.press1mtimes.Rotation.setRotation;
+import static com.merive.press1mtimes.Rotation.runRotation;
 
 public class Finish extends AppCompatActivity implements SensorEventListener {
 
@@ -29,6 +29,7 @@ public class Finish extends AppCompatActivity implements SensorEventListener {
     Handler handler;
     Handler.Callback callback;
     TextView title, label, footer;
+    String accelerationState;
 
     // Variables for accelerometer
     SensorManager sensorManager;
@@ -60,6 +61,8 @@ public class Finish extends AppCompatActivity implements SensorEventListener {
                 Context.SENSOR_SERVICE);
         accelerometer = sensorManager.getDefaultSensor(
                 Sensor.TYPE_ACCELEROMETER);
+
+        accelerationState = getIntent().getExtras().getString("accelerationState");
     }
 
     public void exitClick(View view) {
@@ -72,7 +75,7 @@ public class Finish extends AppCompatActivity implements SensorEventListener {
         handler = new Handler(Objects.requireNonNull(Looper.myLooper()), callback);
         handler.postDelayed(new Runnable() {
             public void run() {
-                easter.animate().translationY(100f).setDuration(200L).start();
+                easter.animate().translationY(80f).setDuration(200L).start();
             }
         }, 300);
 
@@ -87,7 +90,6 @@ public class Finish extends AppCompatActivity implements SensorEventListener {
     @Override
     protected void onStart() {
         super.onStart();
-        /* Set accelerometer listener */
         if (accelerometer != null) {
             sensorManager.registerListener(this, accelerometer,
                     SensorManager.SENSOR_DELAY_NORMAL);
@@ -95,17 +97,24 @@ public class Finish extends AppCompatActivity implements SensorEventListener {
     }
 
     @Override
-    public void onSensorChanged(SensorEvent sensorEvent) {
-        /* Get values */
-        int sensorType = sensorEvent.sensor.getType();
-        if (sensorType == Sensor.TYPE_ACCELEROMETER) {
-            axisData = sensorEvent.values.clone();
+    protected void onStop() {
+        super.onStop();
+        sensorManager.unregisterListener(this);
+    }
 
-            /* Set rotation for elements */
-            setRotation(axisData[1], axisData[0], title);
-            setRotation(axisData[1], axisData[0], label);
-            setRotation(axisData[1], axisData[0], footer);
-            setRotation(axisData[1], axisData[0], exit);
+    @Override
+    public void onSensorChanged(SensorEvent sensorEvent) {
+        if (accelerationState.equals("on")) {
+            int sensorType = sensorEvent.sensor.getType();
+            if (sensorType == Sensor.TYPE_ACCELEROMETER) {
+                axisData = sensorEvent.values.clone();
+
+                /* Set rotation for views */
+                runRotation(axisData[1], axisData[0], title);
+                runRotation(axisData[1], axisData[0], label);
+                runRotation(axisData[1], axisData[0], footer);
+                runRotation(axisData[1], axisData[0], exit);
+            }
         }
     }
 
