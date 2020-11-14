@@ -1,8 +1,8 @@
-// BETTER DO NOT TOUCH
 package com.merive.press1mtimes;
 
 import android.view.View;
 
+// BETTER DO NOT TOUCH
 public class Rotation {
     static final long DURATION = 350L;
     static final int FACTOR = 10;

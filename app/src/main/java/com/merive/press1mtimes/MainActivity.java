@@ -29,13 +29,12 @@ import static com.merive.press1mtimes.Rotation.runRotation;
 public class MainActivity extends AppCompatActivity implements SensorEventListener {
 
     SharedPreferences sharedPreferences;
-    String vibrationState, notificationState, accelerationState;
+    String vibrationState, accelerationState;
     TextView label, counter;
     ImageButton button;
     SwitchCompat vibration, notification, acceleration;
     int score;
 
-    // Variables for accelerometer
     SensorManager sensorManager;
     Sensor accelerometer;
     float[] axisData = new float[3];
@@ -51,10 +50,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         button = findViewById(R.id.button);
 
         vibration = findViewById(R.id.vibration);
-        acceleration = findViewById(R.id.acceleration);
-
-        /* Not used yet */
         notification = findViewById(R.id.notification);
+        acceleration = findViewById(R.id.acceleration);
 
         setCounter();
         setSwitches();
@@ -79,12 +76,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         vibrationState = sharedPreferences.getString("vibration", "");
         if (vibrationState.equals("on")) {
             vibration.setChecked(true);
-        }
-
-        /* Not used yet */
-        notificationState = sharedPreferences.getString("notification", "");
-        if (notificationState.equals("on")) {
-            notification.setChecked(true);
         }
 
         accelerationState = sharedPreferences.getString("acceleration", "");
@@ -136,13 +127,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     }
 
     public void clickNotification(View view) {
-//        if (notification.isChecked()) {
-//            sharedPreferences.edit().putString("notification", "on").apply();
-//            notificationState = "on";
-//        } else {
-//            sharedPreferences.edit().putString("notification", "off").apply();
-//            notificationState = "off";
-//        }
         Toast.makeText(this, "Coming soon...", Toast.LENGTH_SHORT).show();
         sharedPreferences.edit().putString("notification", "off").apply();
         notification.setChecked(false);
@@ -182,7 +166,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     }
 
 
-    /* ACCELEROMETER METHODS */
+    /* Accelerometer methods */
     @Override
     protected void onStart() {
         super.onStart();
@@ -201,12 +185,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     @Override
     public void onSensorChanged(SensorEvent sensorEvent) {
         if (sharedPreferences.getString("acceleration", "").equals("on")) {
-            /* Get values */
             int sensorType = sensorEvent.sensor.getType();
             if (sensorType == Sensor.TYPE_ACCELEROMETER) {
                 axisData = sensorEvent.values.clone();
 
-                /* Set rotation for views */
                 runRotation(axisData[1], axisData[0], label);
                 runRotation(axisData[1], axisData[0], counter);
                 runRotation(axisData[1], axisData[0], button);

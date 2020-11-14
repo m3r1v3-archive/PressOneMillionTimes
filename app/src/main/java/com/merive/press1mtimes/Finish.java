@@ -31,7 +31,6 @@ public class Finish extends AppCompatActivity implements SensorEventListener {
     TextView title, label, footer;
     String accelerationState;
 
-    // Variables for accelerometer
     SensorManager sensorManager;
     Sensor accelerometer;
     float[] axisData = new float[3];
@@ -48,7 +47,6 @@ public class Finish extends AppCompatActivity implements SensorEventListener {
         label = findViewById(R.id.label);
         footer = findViewById(R.id.footer);
 
-        /* Init callback for Handler */
         callback = new Handler.Callback() {
             @Override
             public boolean handleMessage(@NonNull Message message) {
@@ -56,7 +54,6 @@ public class Finish extends AppCompatActivity implements SensorEventListener {
             }
         };
 
-        /* Init sensorManager & accelerometer */
         sensorManager = (SensorManager) getSystemService(
                 Context.SENSOR_SERVICE);
         accelerometer = sensorManager.getDefaultSensor(
@@ -66,11 +63,10 @@ public class Finish extends AppCompatActivity implements SensorEventListener {
     }
 
     public void exitClick(View view) {
-        /* Set visibility exit & pascal */
         exit.setVisibility(View.INVISIBLE);
         easter.setVisibility(View.VISIBLE);
 
-        /* Start easter egg animation */
+        /* Easter egg animation */
         easter.animate().translationY(-100f).setDuration(200L).start();
         handler = new Handler(Objects.requireNonNull(Looper.myLooper()), callback);
         handler.postDelayed(new Runnable() {
@@ -109,7 +105,6 @@ public class Finish extends AppCompatActivity implements SensorEventListener {
             if (sensorType == Sensor.TYPE_ACCELEROMETER) {
                 axisData = sensorEvent.values.clone();
 
-                /* Set rotation for views */
                 runRotation(axisData[1], axisData[0], title);
                 runRotation(axisData[1], axisData[0], label);
                 runRotation(axisData[1], axisData[0], footer);
