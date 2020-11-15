@@ -1,6 +1,14 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        realise {
+            storeFile file('C:\\Users\\maxim\\Android_APK\\MyKey.jks')
+            keyAlias 'merive_key'
+            storePassword '[merive_key]'
+            keyPassword '[merive_key]'
+        }
+    }
     compileSdkVersion 30
     buildToolsVersion "30.0.2"
 
@@ -18,6 +26,7 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.realise
         }
     }
 }
