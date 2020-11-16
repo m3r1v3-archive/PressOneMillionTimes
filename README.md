@@ -9,7 +9,7 @@ _____
 4. Play to game.
 ##### _or_
 1. Clone repository (_git clone https://github.com/merive/Press1MTimes.git_),
-2. Transfer APK file to device,
+2. Move the APK file from the APK folder to the device,
 3. Install app,
 4. Play to game.
 ##### _or_

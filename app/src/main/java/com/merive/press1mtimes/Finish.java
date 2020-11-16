@@ -20,7 +20,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.Objects;
 
-import static com.merive.press1mtimes.Rotation.setRotation;
+import static com.merive.press1mtimes.Rotation.runRotation;
 
 public class Finish extends AppCompatActivity implements SensorEventListener {
 
@@ -29,27 +29,24 @@ public class Finish extends AppCompatActivity implements SensorEventListener {
     Handler handler;
     Handler.Callback callback;
     TextView title, label, footer;
+    String accelerationState;
 
-    // Variables for accelerometer
     SensorManager sensorManager;
     Sensor accelerometer;
     float[] axisData = new float[3];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        /* Init Activity */
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_finish);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
-        /* Init variables */
         exit = findViewById(R.id.exit);
         easter = findViewById(R.id.easter_egg);
         title = findViewById(R.id.title);
         label = findViewById(R.id.label);
         footer = findViewById(R.id.footer);
 
-        /* Init callback for Handler */
         callback = new Handler.Callback() {
             @Override
             public boolean handleMessage(@NonNull Message message) {
@@ -57,24 +54,24 @@ public class Finish extends AppCompatActivity implements SensorEventListener {
             }
         };
 
-        /* Init sensorManager & accelerometer */
         sensorManager = (SensorManager) getSystemService(
                 Context.SENSOR_SERVICE);
         accelerometer = sensorManager.getDefaultSensor(
                 Sensor.TYPE_ACCELEROMETER);
+
+        accelerationState = getIntent().getExtras().getString("accelerationState");
     }
 
     public void exitClick(View view) {
-        /* Set visibility exit & pascal */
         exit.setVisibility(View.INVISIBLE);
         easter.setVisibility(View.VISIBLE);
 
-        /* Start easter egg animation */
+        /* Easter egg animation */
         easter.animate().translationY(-100f).setDuration(200L).start();
         handler = new Handler(Objects.requireNonNull(Looper.myLooper()), callback);
         handler.postDelayed(new Runnable() {
             public void run() {
-                easter.animate().translationY(100f).setDuration(200L).start();
+                easter.animate().translationY(80f).setDuration(200L).start();
             }
         }, 300);
 
@@ -89,7 +86,6 @@ public class Finish extends AppCompatActivity implements SensorEventListener {
     @Override
     protected void onStart() {
         super.onStart();
-        /* Set accelerometer listener */
         if (accelerometer != null) {
             sensorManager.registerListener(this, accelerometer,
                     SensorManager.SENSOR_DELAY_NORMAL);
@@ -97,17 +93,23 @@ public class Finish extends AppCompatActivity implements SensorEventListener {
     }
 
     @Override
-    public void onSensorChanged(SensorEvent sensorEvent) {
-        /* Get values */
-        int sensorType = sensorEvent.sensor.getType();
-        if (sensorType == Sensor.TYPE_ACCELEROMETER) {
-            axisData = sensorEvent.values.clone();
+    protected void onStop() {
+        super.onStop();
+        sensorManager.unregisterListener(this);
+    }
 
-            /* Set rotation for elements */
-            setRotation(axisData[1], axisData[0], title);
-            setRotation(axisData[1], axisData[0], label);
-            setRotation(axisData[1], axisData[0], footer);
-            setRotation(axisData[1], axisData[0], exit);
+    @Override
+    public void onSensorChanged(SensorEvent sensorEvent) {
+        if (accelerationState.equals("on")) {
+            int sensorType = sensorEvent.sensor.getType();
+            if (sensorType == Sensor.TYPE_ACCELEROMETER) {
+                axisData = sensorEvent.values.clone();
+
+                runRotation(axisData[1], axisData[0], title);
+                runRotation(axisData[1], axisData[0], label);
+                runRotation(axisData[1], axisData[0], footer);
+                runRotation(axisData[1], axisData[0], exit);
+            }
         }
     }
 

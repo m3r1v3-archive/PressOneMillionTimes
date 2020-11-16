@@ -1,15 +1,23 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        realise {
+            storeFile file('C:\\Users\\maxim\\Android_APK\\MyKey.jks')
+            keyAlias 'merive_key'
+            storePassword '[merive_key]'
+            keyPassword '[merive_key]'
+        }
+    }
     compileSdkVersion 30
-    buildToolsVersion "30.0.1"
+    buildToolsVersion "30.0.2"
 
     defaultConfig {
         applicationId "com.merive.press1mtimes"
         minSdkVersion 21
         targetSdkVersion 30
         versionCode 1
-        versionName "1.3.1"
+        versionName "1.3.2"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -18,6 +26,7 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.realise
         }
     }
 }
@@ -25,7 +34,8 @@ android {
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.2'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+    implementation 'androidx.preference:preference:1.1.1'
     testImplementation 'junit:junit:4.13.1'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
