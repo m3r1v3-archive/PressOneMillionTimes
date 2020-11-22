@@ -1,7 +1,11 @@
 package com.merive.press1mtimes;
 
 import android.annotation.SuppressLint;
+import android.app.AlarmManager;
 import android.app.AlertDialog;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -17,11 +21,12 @@ import android.os.Vibrator;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.preference.PreferenceManager;
+
+import java.util.Calendar;
 
 import static com.merive.press1mtimes.Rotation.runRotation;
 
@@ -29,7 +34,7 @@ import static com.merive.press1mtimes.Rotation.runRotation;
 public class MainActivity extends AppCompatActivity implements SensorEventListener {
 
     SharedPreferences sharedPreferences;
-    String vibrationState, accelerationState;
+    String vibrationState, notificationState, accelerationState;
     TextView label, counter;
     ImageButton button;
     SwitchCompat vibration, notification, acceleration;
@@ -39,11 +44,15 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     Sensor accelerometer;
     float[] axisData = new float[3];
 
+    int HOUR = 12;
+    int MINUTE = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        createNotificationChannel();
 
         counter = findViewById(R.id.counter);
         label = findViewById(R.id.label);
@@ -76,6 +85,12 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         vibrationState = sharedPreferences.getString("vibration", "");
         if (vibrationState.equals("on")) {
             vibration.setChecked(true);
+        }
+
+        notificationState = sharedPreferences.getString("notification", "");
+        if (notificationState.equals("on")) {
+            notification.setChecked(true);
+            setAlarm();
         }
 
         accelerationState = sharedPreferences.getString("acceleration", "");
@@ -127,9 +142,54 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     }
 
     public void clickNotification(View view) {
-        Toast.makeText(this, "Coming soon...", Toast.LENGTH_SHORT).show();
-        sharedPreferences.edit().putString("notification", "off").apply();
-        notification.setChecked(false);
+        if (notification.isChecked()) {
+            sharedPreferences.edit().putString("notification", "on").apply();
+            accelerationState = "on";
+            setAlarm();
+        } else {
+            sharedPreferences.edit().putString("notification", "off").apply();
+            accelerationState = "off";
+            offAlarm();
+        }
+    }
+
+    public void setAlarm() {
+        Intent intent = new Intent(MainActivity.this, RemindBroadcast.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 0, intent, 0);
+
+        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        calendar.set(Calendar.HOUR_OF_DAY, HOUR);
+        calendar.set(Calendar.MINUTE, MINUTE);
+
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis() - 60000,
+                AlarmManager.INTERVAL_HALF_DAY, pendingIntent);
+    }
+
+    public void offAlarm() {
+        AlarmManager alarmManager =
+                (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(MainActivity.this, RemindBroadcast.class);
+        PendingIntent pendingIntent =
+                PendingIntent.getService(MainActivity.this, 0, intent,
+                        0);
+        if (pendingIntent != null && alarmManager != null) {
+            alarmManager.cancel(pendingIntent);
+        }
+    }
+
+    private void createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = "Press1MTimesChannel";
+            String description = "Channel for Press1MTimes";
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel("notifyPress1MTimes", name, importance);
+            channel.setDescription(description);
+
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
     }
 
     public void clickAcceleration(View view) {
