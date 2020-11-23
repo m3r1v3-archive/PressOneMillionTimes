@@ -34,7 +34,7 @@ import static com.merive.press1mtimes.Rotation.runRotation;
 public class MainActivity extends AppCompatActivity implements SensorEventListener {
 
     SharedPreferences sharedPreferences;
-    String vibrationState, notificationState, accelerationState;
+    Boolean vibrationState, notificationState, accelerationState;
     TextView label, counter;
     ImageButton button;
     SwitchCompat vibration, notification, acceleration;
@@ -44,8 +44,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     Sensor accelerometer;
     float[] axisData = new float[3];
 
-    int HOUR = 12;
-    int MINUTE = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,21 +80,14 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     }
 
     public void setSwitches() {
-        vibrationState = sharedPreferences.getString("vibration", "");
-        if (vibrationState.equals("on")) {
-            vibration.setChecked(true);
-        }
+        vibrationState = sharedPreferences.getBoolean("vibration", false);
+        vibration.setChecked(vibrationState);
 
-        notificationState = sharedPreferences.getString("notification", "");
-        if (notificationState.equals("on")) {
-            notification.setChecked(true);
-            setAlarm();
-        }
+        notificationState = sharedPreferences.getBoolean("notification", false);
+        notification.setChecked(notificationState);
 
-        accelerationState = sharedPreferences.getString("acceleration", "");
-        if (accelerationState.equals("on")) {
-            acceleration.setChecked(true);
-        }
+        accelerationState = sharedPreferences.getBoolean("acceleration", false);
+        acceleration.setChecked(accelerationState);
     }
 
     /* Click methods */
@@ -117,7 +108,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             counter.setText(result);
         }
         if (Integer.parseInt(sharedPreferences.getString("score", "")) % 100 == 0) {
-            if (sharedPreferences.getString("vibration", "").equals("on"))
+            if (vibrationState)
                 vibration();
         }
     }
@@ -133,27 +124,27 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     public void clickVibration(View view) {
         if (vibration.isChecked()) {
-            sharedPreferences.edit().putString("vibration", "on").apply();
-            vibrationState = "on";
+            sharedPreferences.edit().putBoolean("vibration", true).apply();
+            vibrationState = true;
         } else {
-            sharedPreferences.edit().putString("vibration", "off").apply();
-            vibrationState = "off";
+            sharedPreferences.edit().putBoolean("vibration", false).apply();
+            vibrationState = false;
         }
     }
 
     public void clickNotification(View view) {
         if (notification.isChecked()) {
-            sharedPreferences.edit().putString("notification", "on").apply();
-            accelerationState = "on";
-            setAlarm();
+            sharedPreferences.edit().putBoolean("notification", true).apply();
+            notificationState = true;
+            setAlarm(12, 0);
         } else {
-            sharedPreferences.edit().putString("notification", "off").apply();
-            accelerationState = "off";
+            sharedPreferences.edit().putBoolean("notification", false).apply();
+            notificationState = false;
             offAlarm();
         }
     }
 
-    public void setAlarm() {
+    public void setAlarm(int HOUR, int MINUTE) {
         Intent intent = new Intent(MainActivity.this, RemindBroadcast.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 0, intent, 0);
 
@@ -163,7 +154,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         calendar.set(Calendar.HOUR_OF_DAY, HOUR);
         calendar.set(Calendar.MINUTE, MINUTE);
 
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis() - 60000,
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
                 AlarmManager.INTERVAL_HALF_DAY, pendingIntent);
     }
 
@@ -194,15 +185,16 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     public void clickAcceleration(View view) {
         if (acceleration.isChecked()) {
-            sharedPreferences.edit().putString("acceleration", "on").apply();
-            accelerationState = "on";
+            sharedPreferences.edit().putBoolean("acceleration", true).apply();
+            accelerationState = true;
         } else {
-            sharedPreferences.edit().putString("acceleration", "off").apply();
-            accelerationState = "off";
+            sharedPreferences.edit().putBoolean("acceleration", false).apply();
+            accelerationState = false;
+
+            runRotation(0, 0, label);
+            runRotation(0, 0, counter);
+            runRotation(0, 0, button);
         }
-        runRotation(0, 0, label);
-        runRotation(0, 0, counter);
-        runRotation(0, 0, button);
     }
 
     public void clickReset(View view) {
@@ -219,7 +211,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 }
             }
         };
-
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage("Are you sure?").setPositiveButton("Yes", dialogClickListener)
                 .setNegativeButton("No", dialogClickListener).show();
@@ -244,7 +235,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     @Override
     public void onSensorChanged(SensorEvent sensorEvent) {
-        if (sharedPreferences.getString("acceleration", "").equals("on")) {
+        if (sharedPreferences.getBoolean("acceleration", false)) {
             int sensorType = sensorEvent.sensor.getType();
             if (sensorType == Sensor.TYPE_ACCELEROMETER) {
                 axisData = sensorEvent.values.clone();
