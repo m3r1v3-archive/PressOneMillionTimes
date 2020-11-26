@@ -16,9 +16,9 @@ public class RemindBroadcast extends BroadcastReceiver {
         Intent myIntent = new Intent(context, SplashActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, myIntent, 0);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "notifyPress1MTimes")
-                .setSmallIcon(R.drawable.press1m_small_icon)
-                .setContentTitle("There is still a little ...")
-                .setContentText("You pressed X times.")
+                .setSmallIcon(R.drawable.icon)
+                .setContentTitle("There is very little left...")
+                .setContentText("Return to the game and find out what will happen at the end...")
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 .setContentIntent(pendingIntent)
                 .setDefaults(Notification.DEFAULT_SOUND)

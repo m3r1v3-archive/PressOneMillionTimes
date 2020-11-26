@@ -4,6 +4,9 @@
         <ignore path="src/main/res/drawable/button.png" />
         <ignore path="src/main/res/drawable/easter_egg.png" />
         <ignore path="src/main/res/drawable/exit.png" />
+        <ignore path="src/main/res/drawable/exit.png" />
+        <ignore path="src/main/res/drawable/exit.png" />
+        <ignore path="src/main/res/drawable/exit.png" />
         <ignore path="src/main/res/drawable/icon.png" />
     </issue>
 </lint>

@@ -33,24 +33,24 @@ import static com.merive.press1mtimes.Rotation.runRotation;
 
 public class MainActivity extends AppCompatActivity implements SensorEventListener {
 
-    SharedPreferences sharedPreferences;
+    static SharedPreferences sharedPreferences;
+    static int score;
     Boolean vibrationState, notificationState, accelerationState;
     TextView label, counter;
     ImageButton button;
     SwitchCompat vibration, notification, acceleration;
-    int score;
-
     SensorManager sensorManager;
     Sensor accelerometer;
     float[] axisData = new float[3];
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setTheme(R.style.AppTheme);
+        setTheme(R.style.Theme_Press1MTimes);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         createNotificationChannel();
+
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this.getBaseContext());
 
         counter = findViewById(R.id.counter);
         label = findViewById(R.id.label);
@@ -71,7 +71,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     /* Set methods */
     public void setCounter() {
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this.getBaseContext());
         StringBuilder score = new StringBuilder(sharedPreferences.getString("score", ""));
         // Add 0s for counter
         while (score.length() != 6)
@@ -155,7 +154,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         calendar.set(Calendar.MINUTE, MINUTE);
 
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
-                AlarmManager.INTERVAL_HALF_DAY, pendingIntent);
+                AlarmManager.INTERVAL_DAY, pendingIntent);
     }
 
     public void offAlarm() {
@@ -198,17 +197,14 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     }
 
     public void clickReset(View view) {
-        DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                switch (which) {
-                    case DialogInterface.BUTTON_POSITIVE:
-                        sharedPreferences.edit().putString("score", "000000").apply();
-                        counter.setText(R.string.counter);
-                        break;
-                    case DialogInterface.BUTTON_NEGATIVE:
-                        break;
-                }
+        DialogInterface.OnClickListener dialogClickListener = (dialog, which) -> {
+            switch (which) {
+                case DialogInterface.BUTTON_POSITIVE:
+                    sharedPreferences.edit().putString("score", "000000").apply();
+                    counter.setText(R.string.counter);
+                    break;
+                case DialogInterface.BUTTON_NEGATIVE:
+                    break;
             }
         };
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
