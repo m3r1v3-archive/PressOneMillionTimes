@@ -167,7 +167,7 @@
         android:layout_marginLeft="50dp"
         android:layout_marginTop="90dp"
         android:layout_marginRight="50dp"
-        android:background="@drawable/reset_button"
+        android:background="@drawable/stroke_background"
 
         android:fontFamily="monospace"
         android:onClick="clickReset"

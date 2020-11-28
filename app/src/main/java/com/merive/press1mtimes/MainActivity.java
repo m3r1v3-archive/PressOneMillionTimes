@@ -18,6 +18,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
+import android.text.Html;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -154,7 +155,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         calendar.set(Calendar.MINUTE, MINUTE);
 
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
-                AlarmManager.INTERVAL_DAY, pendingIntent);
+                AlarmManager.INTERVAL_HALF_DAY, pendingIntent);
     }
 
     public void offAlarm() {
@@ -208,8 +209,9 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             }
         };
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("Are you sure?").setPositiveButton("Yes", dialogClickListener)
-                .setNegativeButton("No", dialogClickListener).show();
+        builder.setMessage(Html.fromHtml("<font color='#C82A1E'>Are you sure?</font>"))
+                .setPositiveButton(Html.fromHtml("<font color='#C82A1E'>Yes</font>"), dialogClickListener)
+                .setNegativeButton(Html.fromHtml("<font color='#C82A1E'>No</font>"), dialogClickListener).show();
     }
 
 

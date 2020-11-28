@@ -17,6 +17,7 @@ public class RemindBroadcast extends BroadcastReceiver {
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, myIntent, 0);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "notifyPress1MTimes")
                 .setSmallIcon(R.drawable.icon)
+                .setColor(context.getResources().getColor(R.color.colorAccent))
                 .setContentTitle("There is very little left...")
                 .setContentText("Return to the game and find out what will happen at the end...")
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)

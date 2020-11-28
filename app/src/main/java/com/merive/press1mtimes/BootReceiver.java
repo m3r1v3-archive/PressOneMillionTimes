@@ -14,7 +14,7 @@ public class BootReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         if (intent.getAction().equals("android.intent.action.BOOT_COMPLETED")) {
             AlarmManager alarmMgr = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-            PendingIntent alarmIntent = PendingIntent.getBroadcast(context, 0, intent, 0);
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, 0);
 
             Calendar calendar = Calendar.getInstance();
             calendar.setTimeInMillis(System.currentTimeMillis());
@@ -22,7 +22,7 @@ public class BootReceiver extends BroadcastReceiver {
             calendar.set(Calendar.MINUTE, 0);
 
             alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
-                    AlarmManager.INTERVAL_DAY, alarmIntent);
+                    AlarmManager.INTERVAL_HALF_DAY, pendingIntent);
         }
     }
 }
