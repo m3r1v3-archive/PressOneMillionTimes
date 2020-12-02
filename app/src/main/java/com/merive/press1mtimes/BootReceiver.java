@@ -22,7 +22,7 @@ public class BootReceiver extends BroadcastReceiver {
             calendar.set(Calendar.MINUTE, 0);
 
             alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
-                    AlarmManager.INTERVAL_HALF_DAY, pendingIntent);
+                    AlarmManager.INTERVAL_DAY, pendingIntent);
         }
     }
 }

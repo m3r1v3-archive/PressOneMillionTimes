@@ -64,6 +64,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         setCounter();
         setSwitches();
 
+        if (notificationState) setAlarm(12, 0);
+
         sensorManager = (SensorManager) getSystemService(
                 Context.SENSOR_SERVICE);
         accelerometer = sensorManager.getDefaultSensor(
@@ -107,7 +109,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             sharedPreferences.edit().putString("score", result).apply();
             counter.setText(result);
         }
-        if (Integer.parseInt(sharedPreferences.getString("score", "")) % 100 == 0) {
+        if (Integer.parseInt(sharedPreferences.getString("score", "000000")) % 100 == 0) {
             if (vibrationState)
                 vibration();
         }
@@ -145,23 +147,24 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     }
 
     public void setAlarm(int HOUR, int MINUTE) {
-        Intent intent = new Intent(MainActivity.this, RemindBroadcast.class);
+        Intent intent = new Intent(MainActivity.this, Broadcast.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 0, intent, 0);
 
-        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
+
+        if (calendar.get(Calendar.HOUR_OF_DAY) >= HOUR) calendar.add(Calendar.DATE, 1);
         calendar.set(Calendar.HOUR_OF_DAY, HOUR);
         calendar.set(Calendar.MINUTE, MINUTE);
 
+        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
-                AlarmManager.INTERVAL_HALF_DAY, pendingIntent);
+                AlarmManager.INTERVAL_DAY, pendingIntent);
     }
 
     public void offAlarm() {
-        AlarmManager alarmManager =
-                (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-        Intent intent = new Intent(MainActivity.this, RemindBroadcast.class);
+        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+        Intent intent = new Intent(MainActivity.this, Broadcast.class);
         PendingIntent pendingIntent =
                 PendingIntent.getService(MainActivity.this, 0, intent,
                         0);

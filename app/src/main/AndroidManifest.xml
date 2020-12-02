@@ -40,7 +40,7 @@
             </intent-filter>
         </activity>
 
-        <receiver android:name=".RemindBroadcast" />
+        <receiver android:name=".Broadcast" />
         <receiver
             android:name=".BootReceiver"
             android:enabled="false">
