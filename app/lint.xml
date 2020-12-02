@@ -2,6 +2,8 @@
 <lint>
     <issue id="IconDuplicates">
         <ignore path="src/main/res/mipmap-xxhdpi/ic_launcher.png" />
+        <ignore path="src/main/res/mipmap-xxxhdpi/ic_launcher.png" />
+        <ignore path="src/main/res/mipmap-xxxhdpi/ic_launcher_round.png" />
     </issue>
     <issue id="IconLocation">
         <ignore path="src/main/res/drawable/button.png" />

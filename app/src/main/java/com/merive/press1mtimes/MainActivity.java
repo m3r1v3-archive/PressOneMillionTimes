@@ -36,13 +36,24 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     static SharedPreferences sharedPreferences;
     static int score;
-    Boolean vibrationState, notificationState, accelerationState;
+    static Boolean vibrationState;
+    static Boolean accelerationState;
+    Boolean notificationState;
     TextView label, counter;
     ImageButton button;
     SwitchCompat vibration, notification, acceleration;
     SensorManager sensorManager;
     Sensor accelerometer;
     float[] axisData = new float[3];
+
+    public void vibration() {
+        Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            v.vibrate(VibrationEffect.createOneShot(250, VibrationEffect.DEFAULT_AMPLITUDE));
+        } else {
+            v.vibrate(250);
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,7 +111,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             counter.setText(R.string.counter);
 
             Intent intent = new Intent(this, Finish.class);
-            intent.putExtra("accelerationState", accelerationState);
             startActivity(intent);
         } else {
             score += 1;
@@ -112,15 +122,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         if (Integer.parseInt(sharedPreferences.getString("score", "000000")) % 100 == 0) {
             if (vibrationState)
                 vibration();
-        }
-    }
-
-    public void vibration() {
-        Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            v.vibrate(VibrationEffect.createOneShot(250, VibrationEffect.DEFAULT_AMPLITUDE));
-        } else {
-            v.vibrate(250);
         }
     }
 
