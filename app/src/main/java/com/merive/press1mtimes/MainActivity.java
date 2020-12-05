@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         setCounter();
         setSwitches();
 
-        if (notificationState) setAlarm(12, 0);
+        if (notificationState) setAlarm(12);
 
         sensorManager = (SensorManager) getSystemService(
                 Context.SENSOR_SERVICE);
@@ -139,7 +139,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         if (notification.isChecked()) {
             sharedPreferences.edit().putBoolean("notification", true).apply();
             notificationState = true;
-            setAlarm(12, 0);
+            setAlarm(12);
         } else {
             sharedPreferences.edit().putBoolean("notification", false).apply();
             notificationState = false;
@@ -147,7 +147,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         }
     }
 
-    public void setAlarm(int HOUR, int MINUTE) {
+    public void setAlarm(int HOUR) {
         Intent intent = new Intent(MainActivity.this, Broadcast.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 0, intent, 0);
 
@@ -156,7 +156,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
         if (calendar.get(Calendar.HOUR_OF_DAY) >= HOUR) calendar.add(Calendar.DATE, 1);
         calendar.set(Calendar.HOUR_OF_DAY, HOUR);
-        calendar.set(Calendar.MINUTE, MINUTE);
 
         AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
