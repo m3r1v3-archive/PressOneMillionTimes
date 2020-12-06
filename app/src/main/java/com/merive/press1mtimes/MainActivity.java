@@ -75,7 +75,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         setCounter();
         setSwitches();
 
-        if (notificationState) setAlarm(12);
 
         sensorManager = (SensorManager) getSystemService(
                 Context.SENSOR_SERVICE);
@@ -98,6 +97,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
         notificationState = sharedPreferences.getBoolean("notification", false);
         notification.setChecked(notificationState);
+        if (notificationState) setAlarm(12);
 
         accelerationState = sharedPreferences.getBoolean("acceleration", false);
         acceleration.setChecked(accelerationState);
