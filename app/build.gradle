@@ -6,16 +6,16 @@ android {
     signingConfigs {
         realise {
             storeFile file('C:\\Users\\maxim\\Android_APK\\MyKey.jks')
-            keyAlias 'merive_key'
-            storePassword '[merive_key]'
-            keyPassword '[merive_key]'
+            keyAlias 'merive-key'
+            storePassword '[merive-studio]'
+            keyPassword '[merive-studio]'
         }
 
         debug {
             storeFile file('C:\\Users\\maxim\\Android_APK\\MyKey.jks')
-            keyAlias 'merive_key'
-            storePassword '[merive_key]'
-            keyPassword '[merive_key]'
+            keyAlias 'merive-key'
+            storePassword '[merive-studio]'
+            keyPassword '[merive-studio]'
         }
     }
     compileSdkVersion 30
