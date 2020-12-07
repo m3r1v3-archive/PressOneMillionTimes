@@ -12,8 +12,10 @@
     <string name="congratulations">Congratulations,\nyou passed my game</string>
     <string name="hope">I hope you enjoyed it)</string>
     <string name="todo">TODO</string>
+
+    <!-- Settings -->
     <string name="notification">Notification</string>
     <string name="acceleration">Acceleration</string>
     <string name="reset">Reset</string>
-    <string name="info">Version: v1.3.2\n\@merive-studios, 2020</string>
+    <string name="info">Version: v1.3.3\n\@merive-studio, 2020</string>
 </resources>

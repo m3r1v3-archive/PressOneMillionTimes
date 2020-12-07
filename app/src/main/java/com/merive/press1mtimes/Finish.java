@@ -6,16 +6,17 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.os.Message;
+import android.os.VibrationEffect;
+import android.os.Vibrator;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.Objects;
@@ -29,7 +30,7 @@ public class Finish extends AppCompatActivity implements SensorEventListener {
     Handler handler;
     Handler.Callback callback;
     TextView title, label, footer;
-    String accelerationState;
+    Boolean accelerationState, vibrationState;
 
     SensorManager sensorManager;
     Sensor accelerometer;
@@ -47,19 +48,15 @@ public class Finish extends AppCompatActivity implements SensorEventListener {
         label = findViewById(R.id.label);
         footer = findViewById(R.id.footer);
 
-        callback = new Handler.Callback() {
-            @Override
-            public boolean handleMessage(@NonNull Message message) {
-                return false;
-            }
-        };
+        callback = message -> false;
 
         sensorManager = (SensorManager) getSystemService(
                 Context.SENSOR_SERVICE);
         accelerometer = sensorManager.getDefaultSensor(
                 Sensor.TYPE_ACCELEROMETER);
 
-        accelerationState = getIntent().getExtras().getString("accelerationState");
+        accelerationState = MainActivity.accelerationState;
+        vibrationState = MainActivity.vibrationState;
     }
 
     public void exitClick(View view) {
@@ -69,18 +66,22 @@ public class Finish extends AppCompatActivity implements SensorEventListener {
         /* Easter egg animation */
         easter.animate().translationY(-100f).setDuration(200L).start();
         handler = new Handler(Objects.requireNonNull(Looper.myLooper()), callback);
-        handler.postDelayed(new Runnable() {
-            public void run() {
-                easter.animate().translationY(80f).setDuration(200L).start();
-            }
+        handler.postDelayed(() -> {
+            easter.animate().translationY(80f).setDuration(200L).start();
+            if (vibrationState) vibration();
         }, 300);
 
         /* Finish layout */
-        handler.postDelayed(new Runnable() {
-            public void run() {
-                finish();
-            }
-        }, 500);
+        handler.postDelayed(this::finish, 500);
+    }
+
+    public void vibration() {
+        Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            v.vibrate(VibrationEffect.createOneShot(250, VibrationEffect.DEFAULT_AMPLITUDE));
+        } else {
+            v.vibrate(250);
+        }
     }
 
     @Override
@@ -100,7 +101,7 @@ public class Finish extends AppCompatActivity implements SensorEventListener {
 
     @Override
     public void onSensorChanged(SensorEvent sensorEvent) {
-        if (accelerationState.equals("on")) {
+        if (accelerationState) {
             int sensorType = sensorEvent.sensor.getType();
             if (sensorType == Sensor.TYPE_ACCELEROMETER) {
                 axisData = sensorEvent.values.clone();

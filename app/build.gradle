@@ -1,12 +1,21 @@
-apply plugin: 'com.android.application'
+plugins {
+    id 'com.android.application'
+}
 
 android {
     signingConfigs {
         realise {
             storeFile file('C:\\Users\\maxim\\Android_APK\\MyKey.jks')
-            keyAlias 'merive_key'
-            storePassword '[merive_key]'
-            keyPassword '[merive_key]'
+            keyAlias 'merive-key'
+            storePassword '[merive-studio]'
+            keyPassword '[merive-studio]'
+        }
+
+        debug {
+            storeFile file('C:\\Users\\maxim\\Android_APK\\MyKey.jks')
+            keyAlias 'merive-key'
+            storePassword '[merive-studio]'
+            keyPassword '[merive-studio]'
         }
     }
     compileSdkVersion 30
@@ -17,7 +26,7 @@ android {
         minSdkVersion 21
         targetSdkVersion 30
         versionCode 1
-        versionName "1.3.2"
+        versionName "1.3.3"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -26,8 +35,11 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.realise
         }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 }
 

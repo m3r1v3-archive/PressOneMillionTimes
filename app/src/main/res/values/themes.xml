@@ -1,6 +1,6 @@
 <resources>
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
+    <style name="Theme.Press1MTimes" parent="Theme.AppCompat.NoActionBar">
 
         <!-- App Theme. -->
         <item name="colorPrimary">@color/colorPrimary</item>

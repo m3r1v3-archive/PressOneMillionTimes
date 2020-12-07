@@ -7,5 +7,5 @@
         android:left="0dp"
         android:right="0dp"
         android:top="0dp" />
-    <stroke android:color="@color/colorPrimary" android:width="3dp"/>
+    <stroke android:color="@color/colorPrimary" android:width="2dp"/>
 </shape>
