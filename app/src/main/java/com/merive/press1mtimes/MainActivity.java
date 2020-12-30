@@ -30,6 +30,7 @@ import androidx.preference.PreferenceManager;
 import java.util.Calendar;
 
 import static com.merive.press1mtimes.Rotation.runRotation;
+import static java.util.Calendar.YEAR;
 
 
 public class MainActivity extends AppCompatActivity implements SensorEventListener {
@@ -39,7 +40,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     static Boolean vibrationState;
     static Boolean accelerationState;
     Boolean notificationState;
-    TextView label, counter;
+    TextView label, counter, info;
     ImageButton button;
     SwitchCompat vibration, notification, acceleration;
     SensorManager sensorManager;
@@ -71,9 +72,11 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         vibration = findViewById(R.id.vibration);
         notification = findViewById(R.id.notification);
         acceleration = findViewById(R.id.acceleration);
+        info = findViewById(R.id.info);
 
         setCounter();
         setSwitches();
+        setInfo();
 
 
         sensorManager = (SensorManager) getSystemService(
@@ -89,6 +92,12 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         while (score.length() != 6)
             score.insert(0, "0");
         counter.setText(score);
+    }
+
+
+    public void setInfo() {
+        String s = info.getText() + " " + Calendar.getInstance().get(YEAR);
+        info.setText(s);
     }
 
     public void setSwitches() {

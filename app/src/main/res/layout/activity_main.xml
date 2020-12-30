@@ -8,6 +8,34 @@
     app:layoutDescription="@xml/activity_main_scene"
     tools:context=".MainActivity">
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/snow_layout">
+
+        <com.jetradarmobile.snowfall.SnowfallView
+            android:id="@+id/snow"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:snowflakeAlphaMax="255"
+            app:snowflakeAlphaMin="150"
+            app:snowflakeAngleMax="5"
+            app:snowflakeImage="@drawable/snowflake"
+            app:snowflakeSizeMax="32dp"
+            app:snowflakeSizeMin="8dp"
+            app:snowflakeSpeedMax="8"
+            app:snowflakeSpeedMin="2"
+            app:snowflakesAlreadyFalling="false"
+            app:snowflakesFadingEnabled="true"
+            app:snowflakesNum="50" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
     <TextView
         android:id="@+id/label"
         android:layout_width="375dp"
