@@ -9,15 +9,15 @@
     tools:context=".MainActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/snow_layout"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/snow_layout">
+        android:layout_height="wrap_content">
 
         <com.jetradarmobile.snowfall.SnowfallView
             android:id="@+id/snow"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="visible"
+            android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -215,7 +215,6 @@
 
         android:fontFamily="monospace"
         android:padding="18dp"
-        android:text="@string/info"
         android:textAlignment="center"
         android:textColor="@color/colorPrimary"
         android:textSize="18sp"
