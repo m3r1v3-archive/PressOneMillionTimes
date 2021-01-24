@@ -29,7 +29,8 @@ import java.util.Objects;
 
 import static com.merive.press1mtimes.Rotation.runRotation;
 
-public class Finish extends AppCompatActivity implements SensorEventListener {
+public class Finish extends AppCompatActivity
+        implements SensorEventListener {
 
     ImageButton exit;
     ImageView easter;
@@ -64,11 +65,11 @@ public class Finish extends AppCompatActivity implements SensorEventListener {
 
         accelerationState = MainActivity.accelerationState;
         vibrationState = MainActivity.vibrationState;
-        checkMonth();
+        setSnowFalling();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    public void checkMonth() {
+    public void setSnowFalling() {
         Date date = new Date();
         LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         int month = localDate.getMonthValue();
@@ -95,6 +96,7 @@ public class Finish extends AppCompatActivity implements SensorEventListener {
         handler.postDelayed(this::finish, 500);
     }
 
+    /* Vibration method */
     public void vibration() {
         Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -104,6 +106,7 @@ public class Finish extends AppCompatActivity implements SensorEventListener {
         }
     }
 
+    /* Accelerometer methods */
     @Override
     protected void onStart() {
         super.onStart();
