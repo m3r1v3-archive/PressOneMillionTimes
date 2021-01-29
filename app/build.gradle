@@ -5,14 +5,14 @@ plugins {
 android {
     signingConfigs {
         realise {
-            storeFile file('C:\\Users\\maxim\\AndroidKeys\\Press1MTimesKey.jks')
+            storeFile file('src\\main\\res\\Press1MTimesKey.jks')
             keyAlias 'Press1MTimesKey'
             storePassword '[Press1MTimes]'
             keyPassword '[Press1MTimes]'
         }
 
         debug {
-            storeFile file('C:\\Users\\maxim\\AndroidKeys\\Press1MTimesKey.jks')
+            storeFile file('src\\main\\res\\Press1MTimesKey.jks')
             keyAlias 'Press1MTimesKey'
             storePassword '[Press1MTimes]'
             keyPassword '[Press1MTimes]'
