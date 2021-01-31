@@ -23,7 +23,7 @@ public class Broadcast extends BroadcastReceiver {
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 .setContentIntent(pendingIntent)
                 .setDefaults(Notification.DEFAULT_SOUND)
-                .setLights(0xff00ff00, 500, 500)
+                .setLights(0xff00ff00, 1000, 1000)
                 .setAutoCancel(true);
 
         NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(context);

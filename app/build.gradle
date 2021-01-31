@@ -5,28 +5,28 @@ plugins {
 android {
     signingConfigs {
         realise {
-            storeFile file('C:\\Users\\maxim\\Android_APK\\MyKey.jks')
-            keyAlias 'merive-key'
-            storePassword '[merive-studio]'
-            keyPassword '[merive-studio]'
+            storeFile file('src\\main\\res\\Press1MTimesKey.jks')
+            keyAlias 'Press1MTimesKey'
+            storePassword '[Press1MTimes]'
+            keyPassword '[Press1MTimes]'
         }
 
         debug {
-            storeFile file('C:\\Users\\maxim\\Android_APK\\MyKey.jks')
-            keyAlias 'merive-key'
-            storePassword '[merive-studio]'
-            keyPassword '[merive-studio]'
+            storeFile file('src\\main\\res\\Press1MTimesKey.jks')
+            keyAlias 'Press1MTimesKey'
+            storePassword '[Press1MTimes]'
+            keyPassword '[Press1MTimes]'
         }
     }
     compileSdkVersion 30
-    buildToolsVersion "30.0.2"
+    buildToolsVersion "30.0.3"
 
     defaultConfig {
         applicationId "com.merive.press1mtimes"
         minSdkVersion 21
         targetSdkVersion 30
         versionCode 1
-        versionName "1.3.4"
+        versionName "1.3.5"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }

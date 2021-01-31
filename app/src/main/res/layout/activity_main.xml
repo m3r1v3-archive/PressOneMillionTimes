@@ -9,15 +9,15 @@
     tools:context=".MainActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/snow_layout"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/snow_layout">
+        android:layout_height="wrap_content">
 
         <com.jetradarmobile.snowfall.SnowfallView
             android:id="@+id/snow"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="visible"
+            android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -95,13 +95,13 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/ic_keyboard_arrow_up" />
+        app:srcCompat="@drawable/arrow_up" />
 
     <View
         android:id="@+id/dial_pad"
         android:layout_width="match_parent"
         android:layout_height="400dp"
-        android:background="@drawable/background"
+        android:background="@drawable/settings_background"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="parent" />
@@ -195,7 +195,7 @@
         android:layout_marginLeft="50dp"
         android:layout_marginTop="90dp"
         android:layout_marginRight="50dp"
-        android:background="@drawable/stroke_background"
+        android:background="@drawable/reset_button"
 
         android:fontFamily="monospace"
         android:onClick="clickReset"
@@ -215,7 +215,6 @@
 
         android:fontFamily="monospace"
         android:padding="18dp"
-        android:text="@string/info"
         android:textAlignment="center"
         android:textColor="@color/colorPrimary"
         android:textSize="18sp"

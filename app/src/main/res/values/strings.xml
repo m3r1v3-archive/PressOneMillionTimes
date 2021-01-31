@@ -6,16 +6,13 @@
     <!--  Settings  -->
     <string name="settings">Settings</string>
     <string name="vibration">Vibration</string>
+    <string name="notification">Notification</string>
+    <string name="acceleration">Acceleration</string>
+    <string name="reset">Reset</string>
 
     <!--  Finish Activity  -->
     <string name="you_won">You won!</string>
     <string name="congratulations">Congratulations,\nyou passed my game</string>
     <string name="hope">I hope you enjoyed it)</string>
     <string name="todo">TODO</string>
-
-    <!-- Settings -->
-    <string name="notification">Notification</string>
-    <string name="acceleration">Acceleration</string>
-    <string name="reset">Reset</string>
-    <string name="info">Version: v1.3.3\n\@merive-studio, </string>
 </resources>

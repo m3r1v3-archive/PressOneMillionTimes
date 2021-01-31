@@ -23,17 +23,24 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.preference.PreferenceManager;
 
+import com.jetradarmobile.snowfall.SnowfallView;
+
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Calendar;
+import java.util.Date;
 
 import static com.merive.press1mtimes.Rotation.runRotation;
 import static java.util.Calendar.YEAR;
 
 
-public class MainActivity extends AppCompatActivity implements SensorEventListener {
+public class MainActivity extends AppCompatActivity
+        implements SensorEventListener {
 
     static SharedPreferences sharedPreferences;
     static int score;
@@ -47,37 +54,36 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     Sensor accelerometer;
     float[] axisData = new float[3];
 
-    public void vibration() {
-        Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            v.vibrate(VibrationEffect.createOneShot(250, VibrationEffect.DEFAULT_AMPLITUDE));
-        } else {
-            v.vibrate(250);
-        }
-    }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setTheme(R.style.Theme_Press1MTimes);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         createNotificationChannel();
 
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this.getBaseContext());
+        sharedPreferences =
+                PreferenceManager.getDefaultSharedPreferences(this.getBaseContext());
 
+        /* Initializations layout variables */
         counter = findViewById(R.id.counter);
         label = findViewById(R.id.label);
         button = findViewById(R.id.button);
 
+        /* Initializations settings variables */
         vibration = findViewById(R.id.vibration);
         notification = findViewById(R.id.notification);
         acceleration = findViewById(R.id.acceleration);
         info = findViewById(R.id.info);
 
+        /* Set values, parameters, etc. */
         setCounter();
         setSwitches();
         setInfo();
-
+        setSnowFalling();
 
         sensorManager = (SensorManager) getSystemService(
                 Context.SENSOR_SERVICE);
@@ -87,16 +93,29 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     /* Set methods */
     public void setCounter() {
-        StringBuilder score = new StringBuilder(sharedPreferences.getString("score", ""));
-        // Add 0s for counter
+        StringBuilder score =
+                new StringBuilder(sharedPreferences.getString("score", ""));
+
         while (score.length() != 6)
             score.insert(0, "0");
         counter.setText(score);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public void setSnowFalling() {
+        Date date = new Date();
+        LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        int month = localDate.getMonthValue();
+
+        if (month == 12 || month == 1) {
+            SnowfallView snow = findViewById(R.id.snow);
+            snow.setVisibility(View.VISIBLE);
+        }
+    }
 
     public void setInfo() {
-        String s = info.getText() + " " + Calendar.getInstance().get(YEAR);
+        String s = "Version: " + BuildConfig.VERSION_NAME +
+                "\n@merive-studio, " + Calendar.getInstance().get(YEAR);
         info.setText(s);
     }
 
@@ -128,7 +147,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             sharedPreferences.edit().putString("score", result).apply();
             counter.setText(result);
         }
-        if (Integer.parseInt(sharedPreferences.getString("score", "000000")) % 100 == 0) {
+        if (Integer.parseInt(sharedPreferences.getString("score",
+                "000000")) % 100 == 0) {
             if (vibrationState)
                 vibration();
         }
@@ -156,56 +176,17 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         }
     }
 
-    public void setAlarm(int HOUR) {
-        Intent intent = new Intent(MainActivity.this, Broadcast.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 0, intent, 0);
-
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(System.currentTimeMillis());
-
-        if (calendar.get(Calendar.HOUR_OF_DAY) >= HOUR) calendar.add(Calendar.DATE, 1);
-        calendar.set(Calendar.HOUR_OF_DAY, HOUR);
-
-        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
-                AlarmManager.INTERVAL_DAY, pendingIntent);
-    }
-
-    public void offAlarm() {
-        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-        Intent intent = new Intent(MainActivity.this, Broadcast.class);
-        PendingIntent pendingIntent =
-                PendingIntent.getService(MainActivity.this, 0, intent,
-                        0);
-        if (pendingIntent != null && alarmManager != null) {
-            alarmManager.cancel(pendingIntent);
-        }
-    }
-
-    private void createNotificationChannel() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            CharSequence name = "Press1MTimesChannel";
-            String description = "Channel for Press1MTimes";
-            int importance = NotificationManager.IMPORTANCE_DEFAULT;
-            NotificationChannel channel = new NotificationChannel("notifyPress1MTimes", name, importance);
-            channel.setDescription(description);
-
-            NotificationManager notificationManager = getSystemService(NotificationManager.class);
-            notificationManager.createNotificationChannel(channel);
-        }
-    }
 
     public void clickAcceleration(View view) {
         if (acceleration.isChecked()) {
-            sharedPreferences.edit().putBoolean("acceleration", true).apply();
-            accelerationState = true;
+            /* In accelerometer methods */
+            setAccelerationState(true);
         } else {
-            sharedPreferences.edit().putBoolean("acceleration", false).apply();
-            accelerationState = false;
-
-            runRotation(0, 0, label);
-            runRotation(0, 0, counter);
-            runRotation(0, 0, button);
+            /* In accelerometer methods */
+            setAccelerationState(false);
+            setDefaultRotation(label);
+            setDefaultRotation(counter);
+            setDefaultRotation(button);
         }
     }
 
@@ -222,8 +203,11 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         };
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage(Html.fromHtml("<font color='#C82A1E'>Are you sure?</font>"))
-                .setPositiveButton(Html.fromHtml("<font color='#C82A1E'>Yes</font>"), dialogClickListener)
-                .setNegativeButton(Html.fromHtml("<font color='#C82A1E'>No</font>"), dialogClickListener).show();
+                .setPositiveButton(
+                        Html.fromHtml("<font color='#C82A1E'>Yes</font>"), dialogClickListener)
+                .setNegativeButton(
+                        Html.fromHtml("<font color='#C82A1E'>No</font>"), dialogClickListener)
+                .show();
     }
 
 
@@ -257,8 +241,71 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         }
     }
 
+    public void setAccelerationState(boolean state) {
+        sharedPreferences.edit().putBoolean("acceleration", state).apply();
+        accelerationState = state;
+    }
+
+    public void setDefaultRotation(View view) {
+        runRotation(0, 0, view);
+    }
+
     @Override
     public void onAccuracyChanged(Sensor sensor, int i) {
         /* Don't write */
+    }
+
+    /* Notification methods */
+    public void setAlarm(int HOUR) {
+        Intent intent = new Intent(MainActivity.this, Broadcast.class);
+        PendingIntent pendingIntent =
+                PendingIntent.getBroadcast(MainActivity.this, 0, intent, 0);
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+
+        if (calendar.get(Calendar.HOUR_OF_DAY) >= HOUR) calendar.add(Calendar.DATE, 1);
+        calendar.set(Calendar.HOUR_OF_DAY, HOUR);
+
+        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
+                AlarmManager.INTERVAL_DAY, pendingIntent);
+    }
+
+    public void offAlarm() {
+        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+        Intent intent = new Intent(MainActivity.this, Broadcast.class);
+        PendingIntent pendingIntent =
+                PendingIntent.getService(MainActivity.this, 0, intent,
+                        0);
+        if (pendingIntent != null && alarmManager != null) {
+            alarmManager.cancel(pendingIntent);
+        }
+    }
+
+    private void createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = "Press1MTimesChannel";
+            String description = "Channel for Press1MTimes";
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel =
+                    new NotificationChannel("notifyPress1MTimes", name, importance);
+            channel.setDescription(description);
+
+            NotificationManager notificationManager =
+                    getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
+    }
+
+    /* Vibration method */
+    public void vibration() {
+        Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            v.vibrate(VibrationEffect.createOneShot(250,
+                    VibrationEffect.DEFAULT_AMPLITUDE));
+        } else {
+            v.vibrate(250);
+        }
     }
 }
