@@ -148,7 +148,7 @@ public class MainActivity extends AppCompatActivity
             counter.setText(result);
         }
         if (Integer.parseInt(sharedPreferences.getString("score",
-                "000000")) % 100 == 0) {
+                "000000")) % 10 == 0) {
             if (vibrationState)
                 vibration();
         }

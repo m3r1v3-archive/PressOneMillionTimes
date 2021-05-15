@@ -15,9 +15,9 @@
     <ConstraintSet android:id="@+id/base_state">
         <Constraint android:id="@id/dial_pad">
             <Layout
-                android:layout_width="0dp"
-                android:layout_height="250dp"
-                android:layout_marginTop="-14dp"
+                android:layout_width="0sp"
+                android:layout_height="250sp"
+                android:layout_marginTop="-14sp"
                 motion:layout_constraintEnd_toEndOf="parent"
                 motion:layout_constraintStart_toStartOf="parent"
                 motion:layout_constraintTop_toBottomOf="parent" />
@@ -36,10 +36,11 @@
 
     <ConstraintSet android:id="@+id/dial">
 
-        <Constraint android:id="@id/dial_pad">
+        <Constraint android:id="@id/dial_pad"
+            android:layout_height="0dp">
             <Layout
-                android:layout_width="0dp"
-                android:layout_height="400dp"
+                android:layout_width="0sp"
+                android:layout_height="400sp"
                 motion:layout_constraintBottom_toBottomOf="parent"
                 motion:layout_constraintEnd_toEndOf="parent"
                 motion:layout_constraintStart_toStartOf="parent" />

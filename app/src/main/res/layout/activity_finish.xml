@@ -21,8 +21,8 @@
             app:snowflakeAlphaMin="150"
             app:snowflakeAngleMax="5"
             app:snowflakeImage="@drawable/snowflake"
-            app:snowflakeSizeMax="32dp"
-            app:snowflakeSizeMin="8dp"
+            app:snowflakeSizeMax="32sp"
+            app:snowflakeSizeMin="8sp"
             app:snowflakeSpeedMax="8"
             app:snowflakeSpeedMin="2"
             app:snowflakesAlreadyFalling="false"
@@ -31,8 +31,8 @@
 
     <TextView
         android:id="@+id/title"
-        android:layout_width="405dp"
-        android:layout_height="54dp"
+        android:layout_width="405sp"
+        android:layout_height="54sp"
         android:fontFamily="sans-serif-light"
         android:text="@string/you_won"
         android:textAlignment="center"
@@ -47,8 +47,8 @@
 
     <TextView
         android:id="@+id/label"
-        android:layout_width="250dp"
-        android:layout_height="60dp"
+        android:layout_width="250sp"
+        android:layout_height="60sp"
         android:fontFamily="sans-serif-light"
         android:text="@string/congratulations"
         android:textAlignment="center"
@@ -63,8 +63,8 @@
 
     <ImageView
         android:id="@+id/easter_egg"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
+        android:layout_width="200sp"
+        android:layout_height="200sp"
         android:contentDescription="@string/todo"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -76,8 +76,8 @@
 
     <ImageButton
         android:id="@+id/exit"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
+        android:layout_width="200sp"
+        android:layout_height="200sp"
         android:background="@drawable/exit"
         android:contentDescription="@string/todo"
         android:fontFamily="sans-serif-medium"
@@ -94,8 +94,8 @@
 
     <TextView
         android:id="@+id/footer"
-        android:layout_width="165dp"
-        android:layout_height="25dp"
+        android:layout_width="165sp"
+        android:layout_height="25sp"
         android:fontFamily="sans-serif-light"
         android:text="@string/hope"
         android:textAlignment="center"
