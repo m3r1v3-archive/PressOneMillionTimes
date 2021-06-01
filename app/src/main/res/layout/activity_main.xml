@@ -55,14 +55,11 @@
 
     <TextView
         android:id="@+id/counter"
-        android:layout_width="wrap_content"
+        android:layout_width="136sp"
         android:layout_height="36sp"
-        android:width="124sp"
         android:background="@color/red"
         android:fontFamily="@font/odibee"
         android:letterSpacing="0.1"
-        android:paddingTop="2sp"
-        android:paddingBottom="2sp"
         android:text="@string/counter"
         android:textAlignment="center"
         android:textColor="@color/dark"

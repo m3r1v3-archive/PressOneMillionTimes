@@ -32,29 +32,29 @@
     <TextView
         android:id="@+id/title"
         android:layout_width="405sp"
-        android:layout_height="54sp"
-        android:fontFamily="sans-serif-light"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/odibee"
         android:text="@string/you_won"
         android:textAlignment="center"
         android:textAllCaps="true"
         android:textColor="@color/red"
-        android:textSize="36sp"
+        android:textSize="48sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.100000024" />
+        app:layout_constraintVertical_bias="0.10" />
 
     <TextView
         android:id="@+id/label"
         android:layout_width="250sp"
-        android:layout_height="60sp"
-        android:fontFamily="sans-serif-light"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/odibee"
         android:text="@string/congratulations"
         android:textAlignment="center"
         android:textAllCaps="true"
         android:textColor="@color/red"
-        android:textSize="24sp"
+        android:textSize="34sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -95,17 +95,17 @@
     <TextView
         android:id="@+id/footer"
         android:layout_width="165sp"
-        android:layout_height="25sp"
-        android:fontFamily="sans-serif-light"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/odibee"
         android:text="@string/hope"
         android:textAlignment="center"
         android:textAllCaps="false"
         android:textColor="@color/red"
-        android:textSize="18sp"
+        android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.95" />
+        app:layout_constraintVertical_bias="0.96" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
