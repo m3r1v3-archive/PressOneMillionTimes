@@ -16,14 +16,13 @@ public class Broadcast extends BroadcastReceiver {
         Intent myIntent = new Intent(context, SplashActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, myIntent, 0);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "notifyPress1MTimes")
-                .setSmallIcon(R.drawable.ic_stat_name)
-                .setColor(context.getResources().getColor(R.color.colorAccent))
+                .setSmallIcon(R.drawable.icon)
+                .setColor(context.getResources().getColor(R.color.red))
                 .setContentTitle("There is very little left...")
                 .setContentText("Return to the game and find out what will happen at the end...")
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 .setContentIntent(pendingIntent)
                 .setDefaults(Notification.DEFAULT_SOUND)
-                .setLights(0xff00ff00, 1000, 1000)
                 .setAutoCancel(true);
 
         NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(context);

@@ -12,7 +12,7 @@
 
     <!--  Finish Activity  -->
     <string name="you_won">You won!</string>
-    <string name="congratulations">Congratulations,\nyou passed my game</string>
+    <string name="congratulations">Congratulations, \nyou passed my game</string>
     <string name="hope">I hope you enjoyed it)</string>
     <string name="todo">TODO</string>
 </resources>

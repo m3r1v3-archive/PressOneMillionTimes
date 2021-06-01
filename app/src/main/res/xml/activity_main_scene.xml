@@ -31,6 +31,12 @@
                 motion:layout_constraintEnd_toEndOf="parent"
                 motion:layout_constraintStart_toStartOf="parent" />
         </Constraint>
+        <Constraint
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:visibility="invisible"
+            android:id="@+id/snow"
+            motion:layout_constraintStart_toStartOf="parent" />
 
     </ConstraintSet>
 
@@ -54,5 +60,11 @@
                 motion:layout_constraintStart_toStartOf="parent"
                 motion:layout_constraintTop_toBottomOf="parent" />
         </Constraint>
+        <Constraint
+            motion:layout_constraintEnd_toEndOf="parent"
+            android:id="@+id/snow"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintTop_toTopOf="parent"
+            motion:layout_constraintStart_toStartOf="parent" />
     </ConstraintSet>
 </MotionScene>
