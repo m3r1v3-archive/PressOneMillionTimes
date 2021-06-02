@@ -27,9 +27,9 @@ import java.time.ZoneId;
 import java.util.Date;
 import java.util.Objects;
 
-import static com.merive.press1mtimes.Rotation.runRotation;
+import static com.merive.press1mtimes.utils.Rotation.runRotation;
 
-public class Finish extends AppCompatActivity
+public class FinishActivity extends AppCompatActivity
         implements SensorEventListener {
 
     ImageButton exit;

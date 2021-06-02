@@ -186,7 +186,7 @@
         app:trackTint="@color/red" />
 
     <Button
-        android:id="@+id/reset"
+        android:id="@+id/options"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="50sp"
@@ -195,8 +195,8 @@
         android:background="@drawable/round_button"
 
         android:fontFamily="@font/odibee"
-        android:onClick="clickReset"
-        android:text="@string/reset"
+        android:onClick="clickOptions"
+        android:text="@string/options"
         android:textColor="@color/red"
 
         android:textSize="24sp"
@@ -218,6 +218,6 @@
 
         app:layout_constraintEnd_toStartOf="@id/reset"
         app:layout_constraintStart_toEndOf="@id/dial_pad"
-        app:layout_constraintTop_toTopOf="@id/reset" />
+        app:layout_constraintTop_toTopOf="@id/options" />
 
 </androidx.constraintlayout.motion.widget.MotionLayout>

@@ -27,13 +27,16 @@ import androidx.fragment.app.FragmentManager;
 import androidx.preference.PreferenceManager;
 
 import com.jetradarmobile.snowfall.SnowfallView;
+import com.merive.press1mtimes.fragments.ConfirmFragment;
+import com.merive.press1mtimes.fragments.OptionsFragment;
+import com.merive.press1mtimes.utils.Broadcast;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.Date;
 
-import static com.merive.press1mtimes.Rotation.runRotation;
+import static com.merive.press1mtimes.utils.Rotation.runRotation;
 import static java.util.Calendar.YEAR;
 
 
@@ -136,7 +139,7 @@ public class MainActivity extends AppCompatActivity
             sharedPreferences.edit().putString("score", "000000").apply();
             counter.setText(R.string.counter);
 
-            Intent intent = new Intent(this, Finish.class);
+            Intent intent = new Intent(this, FinishActivity.class);
             startActivity(intent);
         } else {
             score += 1;
@@ -197,10 +200,16 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    public void clickReset(View view) {
+    public void clickReset() {
         FragmentManager fm = getSupportFragmentManager();
         ConfirmFragment confirmFragment = ConfirmFragment.newInstance();
         confirmFragment.show(fm, "confirm_fragment");
+    }
+
+    public void clickOptions(View view) {
+        FragmentManager fm = getSupportFragmentManager();
+        OptionsFragment optionsFragment = OptionsFragment.newInstance();
+        optionsFragment.show(fm, "options_fragment");
     }
 
     public void resetCounter() {

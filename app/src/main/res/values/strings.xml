@@ -16,4 +16,7 @@
     <string name="hope">I hope you enjoyed it)</string>
     <string name="todo">TODO</string>
     <string name="do_you_want_reset_counter">Do you want reset counter?</string>
+    <string name="options">Options</string>
+    <string name="scoreshare">ScoreShare</string>
+    <string name="change_icon">Change Icon</string>
 </resources>

@@ -31,7 +31,7 @@
             </intent-filter>
         </activity>
 
-        <receiver android:name=".Broadcast" />
+        <receiver android:name=".utils.Broadcast" />
     </application>
 
 </manifest>

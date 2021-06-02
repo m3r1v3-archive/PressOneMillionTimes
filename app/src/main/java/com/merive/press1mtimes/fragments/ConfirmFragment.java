@@ -1,4 +1,4 @@
-package com.merive.press1mtimes;
+package com.merive.press1mtimes.fragments;
 
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -12,6 +12,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
+
+import com.merive.press1mtimes.MainActivity;
+import com.merive.press1mtimes.R;
 
 public class ConfirmFragment extends DialogFragment {
 
