@@ -78,7 +78,7 @@
         android:id="@+id/exit"
         android:layout_width="200sp"
         android:layout_height="200sp"
-        android:background="@drawable/exit"
+        android:background="@drawable/close"
         android:contentDescription="@string/todo"
         android:fontFamily="sans-serif-medium"
         android:onClick="exitClick"
