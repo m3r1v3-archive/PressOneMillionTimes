@@ -190,7 +190,7 @@
         android:layout_marginLeft="50sp"
         android:layout_marginTop="90sp"
         android:layout_marginRight="50sp"
-        android:background="@drawable/reset_button"
+        android:background="@drawable/round_button"
 
         android:fontFamily="@font/odibee"
         android:onClick="clickReset"

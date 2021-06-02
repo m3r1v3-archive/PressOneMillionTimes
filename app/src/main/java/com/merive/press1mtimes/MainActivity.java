@@ -2,12 +2,10 @@ package com.merive.press1mtimes;
 
 import android.annotation.SuppressLint;
 import android.app.AlarmManager;
-import android.app.AlertDialog;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.hardware.Sensor;
@@ -18,7 +16,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
-import android.text.Html;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -26,6 +23,7 @@ import android.widget.TextView;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
+import androidx.fragment.app.FragmentManager;
 import androidx.preference.PreferenceManager;
 
 import com.jetradarmobile.snowfall.SnowfallView;
@@ -147,10 +145,19 @@ public class MainActivity extends AppCompatActivity
             sharedPreferences.edit().putString("score", result).apply();
             counter.setText(result);
         }
-        if (Integer.parseInt(sharedPreferences.getString("score",
-                "000000")) % 10 == 0) {
-            if (vibrationState)
-                vibration();
+        vibrationTimes(Integer.parseInt(sharedPreferences.getString("score",
+                "000000")));
+    }
+
+    public void vibrationTimes(int score) {
+        if (vibrationState) {
+            if (score % 100000 == 0) {
+                vibration(3);
+            } else if (score % 10000 == 0) {
+                vibration(2);
+            } else if (score % 1000 == 0) {
+                vibration(1);
+            }
         }
     }
 
@@ -191,23 +198,14 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void clickReset(View view) {
-        DialogInterface.OnClickListener dialogClickListener = (dialog, which) -> {
-            switch (which) {
-                case DialogInterface.BUTTON_POSITIVE:
-                    sharedPreferences.edit().putString("score", "000000").apply();
-                    counter.setText(R.string.counter);
-                    break;
-                case DialogInterface.BUTTON_NEGATIVE:
-                    break;
-            }
-        };
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage(Html.fromHtml("<font color='#C82A1E'>Are you sure?</font>"))
-                .setPositiveButton(
-                        Html.fromHtml("<font color='#C82A1E'>Yes</font>"), dialogClickListener)
-                .setNegativeButton(
-                        Html.fromHtml("<font color='#C82A1E'>No</font>"), dialogClickListener)
-                .show();
+        FragmentManager fm = getSupportFragmentManager();
+        ConfirmFragment confirmFragment = ConfirmFragment.newInstance();
+        confirmFragment.show(fm, "confirm_fragment");
+    }
+
+    public void resetCounter() {
+        sharedPreferences.edit().putString("score", "000000").apply();
+        counter.setText(R.string.counter);
     }
 
 
@@ -299,13 +297,15 @@ public class MainActivity extends AppCompatActivity
     }
 
     /* Vibration method */
-    public void vibration() {
+    public void vibration(int times) {
         Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            v.vibrate(VibrationEffect.createOneShot(250,
-                    VibrationEffect.DEFAULT_AMPLITUDE));
-        } else {
-            v.vibrate(250);
+        for (int i = 0; i < times; i++) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                v.vibrate(VibrationEffect.createOneShot(250,
+                        VibrationEffect.DEFAULT_AMPLITUDE));
+            } else {
+                v.vibrate(250);
+            }
         }
     }
 }

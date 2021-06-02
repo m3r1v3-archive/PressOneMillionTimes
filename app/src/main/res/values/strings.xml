@@ -15,4 +15,5 @@
     <string name="congratulations">Congratulations, \nyou passed my game</string>
     <string name="hope">I hope you enjoyed it)</string>
     <string name="todo">TODO</string>
+    <string name="are_you_sure">Are you sure?</string>
 </resources>
