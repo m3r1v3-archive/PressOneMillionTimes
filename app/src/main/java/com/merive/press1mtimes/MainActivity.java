@@ -12,6 +12,7 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.VibrationEffect;
@@ -19,6 +20,7 @@ import android.os.Vibrator;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,9 +28,12 @@ import androidx.appcompat.widget.SwitchCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.preference.PreferenceManager;
 
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
 import com.jetradarmobile.snowfall.SnowfallView;
 import com.merive.press1mtimes.fragments.ConfirmFragment;
 import com.merive.press1mtimes.fragments.OptionsFragment;
+import com.merive.press1mtimes.fragments.ScoreShareFragment;
 import com.merive.press1mtimes.utils.Broadcast;
 
 import java.time.LocalDate;
@@ -164,6 +169,24 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        super.onActivityResult(requestCode, resultCode, intent);
+        IntentResult scanResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, intent);
+        if (scanResult != null) {
+            try {
+                String result = intent.getStringExtra("SCAN_RESULT");
+                if (Integer.parseInt(result) < 1000000 && Integer.parseInt(result) > 0) {
+                    sharedPreferences.edit().putString("score", result).apply();
+                    setCounter();
+                } else {
+                    Toast.makeText(this, "Something went wrong.", Toast.LENGTH_SHORT).show();
+                }
+            } catch (Exception exc) {
+                Toast.makeText(this, "Something went wrong.", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
     public void clickVibration(View view) {
         if (vibration.isChecked()) {
             sharedPreferences.edit().putBoolean("vibration", true).apply();
@@ -210,6 +233,12 @@ public class MainActivity extends AppCompatActivity
         FragmentManager fm = getSupportFragmentManager();
         OptionsFragment optionsFragment = OptionsFragment.newInstance();
         optionsFragment.show(fm, "options_fragment");
+    }
+
+    public void clickScoreShare() {
+        FragmentManager fm = getSupportFragmentManager();
+        ScoreShareFragment scoreShareFragment = ScoreShareFragment.newInstance(sharedPreferences.getString("score", "0"));
+        scoreShareFragment.show(fm, "score_share_fragment");
     }
 
     public void resetCounter() {
