@@ -178,6 +178,7 @@ public class MainActivity extends AppCompatActivity
                 if (Integer.parseInt(result) < 1000000 && Integer.parseInt(result) > 0) {
                     sharedPreferences.edit().putString("score", result).apply();
                     setCounter();
+                    Toast.makeText(this, "Score was updated.", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(this, "Something went wrong.", Toast.LENGTH_SHORT).show();
                 }

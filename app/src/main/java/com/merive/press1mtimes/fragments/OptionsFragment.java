@@ -47,11 +47,13 @@ public class OptionsFragment extends DialogFragment {
         reset = view.findViewById(R.id.reset);
         reset.setOnClickListener(v -> {
             ((MainActivity) getActivity()).clickReset();
+            dismiss();
         });
 
         scoreShare = view.findViewById(R.id.scoreShare);
         scoreShare.setOnClickListener(v -> {
             ((MainActivity) getActivity()).clickScoreShare();
+            dismiss();
         });
 
         /* OnClick Cancel */

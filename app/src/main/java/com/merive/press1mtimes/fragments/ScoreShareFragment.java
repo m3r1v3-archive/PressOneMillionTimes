@@ -1,6 +1,5 @@
 package com.merive.press1mtimes.fragments;
 
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -19,8 +18,8 @@ import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.qrcode.QRCodeWriter;
-import com.merive.press1mtimes.MainActivity;
 import com.merive.press1mtimes.R;
+import com.merive.press1mtimes.ScannerActivity;
 
 
 public class ScoreShareFragment extends DialogFragment {
@@ -57,20 +56,29 @@ public class ScoreShareFragment extends DialogFragment {
         scan = view.findViewById(R.id.scan);
         scan.setOnClickListener(v -> {
             IntentIntegrator integrator = new IntentIntegrator(getActivity());
+            integrator.setBarcodeImageEnabled(false);
+            integrator.setPrompt("Find P1MT QR-Code and Scan him");
+            integrator.setCameraId(0);
+            integrator.setCaptureActivity(ScannerActivity.class);
+            integrator.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE);
+            integrator.setBeepEnabled(false);
+            integrator.setOrientationLocked(true);
             integrator.initiateScan();
+
+            dismiss();
         });
     }
 
     public void makeQRCode(String score) {
         QRCodeWriter writer = new QRCodeWriter();
         try {
-            BitMatrix bitMatrix = writer.encode(score, BarcodeFormat.QR_CODE, 512, 512);
+            BitMatrix bitMatrix = writer.encode(score, BarcodeFormat.QR_CODE, 1024, 1024);
             int width = bitMatrix.getWidth();
             int height = bitMatrix.getHeight();
             Bitmap bmp = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
             for (int x = 0; x < width; x++) {
                 for (int y = 0; y < height; y++) {
-                    bmp.setPixel(x, y, bitMatrix.get(x, y) ? 0xFF2C2C2C : Color.TRANSPARENT);
+                    bmp.setPixel(x, y, bitMatrix.get(x, y) ? 0xFF202020 : Color.TRANSPARENT);
                 }
             }
             code.setImageBitmap(bmp);
