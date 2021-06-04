@@ -1,4 +1,4 @@
-package com.merive.press1mtimes.utils;
+package com.merive.press1mtimes;
 
 import android.app.Notification;
 import android.app.PendingIntent;
@@ -12,7 +12,7 @@ import androidx.core.app.NotificationManagerCompat;
 import com.merive.press1mtimes.R;
 import com.merive.press1mtimes.SplashActivity;
 
-public class Broadcast extends BroadcastReceiver {
+public class NotificationsReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -21,10 +21,11 @@ public class Broadcast extends BroadcastReceiver {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "notifyPress1MTimes")
                 .setSmallIcon(R.drawable.ic_stat_name)
                 .setColor(context.getResources().getColor(R.color.red))
-                .setContentTitle("There is very little left...")
-                .setContentText("Return to the game and find out what will happen at the end...")
+                .setContentTitle("Soon you will reach your goal...")
+                .setContentText("You only pressed ... times")
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 .setContentIntent(pendingIntent)
+                .setChannelId("notifyPress1MTimes")
                 .setDefaults(Notification.DEFAULT_SOUND)
                 .setAutoCancel(true);
 

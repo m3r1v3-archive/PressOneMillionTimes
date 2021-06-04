@@ -34,7 +34,6 @@ import com.merive.press1mtimes.fragments.ChangeIconFragment;
 import com.merive.press1mtimes.fragments.ConfirmFragment;
 import com.merive.press1mtimes.fragments.OptionsFragment;
 import com.merive.press1mtimes.fragments.ScoreShareFragment;
-import com.merive.press1mtimes.utils.Broadcast;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -59,6 +58,8 @@ public class MainActivity extends AppCompatActivity
     SensorManager sensorManager;
     Sensor accelerometer;
     float[] axisData = new float[3];
+    int HOUR = 12;
+    int MINUTE = 0;
 
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -131,7 +132,7 @@ public class MainActivity extends AppCompatActivity
 
         notificationState = sharedPreferences.getBoolean("notification", false);
         notification.setChecked(notificationState);
-        if (notificationState) setAlarm(12);
+        if (notificationState) setAlarm(HOUR);
 
         accelerationState = sharedPreferences.getBoolean("acceleration", false);
         acceleration.setChecked(accelerationState);
@@ -202,7 +203,7 @@ public class MainActivity extends AppCompatActivity
         if (notification.isChecked()) {
             sharedPreferences.edit().putBoolean("notification", true).apply();
             notificationState = true;
-            setAlarm(12);
+            setAlarm(HOUR);
         } else {
             sharedPreferences.edit().putBoolean("notification", false).apply();
             notificationState = false;
@@ -308,7 +309,7 @@ public class MainActivity extends AppCompatActivity
 
     /* Notification methods */
     public void setAlarm(int HOUR) {
-        Intent intent = new Intent(MainActivity.this, Broadcast.class);
+        Intent intent = new Intent(MainActivity.this, NotificationsReceiver.class);
         PendingIntent pendingIntent =
                 PendingIntent.getBroadcast(MainActivity.this, 0, intent, 0);
 
@@ -317,6 +318,7 @@ public class MainActivity extends AppCompatActivity
 
         if (calendar.get(Calendar.HOUR_OF_DAY) >= HOUR) calendar.add(Calendar.DATE, 1);
         calendar.set(Calendar.HOUR_OF_DAY, HOUR);
+        calendar.set(Calendar.MINUTE, MINUTE);
 
         AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
@@ -325,7 +327,7 @@ public class MainActivity extends AppCompatActivity
 
     public void offAlarm() {
         AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-        Intent intent = new Intent(MainActivity.this, Broadcast.class);
+        Intent intent = new Intent(MainActivity.this, NotificationsReceiver.class);
         PendingIntent pendingIntent =
                 PendingIntent.getService(MainActivity.this, 0, intent,
                         0);

@@ -13,7 +13,7 @@
     </queries>
 
     <application
-        android:allowBackup="true"
+        android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
@@ -45,8 +45,6 @@
             android:theme="@style/zxing_CaptureTheme"
             android:windowSoftInputMode="stateAlwaysHidden" />
 
-        <receiver android:name=".utils.Broadcast" />
-
         <activity-alias
             android:name="P1MT"
             android:enabled="false"
@@ -73,6 +71,7 @@
             </intent-filter>
         </activity-alias>
 
+        <receiver android:name=".NotificationsReceiver" />
     </application>
 
 </manifest>
