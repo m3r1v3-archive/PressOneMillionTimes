@@ -56,6 +56,12 @@ public class OptionsFragment extends DialogFragment {
             dismiss();
         });
 
+        changeIcon = view.findViewById(R.id.changeIcon);
+        changeIcon.setOnClickListener(v -> {
+            ((MainActivity) getActivity()).clickChangeIcon();
+            dismiss();
+        });
+
         /* OnClick Cancel */
         cancel = view.findViewById(R.id.closeOptions);
         cancel.setOnClickListener(v -> {

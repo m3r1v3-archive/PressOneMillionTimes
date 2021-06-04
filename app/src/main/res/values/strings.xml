@@ -19,4 +19,6 @@
     <string name="options">Options</string>
     <string name="scoreshare">ScoreShare</string>
     <string name="change_icon">Change Icon</string>
+    <string name="default_icon">Default icon</string>
+    <string name="classic_icon">Classic icon</string>
 </resources>

@@ -50,7 +50,7 @@ public class ScoreShareFragment extends DialogFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        code = view.findViewById(R.id.QRCode);
+        code = view.findViewById(R.id.defaultIcon);
         makeQRCode(getArguments().getString("score", "0"));
 
         scan = view.findViewById(R.id.scan);
@@ -82,7 +82,6 @@ public class ScoreShareFragment extends DialogFragment {
                 }
             }
             code.setImageBitmap(bmp);
-            code.setBackgroundResource(R.drawable.qr_code_background);
 
         } catch (WriterException e) {
             e.printStackTrace();

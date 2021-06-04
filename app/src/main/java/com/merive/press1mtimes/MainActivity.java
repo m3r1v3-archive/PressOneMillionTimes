@@ -12,7 +12,6 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.VibrationEffect;
@@ -31,6 +30,7 @@ import androidx.preference.PreferenceManager;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 import com.jetradarmobile.snowfall.SnowfallView;
+import com.merive.press1mtimes.fragments.ChangeIconFragment;
 import com.merive.press1mtimes.fragments.ConfirmFragment;
 import com.merive.press1mtimes.fragments.OptionsFragment;
 import com.merive.press1mtimes.fragments.ScoreShareFragment;
@@ -242,9 +242,23 @@ public class MainActivity extends AppCompatActivity
         scoreShareFragment.show(fm, "score_share_fragment");
     }
 
+    public void clickChangeIcon() {
+        FragmentManager fm = getSupportFragmentManager();
+        ChangeIconFragment changeIconFragment = ChangeIconFragment.newInstance();
+        changeIconFragment.show(fm, "change_icon_fragment");
+    }
+
+    public void changeIcon(String icon) {
+        sharedPreferences.edit().putString("icon", icon).apply();
+    }
+
     public void resetCounter() {
         sharedPreferences.edit().putString("score", "000000").apply();
         counter.setText(R.string.counter);
+    }
+
+    public String getIcon() {
+        return sharedPreferences.getString("icon", "default");
     }
 
 
