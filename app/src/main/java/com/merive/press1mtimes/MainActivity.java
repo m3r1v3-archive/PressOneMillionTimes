@@ -2,12 +2,10 @@ package com.merive.press1mtimes;
 
 import android.annotation.SuppressLint;
 import android.app.AlarmManager;
-import android.app.AlertDialog;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.hardware.Sensor;
@@ -18,24 +16,30 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
-import android.text.Html;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
+import androidx.fragment.app.FragmentManager;
 import androidx.preference.PreferenceManager;
 
-import com.jetradarmobile.snowfall.SnowfallView;
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
+import com.merive.press1mtimes.fragments.ChangeIconFragment;
+import com.merive.press1mtimes.fragments.ConfirmFragment;
+import com.merive.press1mtimes.fragments.OptionsFragment;
+import com.merive.press1mtimes.fragments.ScoreShareFragment;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.Date;
 
-import static com.merive.press1mtimes.Rotation.runRotation;
+import static com.merive.press1mtimes.utils.Rotation.defineRotation;
 import static java.util.Calendar.YEAR;
 
 
@@ -53,6 +57,8 @@ public class MainActivity extends AppCompatActivity
     SensorManager sensorManager;
     Sensor accelerometer;
     float[] axisData = new float[3];
+    int HOUR = 12;
+    int MINUTE = 0;
 
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -84,77 +90,71 @@ public class MainActivity extends AppCompatActivity
         setSwitches();
         setInfo();
         setSnowFalling();
-
-        sensorManager = (SensorManager) getSystemService(
-                Context.SENSOR_SERVICE);
-        accelerometer = sensorManager.getDefaultSensor(
-                Sensor.TYPE_ACCELEROMETER);
+        setSensors();
     }
 
     /* Set methods */
+    @SuppressLint("DefaultLocale")
     public void setCounter() {
-        StringBuilder score =
-                new StringBuilder(sharedPreferences.getString("score", ""));
-
-        while (score.length() != 6)
-            score.insert(0, "0");
-        counter.setText(score);
+        /* Set score to counter */
+        counter.setText(String.format("%06d", getScore()));
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void setSnowFalling() {
-        Date date = new Date();
-        LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        int month = localDate.getMonthValue();
-
-        if (month == 12 || month == 1) {
-            SnowfallView snow = findViewById(R.id.snow);
-            snow.setVisibility(View.VISIBLE);
-        }
+        /* Set visibility for snow if it is winter */
+        LocalDate localDate = new Date().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        if (localDate.getMonthValue() == 12 || localDate.getMonthValue() == 1)
+            findViewById(R.id.snow).setVisibility(View.VISIBLE);
     }
 
     public void setInfo() {
+        /* Set info to Settings */
         String s = "Version: " + BuildConfig.VERSION_NAME +
                 "\n@merive-studio, " + Calendar.getInstance().get(YEAR);
         info.setText(s);
     }
 
     public void setSwitches() {
+        /* Set switches to Settings */
         vibrationState = sharedPreferences.getBoolean("vibration", false);
         vibration.setChecked(vibrationState);
 
         notificationState = sharedPreferences.getBoolean("notification", false);
         notification.setChecked(notificationState);
-        if (notificationState) setAlarm(12);
+        if (notificationState) setAlarm(HOUR);
 
         accelerationState = sharedPreferences.getBoolean("acceleration", false);
         acceleration.setChecked(accelerationState);
     }
 
+    public void setSensors() {
+        /* Set sensors variables */
+        sensorManager = (SensorManager) getSystemService(
+                Context.SENSOR_SERVICE);
+        accelerometer = sensorManager.getDefaultSensor(
+                Sensor.TYPE_ACCELEROMETER);
+    }
+
+    public void setAccelerationState(boolean state) {
+        /* Update Acceleration state in SharedPreferences */
+        sharedPreferences.edit().putBoolean("acceleration", state).apply();
+        accelerationState = state;
+    }
+
     /* Click methods */
     public void buttonClick(View view) {
-        score = Integer.parseInt(String.valueOf(counter.getText()));
-        if (score == 999999) {
-            sharedPreferences.edit().putString("score", "000000").apply();
-            counter.setText(R.string.counter);
-
-            Intent intent = new Intent(this, Finish.class);
-            startActivity(intent);
-        } else {
-            score += 1;
-            @SuppressLint("DefaultLocale") String result = String.format("%06d", score);
-
-            sharedPreferences.edit().putString("score", result).apply();
-            counter.setText(result);
-        }
-        if (Integer.parseInt(sharedPreferences.getString("score",
-                "000000")) % 10 == 0) {
-            if (vibrationState)
-                vibration();
-        }
+        /* OnClick Button */
+        if (getScore() == 999999) {
+            updateScore(0);
+            startEaster();
+        } else updateScore(getScore() + 1);
+        counter.setText(String.valueOf(getScore()));
+        vibrationTimes(getScore());
     }
 
     public void clickVibration(View view) {
+        /* OnClick Vibration Switch */
         if (vibration.isChecked()) {
             sharedPreferences.edit().putBoolean("vibration", true).apply();
             vibrationState = true;
@@ -165,24 +165,18 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void clickNotification(View view) {
-        if (notification.isChecked()) {
-            sharedPreferences.edit().putBoolean("notification", true).apply();
-            notificationState = true;
-            setAlarm(12);
-        } else {
-            sharedPreferences.edit().putBoolean("notification", false).apply();
-            notificationState = false;
-            offAlarm();
-        }
+        /* OnClick Notifications Switch */
+        sharedPreferences.edit().putBoolean("notification", notification.isChecked()).apply();
+        notificationState = notification.isChecked();
+        if (notification.isChecked()) setAlarm(HOUR);
+        else offAlarm();
     }
 
 
     public void clickAcceleration(View view) {
-        if (acceleration.isChecked()) {
-            /* In accelerometer methods */
-            setAccelerationState(true);
-        } else {
-            /* In accelerometer methods */
+        /* onClick Acceleration in Settings */
+        if (acceleration.isChecked()) setAccelerationState(true);
+        else {
             setAccelerationState(false);
             setDefaultRotation(label);
             setDefaultRotation(counter);
@@ -190,26 +184,107 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    public void clickReset(View view) {
-        DialogInterface.OnClickListener dialogClickListener = (dialog, which) -> {
-            switch (which) {
-                case DialogInterface.BUTTON_POSITIVE:
-                    sharedPreferences.edit().putString("score", "000000").apply();
-                    counter.setText(R.string.counter);
-                    break;
-                case DialogInterface.BUTTON_NEGATIVE:
-                    break;
-            }
-        };
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage(Html.fromHtml("<font color='#C82A1E'>Are you sure?</font>"))
-                .setPositiveButton(
-                        Html.fromHtml("<font color='#C82A1E'>Yes</font>"), dialogClickListener)
-                .setNegativeButton(
-                        Html.fromHtml("<font color='#C82A1E'>No</font>"), dialogClickListener)
-                .show();
+    public void clickOptions(View view) {
+        /* OnClick Options in Settings */
+        FragmentManager fm = getSupportFragmentManager();
+        OptionsFragment optionsFragment = OptionsFragment.newInstance();
+        optionsFragment.show(fm, "options_fragment");
     }
 
+    public void clickReset() {
+        /* OnClick Reset in OptionsFragment */
+        FragmentManager fm = getSupportFragmentManager();
+        ConfirmFragment confirmFragment = ConfirmFragment.newInstance();
+        confirmFragment.show(fm, "confirm_fragment");
+    }
+
+    public void clickScoreShare() {
+        /* OnClick ScoreShare in OptionsFragment */
+        FragmentManager fm = getSupportFragmentManager();
+        ScoreShareFragment scoreShareFragment = ScoreShareFragment.newInstance(sharedPreferences.getString("score", "0"));
+        scoreShareFragment.show(fm, "score_share_fragment");
+    }
+
+    public void clickChangeIcon() {
+        /* OnClick Change Icon in OptionsFragment */
+        FragmentManager fm = getSupportFragmentManager();
+        ChangeIconFragment changeIconFragment = ChangeIconFragment.newInstance();
+        changeIconFragment.show(fm, "change_icon_fragment");
+    }
+
+    @SuppressLint("DefaultLocale")
+    public void updateScore(int score) {
+        /* Update score in shared preference */
+        sharedPreferences.edit().putString("score", String.format("%06d", score)).apply();
+
+    }
+
+    /* Get methods */
+    public int getScore() {
+        /* Return Integer Score */
+        return Integer.parseInt(sharedPreferences.getString("score", "000000"));
+    }
+
+    public String getIcon() {
+        /* Get Current Icon of Application */
+        return sharedPreferences.getString("icon", "default");
+    }
+
+
+    /* Another methods */
+    public void startEaster() {
+        /* Start EasterEgg Activity */
+        Intent intent = new Intent(this, FinishActivity.class);
+        startActivity(intent);
+    }
+
+    public void vibrationTimes(int score) {
+        /* Make vibration by score */
+        if (vibrationState) {
+            if (score % 100000 == 0) makeVibration(3);
+            else if (score % 10000 == 0) makeVibration(2);
+            else if (score % 1000 == 0) makeVibration(1);
+        }
+    }
+
+    public void changeIcon(String icon) {
+        /* Change Current Icon of Application in SharedPreferences */
+        sharedPreferences.edit().putString("icon", icon).apply();
+    }
+
+    public void resetCounter() {
+        /* Reset Counter to default */
+        updateScore(0);
+        counter.setText(getScore());
+    }
+
+    public void makeVibration(int times) {
+        /* Make vibrations on device */
+        Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        for (int i = 0; i < times; i++) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
+                v.vibrate(VibrationEffect.createOneShot(250,
+                        VibrationEffect.DEFAULT_AMPLITUDE));
+            else v.vibrate(250);
+        }
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        super.onActivityResult(requestCode, resultCode, intent);
+        IntentResult scanResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, intent);
+        if (scanResult != null) {
+            try {
+                String result = intent.getStringExtra("SCAN_RESULT");
+                if (Integer.parseInt(result) < 1000000 && Integer.parseInt(result) > 0) {
+                    updateScore(Integer.parseInt(result));
+                    setCounter();
+                    Toast.makeText(this, "Score was updated.", Toast.LENGTH_SHORT).show();
+                } else Toast.makeText(this, "Something went wrong.", Toast.LENGTH_SHORT).show();
+            } catch (Exception exc) {
+                Toast.makeText(this, "Something went wrong.", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
 
     /* Accelerometer methods */
     @Override
@@ -234,20 +309,16 @@ public class MainActivity extends AppCompatActivity
             if (sensorType == Sensor.TYPE_ACCELEROMETER) {
                 axisData = sensorEvent.values.clone();
 
-                runRotation(axisData[1], axisData[0], label);
-                runRotation(axisData[1], axisData[0], counter);
-                runRotation(axisData[1], axisData[0], button);
+                defineRotation(axisData[1], axisData[0], label);
+                defineRotation(axisData[1], axisData[0], counter);
+                defineRotation(axisData[1], axisData[0], button);
             }
         }
     }
 
-    public void setAccelerationState(boolean state) {
-        sharedPreferences.edit().putBoolean("acceleration", state).apply();
-        accelerationState = state;
-    }
-
     public void setDefaultRotation(View view) {
-        runRotation(0, 0, view);
+        /* Set Default Rotation for view */
+        defineRotation(0, 0, view);
     }
 
     @Override
@@ -257,7 +328,8 @@ public class MainActivity extends AppCompatActivity
 
     /* Notification methods */
     public void setAlarm(int HOUR) {
-        Intent intent = new Intent(MainActivity.this, Broadcast.class);
+        /* Turn on Notification Alarm */
+        Intent intent = new Intent(MainActivity.this, NotificationsReceiver.class);
         PendingIntent pendingIntent =
                 PendingIntent.getBroadcast(MainActivity.this, 0, intent, 0);
 
@@ -266,6 +338,7 @@ public class MainActivity extends AppCompatActivity
 
         if (calendar.get(Calendar.HOUR_OF_DAY) >= HOUR) calendar.add(Calendar.DATE, 1);
         calendar.set(Calendar.HOUR_OF_DAY, HOUR);
+        calendar.set(Calendar.MINUTE, MINUTE);
 
         AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
@@ -273,8 +346,9 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void offAlarm() {
+        /* Turn off Notification Alarm */
         AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-        Intent intent = new Intent(MainActivity.this, Broadcast.class);
+        Intent intent = new Intent(MainActivity.this, NotificationsReceiver.class);
         PendingIntent pendingIntent =
                 PendingIntent.getService(MainActivity.this, 0, intent,
                         0);
@@ -295,17 +369,6 @@ public class MainActivity extends AppCompatActivity
             NotificationManager notificationManager =
                     getSystemService(NotificationManager.class);
             notificationManager.createNotificationChannel(channel);
-        }
-    }
-
-    /* Vibration method */
-    public void vibration() {
-        Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            v.vibrate(VibrationEffect.createOneShot(250,
-                    VibrationEffect.DEFAULT_AMPLITUDE));
-        } else {
-            v.vibrate(250);
         }
     }
 }

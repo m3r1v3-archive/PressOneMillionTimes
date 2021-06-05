@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimaryDark"
-    tools:context=".Finish"
+    android:background="@color/dark"
+    tools:context=".FinishActivity"
     tools:ignore="Overdraw">
 
         <com.jetradarmobile.snowfall.SnowfallView
@@ -32,29 +32,29 @@
     <TextView
         android:id="@+id/title"
         android:layout_width="405sp"
-        android:layout_height="54sp"
-        android:fontFamily="sans-serif-light"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/odibee"
         android:text="@string/you_won"
         android:textAlignment="center"
         android:textAllCaps="true"
-        android:textColor="@color/colorPrimary"
-        android:textSize="36sp"
+        android:textColor="@color/red"
+        android:textSize="48sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.100000024" />
+        app:layout_constraintVertical_bias="0.10" />
 
     <TextView
         android:id="@+id/label"
         android:layout_width="250sp"
-        android:layout_height="60sp"
-        android:fontFamily="sans-serif-light"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/odibee"
         android:text="@string/congratulations"
         android:textAlignment="center"
         android:textAllCaps="true"
-        android:textColor="@color/colorPrimary"
-        android:textSize="24sp"
+        android:textColor="@color/red"
+        android:textSize="34sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -78,11 +78,11 @@
         android:id="@+id/exit"
         android:layout_width="200sp"
         android:layout_height="200sp"
-        android:background="@drawable/exit"
+        android:background="@drawable/close"
         android:contentDescription="@string/todo"
         android:fontFamily="sans-serif-medium"
         android:onClick="exitClick"
-        android:textColor="@color/colorAccent"
+        android:textColor="@color/red"
         android:textSize="36sp"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -95,17 +95,17 @@
     <TextView
         android:id="@+id/footer"
         android:layout_width="165sp"
-        android:layout_height="25sp"
-        android:fontFamily="sans-serif-light"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/odibee"
         android:text="@string/hope"
         android:textAlignment="center"
         android:textAllCaps="false"
-        android:textColor="@color/colorPrimary"
-        android:textSize="18sp"
+        android:textColor="@color/red"
+        android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.95" />
+        app:layout_constraintVertical_bias="0.96" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
