@@ -1,19 +1,32 @@
 # Press1MTimes
 ### _Android Clicker-Game_
-A simple game in which the main task is to find out what happens after a million clicks on the red button...
+Simple task. Million clicks.
+You can team up with friends using ScoreShare and reach a common goal of 1,000,000.
+And thanks to some functions, you can make an application for yourself. 
+Turn unnecessary features on and off.
+And most importantly, find out what this button hides...
 _____
 ### _Installing_
-1. Run [_Android Studio_](https://developer.android.com/studio)
-2. Clone repository (_git clone https://github.com/merive/Press1MTimes.git_)
-3. Set and start Realise Build & Run installing
-4. Launch the game
-##### _or_
-1. Clone repository (_git clone https://github.com/merive/Press1MTimes.git_)
-2. Move the APK file from the APK folder to the device
-3. Install application
-4. Launch the game
-##### _or_
-1. Download APK file on the [_Press1MTimes_](https://merive.herokuapp.com/press1mtimes)
-2. Install application
-3. Launch the game
+We have few methods for installing:
+
+#### Method 1
+  1. Run [_Android Studio_](https://developer.android.com/studio)
+  2. Clone repository (_git clone https://github.com/merive/Press1MTimes.git_)
+  3. Set and start Realise Build & Run installing
+  4. Launch the game
+#### Method 2
+  1. Clone repository (_git clone https://github.com/merive/Press1MTimes.git_)
+  2. Move the APK file from the APK folder to the device
+  3. Install application
+  4. Launch the game
+#### Method 3
+  1. Download APK file on the [_Press1MTimes_](https://merive.herokuapp.com/P1MT) site
+  2. Install application
+  3. Launch the game
+
+#### Method 4
+  1. Go to releases of repository (_https://github.com/merive/Press1MTimes/releases_)
+  2. Download APK of last release
+  3. Install application
+  4. Launch application
 _____
