@@ -1,7 +1,6 @@
 package com.merive.press1mtimes;
 
 import android.content.Context;
-import android.content.pm.ActivityInfo;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -20,14 +19,12 @@ import android.widget.TextView;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.jetradarmobile.snowfall.SnowfallView;
-
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.Objects;
 
-import static com.merive.press1mtimes.utils.Rotation.runRotation;
+import static com.merive.press1mtimes.utils.Rotation.defineRotation;
 
 public class FinishActivity extends AppCompatActivity
         implements SensorEventListener {
@@ -48,7 +45,6 @@ public class FinishActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_finish);
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         exit = findViewById(R.id.exit);
         easter = findViewById(R.id.easter_egg);
@@ -58,26 +54,30 @@ public class FinishActivity extends AppCompatActivity
 
         callback = message -> false;
 
-        sensorManager = (SensorManager) getSystemService(
-                Context.SENSOR_SERVICE);
-        accelerometer = sensorManager.getDefaultSensor(
-                Sensor.TYPE_ACCELEROMETER);
-
-        accelerationState = MainActivity.accelerationState;
-        vibrationState = MainActivity.vibrationState;
+        setStates();
         setSnowFalling();
+        setSensors();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void setSnowFalling() {
-        Date date = new Date();
-        LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        int month = localDate.getMonthValue();
+        /* Set visibility for snow if it is winter */
+        LocalDate localDate = new Date().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        if (localDate.getMonthValue() == 12 || localDate.getMonthValue() == 1)
+            findViewById(R.id.snow).setVisibility(View.VISIBLE);
+    }
 
-        if (month == 12 || month == 1) {
-            SnowfallView snow = findViewById(R.id.snow);
-            snow.setVisibility(View.VISIBLE);
-        }
+    public void setStates() {
+        accelerationState = MainActivity.accelerationState;
+        vibrationState = MainActivity.vibrationState;
+    }
+
+    public void setSensors() {
+        /* Set sensors variables */
+        sensorManager = (SensorManager) getSystemService(
+                Context.SENSOR_SERVICE);
+        accelerometer = sensorManager.getDefaultSensor(
+                Sensor.TYPE_ACCELEROMETER);
     }
 
     public void exitClick(View view) {
@@ -89,7 +89,7 @@ public class FinishActivity extends AppCompatActivity
         handler = new Handler(Objects.requireNonNull(Looper.myLooper()), callback);
         handler.postDelayed(() -> {
             easter.animate().translationY(80f).setDuration(200L).start();
-            if (vibrationState) vibration();
+            if (vibrationState) makeVibration();
         }, 300);
 
         /* Finish layout */
@@ -97,13 +97,13 @@ public class FinishActivity extends AppCompatActivity
     }
 
     /* Vibration method */
-    public void vibration() {
+    public void makeVibration() {
+        /* Make vibrations on device */
         Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            v.vibrate(VibrationEffect.createOneShot(250, VibrationEffect.DEFAULT_AMPLITUDE));
-        } else {
-            v.vibrate(250);
-        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
+            v.vibrate(VibrationEffect.createOneShot(250,
+                    VibrationEffect.DEFAULT_AMPLITUDE));
+        else v.vibrate(250);
     }
 
     /* Accelerometer methods */
@@ -129,10 +129,10 @@ public class FinishActivity extends AppCompatActivity
             if (sensorType == Sensor.TYPE_ACCELEROMETER) {
                 axisData = sensorEvent.values.clone();
 
-                runRotation(axisData[1], axisData[0], title);
-                runRotation(axisData[1], axisData[0], label);
-                runRotation(axisData[1], axisData[0], footer);
-                runRotation(axisData[1], axisData[0], exit);
+                defineRotation(axisData[1], axisData[0], title);
+                defineRotation(axisData[1], axisData[0], label);
+                defineRotation(axisData[1], axisData[0], footer);
+                defineRotation(axisData[1], axisData[0], exit);
             }
         }
     }
