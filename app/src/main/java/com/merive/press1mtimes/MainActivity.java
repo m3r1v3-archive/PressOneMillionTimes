@@ -38,6 +38,7 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.regex.Pattern;
 
 import static com.merive.press1mtimes.utils.Rotation.defineRotation;
 import static java.util.Calendar.YEAR;
@@ -47,7 +48,6 @@ public class MainActivity extends AppCompatActivity
         implements SensorEventListener {
 
     static SharedPreferences sharedPreferences;
-    static int score;
     static Boolean vibrationState;
     static Boolean accelerationState;
     Boolean notificationState;
@@ -122,7 +122,7 @@ public class MainActivity extends AppCompatActivity
 
         notificationState = sharedPreferences.getBoolean("notification", false);
         notification.setChecked(notificationState);
-        if (notificationState) setAlarm(HOUR);
+        if (notificationState) setAlarm();
 
         accelerationState = sharedPreferences.getBoolean("acceleration", false);
         acceleration.setChecked(accelerationState);
@@ -168,7 +168,7 @@ public class MainActivity extends AppCompatActivity
         /* OnClick Notifications Switch */
         sharedPreferences.edit().putBoolean("notification", notification.isChecked()).apply();
         notificationState = notification.isChecked();
-        if (notification.isChecked()) setAlarm(HOUR);
+        if (notification.isChecked()) setAlarm();
         else offAlarm();
     }
 
@@ -261,12 +261,14 @@ public class MainActivity extends AppCompatActivity
     public void makeVibration(int times) {
         /* Make vibrations on device */
         Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-        for (int i = 0; i < times; i++) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
-                v.vibrate(VibrationEffect.createOneShot(250,
-                        VibrationEffect.DEFAULT_AMPLITUDE));
-            else v.vibrate(250);
-        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
+            v.vibrate(VibrationEffect.createOneShot(250 * times,
+                    VibrationEffect.DEFAULT_AMPLITUDE));
+        else v.vibrate(250 * times);
+    }
+
+    public void makeToast(String content) {
+        Toast.makeText(this, content, Toast.LENGTH_SHORT).show();
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
@@ -274,16 +276,27 @@ public class MainActivity extends AppCompatActivity
         IntentResult scanResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, intent);
         if (scanResult != null) {
             try {
-                String result = intent.getStringExtra("SCAN_RESULT");
-                if (Integer.parseInt(result) < 1000000 && Integer.parseInt(result) > 0) {
-                    updateScore(Integer.parseInt(result));
-                    setCounter();
-                    Toast.makeText(this, "Score was updated.", Toast.LENGTH_SHORT).show();
-                } else Toast.makeText(this, "Something went wrong.", Toast.LENGTH_SHORT).show();
+                checkPatternQR(intent.getStringExtra("SCAN_RESULT"));
             } catch (Exception exc) {
-                Toast.makeText(this, "Something went wrong.", Toast.LENGTH_SHORT).show();
+                makeToast("Something went wrong.");
             }
         }
+    }
+
+    public void checkPatternQR(String result) {
+        /* Check pattern of QR-Data */
+        Pattern pattern = Pattern.compile("P1MT:[(][0-9][0-9][0-9][)][(][0-9][0-9][0-9][)]");
+        if (pattern.matcher(result).find())
+            updateScore(result);
+        else makeToast("Something went wrong.");
+    }
+
+    public void updateScore(String result) {
+        updateScore(Integer.parseInt(result.replace("P1MT:", "").
+                replace("(", "").replace(")", "")));
+        setCounter();
+        makeVibration(1);
+        makeToast("Score was updated.");
     }
 
     /* Accelerometer methods */
@@ -327,7 +340,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     /* Notification methods */
-    public void setAlarm(int HOUR) {
+    public void setAlarm() {
         /* Turn on Notification Alarm */
         Intent intent = new Intent(MainActivity.this, NotificationsReceiver.class);
         PendingIntent pendingIntent =

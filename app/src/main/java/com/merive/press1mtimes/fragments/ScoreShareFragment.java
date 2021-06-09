@@ -1,5 +1,6 @@
 package com.merive.press1mtimes.fragments;
 
+import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -72,7 +73,7 @@ public class ScoreShareFragment extends DialogFragment {
     public void makeQRCode(String score) {
         QRCodeWriter writer = new QRCodeWriter();
         try {
-            BitMatrix bitMatrix = writer.encode(score, BarcodeFormat.QR_CODE, 1024, 1024);
+            BitMatrix bitMatrix = writer.encode(encryptScore(score), BarcodeFormat.QR_CODE, 1024, 1024);
             int width = bitMatrix.getWidth();
             int height = bitMatrix.getHeight();
             Bitmap bmp = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
@@ -86,6 +87,12 @@ public class ScoreShareFragment extends DialogFragment {
         } catch (WriterException e) {
             e.printStackTrace();
         }
+    }
+
+    @SuppressLint("DefaultLocale")
+    public String encryptScore(String score) {
+        return "P1MT:" + "(" + String.format("%06d", Integer.parseInt(score)).substring(0, 3) + ")" + "(" +
+                String.format("%06d", Integer.parseInt(score)).substring(3) + ")";
     }
 }
 
