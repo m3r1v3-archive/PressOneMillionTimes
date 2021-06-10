@@ -292,8 +292,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void updateScore(String result) {
-        updateScore(Integer.parseInt(result.replace("P1MT:", "").
-                replace("(", "").replace(")", "")));
+        updateScore(Integer.parseInt(result.replaceAll("[^\\d]", "")));
         setCounter();
         makeVibration(1);
         makeToast("Score was updated.");

@@ -36,7 +36,8 @@
 
     <ConstraintSet android:id="@+id/dial">
 
-        <Constraint android:id="@id/dial_pad"
+        <Constraint
+            android:id="@id/dial_pad"
             android:layout_height="0dp">
             <Layout
                 android:layout_width="0sp"

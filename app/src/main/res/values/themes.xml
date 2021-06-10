@@ -1,26 +1,27 @@
 <resources>
-    <!--    Base application theme    -->
-    <style name="Theme.Press1MTimes" parent="Theme.AppCompat.NoActionBar">
-
-        <!--    App Theme   -->
-        <item name="colorPrimary">@color/red</item>
-        <item name="colorPrimaryDark">@color/red</item>
-        <item name="colorAccent">@color/red</item>
-        <!--    Set action bar color    -->
-        <item name="android:actionBarStyle">@color/dark</item>
-    </style>
-
     <!--    Splash theme    -->
     <style name="SplashTheme" parent="Theme.AppCompat.NoActionBar">
         <!--    Set splash    -->
         <item name="android:windowBackground">@drawable/splash</item>
 
         <!--    Theme colors    -->
+        <item name="colorAccent">@color/red</item>
         <item name="colorPrimary">@color/red</item>
         <item name="colorPrimaryDark">@color/dark</item>
-        <item name="colorAccent">@color/red</item>
 
         <!--    Hide action bar    -->
         <item name="android:windowFullscreen">true</item>
+    </style>
+
+
+    <!--    Base application theme    -->
+    <style name="Theme.Press1MTimes" parent="Theme.AppCompat.NoActionBar">
+
+        <!--    App Theme   -->
+        <item name="colorAccent">@color/red</item>
+        <item name="colorPrimary">@color/red</item>
+        <item name="colorPrimaryDark">@color/red</item>
+        <!--    Set action bar color    -->
+        <item name="android:actionBarStyle">@color/dark</item>
     </style>
 </resources>

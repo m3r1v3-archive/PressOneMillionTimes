@@ -8,6 +8,15 @@
     tools:context=".FinishActivity"
     tools:ignore="Overdraw">
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/snow_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
         <com.jetradarmobile.snowfall.SnowfallView
             android:id="@+id/snow"
             android:layout_width="match_parent"
@@ -28,6 +37,8 @@
             app:snowflakesAlreadyFalling="false"
             app:snowflakesFadingEnabled="true"
             app:snowflakesNum="50" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
         android:id="@+id/title"
