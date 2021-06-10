@@ -56,18 +56,22 @@ public class ScoreShareFragment extends DialogFragment {
 
         scan = view.findViewById(R.id.scan);
         scan.setOnClickListener(v -> {
-            IntentIntegrator integrator = new IntentIntegrator(getActivity());
-            integrator.setBarcodeImageEnabled(false);
-            integrator.setPrompt("Find P1MT QR-Code and Scan him");
-            integrator.setCameraId(0);
-            integrator.setCaptureActivity(ScannerActivity.class);
-            integrator.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE);
-            integrator.setBeepEnabled(false);
-            integrator.setOrientationLocked(true);
-            integrator.initiateScan();
-
-            dismiss();
+            clickScan();
         });
+    }
+
+    public void clickScan() {
+        IntentIntegrator integrator = new IntentIntegrator(getActivity());
+        integrator.setBarcodeImageEnabled(false);
+        integrator.setPrompt("Find P1MT QR-Code and Scan him");
+        integrator.setCameraId(0);
+        integrator.setCaptureActivity(ScannerActivity.class);
+        integrator.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE);
+        integrator.setBeepEnabled(false);
+        integrator.setOrientationLocked(true);
+        integrator.initiateScan();
+
+        dismiss();
     }
 
     public void makeQRCode(String score) {

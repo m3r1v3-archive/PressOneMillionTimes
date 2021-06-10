@@ -46,26 +46,43 @@ public class OptionsFragment extends DialogFragment {
 
         reset = view.findViewById(R.id.reset);
         reset.setOnClickListener(v -> {
-            ((MainActivity) getActivity()).clickReset();
-            dismiss();
+            clickReset();
         });
 
         scoreShare = view.findViewById(R.id.scoreShare);
         scoreShare.setOnClickListener(v -> {
-            ((MainActivity) getActivity()).clickScoreShare();
-            dismiss();
+            clickScoreShare();
         });
 
         changeIcon = view.findViewById(R.id.changeIcon);
         changeIcon.setOnClickListener(v -> {
-            ((MainActivity) getActivity()).clickChangeIcon();
-            dismiss();
+            clickChangeIcon();
         });
 
         /* OnClick Cancel */
         cancel = view.findViewById(R.id.closeOptions);
         cancel.setOnClickListener(v -> {
-            dismiss();
+            clickCancel();
         });
     }
+
+    public void clickReset() {
+        ((MainActivity) getActivity()).clickReset();
+        dismiss();
+    }
+
+    public void clickScoreShare() {
+        ((MainActivity) getActivity()).clickScoreShare();
+        dismiss();
+    }
+
+    public void clickChangeIcon() {
+        ((MainActivity) getActivity()).clickChangeIcon();
+        dismiss();
+    }
+
+    public void clickCancel() {
+        dismiss();
+    }
+
 }

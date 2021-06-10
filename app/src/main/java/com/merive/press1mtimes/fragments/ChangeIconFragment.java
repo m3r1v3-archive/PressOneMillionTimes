@@ -45,30 +45,43 @@ public class ChangeIconFragment extends DialogFragment {
 
         defaultIcon = view.findViewById(R.id.defaultIcon);
         defaultIcon.setOnClickListener(v -> {
-            disableOldIcon();
-            turnOnIcon("default");
-            ((MainActivity) getActivity()).changeIcon("default");
-            showIconChangeToast();
-            dismiss();
+            defaultIconClick();
         });
 
         P1MTIcon = view.findViewById(R.id.P1MTIcon);
         P1MTIcon.setOnClickListener(v -> {
-            disableOldIcon();
-            turnOnIcon("P1MT");
-            ((MainActivity) getActivity()).changeIcon("P1MT");
-            showIconChangeToast();
-            dismiss();
+            clickP1MTIcon();
         });
 
         classicIcon = view.findViewById(R.id.classicIcon);
         classicIcon.setOnClickListener(v -> {
-            disableOldIcon();
-            turnOnIcon("Classic");
-            ((MainActivity) getActivity()).changeIcon("Classic");
-            showIconChangeToast();
-            dismiss();
+            clickClassicIcon();
         });
+    }
+
+    public void defaultIconClick() {
+        /* OnClick Default Icon */
+        disableOldIcon();
+        turnOnIcon("default");
+        ((MainActivity) getActivity()).changeIcon("default");
+        showIconChangeToast();
+        dismiss();
+    }
+
+    public void clickP1MTIcon() {
+        disableOldIcon();
+        turnOnIcon("P1MT");
+        ((MainActivity) getActivity()).changeIcon("P1MT");
+        showIconChangeToast();
+        dismiss();
+    }
+
+    public void clickClassicIcon() {
+        disableOldIcon();
+        turnOnIcon("Classic");
+        ((MainActivity) getActivity()).changeIcon("Classic");
+        showIconChangeToast();
+        dismiss();
     }
 
     public void disableOldIcon() {

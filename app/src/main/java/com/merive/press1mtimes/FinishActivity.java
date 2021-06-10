@@ -46,17 +46,22 @@ public class FinishActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_finish);
 
-        exit = findViewById(R.id.exit);
-        easter = findViewById(R.id.easter_egg);
-        title = findViewById(R.id.title);
-        label = findViewById(R.id.label);
-        footer = findViewById(R.id.footer);
+        initLayoutVariables();
 
         callback = message -> false;
 
         setStates();
         setSnowFalling();
         setSensors();
+    }
+
+    public void initLayoutVariables() {
+        /* Initializations layout variables */
+        exit = findViewById(R.id.exit);
+        easter = findViewById(R.id.easter_egg);
+        title = findViewById(R.id.title);
+        label = findViewById(R.id.label);
+        footer = findViewById(R.id.footer);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)

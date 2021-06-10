@@ -48,15 +48,22 @@ public class ConfirmFragment extends DialogFragment {
         /* OnClick Cancel */
         cancel = view.findViewById(R.id.cancelConfirm);
         cancel.setOnClickListener(v -> {
-            dismiss();
+            clickCancel();
         });
 
         /* OnClick OkayConfirm */
         confirm = view.findViewById(R.id.okayConfirm);
         confirm.setOnClickListener(v -> {
-            ((MainActivity) getActivity()).resetCounter();
-            dismiss();
+            clickConfirm();
         });
+    }
 
+    public void clickCancel() {
+        dismiss();
+    }
+
+    public void clickConfirm() {
+        ((MainActivity) getActivity()).resetCounter();
+        dismiss();
     }
 }

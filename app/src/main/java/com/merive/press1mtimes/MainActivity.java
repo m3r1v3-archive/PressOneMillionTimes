@@ -74,16 +74,9 @@ public class MainActivity extends AppCompatActivity
         sharedPreferences =
                 PreferenceManager.getDefaultSharedPreferences(this.getBaseContext());
 
-        /* Initializations layout variables */
-        counter = findViewById(R.id.counter);
-        label = findViewById(R.id.label);
-        button = findViewById(R.id.button);
-
-        /* Initializations settings variables */
-        vibration = findViewById(R.id.vibration);
-        notification = findViewById(R.id.notification);
-        acceleration = findViewById(R.id.acceleration);
-        info = findViewById(R.id.info);
+        /* Init variables */
+        initLayoutVariables();
+        initSettings();
 
         /* Set values, parameters, etc. */
         setCounter();
@@ -91,6 +84,21 @@ public class MainActivity extends AppCompatActivity
         setInfo();
         setSnowFalling();
         setSensors();
+    }
+
+    public void initLayoutVariables() {
+        /* Initializations layout variables */
+        counter = findViewById(R.id.counter);
+        label = findViewById(R.id.label);
+        button = findViewById(R.id.button);
+    }
+
+    public void initSettings() {
+        /* Initializations settings variables */
+        vibration = findViewById(R.id.vibration);
+        notification = findViewById(R.id.notification);
+        acceleration = findViewById(R.id.acceleration);
+        info = findViewById(R.id.info);
     }
 
     /* Set methods */
@@ -292,7 +300,8 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void updateScore(String result) {
-        updateScore(Integer.parseInt(result.replaceAll("[^\\d]", "")));
+        updateScore(Integer.parseInt(result.replace("P1MT:", "").
+                replace("(", "").replace(")", "")));
         setCounter();
         makeVibration(1);
         makeToast("Score was updated.");
