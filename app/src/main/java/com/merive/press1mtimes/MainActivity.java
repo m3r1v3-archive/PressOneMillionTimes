@@ -233,6 +233,11 @@ public class MainActivity extends AppCompatActivity
         return Integer.parseInt(sharedPreferences.getString("score", "000000"));
     }
 
+
+    public static String getScoreForNotifications() {
+        return sharedPreferences.getString("score", "000000");
+    }
+
     public String getIcon() {
         /* Get Current Icon of Application */
         return sharedPreferences.getString("icon", "default");
@@ -349,25 +354,25 @@ public class MainActivity extends AppCompatActivity
 
     /* Notification methods */
     public void setAlarm() {
-        /* Turn on Notification Alarm */
+        /* Set notification alarm */
         Intent intent = new Intent(MainActivity.this, NotificationsReceiver.class);
         PendingIntent pendingIntent =
                 PendingIntent.getBroadcast(MainActivity.this, 0, intent, 0);
 
+        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+        alarmManager.cancel(pendingIntent);
+
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
-
-        if (calendar.get(Calendar.HOUR_OF_DAY) >= HOUR) calendar.add(Calendar.DATE, 1);
         calendar.set(Calendar.HOUR_OF_DAY, HOUR);
         calendar.set(Calendar.MINUTE, MINUTE);
 
-        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
                 AlarmManager.INTERVAL_DAY, pendingIntent);
     }
 
     public void offAlarm() {
-        /* Turn off Notification Alarm */
+        /* Disable notification alarm */
         AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
         Intent intent = new Intent(MainActivity.this, NotificationsReceiver.class);
         PendingIntent pendingIntent =
@@ -378,7 +383,8 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    private void createNotificationChannel() {
+    public void createNotificationChannel() {
+        /* Create channel for notifications */
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             CharSequence name = "Press1MTimesChannel";
             String description = "Channel for Press1MTimes";
@@ -392,4 +398,5 @@ public class MainActivity extends AppCompatActivity
             notificationManager.createNotificationChannel(channel);
         }
     }
+
 }

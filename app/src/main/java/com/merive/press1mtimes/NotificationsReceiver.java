@@ -22,10 +22,9 @@ public class NotificationsReceiver extends BroadcastReceiver {
                 .setSmallIcon(R.drawable.ic_stat_name)
                 .setColor(context.getResources().getColor(R.color.red))
                 .setContentTitle("Soon you will reach your goal...")
-                .setContentText("You only pressed ... times")
+                .setContentText("You only pressed " + MainActivity.getScoreForNotifications() + " times")
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 .setContentIntent(pendingIntent)
-                .setChannelId("notifyPress1MTimes")
                 .setDefaults(Notification.DEFAULT_SOUND)
                 .setAutoCancel(true);
 
