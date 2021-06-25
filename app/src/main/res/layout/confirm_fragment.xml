@@ -17,39 +17,39 @@
     app:layout_constraintTop_toTopOf="parent"
     app:layout_constraintVertical_bias="1.0">
 
-    <ImageView
-        android:id="@+id/okayConfirm"
-        android:layout_width="56sp"
-        android:layout_height="56sp"
-        android:background="@drawable/round_button"
-        android:contentDescription="@string/todo"
-
-        android:padding="12sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.8"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.88"
-        app:srcCompat="@drawable/okay"
-        app:tint="@color/red" />
-
-    <ImageView
+    <Button
         android:id="@+id/cancelConfirm"
-        android:layout_width="56sp"
-        android:layout_height="56sp"
+        android:layout_width="115dp"
+        android:layout_height="55dp"
         android:background="@drawable/round_button"
-        android:contentDescription="@string/todo"
-
+        android:fontFamily="@font/odibee"
+        android:text="@string/cancel"
+        android:textColor="@color/red"
+        android:textSize="24sp"
         android:padding="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.88"
-        app:srcCompat="@drawable/cancel"
-        app:tint="@color/red" />
+        app:layout_constraintVertical_bias="0.85" />
+
+    <Button
+        android:id="@+id/okayConfirm"
+        android:layout_width="115dp"
+        android:layout_height="55dp"
+        android:background="@drawable/round_button"
+        android:fontFamily="@font/odibee"
+        android:text="@string/okay"
+        android:textColor="@color/red"
+        android:textSize="24sp"
+        android:padding="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.8"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.85" />
 
     <TextView
         android:id="@+id/confirmTitle"

@@ -95,16 +95,7 @@ public class MainActivity extends AppCompatActivity
         setSnowFalling();
         setSensors();
 
-
-        Thread thread = new Thread(() -> {
-            try {
-                checkVersion();
-            } catch (Exception e) {
-                Log.e("CHECK VERSION ERROR ", "NOT POSSIBLE CHECK VERSION" + " (" + e + ") ");
-            }
-        });
-
-        thread.start();
+        checkVersion();
     }
 
     public void initLayoutVariables() {
@@ -251,7 +242,6 @@ public class MainActivity extends AppCompatActivity
     public void updateScore(int score) {
         /* Update score in shared preference */
         sharedPreferences.edit().putString("score", String.format("%06d", score)).apply();
-
     }
 
     /* Get methods */
@@ -326,9 +316,18 @@ public class MainActivity extends AppCompatActivity
         else makeToast("Something went wrong.");
     }
 
-    public void checkVersion() throws IOException {
-        if (!getVersionOnSite().equals(BuildConfig.VERSION_NAME))
-            updateFragment(BuildConfig.VERSION_NAME, getVersionOnSite());
+    public void checkVersion() {
+        /* Make fragment if application was updated */
+        Thread thread = new Thread(() -> {
+            try {
+                if (!getVersionOnSite().equals(BuildConfig.VERSION_NAME))
+                    updateFragment(BuildConfig.VERSION_NAME, getVersionOnSite());
+            } catch (Exception e) {
+                Log.e("CHECK VERSION ERROR ", "NOT POSSIBLE CHECK VERSION" + " (" + e + ") ");
+            }
+        });
+
+        thread.start();
     }
 
     public String getVersionOnSite() throws IOException {
@@ -340,11 +339,16 @@ public class MainActivity extends AppCompatActivity
             reader = new BufferedReader(new InputStreamReader(url.openStream(), StandardCharsets.UTF_8));
             for (String line; (line = reader.readLine()) != null; ) builder.append(line.trim());
         } finally {
-            if (reader != null) try { reader.close(); } catch (IOException ignored) {} }
+            if (reader != null) try {
+                reader.close();
+            } catch (IOException ignored) {
+            }
+        }
         return builder.substring(builder.indexOf("<i>") + "<i>".length()).substring(1, builder.substring(builder.indexOf("<i>") + "<i>".length()).indexOf("</i>"));
     }
 
     public void updateScore(String result) {
+        /* Update score by result */
         updateScore(Integer.parseInt(result.replace("P1MT:", "").
                 replace("(", "").replace(")", "")));
         setCounter();

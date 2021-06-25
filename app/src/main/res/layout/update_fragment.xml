@@ -3,12 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/passwordLayout"
     android:layout_width="340sp"
-    android:layout_height="175sp"
+    android:layout_height="195sp"
     android:layout_gravity="center"
 
     android:background="@drawable/round_button"
     android:minWidth="340sp"
-    android:minHeight="175sp"
+    android:minHeight="195sp"
     android:visibility="visible"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
@@ -46,13 +46,13 @@
         android:textAlignment="center"
         android:textAllCaps="false"
         android:textColor="@color/red"
-        android:textSize="24sp"
+        android:textSize="22sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.43" />
+        app:layout_constraintVertical_bias="0.45" />
 
     <Button
         android:id="@+id/download"
@@ -68,6 +68,6 @@
         app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.866" />
+        app:layout_constraintVertical_bias="0.88" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

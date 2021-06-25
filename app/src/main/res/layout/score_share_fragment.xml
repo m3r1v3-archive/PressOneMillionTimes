@@ -17,24 +17,24 @@
     app:layout_constraintTop_toTopOf="parent"
     app:layout_constraintVertical_bias="1.0">
 
-    <ImageView
+    <Button
         android:id="@+id/scan"
-        android:layout_width="56sp"
-        android:layout_height="56sp"
+        android:layout_width="205dp"
+        android:layout_height="55dp"
         android:background="@drawable/round_button"
-        android:contentDescription="@string/todo"
-
+        android:fontFamily="@font/odibee"
+        android:text="@string/scan"
+        android:textColor="@color/red"
+        android:textSize="24sp"
         android:padding="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.94"
-        app:srcCompat="@drawable/scan"
-        app:tint="@color/red" />
+        app:layout_constraintVertical_bias="0.94" />
 
     <TextView
-        android:id="@+id/changeIconTitle"
+        android:id="@+id/scoreShareTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -52,7 +52,7 @@
         app:layout_constraintVertical_bias="0.08" />
 
     <ImageView
-        android:id="@+id/defaultIcon"
+        android:id="@+id/QRCode"
         android:layout_width="200dp"
         android:layout_height="200dp"
         android:background="@drawable/qr_code_background"

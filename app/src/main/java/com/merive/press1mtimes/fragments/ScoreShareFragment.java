@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
@@ -25,7 +26,8 @@ import com.merive.press1mtimes.ScannerActivity;
 
 public class ScoreShareFragment extends DialogFragment {
 
-    ImageView code, scan;
+    ImageView code;
+    Button scan;
 
 
     public ScoreShareFragment() {
@@ -51,7 +53,7 @@ public class ScoreShareFragment extends DialogFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        code = view.findViewById(R.id.defaultIcon);
+        code = view.findViewById(R.id.QRCode);
         makeQRCode(getArguments().getString("score", "0"));
 
         scan = view.findViewById(R.id.scan);

@@ -43,7 +43,7 @@ public class ChangeIconFragment extends DialogFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        defaultIcon = view.findViewById(R.id.defaultIcon);
+        defaultIcon = view.findViewById(R.id.QRCode);
         defaultIcon.setOnClickListener(v -> {
             defaultIconClick();
         });

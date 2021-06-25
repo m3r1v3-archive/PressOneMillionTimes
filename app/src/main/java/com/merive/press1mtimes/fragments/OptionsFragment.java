@@ -19,7 +19,6 @@ import com.merive.press1mtimes.R;
 public class OptionsFragment extends DialogFragment {
 
     Button reset, scoreShare, changeIcon;
-    ImageView cancel;
 
 
     public OptionsFragment() {
@@ -58,12 +57,6 @@ public class OptionsFragment extends DialogFragment {
         changeIcon.setOnClickListener(v -> {
             clickChangeIcon();
         });
-
-        /* OnClick Cancel */
-        cancel = view.findViewById(R.id.closeOptions);
-        cancel.setOnClickListener(v -> {
-            clickCancel();
-        });
     }
 
     public void clickReset() {
@@ -78,10 +71,6 @@ public class OptionsFragment extends DialogFragment {
 
     public void clickChangeIcon() {
         ((MainActivity) getActivity()).clickChangeIcon();
-        dismiss();
-    }
-
-    public void clickCancel() {
         dismiss();
     }
 
