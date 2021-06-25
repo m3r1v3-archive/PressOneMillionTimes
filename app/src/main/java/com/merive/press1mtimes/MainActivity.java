@@ -16,6 +16,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -33,7 +34,13 @@ import com.merive.press1mtimes.fragments.ChangeIconFragment;
 import com.merive.press1mtimes.fragments.ConfirmFragment;
 import com.merive.press1mtimes.fragments.OptionsFragment;
 import com.merive.press1mtimes.fragments.ScoreShareFragment;
+import com.merive.press1mtimes.fragments.UpdateFragment;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Calendar;
@@ -60,6 +67,9 @@ public class MainActivity extends AppCompatActivity
     int HOUR = 12;
     int MINUTE = 0;
 
+    public static String getScoreForNotifications() {
+        return sharedPreferences.getString("score", "000000");
+    }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -84,6 +94,17 @@ public class MainActivity extends AppCompatActivity
         setInfo();
         setSnowFalling();
         setSensors();
+
+
+        Thread thread = new Thread(() -> {
+            try {
+                checkVersion();
+            } catch (Exception e) {
+                Log.e("CHECK VERSION ERROR ", "NOT POSSIBLE CHECK VERSION" + " (" + e + ") ");
+            }
+        });
+
+        thread.start();
     }
 
     public void initLayoutVariables() {
@@ -180,7 +201,6 @@ public class MainActivity extends AppCompatActivity
         else offAlarm();
     }
 
-
     public void clickAcceleration(View view) {
         /* onClick Acceleration in Settings */
         if (acceleration.isChecked()) setAccelerationState(true);
@@ -220,6 +240,13 @@ public class MainActivity extends AppCompatActivity
         changeIconFragment.show(fm, "change_icon_fragment");
     }
 
+    public void updateFragment(String oldVersion, String newVersion) {
+        /* Open UpdateFragment */
+        FragmentManager fm = getSupportFragmentManager();
+        UpdateFragment updateFragment = UpdateFragment.newInstance(oldVersion, newVersion);
+        updateFragment.show(fm, "update_fragment");
+    }
+
     @SuppressLint("DefaultLocale")
     public void updateScore(int score) {
         /* Update score in shared preference */
@@ -231,11 +258,6 @@ public class MainActivity extends AppCompatActivity
     public int getScore() {
         /* Return Integer Score */
         return Integer.parseInt(sharedPreferences.getString("score", "000000"));
-    }
-
-
-    public static String getScoreForNotifications() {
-        return sharedPreferences.getString("score", "000000");
     }
 
     public String getIcon() {
@@ -302,6 +324,24 @@ public class MainActivity extends AppCompatActivity
         if (pattern.matcher(result).find())
             updateScore(result);
         else makeToast("Something went wrong.");
+    }
+
+    public void checkVersion() throws IOException {
+        if (!getVersionOnSite().equals(BuildConfig.VERSION_NAME))
+            updateFragment(BuildConfig.VERSION_NAME, getVersionOnSite());
+    }
+
+    public String getVersionOnSite() throws IOException {
+        /* Get version of actual application on site */
+        URL url = new URL("https://merive.herokuapp.com/P1MT");
+        BufferedReader reader = null;
+        StringBuilder builder = new StringBuilder();
+        try {
+            reader = new BufferedReader(new InputStreamReader(url.openStream(), StandardCharsets.UTF_8));
+            for (String line; (line = reader.readLine()) != null; ) builder.append(line.trim());
+        } finally {
+            if (reader != null) try { reader.close(); } catch (IOException ignored) {} }
+        return builder.substring(builder.indexOf("<i>") + "<i>".length()).substring(1, builder.substring(builder.indexOf("<i>") + "<i>".length()).indexOf("</i>"));
     }
 
     public void updateScore(String result) {

@@ -30,6 +30,10 @@
     <string name="p1mt_icon">P1MT icon</string>
     <string name="classic_icon">Classic icon</string>
 
+    <!-- Update Fragment -->
+    <string name="new_version_released">New version released</string>
+    <string name="download">Download</string>
+
     <!-- TODO -->
     <string name="todo">TODO</string>
 </resources>
