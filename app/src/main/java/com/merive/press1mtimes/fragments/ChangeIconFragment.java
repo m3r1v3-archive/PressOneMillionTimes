@@ -86,7 +86,7 @@ public class ChangeIconFragment extends DialogFragment {
 
     public void disableOldIcon() {
         PackageManager packageManager = getActivity().getPackageManager();
-        switch (((MainActivity) getActivity()).getIcon()) {
+        switch (((MainActivity) getActivity()).getApplicationIcon()) {
             case "default":
                 packageManager.setComponentEnabledSetting(new ComponentName(getContext(), "com.merive.press1mtimes.SplashActivity"),
                         PackageManager.COMPONENT_ENABLED_STATE_DISABLED,

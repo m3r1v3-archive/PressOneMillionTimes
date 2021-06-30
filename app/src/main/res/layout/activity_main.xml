@@ -79,7 +79,7 @@
         android:layout_height="200sp"
         android:background="@drawable/button"
         android:contentDescription="@string/todo"
-        android:onClick="buttonClick"
+        android:onClick="clickButton"
         android:textAlignment="center"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
