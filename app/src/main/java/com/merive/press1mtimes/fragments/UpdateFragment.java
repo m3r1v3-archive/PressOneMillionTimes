@@ -25,9 +25,11 @@ public class UpdateFragment extends DialogFragment {
     Button download;
 
     public UpdateFragment() {
+        /* Empty constructor (Needs) */
     }
 
     public static UpdateFragment newInstance(String oldVersion, String newVersion) {
+        /* newInstance method */
         UpdateFragment frag = new UpdateFragment();
         Bundle args = new Bundle();
         args.putString("oldVersion", oldVersion);
@@ -35,6 +37,10 @@ public class UpdateFragment extends DialogFragment {
         frag.setArguments(args);
         return frag;
     }
+
+    /* **************** */
+    /* Override methods */
+    /* **************** */
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -49,20 +55,41 @@ public class UpdateFragment extends DialogFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        version = view.findViewById(R.id.version);
-        version.setText("Download: " + getArguments().getString("oldVersion") + " → " +
-                getArguments().getString("newVersion"));
+        initVariables(view);
 
-        /* OnClick Download */
-        download = view.findViewById(R.id.download);
+        setVersion();
+
         download.setOnClickListener(v -> {
-            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://merive.herokuapp.com/P1MT"));
-            startActivity(browserIntent);
+            clickDownload();
         });
     }
 
-    public void clickDownload() {
+    /* ************ */
+    /* Init methods */
+    /* ************ */
 
+    public void initVariables(View view) {
+        /* Init main variables */
+        version = view.findViewById(R.id.version);
+        download = view.findViewById(R.id.download);
+    }
+
+    /* *********** */
+    /* Set methods */
+    /* *********** */
+
+    public void setVersion() {
+        version.setText(("Download: " + getArguments().getString("oldVersion") + " → " +
+                getArguments().getString("newVersion")));
+    }
+
+    /* ************* */
+    /* Click methods */
+    /* ************* */
+
+    public void clickDownload() {
+        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://merive.herokuapp.com/P1MT"));
+        startActivity(browserIntent);
         dismiss();
     }
 }
