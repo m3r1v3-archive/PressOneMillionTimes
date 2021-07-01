@@ -113,6 +113,7 @@ public class MainActivity extends AppCompatActivity
     /* ************ */
     /* Init methods */
     /* ************ */
+
     public void initLayoutVariables() {
         /* Initializations layout variables */
         counter = findViewById(R.id.counter);
@@ -131,30 +132,11 @@ public class MainActivity extends AppCompatActivity
     /* *********** */
     /* Set methods */
     /* *********** */
+
     @SuppressLint("DefaultLocale")
     public void setScoreToCounter() {
         /* Set score to counter */
         counter.setText(String.format("%06d", getScore()));
-    }
-
-    @SuppressLint("DefaultLocale")
-    public void setScoreToSharePreference(int score) {
-        /* Update score in shared preference */
-        sharedPreferences.edit().putString("score", String.format("%06d", score)).apply();
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    public void setSnowFallingVisibility() {
-        /* Set visibility for snow if it is winter */
-        LocalDate localDate = new Date().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        if (localDate.getMonthValue() == 12 || localDate.getMonthValue() == 1)
-            findViewById(R.id.snow).setVisibility(View.VISIBLE);
-    }
-
-    public void setInfo() {
-        /* Set info to Settings */
-        info.setText(("Version: " + BuildConfig.VERSION_NAME +
-                "\n@merive-studio, " + Calendar.getInstance().get(YEAR)));
     }
 
     public void setSwitchesToSettings() {
@@ -169,12 +151,32 @@ public class MainActivity extends AppCompatActivity
         acceleration.setChecked(accelerationState);
     }
 
+    public void setInfo() {
+        /* Set info to Settings */
+        info.setText(("Version: " + BuildConfig.VERSION_NAME +
+                "\n@merive-studio, " + Calendar.getInstance().get(YEAR)));
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public void setSnowFallingVisibility() {
+        /* Set visibility for snow if it is winter */
+        LocalDate localDate = new Date().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        if (localDate.getMonthValue() == 12 || localDate.getMonthValue() == 1)
+            findViewById(R.id.snow).setVisibility(View.VISIBLE);
+    }
+
     public void setSensors() {
         /* Set sensors variables */
         sensorManager = (SensorManager) getSystemService(
                 Context.SENSOR_SERVICE);
         accelerometer = sensorManager.getDefaultSensor(
                 Sensor.TYPE_ACCELEROMETER);
+    }
+
+    @SuppressLint("DefaultLocale")
+    public void setScoreToSharePreference(int score) {
+        /* Update score in shared preference */
+        sharedPreferences.edit().putString("score", String.format("%06d", score)).apply();
     }
 
     public void setAccelerationState(boolean state) {
@@ -204,13 +206,6 @@ public class MainActivity extends AppCompatActivity
     /* ************* */
     /* Check methods */
     /* ************* */
-    public void checkPatternQR(String result) {
-        /* Check pattern of QR-Data */
-        Pattern pattern = Pattern.compile("P1MT:[(][0-9][0-9][0-9][)][(][0-9][0-9][0-9][)]");
-        if (pattern.matcher(result).find())
-            setScoreByQRResult(result);
-        else makeToast("Something went wrong.");
-    }
 
     public void checkVersion() {
         /* Make fragment if application was updated */
@@ -226,9 +221,18 @@ public class MainActivity extends AppCompatActivity
         thread.start();
     }
 
+    public void checkPatternQR(String result) {
+        /* Check pattern of QR-Data */
+        Pattern pattern = Pattern.compile("P1MT:[(][0-9][0-9][0-9][)][(][0-9][0-9][0-9][)]");
+        if (pattern.matcher(result).find())
+            setScoreByQRResult(result);
+        else makeToast("Something went wrong.");
+    }
+
     /* ************* */
     /* Click methods */
     /* ************* */
+
     public void clickButton(View view) {
         /* OnClick Button */
         if (getScore() == 999999) {
@@ -294,6 +298,7 @@ public class MainActivity extends AppCompatActivity
     /* ************ */
     /* Open methods */
     /* ************ */
+
     public void openUpdateFragment(String oldVersion, String newVersion) {
         /* Open UpdateFragment */
         FragmentManager fm = getSupportFragmentManager();
@@ -310,6 +315,7 @@ public class MainActivity extends AppCompatActivity
     /* *********** */
     /* Get methods */
     /* *********** */
+
     public int getScore() {
         /* Return Integer Score */
         return Integer.parseInt(sharedPreferences.getString("score", "000000"));
@@ -340,6 +346,7 @@ public class MainActivity extends AppCompatActivity
     /* ************ */
     /* Make methods */
     /* ************ */
+
     public void makeVibration(int times) {
         /* Make vibrations on device */
         Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
@@ -373,6 +380,7 @@ public class MainActivity extends AppCompatActivity
     /* *************** */
     /* Another methods */
     /* *************** */
+
     public void changeIcon(String icon) {
         /* Change Current Icon of Application in SharedPreferences */
         sharedPreferences.edit().putString("icon", icon).apply();
@@ -388,6 +396,7 @@ public class MainActivity extends AppCompatActivity
     /* ******************** */
     /* Acceleration methods */
     /* ******************** */
+
     @Override
     protected void onStart() {
         super.onStart();
@@ -430,6 +439,7 @@ public class MainActivity extends AppCompatActivity
     /* ************* */
     /* Alarm methods */
     /* ************* */
+
     public void setAlarm() {
         /* Set notification alarm */
         Intent intent = new Intent(MainActivity.this, NotificationsReceiver.class);
