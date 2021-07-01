@@ -23,14 +23,20 @@ public class ConfirmFragment extends DialogFragment {
     Button cancel, confirm;
 
     public ConfirmFragment() {
+        /* Empty constructor (Needs) */
     }
 
     public static ConfirmFragment newInstance() {
+        /* newInstance method */
         ConfirmFragment frag = new ConfirmFragment();
         Bundle args = new Bundle();
         frag.setArguments(args);
         return frag;
     }
+
+    /* **************** */
+    /* Override methods */
+    /* **************** */
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -44,26 +50,39 @@ public class ConfirmFragment extends DialogFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        title = view.findViewById(R.id.confirmTitle);
+        initVariables(view);
 
-        /* OnClick Cancel */
-        cancel = view.findViewById(R.id.cancelConfirm);
         cancel.setOnClickListener(v -> {
             clickCancel();
         });
 
-        /* OnClick OkayConfirm */
-        confirm = view.findViewById(R.id.okayConfirm);
         confirm.setOnClickListener(v -> {
             clickConfirm();
         });
     }
 
+    /* ************ */
+    /* Init methods */
+    /* ************ */
+
+    public void initVariables(View view) {
+        /* Init main variables */
+        title = view.findViewById(R.id.confirmTitle);
+        cancel = view.findViewById(R.id.cancelConfirm);
+        confirm = view.findViewById(R.id.okayConfirm);
+    }
+
+    /* ************* */
+    /* Click methods */
+    /* ************* */
+
     public void clickCancel() {
+        /* Click Cancel Button */
         dismiss();
     }
 
     public void clickConfirm() {
+        /* Click Confirm Button */
         ((MainActivity) getActivity()).resetCounter();
         dismiss();
     }
