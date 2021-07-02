@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -20,16 +19,21 @@ public class OptionsFragment extends DialogFragment {
 
     Button reset, scoreShare, changeIcon;
 
-
     public OptionsFragment() {
+        /* Empty constructor (Needs) */
     }
 
     public static OptionsFragment newInstance() {
+        /* newInstance method */
         OptionsFragment frag = new OptionsFragment();
         Bundle args = new Bundle();
         frag.setArguments(args);
         return frag;
     }
+
+    /* **************** */
+    /* Override methods */
+    /* **************** */
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -43,35 +47,51 @@ public class OptionsFragment extends DialogFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        reset = view.findViewById(R.id.reset);
+        initVariables(view);
+
         reset.setOnClickListener(v -> {
             clickReset();
         });
 
-        scoreShare = view.findViewById(R.id.scoreShare);
         scoreShare.setOnClickListener(v -> {
             clickScoreShare();
         });
 
-        changeIcon = view.findViewById(R.id.changeIcon);
         changeIcon.setOnClickListener(v -> {
             clickChangeIcon();
         });
     }
 
+    /* ************ */
+    /* Init methods */
+    /* ************ */
+
+    public void initVariables(View view) {
+        /* Init main variables */
+        reset = view.findViewById(R.id.reset);
+        scoreShare = view.findViewById(R.id.scoreShare);
+        changeIcon = view.findViewById(R.id.changeIcon);
+    }
+
+    /* ************* */
+    /* Click methods */
+    /* ************* */
+
     public void clickReset() {
+        /* Click Reset Button */
         ((MainActivity) getActivity()).clickReset();
         dismiss();
     }
 
     public void clickScoreShare() {
+        /* Click ScoreShare Button */
         ((MainActivity) getActivity()).clickScoreShare();
         dismiss();
     }
 
     public void clickChangeIcon() {
+        /* Click ChangeIcon Button */
         ((MainActivity) getActivity()).clickChangeIcon();
         dismiss();
     }
-
 }

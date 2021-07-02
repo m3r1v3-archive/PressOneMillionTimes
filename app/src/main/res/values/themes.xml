@@ -2,7 +2,7 @@
     <!--    Splash theme    -->
     <style name="SplashTheme" parent="Theme.AppCompat.NoActionBar">
         <!--    Set splash    -->
-        <item name="android:windowBackground">@drawable/splash</item>
+        <item name="android:windowBackground">@xml/splash</item>
 
         <!--    Theme colors    -->
         <item name="colorAccent">@color/red</item>

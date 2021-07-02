@@ -51,10 +51,13 @@ public class FinishActivity extends AppCompatActivity
         callback = message -> false;
 
         setStates();
-        setSnowFalling();
+        setSnowFallingVisibility();
         setSensors();
     }
 
+    /* ************ */
+    /* Init methods */
+    /* ************ */
     public void initLayoutVariables() {
         /* Initializations layout variables */
         exit = findViewById(R.id.exit);
@@ -64,17 +67,20 @@ public class FinishActivity extends AppCompatActivity
         footer = findViewById(R.id.footer);
     }
 
+    /* *********** */
+    /* Set methods */
+    /* *********** */
+    public void setStates() {
+        accelerationState = MainActivity.accelerationState;
+        vibrationState = MainActivity.vibrationState;
+    }
+
     @RequiresApi(api = Build.VERSION_CODES.O)
-    public void setSnowFalling() {
+    public void setSnowFallingVisibility() {
         /* Set visibility for snow if it is winter */
         LocalDate localDate = new Date().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         if (localDate.getMonthValue() == 12 || localDate.getMonthValue() == 1)
             findViewById(R.id.snow).setVisibility(View.VISIBLE);
-    }
-
-    public void setStates() {
-        accelerationState = MainActivity.accelerationState;
-        vibrationState = MainActivity.vibrationState;
     }
 
     public void setSensors() {
@@ -85,23 +91,27 @@ public class FinishActivity extends AppCompatActivity
                 Sensor.TYPE_ACCELEROMETER);
     }
 
-    public void exitClick(View view) {
+    public void clickExit(View view) {
         exit.setVisibility(View.INVISIBLE);
         easter.setVisibility(View.VISIBLE);
 
         /* Easter egg animation */
+        makeAnimation();
+
+        /* Finish layout */
+        handler.postDelayed(this::finish, 500);
+    }
+
+    /* Make method */
+    public void makeAnimation() {
         easter.animate().translationY(-100f).setDuration(200L).start();
         handler = new Handler(Objects.requireNonNull(Looper.myLooper()), callback);
         handler.postDelayed(() -> {
             easter.animate().translationY(80f).setDuration(200L).start();
             if (vibrationState) makeVibration();
         }, 300);
-
-        /* Finish layout */
-        handler.postDelayed(this::finish, 500);
     }
 
-    /* Vibration method */
     public void makeVibration() {
         /* Make vibrations on device */
         Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
@@ -111,7 +121,9 @@ public class FinishActivity extends AppCompatActivity
         else v.vibrate(250);
     }
 
-    /* Accelerometer methods */
+    /* ******************** */
+    /* Acceleration methods */
+    /* ******************** */
     @Override
     protected void onStart() {
         super.onStart();

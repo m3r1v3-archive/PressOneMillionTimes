@@ -92,7 +92,7 @@
         android:background="@drawable/close"
         android:contentDescription="@string/todo"
         android:fontFamily="sans-serif-medium"
-        android:onClick="exitClick"
+        android:onClick="clickExit"
         android:textColor="@color/red"
         android:textSize="36sp"
         android:visibility="visible"

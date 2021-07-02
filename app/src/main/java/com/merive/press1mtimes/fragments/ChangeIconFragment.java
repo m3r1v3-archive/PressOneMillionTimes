@@ -9,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -23,14 +22,20 @@ public class ChangeIconFragment extends DialogFragment {
     ImageView defaultIcon, P1MTIcon, classicIcon;
 
     ChangeIconFragment() {
+        /* Empty constructor (Needs) */
     }
 
     public static ChangeIconFragment newInstance() {
+        /* newInstance method */
         ChangeIconFragment frag = new ChangeIconFragment();
         Bundle args = new Bundle();
         frag.setArguments(args);
         return frag;
     }
+
+    /* **************** */
+    /* Override methods */
+    /* **************** */
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -43,50 +48,69 @@ public class ChangeIconFragment extends DialogFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        defaultIcon = view.findViewById(R.id.QRCode);
+        initVariables(view);
+
         defaultIcon.setOnClickListener(v -> {
-            defaultIconClick();
+            clickDefaultIcon();
         });
 
-        P1MTIcon = view.findViewById(R.id.P1MTIcon);
         P1MTIcon.setOnClickListener(v -> {
             clickP1MTIcon();
         });
 
-        classicIcon = view.findViewById(R.id.classicIcon);
         classicIcon.setOnClickListener(v -> {
             clickClassicIcon();
         });
     }
 
-    public void defaultIconClick() {
-        /* OnClick Default Icon */
-        disableOldIcon();
-        turnOnIcon("default");
-        ((MainActivity) getActivity()).changeIcon("default");
-        showIconChangeToast();
+    /* ************ */
+    /* Init methods */
+    /* ************ */
+
+    public void initVariables(View view) {
+        /* Init main variables */
+        defaultIcon = view.findViewById(R.id.QRCode);
+        P1MTIcon = view.findViewById(R.id.P1MTIcon);
+        classicIcon = view.findViewById(R.id.classicIcon);
+    }
+
+    /* ************* */
+    /* Click methods */
+    /* ************* */
+
+    public void clickDefaultIcon() {
+        /* Click Default Icon */
+        setIcon("default");
         dismiss();
     }
 
     public void clickP1MTIcon() {
-        disableOldIcon();
-        turnOnIcon("P1MT");
-        ((MainActivity) getActivity()).changeIcon("P1MT");
-        showIconChangeToast();
+        /* Click P1MT Icon */
+        setIcon("P1MT");
         dismiss();
     }
 
     public void clickClassicIcon() {
-        disableOldIcon();
-        turnOnIcon("Classic");
-        ((MainActivity) getActivity()).changeIcon("Classic");
-        showIconChangeToast();
+        /* Click Classic Icon */
+        setIcon("Classic");
         dismiss();
     }
 
+    /* *************** */
+    /* Another methods */
+    /* *************** */
+
+    public void setIcon(String iconName) {
+        disableOldIcon();
+        turnOnIcon(iconName);
+        ((MainActivity) getActivity()).changeIcon(iconName);
+        ((MainActivity) getActivity()).makeToast("Icon was changed.");
+    }
+
     public void disableOldIcon() {
+        /* Disable old application icon */
         PackageManager packageManager = getActivity().getPackageManager();
-        switch (((MainActivity) getActivity()).getIcon()) {
+        switch (((MainActivity) getActivity()).getApplicationIcon()) {
             case "default":
                 packageManager.setComponentEnabledSetting(new ComponentName(getContext(), "com.merive.press1mtimes.SplashActivity"),
                         PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
@@ -106,6 +130,7 @@ public class ChangeIconFragment extends DialogFragment {
     }
 
     public void turnOnIcon(String selected) {
+        /* Turn on new Icon */
         PackageManager packageManager = getActivity().getPackageManager();
         switch (selected) {
             case "default":
@@ -124,9 +149,5 @@ public class ChangeIconFragment extends DialogFragment {
                         PackageManager.DONT_KILL_APP);
                 break;
         }
-    }
-
-    public void showIconChangeToast() {
-        Toast.makeText(getContext(), "Icon was changed.", Toast.LENGTH_SHORT).show();
     }
 }

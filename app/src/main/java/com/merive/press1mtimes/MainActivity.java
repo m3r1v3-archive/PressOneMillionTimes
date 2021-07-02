@@ -55,17 +55,17 @@ public class MainActivity extends AppCompatActivity
         implements SensorEventListener {
 
     static SharedPreferences sharedPreferences;
-    static Boolean vibrationState;
-    static Boolean accelerationState;
-    Boolean notificationState;
+
+    static Boolean vibrationState, accelerationState, notificationState;
     TextView label, counter, info;
     ImageButton button;
     SwitchCompat vibration, notification, acceleration;
+
     SensorManager sensorManager;
     Sensor accelerometer;
     float[] axisData = new float[3];
-    int HOUR = 12;
-    int MINUTE = 0;
+
+    int HOUR = 12, MINUTE = 0;
 
     public static String getScoreForNotifications() {
         return sharedPreferences.getString("score", "000000");
@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        createNotificationChannel();
+        makeNotificationChannel();
 
         sharedPreferences =
                 PreferenceManager.getDefaultSharedPreferences(this.getBaseContext());
@@ -89,14 +89,30 @@ public class MainActivity extends AppCompatActivity
         initSettings();
 
         /* Set values, parameters, etc. */
-        setCounter();
-        setSwitches();
+        setScoreToCounter();
+        setSwitchesToSettings();
         setInfo();
-        setSnowFalling();
+        setSnowFallingVisibility();
         setSensors();
 
         checkVersion();
     }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        super.onActivityResult(requestCode, resultCode, intent);
+        IntentResult scanResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, intent);
+        if (scanResult != null) {
+            try {
+                checkPatternQR(intent.getStringExtra("SCAN_RESULT"));
+            } catch (Exception exc) {
+                makeToast("Something went wrong.");
+            }
+        }
+    }
+
+    /* ************ */
+    /* Init methods */
+    /* ************ */
 
     public void initLayoutVariables() {
         /* Initializations layout variables */
@@ -113,39 +129,40 @@ public class MainActivity extends AppCompatActivity
         info = findViewById(R.id.info);
     }
 
+    /* *********** */
     /* Set methods */
+    /* *********** */
+
     @SuppressLint("DefaultLocale")
-    public void setCounter() {
+    public void setScoreToCounter() {
         /* Set score to counter */
         counter.setText(String.format("%06d", getScore()));
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    public void setSnowFalling() {
-        /* Set visibility for snow if it is winter */
-        LocalDate localDate = new Date().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        if (localDate.getMonthValue() == 12 || localDate.getMonthValue() == 1)
-            findViewById(R.id.snow).setVisibility(View.VISIBLE);
-    }
-
-    public void setInfo() {
-        /* Set info to Settings */
-        String s = "Version: " + BuildConfig.VERSION_NAME +
-                "\n@merive-studio, " + Calendar.getInstance().get(YEAR);
-        info.setText(s);
-    }
-
-    public void setSwitches() {
+    public void setSwitchesToSettings() {
         /* Set switches to Settings */
         vibrationState = sharedPreferences.getBoolean("vibration", false);
         vibration.setChecked(vibrationState);
 
         notificationState = sharedPreferences.getBoolean("notification", false);
         notification.setChecked(notificationState);
-        if (notificationState) setAlarm();
 
         accelerationState = sharedPreferences.getBoolean("acceleration", false);
         acceleration.setChecked(accelerationState);
+    }
+
+    public void setInfo() {
+        /* Set info to Settings */
+        info.setText(("Version: " + BuildConfig.VERSION_NAME +
+                "\n@merive-studio, " + Calendar.getInstance().get(YEAR)));
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public void setSnowFallingVisibility() {
+        /* Set visibility for snow if it is winter */
+        LocalDate localDate = new Date().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        if (localDate.getMonthValue() == 12 || localDate.getMonthValue() == 1)
+            findViewById(R.id.snow).setVisibility(View.VISIBLE);
     }
 
     public void setSensors() {
@@ -156,32 +173,80 @@ public class MainActivity extends AppCompatActivity
                 Sensor.TYPE_ACCELEROMETER);
     }
 
+    @SuppressLint("DefaultLocale")
+    public void setScoreToSharePreference(int score) {
+        /* Update score in shared preference */
+        sharedPreferences.edit().putString("score", String.format("%06d", score)).apply();
+    }
+
     public void setAccelerationState(boolean state) {
         /* Update Acceleration state in SharedPreferences */
         sharedPreferences.edit().putBoolean("acceleration", state).apply();
         accelerationState = state;
     }
 
+    public void setVibrationTimes(int score) {
+        /* Make vibration by score */
+        if (vibrationState) {
+            if (score % 100000 == 0) makeVibration(3);
+            else if (score % 10000 == 0) makeVibration(2);
+            else if (score % 1000 == 0) makeVibration(1);
+        }
+    }
+
+    public void setScoreByQRResult(String result) {
+        /* Set score by result */
+        setScoreToSharePreference(Integer.parseInt(result.replace("P1MT:", "").
+                replace("(", "").replace(")", "")));
+        setScoreToCounter();
+        makeVibration(1);
+        makeToast("Score was updated.");
+    }
+
+    /* ************* */
+    /* Check methods */
+    /* ************* */
+
+    public void checkVersion() {
+        /* Make fragment if application was updated */
+        Thread thread = new Thread(() -> {
+            try {
+                if (!getActualVersion().equals(BuildConfig.VERSION_NAME))
+                    openUpdateFragment(BuildConfig.VERSION_NAME, getActualVersion());
+            } catch (Exception e) {
+                Log.e("CHECK VERSION ERROR ", "NOT POSSIBLE CHECK VERSION" + " (" + e + ") ");
+            }
+        });
+
+        thread.start();
+    }
+
+    public void checkPatternQR(String result) {
+        /* Check pattern of QR-Data */
+        Pattern pattern = Pattern.compile("P1MT:[(][0-9][0-9][0-9][)][(][0-9][0-9][0-9][)]");
+        if (pattern.matcher(result).find())
+            setScoreByQRResult(result);
+        else makeToast("Something went wrong.");
+    }
+
+    /* ************* */
     /* Click methods */
-    public void buttonClick(View view) {
+    /* ************* */
+
+    public void clickButton(View view) {
         /* OnClick Button */
         if (getScore() == 999999) {
-            updateScore(0);
-            startEaster();
-        } else updateScore(getScore() + 1);
-        counter.setText(String.valueOf(getScore()));
-        vibrationTimes(getScore());
+            resetCounter();
+            openFinish();
+        } else setScoreToSharePreference(getScore() + 1);
+        setScoreToCounter();
+        setVibrationTimes(getScore());
     }
 
     public void clickVibration(View view) {
         /* OnClick Vibration Switch */
-        if (vibration.isChecked()) {
-            sharedPreferences.edit().putBoolean("vibration", true).apply();
-            vibrationState = true;
-        } else {
-            sharedPreferences.edit().putBoolean("vibration", false).apply();
-            vibrationState = false;
-        }
+        sharedPreferences.edit().putBoolean("vibration", vibration.isChecked()).apply();
+        vibrationState = vibration.isChecked();
     }
 
     public void clickNotification(View view) {
@@ -194,9 +259,8 @@ public class MainActivity extends AppCompatActivity
 
     public void clickAcceleration(View view) {
         /* onClick Acceleration in Settings */
-        if (acceleration.isChecked()) setAccelerationState(true);
-        else {
-            setAccelerationState(false);
+        setAccelerationState(acceleration.isChecked());
+        if (!acceleration.isChecked()) {
             setDefaultRotation(label);
             setDefaultRotation(counter);
             setDefaultRotation(button);
@@ -220,7 +284,7 @@ public class MainActivity extends AppCompatActivity
     public void clickScoreShare() {
         /* OnClick ScoreShare in OptionsFragment */
         FragmentManager fm = getSupportFragmentManager();
-        ScoreShareFragment scoreShareFragment = ScoreShareFragment.newInstance(sharedPreferences.getString("score", "0"));
+        ScoreShareFragment scoreShareFragment = ScoreShareFragment.newInstance(String.valueOf(getScore()));
         scoreShareFragment.show(fm, "score_share_fragment");
     }
 
@@ -231,106 +295,38 @@ public class MainActivity extends AppCompatActivity
         changeIconFragment.show(fm, "change_icon_fragment");
     }
 
-    public void updateFragment(String oldVersion, String newVersion) {
+    /* ************ */
+    /* Open methods */
+    /* ************ */
+
+    public void openUpdateFragment(String oldVersion, String newVersion) {
         /* Open UpdateFragment */
         FragmentManager fm = getSupportFragmentManager();
         UpdateFragment updateFragment = UpdateFragment.newInstance(oldVersion, newVersion);
         updateFragment.show(fm, "update_fragment");
     }
 
-    @SuppressLint("DefaultLocale")
-    public void updateScore(int score) {
-        /* Update score in shared preference */
-        sharedPreferences.edit().putString("score", String.format("%06d", score)).apply();
+    public void openFinish() {
+        /* Open FinishActivity */
+        Intent intent = new Intent(this, FinishActivity.class);
+        startActivity(intent);
     }
 
+    /* *********** */
     /* Get methods */
+    /* *********** */
+
     public int getScore() {
         /* Return Integer Score */
         return Integer.parseInt(sharedPreferences.getString("score", "000000"));
     }
 
-    public String getIcon() {
+    public String getApplicationIcon() {
         /* Get Current Icon of Application */
         return sharedPreferences.getString("icon", "default");
     }
 
-
-    /* Another methods */
-    public void startEaster() {
-        /* Start EasterEgg Activity */
-        Intent intent = new Intent(this, FinishActivity.class);
-        startActivity(intent);
-    }
-
-    public void vibrationTimes(int score) {
-        /* Make vibration by score */
-        if (vibrationState) {
-            if (score % 100000 == 0) makeVibration(3);
-            else if (score % 10000 == 0) makeVibration(2);
-            else if (score % 1000 == 0) makeVibration(1);
-        }
-    }
-
-    public void changeIcon(String icon) {
-        /* Change Current Icon of Application in SharedPreferences */
-        sharedPreferences.edit().putString("icon", icon).apply();
-    }
-
-    public void resetCounter() {
-        /* Reset Counter to default */
-        updateScore(0);
-        counter.setText(getScore());
-    }
-
-    public void makeVibration(int times) {
-        /* Make vibrations on device */
-        Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
-            v.vibrate(VibrationEffect.createOneShot(250 * times,
-                    VibrationEffect.DEFAULT_AMPLITUDE));
-        else v.vibrate(250 * times);
-    }
-
-    public void makeToast(String content) {
-        Toast.makeText(this, content, Toast.LENGTH_SHORT).show();
-    }
-
-    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
-        super.onActivityResult(requestCode, resultCode, intent);
-        IntentResult scanResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, intent);
-        if (scanResult != null) {
-            try {
-                checkPatternQR(intent.getStringExtra("SCAN_RESULT"));
-            } catch (Exception exc) {
-                makeToast("Something went wrong.");
-            }
-        }
-    }
-
-    public void checkPatternQR(String result) {
-        /* Check pattern of QR-Data */
-        Pattern pattern = Pattern.compile("P1MT:[(][0-9][0-9][0-9][)][(][0-9][0-9][0-9][)]");
-        if (pattern.matcher(result).find())
-            updateScore(result);
-        else makeToast("Something went wrong.");
-    }
-
-    public void checkVersion() {
-        /* Make fragment if application was updated */
-        Thread thread = new Thread(() -> {
-            try {
-                if (!getVersionOnSite().equals(BuildConfig.VERSION_NAME))
-                    updateFragment(BuildConfig.VERSION_NAME, getVersionOnSite());
-            } catch (Exception e) {
-                Log.e("CHECK VERSION ERROR ", "NOT POSSIBLE CHECK VERSION" + " (" + e + ") ");
-            }
-        });
-
-        thread.start();
-    }
-
-    public String getVersionOnSite() throws IOException {
+    public String getActualVersion() throws IOException {
         /* Get version of actual application on site */
         URL url = new URL("https://merive.herokuapp.com/P1MT");
         BufferedReader reader = null;
@@ -347,16 +343,60 @@ public class MainActivity extends AppCompatActivity
         return builder.substring(builder.indexOf("<i>") + "<i>".length()).substring(1, builder.substring(builder.indexOf("<i>") + "<i>".length()).indexOf("</i>"));
     }
 
-    public void updateScore(String result) {
-        /* Update score by result */
-        updateScore(Integer.parseInt(result.replace("P1MT:", "").
-                replace("(", "").replace(")", "")));
-        setCounter();
-        makeVibration(1);
-        makeToast("Score was updated.");
+    /* ************ */
+    /* Make methods */
+    /* ************ */
+
+    public void makeVibration(int times) {
+        /* Make vibrations on device */
+        Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
+            v.vibrate(VibrationEffect.createOneShot(250 * times,
+                    VibrationEffect.DEFAULT_AMPLITUDE));
+        else v.vibrate(250 * times);
     }
 
-    /* Accelerometer methods */
+    public void makeToast(String content) {
+        /* Make toast on screen */
+        Toast.makeText(this, content, Toast.LENGTH_SHORT).show();
+    }
+
+    public void makeNotificationChannel() {
+        /* Make channel for notifications */
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = "Press1MTimesChannel";
+            String description = "Channel for Press1MTimes";
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel =
+                    new NotificationChannel("notifyPress1MTimes", name, importance);
+            channel.setDescription(description);
+
+            NotificationManager notificationManager =
+                    getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
+    }
+
+    /* *************** */
+    /* Another methods */
+    /* *************** */
+
+    public void changeIcon(String icon) {
+        /* Change Current Icon of Application in SharedPreferences */
+        sharedPreferences.edit().putString("icon", icon).apply();
+    }
+
+    public void resetCounter() {
+        /* Reset Counter to default */
+        setScoreToSharePreference(0);
+        setScoreToCounter();
+    }
+
+
+    /* ******************** */
+    /* Acceleration methods */
+    /* ******************** */
+
     @Override
     protected void onStart() {
         super.onStart();
@@ -396,7 +436,10 @@ public class MainActivity extends AppCompatActivity
         /* Don't write */
     }
 
-    /* Notification methods */
+    /* ************* */
+    /* Alarm methods */
+    /* ************* */
+
     public void setAlarm() {
         /* Set notification alarm */
         Intent intent = new Intent(MainActivity.this, NotificationsReceiver.class);
@@ -426,21 +469,4 @@ public class MainActivity extends AppCompatActivity
             alarmManager.cancel(pendingIntent);
         }
     }
-
-    public void createNotificationChannel() {
-        /* Create channel for notifications */
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            CharSequence name = "Press1MTimesChannel";
-            String description = "Channel for Press1MTimes";
-            int importance = NotificationManager.IMPORTANCE_DEFAULT;
-            NotificationChannel channel =
-                    new NotificationChannel("notifyPress1MTimes", name, importance);
-            channel.setDescription(description);
-
-            NotificationManager notificationManager =
-                    getSystemService(NotificationManager.class);
-            notificationManager.createNotificationChannel(channel);
-        }
-    }
-
 }
