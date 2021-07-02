@@ -98,13 +98,13 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.50"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/arrow_up" />
+        app:srcCompat="@xml/arrow_up" />
 
     <View
         android:id="@+id/dial_pad"
         android:layout_width="match_parent"
         android:layout_height="400sp"
-        android:background="@drawable/settings_background"
+        android:background="@xml/settings_background"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="parent" />
@@ -192,7 +192,7 @@
         android:layout_marginLeft="50sp"
         android:layout_marginTop="90sp"
         android:layout_marginRight="50sp"
-        android:background="@drawable/round_button"
+        android:background="@xml/round_button"
 
         android:fontFamily="@font/odibee"
         android:onClick="clickOptions"
@@ -216,7 +216,7 @@
         android:textColor="@color/red"
         android:textSize="24sp"
 
-        app:layout_constraintEnd_toStartOf="@id/reset"
+        app:layout_constraintEnd_toStartOf="@id/options"
         app:layout_constraintStart_toEndOf="@id/dial_pad"
         app:layout_constraintTop_toTopOf="@id/options" />
 

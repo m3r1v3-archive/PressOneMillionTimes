@@ -6,7 +6,7 @@
     android:layout_height="140sp"
     android:layout_gravity="center"
 
-    android:background="@drawable/round_button"
+    android:background="@xml/round_button"
     android:minWidth="340sp"
     android:minHeight="140sp"
     android:visibility="visible"
@@ -21,7 +21,7 @@
         android:id="@+id/cancelConfirm"
         android:layout_width="115dp"
         android:layout_height="55dp"
-        android:background="@drawable/round_button"
+        android:background="@xml/round_button"
         android:fontFamily="@font/odibee"
         android:text="@string/cancel"
         android:textColor="@color/red"
@@ -38,7 +38,7 @@
         android:id="@+id/okayConfirm"
         android:layout_width="115dp"
         android:layout_height="55dp"
-        android:background="@drawable/round_button"
+        android:background="@xml/round_button"
         android:fontFamily="@font/odibee"
         android:text="@string/okay"
         android:textColor="@color/red"
@@ -67,6 +67,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.12" />
+        app:layout_constraintVertical_bias="0.16" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
