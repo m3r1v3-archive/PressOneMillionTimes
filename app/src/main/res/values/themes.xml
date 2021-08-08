@@ -13,7 +13,6 @@
         <item name="android:windowFullscreen">true</item>
     </style>
 
-
     <!--    Base application theme    -->
     <style name="Theme.Press1MTimes" parent="Theme.AppCompat.NoActionBar">
 

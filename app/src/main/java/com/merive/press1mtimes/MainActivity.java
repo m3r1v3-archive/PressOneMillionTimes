@@ -1,5 +1,8 @@
 package com.merive.press1mtimes;
 
+import static com.merive.press1mtimes.utils.Rotation.defineRotation;
+import static java.util.Calendar.YEAR;
+
 import android.annotation.SuppressLint;
 import android.app.AlarmManager;
 import android.app.NotificationChannel;
@@ -46,9 +49,6 @@ import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.regex.Pattern;
-
-import static com.merive.press1mtimes.utils.Rotation.defineRotation;
-import static java.util.Calendar.YEAR;
 
 
 public class MainActivity extends AppCompatActivity
@@ -253,7 +253,7 @@ public class MainActivity extends AppCompatActivity
         /* OnClick Notifications Switch */
         sharedPreferences.edit().putBoolean("notification", notification.isChecked()).apply();
         notificationState = notification.isChecked();
-        if (notification.isChecked()) setAlarm();
+        if (notificationState) setAlarm();
         else offAlarm();
     }
 
@@ -351,9 +351,9 @@ public class MainActivity extends AppCompatActivity
         /* Make vibrations on device */
         Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
-            v.vibrate(VibrationEffect.createOneShot(250 * times,
+            v.vibrate(VibrationEffect.createOneShot(250L * times,
                     VibrationEffect.DEFAULT_AMPLITUDE));
-        else v.vibrate(250 * times);
+        else v.vibrate(250L * times);
     }
 
     public void makeToast(String content) {
@@ -446,14 +446,12 @@ public class MainActivity extends AppCompatActivity
         PendingIntent pendingIntent =
                 PendingIntent.getBroadcast(MainActivity.this, 0, intent, 0);
 
-        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-        alarmManager.cancel(pendingIntent);
-
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
         calendar.set(Calendar.HOUR_OF_DAY, HOUR);
         calendar.set(Calendar.MINUTE, MINUTE);
 
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
                 AlarmManager.INTERVAL_DAY, pendingIntent);
     }
@@ -465,6 +463,7 @@ public class MainActivity extends AppCompatActivity
         PendingIntent pendingIntent =
                 PendingIntent.getService(MainActivity.this, 0, intent,
                         0);
+
         if (pendingIntent != null && alarmManager != null) {
             alarmManager.cancel(pendingIntent);
         }
