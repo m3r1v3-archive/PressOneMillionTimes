@@ -68,7 +68,11 @@ public class MainActivity extends AppCompatActivity
     int HOUR = 12, MINUTE = 0;
 
     public static String getScoreForNotifications() {
-        return sharedPreferences.getString("score", "000000");
+        try {
+            return sharedPreferences.getString("score", "000000");
+        } catch (Exception exc) {
+            return "??????";
+        }
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)

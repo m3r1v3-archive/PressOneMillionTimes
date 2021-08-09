@@ -1,7 +1,7 @@
 <resources>
     <!--  Main Activity  -->
     <string name="app_name">Press 1M Times</string>
-    <string name="counter">000000</string>
+    <string name="counter_def_value">000000</string>
 
     <!--  Settings  -->
     <string name="settings">Settings</string>
@@ -12,29 +12,28 @@
 
     <!--  Finish Activity  -->
     <string name="you_won">You won!</string>
-    <string name="congratulations">Congratulations, \nyou passed my game</string>
-    <string name="hope">I hope you enjoyed it)</string>
+    <string name="congratulations">Congratulations,\nyou completed this game!</string>
+    <string name="hope">I hope you enjoyed it ;)</string>
 
     <!-- Options Fragment -->
     <string name="options">Options</string>
 
     <!-- Reset Fragment -->
-    <string name="do_you_want_reset_counter">Do you want reset counter?</string>
-    <string name="okay">Okay</string>
+    <string name="do_you_want_reset_counter">Reset counter?</string>
     <string name="cancel">Cancel</string>
 
     <!-- ScoreShare Fragment -->
     <string name="scoreshare">ScoreShare</string>
-    <string name="scan">Scan</string>
+    <string name="scan">Scan QR</string>
 
     <!-- Change Icon Fragment -->
-    <string name="change_icon">Change Icon</string>
-    <string name="default_icon">Default icon</string>
-    <string name="p1mt_icon">P1MT icon</string>
-    <string name="classic_icon">Classic icon</string>
+    <string name="change_icon">Change App Icon</string>
+    <string name="default_icon">Default Icon</string>
+    <string name="p1mt_icon">P1MT Icon</string>
+    <string name="classic_icon">Classic Icon</string>
 
     <!-- Update Fragment -->
-    <string name="new_version_released">New version released</string>
+    <string name="new_version_released">New version was released</string>
     <string name="download">Download</string>
 
     <!-- TODO -->

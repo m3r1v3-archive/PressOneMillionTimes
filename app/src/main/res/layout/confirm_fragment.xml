@@ -35,13 +35,13 @@
         app:layout_constraintVertical_bias="0.85" />
 
     <Button
-        android:id="@+id/okayConfirm"
+        android:id="@+id/resetConfirm"
         android:layout_width="115dp"
         android:layout_height="55dp"
         android:background="@xml/round_button"
         android:fontFamily="@font/odibee"
         android:padding="12sp"
-        android:text="@string/okay"
+        android:text="@string/reset"
         android:textColor="@color/red"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"

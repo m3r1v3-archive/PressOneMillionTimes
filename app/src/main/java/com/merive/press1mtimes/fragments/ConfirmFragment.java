@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -69,7 +68,7 @@ public class ConfirmFragment extends DialogFragment {
         /* Init main variables */
         title = view.findViewById(R.id.confirmTitle);
         cancel = view.findViewById(R.id.cancelConfirm);
-        confirm = view.findViewById(R.id.okayConfirm);
+        confirm = view.findViewById(R.id.resetConfirm);
     }
 
     /* ************* */

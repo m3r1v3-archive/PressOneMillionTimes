@@ -110,6 +110,7 @@
         android:fontFamily="@font/odibee"
         android:text="@string/change_icon"
         android:textAlignment="center"
+        android:textAllCaps="false"
         android:textColor="@color/red"
         android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
