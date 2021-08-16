@@ -1,17 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<shape xmlns:android="http://schemas.android.com/apk/res/android">
-    <corners
-        android:bottomLeftRadius="0sp"
-        android:bottomRightRadius="0sp"
-        android:topLeftRadius="15sp"
-        android:topRightRadius="15sp" />
-    <solid android:color="@color/dark" />
-    <padding
-        android:bottom="0sp"
-        android:left="0sp"
-        android:right="0sp"
-        android:top="0sp" />
-    <stroke
-        android:width="2sp"
-        android:color="@color/red" />
-</shape>
+<inset xmlns:android="http://schemas.android.com/apk/res/android"
+    android:insetBottom="-2dp">
+    <shape>
+        <corners
+            android:bottomLeftRadius="0sp"
+            android:bottomRightRadius="0sp"
+            android:topLeftRadius="15sp"
+            android:topRightRadius="15sp" />
+        <solid android:color="@color/dark" />
+        <padding
+            android:bottom="0sp"
+            android:left="0sp"
+            android:right="0sp"
+            android:top="0sp" />
+        <stroke
+            android:width="2sp"
+            android:color="@color/red" />
+    </shape>
+</inset>

@@ -6,7 +6,7 @@
     android:layout_height="396sp"
     android:layout_gravity="center"
 
-    android:background="@xml/round_button"
+    android:background="@xml/background"
     android:minWidth="340sp"
     android:minHeight="396sp"
     android:visibility="visible"
@@ -21,7 +21,7 @@
         android:id="@+id/scan"
         android:layout_width="205dp"
         android:layout_height="55dp"
-        android:background="@xml/round_button"
+        android:background="@xml/background"
         android:fontFamily="@font/odibee"
         android:padding="12sp"
         android:text="@string/scan"

@@ -6,7 +6,7 @@
     android:layout_height="195sp"
     android:layout_gravity="center"
 
-    android:background="@xml/round_button"
+    android:background="@xml/background"
     android:minWidth="340sp"
     android:minHeight="195sp"
     android:visibility="visible"
@@ -58,7 +58,7 @@
         android:id="@+id/download"
         android:layout_width="205dp"
         android:layout_height="55dp"
-        android:background="@xml/round_button"
+        android:background="@xml/background"
         android:fontFamily="@font/odibee"
         android:text="@string/download"
         android:textColor="@color/red"
