@@ -19,8 +19,8 @@
 
     <Button
         android:id="@+id/scoreShare"
-        android:layout_width="205dp"
-        android:layout_height="55dp"
+        android:layout_width="205sp"
+        android:layout_height="55sp"
         android:background="@xml/background"
         android:fontFamily="@font/odibee"
         android:text="@string/scoreshare"
@@ -35,8 +35,8 @@
 
     <Button
         android:id="@+id/changeIcon"
-        android:layout_width="205dp"
-        android:layout_height="55dp"
+        android:layout_width="205sp"
+        android:layout_height="55sp"
         android:background="@xml/background"
         android:fontFamily="@font/odibee"
         android:text="@string/change_icon"
@@ -51,8 +51,8 @@
 
     <Button
         android:id="@+id/reset"
-        android:layout_width="205dp"
-        android:layout_height="55dp"
+        android:layout_width="205sp"
+        android:layout_height="55sp"
         android:background="@xml/background"
         android:fontFamily="@font/odibee"
         android:text="@string/reset"
@@ -67,16 +67,16 @@
 
     <TextView
         android:id="@+id/optionsTitle"
-        android:layout_width="0dp"
+        android:layout_width="0sp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"
+        android:layout_marginStart="32sp"
+        android:layout_marginEnd="32sp"
         android:width="0sp"
         android:fontFamily="@font/odibee"
         android:text="@string/options"
         android:textAlignment="center"
         android:textColor="@color/red"
-        android:textSize="30sp"
+        android:textSize="36sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

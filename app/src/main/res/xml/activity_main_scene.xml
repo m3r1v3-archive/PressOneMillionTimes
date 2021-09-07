@@ -38,7 +38,7 @@
 
         <Constraint
             android:id="@id/dial_pad"
-            android:layout_height="0dp">
+            android:layout_height="0sp">
             <Layout
                 android:layout_width="0sp"
                 android:layout_height="400sp"

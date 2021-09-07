@@ -91,7 +91,7 @@ public class ScoreShareFragment extends DialogFragment {
             Bitmap bmp = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
             for (int x = 0; x < width; x++) {
                 for (int y = 0; y < height; y++) {
-                    bmp.setPixel(x, y, bitMatrix.get(x, y) ? 0xFF202020 : Color.TRANSPARENT);
+                    bmp.setPixel(x, y, bitMatrix.get(x, y) ? 0xFF2C2C2C : Color.TRANSPARENT);
                 }
             }
             code.setImageBitmap(bmp);

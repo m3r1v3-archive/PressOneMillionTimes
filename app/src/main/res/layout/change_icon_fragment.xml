@@ -19,7 +19,7 @@
 
     <TextView
         android:id="@+id/P1MTIconText"
-        android:layout_width="173dp"
+        android:layout_width="173sp"
         android:layout_height="wrap_content"
         android:width="0sp"
         android:fontFamily="@font/odibee"
@@ -36,8 +36,8 @@
 
     <ImageView
         android:id="@+id/P1MTIcon"
-        android:layout_width="84dp"
-        android:layout_height="84dp"
+        android:layout_width="84sp"
+        android:layout_height="84sp"
         android:background="@xml/background"
         android:contentDescription="@string/todo"
         android:cropToPadding="true"
@@ -52,8 +52,8 @@
 
     <ImageView
         android:id="@+id/classicIcon"
-        android:layout_width="84dp"
-        android:layout_height="84dp"
+        android:layout_width="84sp"
+        android:layout_height="84sp"
         android:background="@xml/background"
         android:contentDescription="@string/todo"
         android:cropToPadding="true"
@@ -68,7 +68,7 @@
 
     <TextView
         android:id="@+id/classicIconText"
-        android:layout_width="173dp"
+        android:layout_width="173sp"
         android:layout_height="wrap_content"
         android:width="0sp"
         android:fontFamily="@font/odibee"
@@ -85,7 +85,7 @@
 
     <TextView
         android:id="@+id/defaultIconText"
-        android:layout_width="173dp"
+        android:layout_width="173sp"
         android:layout_height="wrap_content"
         android:width="0sp"
         android:fontFamily="@font/odibee"
@@ -102,17 +102,17 @@
 
     <TextView
         android:id="@+id/scoreShareTitle"
-        android:layout_width="0dp"
+        android:layout_width="0sp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"
+        android:layout_marginStart="32sp"
+        android:layout_marginEnd="32sp"
         android:width="0sp"
         android:fontFamily="@font/odibee"
         android:text="@string/change_icon"
         android:textAlignment="center"
         android:textAllCaps="false"
         android:textColor="@color/red"
-        android:textSize="30sp"
+        android:textSize="36sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -121,8 +121,8 @@
 
     <ImageView
         android:id="@+id/QRCode"
-        android:layout_width="84dp"
-        android:layout_height="84dp"
+        android:layout_width="84sp"
+        android:layout_height="84sp"
         android:background="@xml/background"
         android:contentDescription="@string/todo"
         android:cropToPadding="true"

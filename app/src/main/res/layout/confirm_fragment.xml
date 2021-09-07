@@ -19,8 +19,8 @@
 
     <Button
         android:id="@+id/cancelConfirm"
-        android:layout_width="115dp"
-        android:layout_height="55dp"
+        android:layout_width="115sp"
+        android:layout_height="55sp"
         android:background="@xml/background"
         android:fontFamily="@font/odibee"
         android:padding="12sp"
@@ -36,8 +36,8 @@
 
     <Button
         android:id="@+id/resetConfirm"
-        android:layout_width="115dp"
-        android:layout_height="55dp"
+        android:layout_width="115sp"
+        android:layout_height="55sp"
         android:background="@xml/background"
         android:fontFamily="@font/odibee"
         android:padding="12sp"
@@ -53,16 +53,16 @@
 
     <TextView
         android:id="@+id/confirmTitle"
-        android:layout_width="0dp"
+        android:layout_width="0sp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"
+        android:layout_marginStart="32sp"
+        android:layout_marginEnd="32sp"
         android:width="0sp"
         android:fontFamily="@font/odibee"
         android:text="@string/do_you_want_reset_counter"
         android:textAlignment="center"
         android:textColor="@color/red"
-        android:textSize="30sp"
+        android:textSize="36sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
