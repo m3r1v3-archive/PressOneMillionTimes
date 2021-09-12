@@ -16,6 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
+import com.merive.press1mtimes.MainActivity;
 import com.merive.press1mtimes.R;
 
 
@@ -88,6 +89,7 @@ public class UpdateFragment extends DialogFragment {
     /* ************* */
 
     public void clickDownload() {
+        ((MainActivity) getActivity()).makeVibration(1);
         Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://merive.herokuapp.com/P1MT"));
         startActivity(browserIntent);
         dismiss();

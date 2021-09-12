@@ -77,11 +77,13 @@ public class ConfirmFragment extends DialogFragment {
 
     public void clickCancel() {
         /* Click Cancel Button */
+        ((MainActivity) getActivity()).makeVibration(1);
         dismiss();
     }
 
     public void clickConfirm() {
         /* Click Confirm Button */
+        ((MainActivity) getActivity()).makeVibration(1);
         ((MainActivity) getActivity()).resetCounter();
         dismiss();
     }

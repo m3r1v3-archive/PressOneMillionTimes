@@ -20,6 +20,7 @@ import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.qrcode.QRCodeWriter;
+import com.merive.press1mtimes.MainActivity;
 import com.merive.press1mtimes.R;
 import com.merive.press1mtimes.ScannerActivity;
 
@@ -107,6 +108,7 @@ public class ScoreShareFragment extends DialogFragment {
 
     public void clickScan() {
         /* Click Scan Button */
+        ((MainActivity) getActivity()).makeVibration(1);
         openScanner();
         dismiss();
     }

@@ -79,18 +79,21 @@ public class OptionsFragment extends DialogFragment {
 
     public void clickReset() {
         /* Click Reset Button */
+        ((MainActivity) getActivity()).makeVibration(1);
         ((MainActivity) getActivity()).clickReset();
         dismiss();
     }
 
     public void clickScoreShare() {
         /* Click ScoreShare Button */
+        ((MainActivity) getActivity()).makeVibration(1);
         ((MainActivity) getActivity()).clickScoreShare();
         dismiss();
     }
 
     public void clickChangeIcon() {
         /* Click ChangeIcon Button */
+        ((MainActivity) getActivity()).makeVibration(1);
         ((MainActivity) getActivity()).clickChangeIcon();
         dismiss();
     }

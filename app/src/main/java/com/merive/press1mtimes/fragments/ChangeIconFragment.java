@@ -80,18 +80,21 @@ public class ChangeIconFragment extends DialogFragment {
 
     public void clickDefaultIcon() {
         /* Click Default Icon */
+        ((MainActivity) getActivity()).makeVibration(1);
         setIcon("default");
         dismiss();
     }
 
     public void clickP1MTIcon() {
         /* Click P1MT Icon */
+        ((MainActivity) getActivity()).makeVibration(1);
         setIcon("P1MT");
         dismiss();
     }
 
     public void clickClassicIcon() {
         /* Click Classic Icon */
+        ((MainActivity) getActivity()).makeVibration(1);
         setIcon("Classic");
         dismiss();
     }

@@ -274,6 +274,7 @@ public class MainActivity extends AppCompatActivity
 
     public void clickOptions(View view) {
         /* OnClick Options in Settings */
+        makeVibration(1);
         FragmentManager fm = getSupportFragmentManager();
         OptionsFragment optionsFragment = OptionsFragment.newInstance();
         optionsFragment.show(fm, "options_fragment");
@@ -281,6 +282,7 @@ public class MainActivity extends AppCompatActivity
 
     public void clickReset() {
         /* OnClick Reset in OptionsFragment */
+        makeVibration(1);
         FragmentManager fm = getSupportFragmentManager();
         ConfirmFragment confirmFragment = ConfirmFragment.newInstance();
         confirmFragment.show(fm, "confirm_fragment");
@@ -288,6 +290,7 @@ public class MainActivity extends AppCompatActivity
 
     public void clickScoreShare() {
         /* OnClick ScoreShare in OptionsFragment */
+        makeVibration(1);
         FragmentManager fm = getSupportFragmentManager();
         ScoreShareFragment scoreShareFragment = ScoreShareFragment.newInstance(String.valueOf(getScore()));
         scoreShareFragment.show(fm, "score_share_fragment");
@@ -295,6 +298,7 @@ public class MainActivity extends AppCompatActivity
 
     public void clickChangeIcon() {
         /* OnClick Change Icon in OptionsFragment */
+        makeVibration(1);
         FragmentManager fm = getSupportFragmentManager();
         ChangeIconFragment changeIconFragment = ChangeIconFragment.newInstance();
         changeIconFragment.show(fm, "change_icon_fragment");
@@ -355,10 +359,7 @@ public class MainActivity extends AppCompatActivity
     public void makeVibration(int times) {
         /* Make vibrations on device */
         Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
-            v.vibrate(VibrationEffect.createOneShot(250L * times,
-                    VibrationEffect.DEFAULT_AMPLITUDE));
-        else v.vibrate(250L * times);
+        v.vibrate(150L * times);
     }
 
     public void makeToast(String content) {
