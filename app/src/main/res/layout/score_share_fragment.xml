@@ -24,6 +24,7 @@
         android:background="@xml/background"
         android:fontFamily="@font/odibee"
         android:padding="12sp"
+        android:stateListAnimator="@null"
         android:text="@string/scan"
         android:textColor="@color/red"
         android:textSize="24sp"

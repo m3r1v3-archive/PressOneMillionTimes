@@ -60,6 +60,7 @@
         android:layout_height="55sp"
         android:background="@xml/background"
         android:fontFamily="@font/odibee"
+        android:stateListAnimator="@null"
         android:text="@string/download"
         android:textColor="@color/red"
         android:textSize="24sp"

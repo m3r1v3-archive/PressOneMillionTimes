@@ -86,17 +86,19 @@ public class ScoreShareFragment extends DialogFragment {
     public void makeQRCode(String score) {
         QRCodeWriter writer = new QRCodeWriter();
         try {
-            BitMatrix bitMatrix = writer.encode(encryptScore(score), BarcodeFormat.QR_CODE, 1024, 1024);
+            BitMatrix bitMatrix = writer.encode(encryptScore(score), BarcodeFormat.QR_CODE, 512, 512);
             int width = bitMatrix.getWidth();
             int height = bitMatrix.getHeight();
-            Bitmap bmp = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
-            for (int x = 0; x < width; x++) {
-                for (int y = 0; y < height; y++) {
-                    bmp.setPixel(x, y, bitMatrix.get(x, y) ? 0xFF2C2C2C : Color.TRANSPARENT);
+            int[] pixels = new int[width * height];
+            for (int y = 0; y < height; y++) {
+                int offset = y * width;
+                for (int x = 0; x < width; x++) {
+                    pixels[offset + x] = bitMatrix.get(x, y) ? 0xFF2C2C2C : Color.TRANSPARENT;
                 }
             }
+            Bitmap bmp = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+            bmp.setPixels(pixels, 0, width, 0, 0, width, height);
             code.setImageBitmap(bmp);
-
         } catch (WriterException e) {
             e.printStackTrace();
         }

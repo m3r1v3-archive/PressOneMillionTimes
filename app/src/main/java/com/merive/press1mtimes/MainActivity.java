@@ -17,9 +17,10 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -192,11 +193,9 @@ public class MainActivity extends AppCompatActivity
 
     public void setVibrationTimes(int score) {
         /* Make vibration by score */
-        if (vibrationState) {
-            if (score % 100000 == 0) makeVibration(3);
-            else if (score % 10000 == 0) makeVibration(2);
-            else if (score % 1000 == 0) makeVibration(1);
-        }
+        if (score % 100000 == 0) makeVibration(3);
+        else if (score % 10000 == 0) makeVibration(2);
+        else if (score % 1000 == 0) makeVibration(1);
     }
 
     public void setScoreByQRResult(String result) {
@@ -358,13 +357,23 @@ public class MainActivity extends AppCompatActivity
 
     public void makeVibration(int times) {
         /* Make vibrations on device */
-        Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-        v.vibrate(150L * times);
+        if (vibrationState) {
+            Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+            v.vibrate(150L * times);
+        }
     }
 
-    public void makeToast(String content) {
-        /* Make toast on screen */
-        Toast.makeText(this, content, Toast.LENGTH_SHORT).show();
+    public void makeToast(String message) {
+        /* Make custom toast */
+        LayoutInflater inflater = getLayoutInflater();
+        View layout = inflater.inflate(R.layout.toast, findViewById(R.id.toastLayout));
+        TextView text = layout.findViewById(R.id.message);
+        text.setText(message);
+        Toast toast = new Toast(getApplicationContext());
+        toast.setGravity(Gravity.BOTTOM, 0, 65);
+        toast.setDuration(Toast.LENGTH_SHORT);
+        toast.setView(layout);
+        toast.show();
     }
 
     public void makeNotificationChannel() {

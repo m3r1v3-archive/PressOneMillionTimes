@@ -113,12 +113,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="15sp"
-
         android:fontFamily="@font/odibee"
         android:text="@string/settings"
         android:textColor="@color/red"
         android:textSize="36sp"
-
         app:layout_constraintEnd_toStartOf="parent"
         app:layout_constraintStart_toEndOf="@id/dial_pad"
         app:layout_constraintTop_toTopOf="@id/dial_pad" />
@@ -128,23 +126,19 @@
         android:id="@+id/vibration"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="24sp"
         android:layout_marginTop="50sp"
-
+        android:layout_marginRight="24sp"
+        android:background="@xml/background"
         android:fontFamily="@font/odibee"
         android:onClick="clickVibration"
         android:padding="12sp"
-        android:layout_marginRight="24sp"
-        android:layout_marginLeft="24sp"
         android:text="@string/vibration"
         android:textColor="@color/red"
         android:textSize="24sp"
-
         app:layout_constraintEnd_toStartOf="@id/settings"
         app:layout_constraintStart_toEndOf="@id/dial_pad"
         app:layout_constraintTop_toTopOf="@id/settings"
-
-        android:background="@xml/background"
-
         app:thumbTint="#3c3c3c"
         app:trackTint="@color/red" />
 
@@ -152,23 +146,19 @@
         android:id="@+id/notification"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="24sp"
         android:layout_marginTop="70sp"
+        android:layout_marginRight="24sp"
+        android:background="@xml/background"
         android:fontFamily="@font/odibee"
-
         android:onClick="clickNotification"
         android:padding="12sp"
-        android:layout_marginRight="24sp"
-        android:layout_marginLeft="24sp"
         android:text="@string/notification"
         android:textColor="@color/red"
         android:textSize="24sp"
-
-        android:background="@xml/background"
-
         app:layout_constraintEnd_toStartOf="@id/vibration"
         app:layout_constraintStart_toEndOf="@id/dial_pad"
         app:layout_constraintTop_toTopOf="@id/vibration"
-
         app:thumbTint="#3c3c3c"
         app:trackTint="@color/red" />
 
@@ -176,23 +166,19 @@
         android:id="@+id/acceleration"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="24sp"
         android:layout_marginTop="70sp"
-
+        android:layout_marginRight="24sp"
+        android:background="@xml/background"
         android:fontFamily="@font/odibee"
         android:onClick="clickAcceleration"
         android:padding="12sp"
-        android:layout_marginRight="24sp"
-        android:layout_marginLeft="24sp"
         android:text="@string/acceleration"
         android:textColor="@color/red"
         android:textSize="24sp"
-
-        android:background="@xml/background"
-
         app:layout_constraintEnd_toStartOf="@id/notification"
         app:layout_constraintStart_toEndOf="@id/dial_pad"
         app:layout_constraintTop_toTopOf="@id/notification"
-
         app:thumbTint="#3c3c3c"
         app:trackTint="@color/red" />
 
@@ -200,19 +186,17 @@
         android:id="@+id/options"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="64sp"
         android:layout_marginTop="65sp"
+        android:layout_marginRight="64sp"
         android:background="@xml/background"
-
         android:fontFamily="@font/odibee"
         android:onClick="clickOptions"
+        android:padding="12sp"
+        android:stateListAnimator="@null"
         android:text="@string/options"
         android:textColor="@color/red"
-
-        android:padding="12sp"
-        android:layout_marginRight="64sp"
-        android:layout_marginLeft="64sp"
         android:textSize="24sp"
-
         app:layout_constraintEnd_toStartOf="@id/acceleration"
         app:layout_constraintStart_toEndOf="@id/dial_pad"
         app:layout_constraintTop_toTopOf="@id/acceleration" />
@@ -222,13 +206,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="50sp"
-
         android:fontFamily="@font/odibee"
         android:padding="18sp"
         android:textAlignment="center"
         android:textColor="@color/red"
         android:textSize="24sp"
-
         app:layout_constraintEnd_toStartOf="@id/options"
         app:layout_constraintStart_toEndOf="@id/dial_pad"
         app:layout_constraintTop_toTopOf="@id/options" />
