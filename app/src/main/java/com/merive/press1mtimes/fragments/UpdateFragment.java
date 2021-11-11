@@ -90,7 +90,7 @@ public class UpdateFragment extends DialogFragment {
 
     public void clickDownload() {
         ((MainActivity) getActivity()).makeVibration(1);
-        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://merive.herokuapp.com/P1MT"));
+        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(getResources().getString(R.string.link)));
         startActivity(browserIntent);
         dismiss();
     }

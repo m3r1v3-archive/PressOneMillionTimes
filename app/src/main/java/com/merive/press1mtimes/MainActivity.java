@@ -336,7 +336,7 @@ public class MainActivity extends AppCompatActivity
 
     public String getActualVersion() throws IOException {
         /* Get version of actual application on site */
-        URL url = new URL("https://merive.herokuapp.com/P1MT");
+        URL url = new URL(getResources().getString(R.string.link));
         BufferedReader reader = null;
         StringBuilder builder = new StringBuilder();
         try {
