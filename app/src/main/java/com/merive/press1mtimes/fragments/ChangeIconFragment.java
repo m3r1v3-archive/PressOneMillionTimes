@@ -107,7 +107,7 @@ public class ChangeIconFragment extends DialogFragment {
         disableOldIcon();
         turnOnIcon(iconName);
         ((MainActivity) getActivity()).changeIcon(iconName);
-        ((MainActivity) getActivity()).makeToast("Icon was changed.");
+        ((MainActivity) getActivity()).makeToast("Application Icon was changed");
     }
 
     public void disableOldIcon() {

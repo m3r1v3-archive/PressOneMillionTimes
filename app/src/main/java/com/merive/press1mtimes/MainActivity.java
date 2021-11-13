@@ -19,17 +19,15 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.util.Log;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.preference.PreferenceManager;
 
 import com.google.zxing.integration.android.IntentIntegrator;
@@ -38,6 +36,7 @@ import com.merive.press1mtimes.fragments.ChangeIconFragment;
 import com.merive.press1mtimes.fragments.ConfirmFragment;
 import com.merive.press1mtimes.fragments.OptionsFragment;
 import com.merive.press1mtimes.fragments.ScoreShareFragment;
+import com.merive.press1mtimes.fragments.ToastFragment;
 import com.merive.press1mtimes.fragments.UpdateFragment;
 
 import java.io.BufferedReader;
@@ -111,7 +110,7 @@ public class MainActivity extends AppCompatActivity
             try {
                 checkPatternQR(intent.getStringExtra("SCAN_RESULT"));
             } catch (Exception exc) {
-                makeToast("Something went wrong.");
+                makeToast("Something went wrong");
             }
         }
     }
@@ -204,7 +203,7 @@ public class MainActivity extends AppCompatActivity
                 replace("(", "").replace(")", "")));
         setScoreToCounter();
         makeVibration(1);
-        makeToast("Score was updated.");
+        makeToast("Press1MTimes Score was updated");
     }
 
     /* ************* */
@@ -230,7 +229,7 @@ public class MainActivity extends AppCompatActivity
         Pattern pattern = Pattern.compile("P1MT:[(][0-9][0-9][0-9][)][(][0-9][0-9][0-9][)]");
         if (pattern.matcher(result).find())
             setScoreByQRResult(result);
-        else makeToast("Something went wrong.");
+        else makeToast("Something went wrong");
     }
 
     /* ************* */
@@ -364,16 +363,23 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void makeToast(String message) {
-        /* Make custom toast */
-        LayoutInflater inflater = getLayoutInflater();
-        View layout = inflater.inflate(R.layout.toast, findViewById(R.id.toastLayout));
-        TextView text = layout.findViewById(R.id.message);
-        text.setText(message);
-        Toast toast = new Toast(getApplicationContext());
-        toast.setGravity(Gravity.BOTTOM, 0, 65);
-        toast.setDuration(Toast.LENGTH_SHORT);
-        toast.setView(layout);
-        toast.show();
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+        transaction.setReorderingAllowed(true);
+
+        transaction.replace(R.id.toast_fragment, ToastFragment.newInstance(message), null);
+        transaction.commit();
+    }
+
+    public void removeToast() {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+        transaction.setReorderingAllowed(true);
+
+        transaction.remove((ToastFragment) fragmentManager.findFragmentById(R.id.toast_fragment));
+        transaction.commit();
     }
 
     public void makeNotificationChannel() {
