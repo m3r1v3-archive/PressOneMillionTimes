@@ -23,4 +23,10 @@
         <!--    Set action bar color    -->
         <item name="android:actionBarStyle">@color/dark</item>
     </style>
+
+    <!--    DialogFragment Animation    -->
+    <style name="DialogAnimation">
+        <item name="android:windowEnterAnimation">@anim/fade_in</item>
+        <item name="android:windowExitAnimation">@anim/fade_out</item>
+    </style>
 </resources>
