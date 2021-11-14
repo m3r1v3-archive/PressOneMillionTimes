@@ -20,20 +20,14 @@ public class OptionsFragment extends DialogFragment {
     Button reset, scoreShare, changeIcon;
 
     public OptionsFragment() {
-        /* Empty constructor (Needs) */
     }
 
     public static OptionsFragment newInstance() {
-        /* newInstance method */
         OptionsFragment frag = new OptionsFragment();
         Bundle args = new Bundle();
         frag.setArguments(args);
         return frag;
     }
-
-    /* **************** */
-    /* Override methods */
-    /* **************** */
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -63,37 +57,25 @@ public class OptionsFragment extends DialogFragment {
         });
     }
 
-    /* ************ */
-    /* Init methods */
-    /* ************ */
-
     public void initVariables(View view) {
-        /* Init main variables */
         reset = view.findViewById(R.id.reset);
         scoreShare = view.findViewById(R.id.scoreShare);
         changeIcon = view.findViewById(R.id.changeIcon);
     }
 
-    /* ************* */
-    /* Click methods */
-    /* ************* */
-
     public void clickReset() {
-        /* Click Reset Button */
         ((MainActivity) getActivity()).makeVibration(1);
         ((MainActivity) getActivity()).clickReset();
         dismiss();
     }
 
     public void clickScoreShare() {
-        /* Click ScoreShare Button */
         ((MainActivity) getActivity()).makeVibration(1);
         ((MainActivity) getActivity()).clickScoreShare();
         dismiss();
     }
 
     public void clickChangeIcon() {
-        /* Click ChangeIcon Button */
         ((MainActivity) getActivity()).makeVibration(1);
         ((MainActivity) getActivity()).clickChangeIcon();
         dismiss();

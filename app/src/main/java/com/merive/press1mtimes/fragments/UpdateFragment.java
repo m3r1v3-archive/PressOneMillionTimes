@@ -26,11 +26,9 @@ public class UpdateFragment extends DialogFragment {
     Button download;
 
     public UpdateFragment() {
-        /* Empty constructor (Needs) */
     }
 
     public static UpdateFragment newInstance(String oldVersion, String newVersion) {
-        /* newInstance method */
         UpdateFragment frag = new UpdateFragment();
         Bundle args = new Bundle();
         args.putString("oldVersion", oldVersion);
@@ -38,10 +36,6 @@ public class UpdateFragment extends DialogFragment {
         frag.setArguments(args);
         return frag;
     }
-
-    /* **************** */
-    /* Override methods */
-    /* **************** */
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -66,28 +60,15 @@ public class UpdateFragment extends DialogFragment {
         });
     }
 
-    /* ************ */
-    /* Init methods */
-    /* ************ */
-
     public void initVariables(View view) {
-        /* Init main variables */
         version = view.findViewById(R.id.version);
         download = view.findViewById(R.id.download);
     }
-
-    /* *********** */
-    /* Set methods */
-    /* *********** */
 
     public void setVersion() {
         version.setText(("Download: " + getArguments().getString("oldVersion") + " → " +
                 getArguments().getString("newVersion")));
     }
-
-    /* ************* */
-    /* Click methods */
-    /* ************* */
 
     public void clickDownload() {
         ((MainActivity) getActivity()).makeVibration(1);

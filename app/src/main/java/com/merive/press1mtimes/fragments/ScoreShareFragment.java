@@ -32,21 +32,15 @@ public class ScoreShareFragment extends DialogFragment {
 
 
     public ScoreShareFragment() {
-        /* Empty constructor (Needs) */
     }
 
     public static com.merive.press1mtimes.fragments.ScoreShareFragment newInstance(String score) {
-        /* newInstance method */
         com.merive.press1mtimes.fragments.ScoreShareFragment frag = new com.merive.press1mtimes.fragments.ScoreShareFragment();
         Bundle args = new Bundle();
         args.putString("score", score);
         frag.setArguments(args);
         return frag;
     }
-
-    /* **************** */
-    /* Override methods */
-    /* **************** */
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -70,19 +64,10 @@ public class ScoreShareFragment extends DialogFragment {
         });
     }
 
-    /* ************ */
-    /* Init methods */
-    /* ************ */
-
     public void initVariables(View view) {
-        /* Init main variables */
         code = view.findViewById(R.id.QRCode);
         scan = view.findViewById(R.id.scan);
     }
-
-    /* ************ */
-    /* Make methods */
-    /* ************ */
 
     public void makeQRCode(String score) {
         QRCodeWriter writer = new QRCodeWriter();
@@ -105,26 +90,16 @@ public class ScoreShareFragment extends DialogFragment {
         }
     }
 
-    /* ************* */
-    /* Click methods */
-    /* ************* */
-
     public void clickScan() {
-        /* Click Scan Button */
         ((MainActivity) getActivity()).makeVibration(1);
         openScanner();
         dismiss();
     }
 
-    /* *************** */
-    /* Another methods */
-    /* *************** */
-
     public void openScanner() {
-        /* Open ScannerActivity */
         IntentIntegrator integrator = new IntentIntegrator(getActivity());
         integrator.setBarcodeImageEnabled(false);
-        integrator.setPrompt("Find P1MT QR-Code and Scan him");
+        integrator.setPrompt("Find and Scan Press1MTimes QR-Code");
         integrator.setCameraId(0);
         integrator.setCaptureActivity(ScannerActivity.class);
         integrator.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE);
@@ -135,7 +110,6 @@ public class ScoreShareFragment extends DialogFragment {
 
     @SuppressLint("DefaultLocale")
     public String encryptScore(String result) {
-        /* Encrypt data from QR result */
         return "P1MT:" + "(" + String.format("%06d", Integer.parseInt(result)).substring(0, 3) + ")" + "(" +
                 String.format("%06d", Integer.parseInt(result)).substring(3) + ")";
     }

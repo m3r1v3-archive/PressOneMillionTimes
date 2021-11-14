@@ -22,20 +22,14 @@ public class ChangeIconFragment extends DialogFragment {
     ImageView defaultIcon, P1MTIcon, classicIcon;
 
     ChangeIconFragment() {
-        /* Empty constructor (Needs) */
     }
 
     public static ChangeIconFragment newInstance() {
-        /* newInstance method */
         ChangeIconFragment frag = new ChangeIconFragment();
         Bundle args = new Bundle();
         frag.setArguments(args);
         return frag;
     }
-
-    /* **************** */
-    /* Override methods */
-    /* **************** */
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -64,45 +58,29 @@ public class ChangeIconFragment extends DialogFragment {
         });
     }
 
-    /* ************ */
-    /* Init methods */
-    /* ************ */
-
     public void initVariables(View view) {
-        /* Init main variables */
         defaultIcon = view.findViewById(R.id.QRCode);
         P1MTIcon = view.findViewById(R.id.P1MTIcon);
         classicIcon = view.findViewById(R.id.classicIcon);
     }
 
-    /* ************* */
-    /* Click methods */
-    /* ************* */
-
     public void clickDefaultIcon() {
-        /* Click Default Icon */
         ((MainActivity) getActivity()).makeVibration(1);
         setIcon("default");
         dismiss();
     }
 
     public void clickP1MTIcon() {
-        /* Click P1MT Icon */
         ((MainActivity) getActivity()).makeVibration(1);
         setIcon("P1MT");
         dismiss();
     }
 
     public void clickClassicIcon() {
-        /* Click Classic Icon */
         ((MainActivity) getActivity()).makeVibration(1);
         setIcon("Classic");
         dismiss();
     }
-
-    /* *************** */
-    /* Another methods */
-    /* *************** */
 
     public void setIcon(String iconName) {
         disableOldIcon();
@@ -112,7 +90,6 @@ public class ChangeIconFragment extends DialogFragment {
     }
 
     public void disableOldIcon() {
-        /* Disable old application icon */
         PackageManager packageManager = getActivity().getPackageManager();
         switch (((MainActivity) getActivity()).getApplicationIcon()) {
             case "default":
@@ -134,7 +111,6 @@ public class ChangeIconFragment extends DialogFragment {
     }
 
     public void turnOnIcon(String selected) {
-        /* Turn on new Icon */
         PackageManager packageManager = getActivity().getPackageManager();
         switch (selected) {
             case "default":

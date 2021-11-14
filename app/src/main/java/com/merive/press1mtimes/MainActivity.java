@@ -18,7 +18,6 @@ import android.hardware.SensorManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Vibrator;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -82,11 +81,9 @@ public class MainActivity extends AppCompatActivity
         sharedPreferences =
                 PreferenceManager.getDefaultSharedPreferences(this.getBaseContext());
 
-        /* Init variables */
         initLayoutVariables();
         initSettings();
 
-        /* Set values, parameters, etc. */
         setScoreToCounter();
         setSwitchesToSettings();
         setInfo();
@@ -108,37 +105,25 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    /* ************ */
-    /* Init methods */
-    /* ************ */
-
     public void initLayoutVariables() {
-        /* Initializations layout variables */
         counter = findViewById(R.id.counter);
         label = findViewById(R.id.label);
         button = findViewById(R.id.button);
     }
 
     public void initSettings() {
-        /* Initializations settings variables */
         vibration = findViewById(R.id.vibration);
         notification = findViewById(R.id.notification);
         acceleration = findViewById(R.id.acceleration);
         info = findViewById(R.id.info);
     }
 
-    /* *********** */
-    /* Set methods */
-    /* *********** */
-
     @SuppressLint("DefaultLocale")
     public void setScoreToCounter() {
-        /* Set score to counter */
         counter.setText(String.format("%06d", getScore()));
     }
 
     public void setSwitchesToSettings() {
-        /* Set switches to Settings */
         vibrationState = sharedPreferences.getBoolean("vibration", false);
         vibration.setChecked(vibrationState);
 
@@ -150,21 +135,18 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void setInfo() {
-        /* Set info to Settings */
         info.setText(("Version: " + BuildConfig.VERSION_NAME +
                 "\n@merive-studio, " + Calendar.getInstance().get(YEAR)));
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void setSnowFallingVisibility() {
-        /* Set visibility for snow if it is winter */
         LocalDate localDate = new Date().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        if (localDate.getMonthValue() == 12 || localDate.getMonthValue() == 1)
+        if (localDate.getMonthValue() == 12 || localDate.getMonthValue() == 1 || localDate.getMonthValue() == 2)
             findViewById(R.id.snow).setVisibility(View.VISIBLE);
     }
 
     public void setSensors() {
-        /* Set sensors variables */
         sensorManager = (SensorManager) getSystemService(
                 Context.SENSOR_SERVICE);
         accelerometer = sensorManager.getDefaultSensor(
@@ -173,25 +155,21 @@ public class MainActivity extends AppCompatActivity
 
     @SuppressLint("DefaultLocale")
     public void setScoreToSharePreference(int score) {
-        /* Update score in shared preference */
         sharedPreferences.edit().putString("score", String.format("%06d", score)).apply();
     }
 
     public void setAccelerationState(boolean state) {
-        /* Update Acceleration state in SharedPreferences */
         sharedPreferences.edit().putBoolean("acceleration", state).apply();
         accelerationState = state;
     }
 
     public void setVibrationTimes(int score) {
-        /* Make vibration by score */
         if (score % 100000 == 0) makeVibration(3);
         else if (score % 10000 == 0) makeVibration(2);
         else if (score % 1000 == 0) makeVibration(1);
     }
 
     public void setScoreByQRResult(String result) {
-        /* Set score by result */
         setScoreToSharePreference(Integer.parseInt(result.replace("P1MT:", "").
                 replace("(", "").replace(")", "")));
         setScoreToCounter();
@@ -199,18 +177,12 @@ public class MainActivity extends AppCompatActivity
         makeToast("Press1MTimes Score was updated");
     }
 
-    /* ************* */
-    /* Check methods */
-    /* ************* */
-
     public void checkVersion() {
-        /* Make fragment if application was updated */
         Thread thread = new Thread(() -> {
             try {
                 if (!getActualVersion().equals(BuildConfig.VERSION_NAME))
                     openUpdateFragment(BuildConfig.VERSION_NAME, getActualVersion());
-            } catch (Exception e) {
-                Log.e("CHECK VERSION ERROR ", "NOT POSSIBLE CHECK VERSION" + " (" + e + ") ");
+            } catch (Exception ignored) {
             }
         });
 
@@ -218,19 +190,13 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void checkPatternQR(String result) {
-        /* Check pattern of QR-Data */
         Pattern pattern = Pattern.compile("P1MT:[(][0-9][0-9][0-9][)][(][0-9][0-9][0-9][)]");
         if (pattern.matcher(result).find())
             setScoreByQRResult(result);
         else makeToast("Something went wrong");
     }
 
-    /* ************* */
-    /* Click methods */
-    /* ************* */
-
     public void clickButton(View view) {
-        /* OnClick Button */
         if (getScore() == 999999) {
             resetCounter();
             openFinish();
@@ -240,13 +206,11 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void clickVibration(View view) {
-        /* OnClick Vibration Switch */
         sharedPreferences.edit().putBoolean("vibration", vibration.isChecked()).apply();
         vibrationState = vibration.isChecked();
     }
 
     public void clickNotification(View view) {
-        /* OnClick Notifications Switch */
         sharedPreferences.edit().putBoolean("notification", notification.isChecked()).apply();
         notificationState = notification.isChecked();
         if (notificationState) setAlarm();
@@ -254,7 +218,6 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void clickAcceleration(View view) {
-        /* onClick Acceleration in Settings */
         setAccelerationState(acceleration.isChecked());
         if (!acceleration.isChecked()) {
             setDefaultRotation(label);
@@ -264,7 +227,6 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void clickOptions(View view) {
-        /* OnClick Options in Settings */
         makeVibration(1);
         FragmentManager fm = getSupportFragmentManager();
         OptionsFragment optionsFragment = OptionsFragment.newInstance();
@@ -272,7 +234,6 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void clickReset() {
-        /* OnClick Reset in OptionsFragment */
         makeVibration(1);
         FragmentManager fm = getSupportFragmentManager();
         ConfirmFragment confirmFragment = ConfirmFragment.newInstance();
@@ -280,7 +241,6 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void clickScoreShare() {
-        /* OnClick ScoreShare in OptionsFragment */
         makeVibration(1);
         FragmentManager fm = getSupportFragmentManager();
         ScoreShareFragment scoreShareFragment = ScoreShareFragment.newInstance(String.valueOf(getScore()));
@@ -288,46 +248,32 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void clickChangeIcon() {
-        /* OnClick Change Icon in OptionsFragment */
         makeVibration(1);
         FragmentManager fm = getSupportFragmentManager();
         ChangeIconFragment changeIconFragment = ChangeIconFragment.newInstance();
         changeIconFragment.show(fm, "change_icon_fragment");
     }
 
-    /* ************ */
-    /* Open methods */
-    /* ************ */
-
     public void openUpdateFragment(String oldVersion, String newVersion) {
-        /* Open UpdateFragment */
         FragmentManager fm = getSupportFragmentManager();
         UpdateFragment updateFragment = UpdateFragment.newInstance(oldVersion, newVersion);
         updateFragment.show(fm, "update_fragment");
     }
 
     public void openFinish() {
-        /* Open FinishActivity */
         Intent intent = new Intent(this, FinishActivity.class);
         startActivity(intent);
     }
 
-    /* *********** */
-    /* Get methods */
-    /* *********** */
-
     public int getScore() {
-        /* Return Integer Score */
         return Integer.parseInt(sharedPreferences.getString("score", "000000"));
     }
 
     public String getApplicationIcon() {
-        /* Get Current Icon of Application */
         return sharedPreferences.getString("icon", "default");
     }
 
     public String getActualVersion() throws IOException {
-        /* Get version of actual application on site */
         URL url = new URL(getResources().getString(R.string.link));
         BufferedReader reader = null;
         StringBuilder builder = new StringBuilder();
@@ -343,12 +289,7 @@ public class MainActivity extends AppCompatActivity
         return builder.substring(builder.indexOf("<i>") + "<i>".length()).substring(1, builder.substring(builder.indexOf("<i>") + "<i>".length()).indexOf("</i>"));
     }
 
-    /* ************ */
-    /* Make methods */
-    /* ************ */
-
     public void makeVibration(int times) {
-        /* Make vibrations on device */
         if (vibrationState) {
             Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
             v.vibrate(150L * times);
@@ -376,7 +317,6 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void makeNotificationChannel() {
-        /* Make channel for notifications */
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             CharSequence name = "Press1MTimesChannel";
             String description = "Channel for Press1MTimes";
@@ -391,25 +331,14 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    /* *************** */
-    /* Another methods */
-    /* *************** */
-
     public void changeIcon(String icon) {
-        /* Change Current Icon of Application in SharedPreferences */
         sharedPreferences.edit().putString("icon", icon).apply();
     }
 
     public void resetCounter() {
-        /* Reset Counter to default */
         setScoreToSharePreference(0);
         setScoreToCounter();
     }
-
-
-    /* ******************** */
-    /* Acceleration methods */
-    /* ******************** */
 
     @Override
     protected void onStart() {
@@ -441,21 +370,14 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void setDefaultRotation(View view) {
-        /* Set Default Rotation for view */
         defineRotation(0, 0, view);
     }
 
     @Override
     public void onAccuracyChanged(Sensor sensor, int i) {
-        /* Don't write */
     }
 
-    /* ************* */
-    /* Alarm methods */
-    /* ************* */
-
     public void setAlarm() {
-        /* Set notification alarm */
         Intent intent = new Intent(getBaseContext(), NotificationsReceiver.class);
         intent.putExtra("score", String.valueOf(getScore()));
 
@@ -473,7 +395,6 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void offAlarm() {
-        /* Disable notification alarm */
         AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
         Intent intent = new Intent(MainActivity.this, NotificationsReceiver.class);
         PendingIntent pendingIntent =
