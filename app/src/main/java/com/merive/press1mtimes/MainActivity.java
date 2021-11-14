@@ -67,13 +67,6 @@ public class MainActivity extends AppCompatActivity
 
     int HOUR = 12, MINUTE = 0;
 
-    public static String getScoreForNotifications() {
-        try {
-            return sharedPreferences.getString("score", "000000");
-        } catch (Exception exc) {
-            return "??????";
-        }
-    }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -378,7 +371,7 @@ public class MainActivity extends AppCompatActivity
         transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
         transaction.setReorderingAllowed(true);
 
-        transaction.remove((ToastFragment) fragmentManager.findFragmentById(R.id.toast_fragment));
+        transaction.remove(fragmentManager.findFragmentById(R.id.toast_fragment));
         transaction.commit();
     }
 
@@ -463,9 +456,11 @@ public class MainActivity extends AppCompatActivity
 
     public void setAlarm() {
         /* Set notification alarm */
-        Intent intent = new Intent(MainActivity.this, NotificationsReceiver.class);
+        Intent intent = new Intent(getBaseContext(), NotificationsReceiver.class);
+        intent.putExtra("score", String.valueOf(getScore()));
+
         PendingIntent pendingIntent =
-                PendingIntent.getBroadcast(MainActivity.this, 0, intent, 0);
+                PendingIntent.getBroadcast(MainActivity.this, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
 
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
