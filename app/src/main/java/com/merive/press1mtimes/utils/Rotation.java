@@ -6,6 +6,13 @@ public class Rotation {
     static final long DURATION = 350L;
     static final int FACTOR = 10;
 
+    /**
+     * This method is defining rotation for views.
+     *
+     * @param axisX X axis value.
+     * @param axisY Y axis value.
+     * @param view View what will rotate.
+     */
     public static void defineRotation(float axisX, float axisY, View view) {
         int axisXRounded = Math.round(axisX * FACTOR);
         int axisYRounded = Math.round(axisY * FACTOR);
@@ -18,7 +25,14 @@ public class Rotation {
                 setRotation(0, 0, view);
     }
 
-    public static void setRotation(float X, float Y, View view) {
+    /**
+     * This method is setting rotation for View.
+     *
+     * @param X    X axis value.
+     * @param Y    Y axis value.
+     * @param view View what will rotate.
+     */
+    private static void setRotation(float X, float Y, View view) {
         view.animate().rotationX(X).rotationY(Y).setDuration(DURATION).start();
     }
 }

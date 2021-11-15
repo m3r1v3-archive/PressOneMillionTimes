@@ -10,6 +10,14 @@ import androidx.core.app.NotificationManagerCompat;
 
 public class NotificationsReceiver extends BroadcastReceiver {
 
+    /**
+     * This method is sending notification.
+     *
+     * @param context Context object.
+     * @param intent  intent needs for getting score.
+     * @see Context
+     * @see Intent
+     */
     @Override
     public void onReceive(Context context, Intent intent) {
         Intent myIntent = new Intent(context, SplashActivity.class);
