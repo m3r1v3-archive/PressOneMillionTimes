@@ -36,6 +36,9 @@
     <string name="new_version_released">New version was released</string>
     <string name="download">Download</string>
 
+    <!-- Website Link -->
+    <string name="link">https://merive.herokuapp.com/P1MT</string>
+
     <!-- TODO -->
     <string name="todo">TODO</string>
 </resources>

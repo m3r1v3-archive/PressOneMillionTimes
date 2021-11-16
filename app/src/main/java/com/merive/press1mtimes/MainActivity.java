@@ -18,18 +18,15 @@ import android.hardware.SensorManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Vibrator;
-import android.util.Log;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.preference.PreferenceManager;
 
 import com.google.zxing.integration.android.IntentIntegrator;
@@ -38,6 +35,7 @@ import com.merive.press1mtimes.fragments.ChangeIconFragment;
 import com.merive.press1mtimes.fragments.ConfirmFragment;
 import com.merive.press1mtimes.fragments.OptionsFragment;
 import com.merive.press1mtimes.fragments.ScoreShareFragment;
+import com.merive.press1mtimes.fragments.ToastFragment;
 import com.merive.press1mtimes.fragments.UpdateFragment;
 
 import java.io.BufferedReader;
@@ -52,8 +50,7 @@ import java.util.Date;
 import java.util.regex.Pattern;
 
 
-public class MainActivity extends AppCompatActivity
-        implements SensorEventListener {
+public class MainActivity extends AppCompatActivity implements SensorEventListener {
 
     static SharedPreferences sharedPreferences;
 
@@ -68,14 +65,11 @@ public class MainActivity extends AppCompatActivity
 
     int HOUR = 12, MINUTE = 0;
 
-    public static String getScoreForNotifications() {
-        try {
-            return sharedPreferences.getString("score", "000000");
-        } catch (Exception exc) {
-            return "??????";
-        }
-    }
-
+    /**
+     * This method is the start point at the MainActivity.
+     *
+     * @param savedInstanceState Used by super.onCreate method.
+     */
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,340 +79,29 @@ public class MainActivity extends AppCompatActivity
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
         setContentView(R.layout.activity_main);
 
-        makeNotificationChannel();
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this.getBaseContext());
 
-        sharedPreferences =
-                PreferenceManager.getDefaultSharedPreferences(this.getBaseContext());
-
-        /* Init variables */
         initLayoutVariables();
         initSettings();
 
-        /* Set values, parameters, etc. */
         setScoreToCounter();
-        setSwitchesToSettings();
+        setSwitchValues();
         setInfo();
+
         setSnowFallingVisibility();
+
         setSensors();
+
+        makeNotificationChannel();
 
         checkVersion();
     }
 
-    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
-        super.onActivityResult(requestCode, resultCode, intent);
-        IntentResult scanResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, intent);
-        if (scanResult != null) {
-            try {
-                checkPatternQR(intent.getStringExtra("SCAN_RESULT"));
-            } catch (Exception exc) {
-                makeToast("Something went wrong.");
-            }
-        }
-    }
-
-    /* ************ */
-    /* Init methods */
-    /* ************ */
-
-    public void initLayoutVariables() {
-        /* Initializations layout variables */
-        counter = findViewById(R.id.counter);
-        label = findViewById(R.id.label);
-        button = findViewById(R.id.button);
-    }
-
-    public void initSettings() {
-        /* Initializations settings variables */
-        vibration = findViewById(R.id.vibration);
-        notification = findViewById(R.id.notification);
-        acceleration = findViewById(R.id.acceleration);
-        info = findViewById(R.id.info);
-    }
-
-    /* *********** */
-    /* Set methods */
-    /* *********** */
-
-    @SuppressLint("DefaultLocale")
-    public void setScoreToCounter() {
-        /* Set score to counter */
-        counter.setText(String.format("%06d", getScore()));
-    }
-
-    public void setSwitchesToSettings() {
-        /* Set switches to Settings */
-        vibrationState = sharedPreferences.getBoolean("vibration", false);
-        vibration.setChecked(vibrationState);
-
-        notificationState = sharedPreferences.getBoolean("notification", false);
-        notification.setChecked(notificationState);
-
-        accelerationState = sharedPreferences.getBoolean("acceleration", false);
-        acceleration.setChecked(accelerationState);
-    }
-
-    public void setInfo() {
-        /* Set info to Settings */
-        info.setText(("Version: " + BuildConfig.VERSION_NAME +
-                "\n@merive-studio, " + Calendar.getInstance().get(YEAR)));
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    public void setSnowFallingVisibility() {
-        /* Set visibility for snow if it is winter */
-        LocalDate localDate = new Date().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        if (localDate.getMonthValue() == 12 || localDate.getMonthValue() == 1)
-            findViewById(R.id.snow).setVisibility(View.VISIBLE);
-    }
-
-    public void setSensors() {
-        /* Set sensors variables */
-        sensorManager = (SensorManager) getSystemService(
-                Context.SENSOR_SERVICE);
-        accelerometer = sensorManager.getDefaultSensor(
-                Sensor.TYPE_ACCELEROMETER);
-    }
-
-    @SuppressLint("DefaultLocale")
-    public void setScoreToSharePreference(int score) {
-        /* Update score in shared preference */
-        sharedPreferences.edit().putString("score", String.format("%06d", score)).apply();
-    }
-
-    public void setAccelerationState(boolean state) {
-        /* Update Acceleration state in SharedPreferences */
-        sharedPreferences.edit().putBoolean("acceleration", state).apply();
-        accelerationState = state;
-    }
-
-    public void setVibrationTimes(int score) {
-        /* Make vibration by score */
-        if (score % 100000 == 0) makeVibration(3);
-        else if (score % 10000 == 0) makeVibration(2);
-        else if (score % 1000 == 0) makeVibration(1);
-    }
-
-    public void setScoreByQRResult(String result) {
-        /* Set score by result */
-        setScoreToSharePreference(Integer.parseInt(result.replace("P1MT:", "").
-                replace("(", "").replace(")", "")));
-        setScoreToCounter();
-        makeVibration(1);
-        makeToast("Score was updated.");
-    }
-
-    /* ************* */
-    /* Check methods */
-    /* ************* */
-
-    public void checkVersion() {
-        /* Make fragment if application was updated */
-        Thread thread = new Thread(() -> {
-            try {
-                if (!getActualVersion().equals(BuildConfig.VERSION_NAME))
-                    openUpdateFragment(BuildConfig.VERSION_NAME, getActualVersion());
-            } catch (Exception e) {
-                Log.e("CHECK VERSION ERROR ", "NOT POSSIBLE CHECK VERSION" + " (" + e + ") ");
-            }
-        });
-
-        thread.start();
-    }
-
-    public void checkPatternQR(String result) {
-        /* Check pattern of QR-Data */
-        Pattern pattern = Pattern.compile("P1MT:[(][0-9][0-9][0-9][)][(][0-9][0-9][0-9][)]");
-        if (pattern.matcher(result).find())
-            setScoreByQRResult(result);
-        else makeToast("Something went wrong.");
-    }
-
-    /* ************* */
-    /* Click methods */
-    /* ************* */
-
-    public void clickButton(View view) {
-        /* OnClick Button */
-        if (getScore() == 999999) {
-            resetCounter();
-            openFinish();
-        } else setScoreToSharePreference(getScore() + 1);
-        setScoreToCounter();
-        setVibrationTimes(getScore());
-    }
-
-    public void clickVibration(View view) {
-        /* OnClick Vibration Switch */
-        sharedPreferences.edit().putBoolean("vibration", vibration.isChecked()).apply();
-        vibrationState = vibration.isChecked();
-    }
-
-    public void clickNotification(View view) {
-        /* OnClick Notifications Switch */
-        sharedPreferences.edit().putBoolean("notification", notification.isChecked()).apply();
-        notificationState = notification.isChecked();
-        if (notificationState) setAlarm();
-        else offAlarm();
-    }
-
-    public void clickAcceleration(View view) {
-        /* onClick Acceleration in Settings */
-        setAccelerationState(acceleration.isChecked());
-        if (!acceleration.isChecked()) {
-            setDefaultRotation(label);
-            setDefaultRotation(counter);
-            setDefaultRotation(button);
-        }
-    }
-
-    public void clickOptions(View view) {
-        /* OnClick Options in Settings */
-        makeVibration(1);
-        FragmentManager fm = getSupportFragmentManager();
-        OptionsFragment optionsFragment = OptionsFragment.newInstance();
-        optionsFragment.show(fm, "options_fragment");
-    }
-
-    public void clickReset() {
-        /* OnClick Reset in OptionsFragment */
-        makeVibration(1);
-        FragmentManager fm = getSupportFragmentManager();
-        ConfirmFragment confirmFragment = ConfirmFragment.newInstance();
-        confirmFragment.show(fm, "confirm_fragment");
-    }
-
-    public void clickScoreShare() {
-        /* OnClick ScoreShare in OptionsFragment */
-        makeVibration(1);
-        FragmentManager fm = getSupportFragmentManager();
-        ScoreShareFragment scoreShareFragment = ScoreShareFragment.newInstance(String.valueOf(getScore()));
-        scoreShareFragment.show(fm, "score_share_fragment");
-    }
-
-    public void clickChangeIcon() {
-        /* OnClick Change Icon in OptionsFragment */
-        makeVibration(1);
-        FragmentManager fm = getSupportFragmentManager();
-        ChangeIconFragment changeIconFragment = ChangeIconFragment.newInstance();
-        changeIconFragment.show(fm, "change_icon_fragment");
-    }
-
-    /* ************ */
-    /* Open methods */
-    /* ************ */
-
-    public void openUpdateFragment(String oldVersion, String newVersion) {
-        /* Open UpdateFragment */
-        FragmentManager fm = getSupportFragmentManager();
-        UpdateFragment updateFragment = UpdateFragment.newInstance(oldVersion, newVersion);
-        updateFragment.show(fm, "update_fragment");
-    }
-
-    public void openFinish() {
-        /* Open FinishActivity */
-        Intent intent = new Intent(this, FinishActivity.class);
-        startActivity(intent);
-    }
-
-    /* *********** */
-    /* Get methods */
-    /* *********** */
-
-    public int getScore() {
-        /* Return Integer Score */
-        return Integer.parseInt(sharedPreferences.getString("score", "000000"));
-    }
-
-    public String getApplicationIcon() {
-        /* Get Current Icon of Application */
-        return sharedPreferences.getString("icon", "default");
-    }
-
-    public String getActualVersion() throws IOException {
-        /* Get version of actual application on site */
-        URL url = new URL("https://merive.herokuapp.com/P1MT");
-        BufferedReader reader = null;
-        StringBuilder builder = new StringBuilder();
-        try {
-            reader = new BufferedReader(new InputStreamReader(url.openStream(), StandardCharsets.UTF_8));
-            for (String line; (line = reader.readLine()) != null; ) builder.append(line.trim());
-        } finally {
-            if (reader != null) try {
-                reader.close();
-            } catch (IOException ignored) {
-            }
-        }
-        return builder.substring(builder.indexOf("<i>") + "<i>".length()).substring(1, builder.substring(builder.indexOf("<i>") + "<i>".length()).indexOf("</i>"));
-    }
-
-    /* ************ */
-    /* Make methods */
-    /* ************ */
-
-    public void makeVibration(int times) {
-        /* Make vibrations on device */
-        if (vibrationState) {
-            Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-            v.vibrate(150L * times);
-        }
-    }
-
-    public void makeToast(String message) {
-        /* Make custom toast */
-        LayoutInflater inflater = getLayoutInflater();
-        View layout = inflater.inflate(R.layout.toast, findViewById(R.id.toastLayout));
-        TextView text = layout.findViewById(R.id.message);
-        text.setText(message);
-        Toast toast = new Toast(getApplicationContext());
-        toast.setGravity(Gravity.BOTTOM, 0, 65);
-        toast.setDuration(Toast.LENGTH_SHORT);
-        toast.setView(layout);
-        toast.show();
-    }
-
-    public void makeNotificationChannel() {
-        /* Make channel for notifications */
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            CharSequence name = "Press1MTimesChannel";
-            String description = "Channel for Press1MTimes";
-            int importance = NotificationManager.IMPORTANCE_DEFAULT;
-            NotificationChannel channel =
-                    new NotificationChannel("notifyPress1MTimes", name, importance);
-            channel.setDescription(description);
-
-            NotificationManager notificationManager =
-                    getSystemService(NotificationManager.class);
-            notificationManager.createNotificationChannel(channel);
-        }
-    }
-
-    /* *************** */
-    /* Another methods */
-    /* *************** */
-
-    public void changeIcon(String icon) {
-        /* Change Current Icon of Application in SharedPreferences */
-        sharedPreferences.edit().putString("icon", icon).apply();
-    }
-
-    public void resetCounter() {
-        /* Reset Counter to default */
-        setScoreToSharePreference(0);
-        setScoreToCounter();
-    }
-
-
-    /* ******************** */
-    /* Acceleration methods */
-    /* ******************** */
-
     @Override
     protected void onStart() {
         super.onStart();
-        if (accelerometer != null) {
-            sensorManager.registerListener(this, accelerometer,
-                    SensorManager.SENSOR_DELAY_NORMAL);
-        }
+        if (accelerometer != null)
+            sensorManager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_NORMAL);
     }
 
     @Override
@@ -427,6 +110,12 @@ public class MainActivity extends AppCompatActivity
         sensorManager.unregisterListener(this);
     }
 
+    /**
+     * This overridden method is registering accelerator changes.
+     *
+     * @param sensorEvent SensorEvent object.
+     * @see SensorEvent
+     */
     @Override
     public void onSensorChanged(SensorEvent sensorEvent) {
         if (sharedPreferences.getBoolean("acceleration", false)) {
@@ -441,25 +130,320 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    public void setDefaultRotation(View view) {
-        /* Set Default Rotation for view */
-        defineRotation(0, 0, view);
-    }
-
     @Override
     public void onAccuracyChanged(Sensor sensor, int i) {
-        /* Don't write */
     }
 
-    /* ************* */
-    /* Alarm methods */
-    /* ************* */
+    /**
+     * This method is checking result of QR scanning.
+     *
+     * @param requestCode The code what was requested.
+     * @param resultCode  The code what was returned.
+     * @param intent      Intent object.
+     */
+    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        super.onActivityResult(requestCode, resultCode, intent);
+        IntentResult scanResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, intent);
+        if (scanResult != null) {
+            try {
+                checkPatternQR(intent.getStringExtra("SCAN_RESULT"));
+            } catch (Exception exc) {
+                makeToast("Something went wrong");
+            }
+        }
+    }
 
-    public void setAlarm() {
-        /* Set notification alarm */
-        Intent intent = new Intent(MainActivity.this, NotificationsReceiver.class);
+    /**
+     * This method is checking QR result on pattern.
+     *
+     * @param result QR result.
+     * @see Pattern
+     */
+    private void checkPatternQR(String result) {
+        Pattern pattern = Pattern.compile("P1MT:[(][0-9][0-9][0-9][)][(][0-9][0-9][0-9][)]");
+        if (pattern.matcher(result).find()) setScoreByQRResult(result);
+        else makeToast("QR-Code cannot be scanning");
+    }
+
+    /**
+     * This method is setting score by QR result.
+     *
+     * @param result Score value from QR-Code.
+     */
+    private void setScoreByQRResult(String result) {
+        setScoreToSharePreference(Integer.parseInt(result.replace("P1MT:", "").
+                replace("(", "").replace(")", "")));
+        setScoreToCounter();
+        makeVibration(1);
+        makeToast("Press1MTimes Score was updated");
+    }
+
+    /**
+     * This method is setting new score value to sharedPreference.
+     *
+     * @param score Score value.
+     * @see SharedPreferences
+     */
+    @SuppressLint("DefaultLocale")
+    private void setScoreToSharePreference(int score) {
+        sharedPreferences.edit().putString("score", String.format("%06d", score)).apply();
+    }
+
+    /**
+     * This method is making Vibration.
+     *
+     * @param times Number of times.
+     */
+    public void makeVibration(int times) {
+        if (vibrationState) {
+            Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+            v.vibrate(150L * times);
+        }
+    }
+
+    /**
+     * This method is open ToastFragment.
+     *
+     * @param message Toast message.
+     * @see ToastFragment
+     */
+    public void makeToast(String message) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+        transaction.setReorderingAllowed(true);
+
+        transaction.replace(R.id.toast_fragment, ToastFragment.newInstance(message), null);
+        transaction.commit();
+    }
+
+    /**
+     * This method is initializing main Layout Components.
+     */
+    private void initLayoutVariables() {
+        counter = findViewById(R.id.counter);
+        label = findViewById(R.id.label);
+        button = findViewById(R.id.button);
+    }
+
+    /**
+     * This method is initializing Settings Components.
+     */
+    private void initSettings() {
+        vibration = findViewById(R.id.vibration);
+        notification = findViewById(R.id.notification);
+        acceleration = findViewById(R.id.acceleration);
+        info = findViewById(R.id.info);
+    }
+
+    /**
+     * This method is setting score to counter.
+     */
+    @SuppressLint("DefaultLocale")
+    private void setScoreToCounter() {
+        counter.setText(String.format("%06d", getScore()));
+    }
+
+    /**
+     * This method is getting score from SharedPreference.
+     *
+     * @return Score Value.
+     * @see SharedPreferences
+     */
+    private int getScore() {
+        return Integer.parseInt(sharedPreferences.getString("score", "000000"));
+    }
+
+    /**
+     * This method is setting switch values from SharedPreference.
+     *
+     * @see SharedPreferences
+     */
+    private void setSwitchValues() {
+        vibrationState = sharedPreferences.getBoolean("vibration", false);
+        vibration.setChecked(vibrationState);
+
+        notificationState = sharedPreferences.getBoolean("notification", false);
+        notification.setChecked(notificationState);
+
+        accelerationState = sharedPreferences.getBoolean("acceleration", false);
+        acceleration.setChecked(accelerationState);
+    }
+
+    /**
+     * This method is setting info to settings.
+     */
+    private void setInfo() {
+        info.setText(("Version: " + BuildConfig.VERSION_NAME +
+                "\n@merive-studio, " + Calendar.getInstance().get(YEAR)));
+    }
+
+    /**
+     * This method is setting visibility for Snow Falling effect if now is winter.
+     *
+     * @see com.jetradarmobile.snowfall.SnowfallView
+     */
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private void setSnowFallingVisibility() {
+        LocalDate localDate = new Date().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        if (localDate.getMonthValue() == 12 || localDate.getMonthValue() == 1 || localDate.getMonthValue() == 2)
+            findViewById(R.id.snow).setVisibility(View.VISIBLE);
+    }
+
+    /**
+     * This method is setting sensors that using by application.
+     */
+    private void setSensors() {
+        sensorManager = (SensorManager) getSystemService(
+                Context.SENSOR_SERVICE);
+        accelerometer = sensorManager.getDefaultSensor(
+                Sensor.TYPE_ACCELEROMETER);
+    }
+
+    /**
+     * This method is making notification channel.
+     */
+    private void makeNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = "Press1MTimesChannel";
+            String description = "Channel for Press1MTimes";
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel =
+                    new NotificationChannel("notifyPress1MTimes", name, importance);
+            channel.setDescription(description);
+
+            NotificationManager notificationManager =
+                    getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
+    }
+
+    /**
+     * This method is checking actual application version.
+     * If P1MT have new version on website, this method will open UpdateFragment.
+     *
+     * @see UpdateFragment
+     */
+    private void checkVersion() {
+        new Thread(() -> {
+            try {
+                if (!getActualVersion().equals(BuildConfig.VERSION_NAME))
+                    openUpdateFragment(getActualVersion());
+            } catch (IOException ignored) {
+            }
+        }).start();
+    }
+
+    /**
+     * This method is getting actual application version on website.
+     *
+     * @return Actual application version.
+     * @throws IOException ignored.
+     * @see UpdateFragment
+     */
+    private String getActualVersion() throws IOException {
+        URL url = new URL(getResources().getString(R.string.link));
+        BufferedReader reader = null;
+        StringBuilder builder = new StringBuilder();
+        try {
+            reader = new BufferedReader(new InputStreamReader(url.openStream(), StandardCharsets.UTF_8));
+            for (String line; (line = reader.readLine()) != null; ) builder.append(line.trim());
+        } finally {
+            if (reader != null) try {
+                reader.close();
+            } catch (IOException ignored) {
+            }
+        }
+        return builder.substring(builder.indexOf("<i>") + "<i>".length()).substring(1, builder.substring(builder.indexOf("<i>") + "<i>".length()).indexOf("</i>"));
+    }
+
+    /**
+     * This method is opening UpdateFragment.
+     *
+     * @param actualVersion Actual application version.
+     */
+    private void openUpdateFragment(String actualVersion) {
+        FragmentManager fm = getSupportFragmentManager();
+        UpdateFragment updateFragment = UpdateFragment.newInstance(BuildConfig.VERSION_NAME, actualVersion);
+        updateFragment.show(fm, "update_fragment");
+    }
+
+    /**
+     * This method is executing after clicking on button.
+     *
+     * @param view View object.
+     */
+    public void clickButton(View view) {
+        if (getScore() == 999999) {
+            resetCounter();
+            openFinish();
+        } else setScoreToSharePreference(getScore() + 1);
+        setScoreToCounter();
+        setVibrationTimes(getScore());
+    }
+
+    /**
+     * This method is resetting counter value to default value.
+     */
+    public void resetCounter() {
+        setScoreToSharePreference(0);
+        setScoreToCounter();
+    }
+
+    /**
+     * This method is opening FinishActivity.
+     */
+    private void openFinish() {
+        Intent intent = new Intent(this, FinishActivity.class);
+        startActivity(intent);
+    }
+
+    /**
+     * This method is setting number of vibration times by score.
+     *
+     * @param score Score value.
+     */
+    private void setVibrationTimes(int score) {
+        if (score % 100000 == 0) makeVibration(3);
+        else if (score % 10000 == 0) makeVibration(2);
+        else if (score % 1000 == 0) makeVibration(1);
+    }
+
+    /**
+     * This method is executing after clicking on vibration switch.
+     * The method is setting vibration switch value to sharedPreference and vibrationState variable.
+     *
+     * @param view View object.
+     */
+    public void clickVibration(View view) {
+        sharedPreferences.edit().putBoolean("vibration", vibration.isChecked()).apply();
+        vibrationState = vibration.isChecked();
+    }
+
+    /**
+     * This method is executing after clicking on notification switch.
+     * The method is setting notification switch value to sharedPreference and notificationState variable.
+     * If notification switch is true, will be unable alarm for notification.
+     * Else will be disabled.
+     *
+     * @param view View object.
+     */
+    public void clickNotification(View view) {
+        sharedPreferences.edit().putBoolean("notification", notification.isChecked()).apply();
+        notificationState = notification.isChecked();
+        if (notificationState) setAlarm();
+        else offAlarm();
+    }
+
+    /**
+     * This method is enabling alarm for notifications.
+     */
+    private void setAlarm() {
+        Intent intent = new Intent(getBaseContext(), NotificationsReceiver.class);
+        intent.putExtra("score", String.valueOf(getScore()));
+
         PendingIntent pendingIntent =
-                PendingIntent.getBroadcast(MainActivity.this, 0, intent, 0);
+                PendingIntent.getBroadcast(MainActivity.this, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
 
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
@@ -471,16 +455,134 @@ public class MainActivity extends AppCompatActivity
                 AlarmManager.INTERVAL_DAY, pendingIntent);
     }
 
-    public void offAlarm() {
-        /* Disable notification alarm */
+    /**
+     * This method is disabling alarm for notifications.
+     */
+    private void offAlarm() {
         AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
         Intent intent = new Intent(MainActivity.this, NotificationsReceiver.class);
         PendingIntent pendingIntent =
-                PendingIntent.getService(MainActivity.this, 0, intent,
-                        0);
+                PendingIntent.getService(MainActivity.this, 0, intent, 0);
 
-        if (pendingIntent != null && alarmManager != null) {
-            alarmManager.cancel(pendingIntent);
+        if (pendingIntent != null && alarmManager != null) alarmManager.cancel(pendingIntent);
+    }
+
+    /**
+     * This method is executing after clicking on acceleration switch.
+     * If acceleration switch value is false, will be setting default rotation for main components.
+     *
+     * @param view View object.
+     */
+    public void clickAcceleration(View view) {
+        setAccelerationState(acceleration.isChecked());
+        if (!acceleration.isChecked()) {
+            setDefaultRotation(label);
+            setDefaultRotation(counter);
+            setDefaultRotation(button);
         }
+    }
+
+    /**
+     * This method is setting accelerationState value.
+     *
+     * @param state State value.
+     */
+    private void setAccelerationState(boolean state) {
+        sharedPreferences.edit().putBoolean("acceleration", state).apply();
+        accelerationState = state;
+    }
+
+    /**
+     * This method is setting default rotation for view.
+     *
+     * @param view View component.
+     */
+    private void setDefaultRotation(View view) {
+        defineRotation(0, 0, view);
+    }
+
+    /**
+     * This method is executing after clicking on Options Button.
+     *
+     * @param view View object.
+     * @see android.widget.Button
+     */
+    public void clickOptions(View view) {
+        makeVibration(1);
+        FragmentManager fm = getSupportFragmentManager();
+        OptionsFragment optionsFragment = OptionsFragment.newInstance();
+        optionsFragment.show(fm, "options_fragment");
+    }
+
+    /**
+     * This method is executing after clicking on Reset Button.
+     *
+     * @see android.widget.Button
+     */
+    public void clickReset() {
+        makeVibration(1);
+        FragmentManager fm = getSupportFragmentManager();
+        ConfirmFragment confirmFragment = ConfirmFragment.newInstance();
+        confirmFragment.show(fm, "confirm_fragment");
+    }
+
+    /**
+     * This method is executing after clicking on ScoreShare Button.
+     *
+     * @see android.widget.Button
+     */
+    public void clickScoreShare() {
+        makeVibration(1);
+        FragmentManager fm = getSupportFragmentManager();
+        ScoreShareFragment scoreShareFragment = ScoreShareFragment.newInstance(String.valueOf(getScore()));
+        scoreShareFragment.show(fm, "score_share_fragment");
+    }
+
+    /**
+     * This method is executing after clicking on ChangeIcon Button.
+     *
+     * @see android.widget.Button
+     */
+    public void clickChangeIcon() {
+        makeVibration(1);
+        FragmentManager fm = getSupportFragmentManager();
+        ChangeIconFragment changeIconFragment = ChangeIconFragment.newInstance();
+        changeIconFragment.show(fm, "change_icon_fragment");
+    }
+
+    /**
+     * This method returns application icon name from sharedPreference.
+     *
+     * @return Application icon name.
+     * @see SharedPreferences
+     */
+    public String getApplicationIcon() {
+        return sharedPreferences.getString("icon", "default");
+    }
+
+
+    /**
+     * This method is removing ToastFragment Fragment Layout.
+     *
+     * @see ToastFragment
+     * @see android.widget.FrameLayout
+     */
+    public void removeToast() {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+        transaction.setReorderingAllowed(true);
+
+        transaction.remove(fragmentManager.findFragmentById(R.id.toast_fragment));
+        transaction.commit();
+    }
+
+    /**
+     * This method is changing application icon value in sharedPreference.
+     *
+     * @param icon Icon name.
+     */
+    public void changeIcon(String icon) {
+        sharedPreferences.edit().putString("icon", icon).apply();
     }
 }

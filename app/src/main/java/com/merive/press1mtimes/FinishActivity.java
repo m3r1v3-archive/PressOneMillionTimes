@@ -1,5 +1,7 @@
 package com.merive.press1mtimes;
 
+import static com.merive.press1mtimes.utils.Rotation.defineRotation;
+
 import android.content.Context;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -9,7 +11,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.view.View;
 import android.widget.ImageButton;
@@ -23,8 +24,6 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.Objects;
-
-import static com.merive.press1mtimes.utils.Rotation.defineRotation;
 
 public class FinishActivity extends AppCompatActivity
         implements SensorEventListener {
@@ -40,6 +39,12 @@ public class FinishActivity extends AppCompatActivity
     Sensor accelerometer;
     float[] axisData = new float[3];
 
+
+    /**
+     * This method is the start point at the FinishActivity.
+     *
+     * @param savedInstanceState Used by super.onCreate method.
+     */
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,75 +61,6 @@ public class FinishActivity extends AppCompatActivity
         setSensors();
     }
 
-    /* ************ */
-    /* Init methods */
-    /* ************ */
-    public void initLayoutVariables() {
-        /* Initializations layout variables */
-        exit = findViewById(R.id.exit);
-        easter = findViewById(R.id.easter_egg);
-        title = findViewById(R.id.title);
-        label = findViewById(R.id.label);
-        footer = findViewById(R.id.footer);
-    }
-
-    /* *********** */
-    /* Set methods */
-    /* *********** */
-    public void setStates() {
-        accelerationState = MainActivity.accelerationState;
-        vibrationState = MainActivity.vibrationState;
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    public void setSnowFallingVisibility() {
-        /* Set visibility for snow if it is winter */
-        LocalDate localDate = new Date().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        if (localDate.getMonthValue() == 12 || localDate.getMonthValue() == 1)
-            findViewById(R.id.snow).setVisibility(View.VISIBLE);
-    }
-
-    public void setSensors() {
-        /* Set sensors variables */
-        sensorManager = (SensorManager) getSystemService(
-                Context.SENSOR_SERVICE);
-        accelerometer = sensorManager.getDefaultSensor(
-                Sensor.TYPE_ACCELEROMETER);
-    }
-
-    public void clickExit(View view) {
-        exit.setVisibility(View.INVISIBLE);
-        easter.setVisibility(View.VISIBLE);
-
-        /* Easter egg animation */
-        makeAnimation();
-
-        /* Finish layout */
-        handler.postDelayed(this::finish, 500);
-    }
-
-    /* Make method */
-    public void makeAnimation() {
-        easter.animate().translationY(-100f).setDuration(200L).start();
-        handler = new Handler(Objects.requireNonNull(Looper.myLooper()), callback);
-        handler.postDelayed(() -> {
-            easter.animate().translationY(80f).setDuration(200L).start();
-            if (vibrationState) makeVibration();
-        }, 300);
-    }
-
-    public void makeVibration() {
-        /* Make vibrations on device */
-        Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
-            v.vibrate(VibrationEffect.createOneShot(250,
-                    VibrationEffect.DEFAULT_AMPLITUDE));
-        else v.vibrate(250);
-    }
-
-    /* ******************** */
-    /* Acceleration methods */
-    /* ******************** */
     @Override
     protected void onStart() {
         super.onStart();
@@ -140,6 +76,12 @@ public class FinishActivity extends AppCompatActivity
         sensorManager.unregisterListener(this);
     }
 
+    /**
+     * This overridden method is registering accelerator changes.
+     *
+     * @param sensorEvent SensorEvent object.
+     * @see SensorEvent
+     */
     @Override
     public void onSensorChanged(SensorEvent sensorEvent) {
         if (accelerationState) {
@@ -157,6 +99,83 @@ public class FinishActivity extends AppCompatActivity
 
     @Override
     public void onAccuracyChanged(Sensor sensor, int i) {
-        /* Don't write */
+    }
+
+    /**
+     * This method is initializing main Layout Components.
+     */
+    private void initLayoutVariables() {
+        title = findViewById(R.id.title);
+        label = findViewById(R.id.label);
+        footer = findViewById(R.id.footer);
+        exit = findViewById(R.id.exit);
+        easter = findViewById(R.id.easter_egg);
+    }
+
+    /**
+     * This method is getting states in MainActivity and assigning to variables in FinishActivity.
+     */
+    private void setStates() {
+        accelerationState = MainActivity.accelerationState;
+        vibrationState = MainActivity.vibrationState;
+    }
+
+    /**
+     * This method is setting visibility for Snow Falling effect if now is winter.
+     *
+     * @see com.jetradarmobile.snowfall.SnowfallView
+     */
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private void setSnowFallingVisibility() {
+        LocalDate localDate = new Date().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        if (localDate.getMonthValue() == 12 || localDate.getMonthValue() == 1 || localDate.getMonthValue() == 2)
+            findViewById(R.id.snow).setVisibility(View.VISIBLE);
+    }
+
+    /**
+     * This method is setting sensors that using by application.
+     */
+    private void setSensors() {
+        sensorManager = (SensorManager) getSystemService(
+                Context.SENSOR_SERVICE);
+        accelerometer = sensorManager.getDefaultSensor(
+                Sensor.TYPE_ACCELEROMETER);
+    }
+
+    /**
+     * This method is executing after clicking on Finish Button.
+     *
+     * @param view View object.
+     * @see android.widget.Button
+     */
+    public void clickExit(View view) {
+        exit.setVisibility(View.INVISIBLE);
+        easter.setVisibility(View.VISIBLE);
+
+        makeAnimation();
+
+        handler.postDelayed(this::finish, 500);
+    }
+
+    /**
+     * This method is making easter animation.
+     */
+    private void makeAnimation() {
+        easter.animate().translationY(-100f).setDuration(200L).start();
+        handler = new Handler(Objects.requireNonNull(Looper.myLooper()), callback);
+        handler.postDelayed(() -> {
+            easter.animate().translationY(80f).setDuration(200L).start();
+            makeVibration();
+        }, 300);
+    }
+
+    /**
+     * This method is making vibration.
+     */
+    private void makeVibration() {
+        if (vibrationState) {
+            Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+            v.vibrate(150L);
+        }
     }
 }

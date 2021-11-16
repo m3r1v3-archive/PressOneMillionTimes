@@ -30,113 +30,127 @@ public class ScoreShareFragment extends DialogFragment {
     ImageView code;
     Button scan;
 
-
+    /**
+     * ScoreShareFragment empty constructor.
+     */
     public ScoreShareFragment() {
-        /* Empty constructor (Needs) */
     }
 
-    public static com.merive.press1mtimes.fragments.ScoreShareFragment newInstance(String score) {
-        /* newInstance method */
-        com.merive.press1mtimes.fragments.ScoreShareFragment frag = new com.merive.press1mtimes.fragments.ScoreShareFragment();
+    /**
+     * This method returns ScoreShareFragment object.
+     *
+     * @return ScoreShareFragment object.
+     */
+    public static ScoreShareFragment newInstance(String score) {
+        ScoreShareFragment frag = new ScoreShareFragment();
         Bundle args = new Bundle();
         args.putString("score", score);
         frag.setArguments(args);
         return frag;
     }
 
-    /* **************** */
-    /* Override methods */
-    /* **************** */
-
+    /**
+     * This method is creating ScoreShareFragment.
+     *
+     * @param inflater           Needs for getting Fragment View.
+     * @param parent             Argument of inflater.inflate().
+     * @param savedInstanceState Save Fragment Values.
+     * @return Fragment View.
+     * @see View
+     * @see Bundle
+     */
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
         getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        return inflater.inflate(R.layout.score_share_fragment, container);
+        return inflater.inflate(R.layout.score_share_fragment, parent);
     }
 
-
+    /**
+     * This method is executing after Fragment View was created.
+     *
+     * @param view               Fragment View Value.
+     * @param savedInstanceState Saving Fragment Values.
+     * @see View
+     * @see Bundle
+     */
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        getDialog().getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
 
-        initVariables(view);
+        initVariables();
 
-        makeQRCode(getArguments().getString("score", "0"));
-
-        scan.setOnClickListener(v -> {
-            clickScan();
-        });
+        code.setImageBitmap(makeQRCode(getArguments().getString("score")));
+        scan.setOnClickListener(v -> clickScan());
     }
 
-    /* ************ */
-    /* Init methods */
-    /* ************ */
-
-    public void initVariables(View view) {
-        /* Init main variables */
-        code = view.findViewById(R.id.QRCode);
-        scan = view.findViewById(R.id.scan);
+    /**
+     * This method is initializing layout variables.
+     *
+     * @see View
+     */
+    private void initVariables() {
+        code = getView().findViewById(R.id.QRCode);
+        scan = getView().findViewById(R.id.scan);
     }
 
-    /* ************ */
-    /* Make methods */
-    /* ************ */
-
-    public void makeQRCode(String score) {
-        QRCodeWriter writer = new QRCodeWriter();
+    /**
+     * This method is generating QR-Code by score value.
+     *
+     * @param score Score value.
+     * @return QR-Code Bitmap image.
+     * @see Bitmap
+     */
+    private Bitmap makeQRCode(String score) {
         try {
-            BitMatrix bitMatrix = writer.encode(encryptScore(score), BarcodeFormat.QR_CODE, 512, 512);
+            BitMatrix bitMatrix = new QRCodeWriter().encode(encryptScore(score), BarcodeFormat.QR_CODE, 512, 512);
             int width = bitMatrix.getWidth();
             int height = bitMatrix.getHeight();
             int[] pixels = new int[width * height];
-            for (int y = 0; y < height; y++) {
-                int offset = y * width;
-                for (int x = 0; x < width; x++) {
-                    pixels[offset + x] = bitMatrix.get(x, y) ? 0xFF2C2C2C : Color.TRANSPARENT;
-                }
-            }
+            for (int y = 0; y < height; y++)
+                for (int x = 0; x < width; x++)
+                    pixels[y * width + x] = bitMatrix.get(x, y) ? 0xFF2C2C2C : Color.TRANSPARENT;
             Bitmap bmp = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
             bmp.setPixels(pixels, 0, width, 0, 0, width, height);
-            code.setImageBitmap(bmp);
-        } catch (WriterException e) {
-            e.printStackTrace();
-        }
+            return bmp;
+        } catch (WriterException ignored) { return null; }
     }
 
-    /* ************* */
-    /* Click methods */
-    /* ************* */
-
-    public void clickScan() {
-        /* Click Scan Button */
+    /**
+     * This method is executing after clicking on Scan button.
+     * The method is making vibration and open QR scanner.
+     */
+    private void clickScan() {
         ((MainActivity) getActivity()).makeVibration(1);
         openScanner();
         dismiss();
     }
 
-    /* *************** */
-    /* Another methods */
-    /* *************** */
-
-    public void openScanner() {
-        /* Open ScannerActivity */
-        IntentIntegrator integrator = new IntentIntegrator(getActivity());
-        integrator.setBarcodeImageEnabled(false);
-        integrator.setPrompt("Find P1MT QR-Code and Scan him");
-        integrator.setCameraId(0);
-        integrator.setCaptureActivity(ScannerActivity.class);
-        integrator.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE);
-        integrator.setBeepEnabled(false);
-        integrator.setOrientationLocked(true);
-        integrator.initiateScan();
+    /**
+     * This method is opening QR scanner.
+     */
+    private void openScanner() {
+        new IntentIntegrator(getActivity())
+                .setBarcodeImageEnabled(false)
+                .setPrompt("Find and Scan Press1MTimes QR-Code")
+                .setCameraId(0)
+                .setCaptureActivity(ScannerActivity.class)
+                .setDesiredBarcodeFormats(IntentIntegrator.QR_CODE)
+                .setBeepEnabled(false)
+                .setOrientationLocked(true)
+                .initiateScan();
     }
 
+    /**
+     * This method is encrypting Score value.
+     *
+     * @param score Score value.
+     * @return Encrypted score value.
+     */
     @SuppressLint("DefaultLocale")
-    public String encryptScore(String result) {
-        /* Encrypt data from QR result */
-        return "P1MT:" + "(" + String.format("%06d", Integer.parseInt(result)).substring(0, 3) + ")" + "(" +
-                String.format("%06d", Integer.parseInt(result)).substring(3) + ")";
+    private String encryptScore(String score) {
+        return "P1MT:" + "(" + String.format("%06d", Integer.parseInt(score)).substring(0, 3) + ")" + "(" +
+                String.format("%06d", Integer.parseInt(score)).substring(3) + ")";
     }
 }
 

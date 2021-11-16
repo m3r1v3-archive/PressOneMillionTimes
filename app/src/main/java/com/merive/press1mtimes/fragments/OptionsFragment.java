@@ -19,80 +19,99 @@ public class OptionsFragment extends DialogFragment {
 
     Button reset, scoreShare, changeIcon;
 
+    /**
+     * OptionsFragment empty constructor.
+     */
     public OptionsFragment() {
-        /* Empty constructor (Needs) */
     }
 
+    /**
+     * This method returns OptionsFragment object.
+     *
+     * @return OptionsFragment object.
+     */
     public static OptionsFragment newInstance() {
-        /* newInstance method */
-        OptionsFragment frag = new OptionsFragment();
-        Bundle args = new Bundle();
-        frag.setArguments(args);
-        return frag;
+        return new OptionsFragment();
     }
 
-    /* **************** */
-    /* Override methods */
-    /* **************** */
-
+    /**
+     * This method is creating OptionsFragment.
+     *
+     * @param inflater           Needs for getting Fragment View.
+     * @param parent             Argument of inflater.inflate().
+     * @param savedInstanceState Save Fragment Values.
+     * @return Fragment View.
+     * @see View
+     * @see Bundle
+     */
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
         getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        return inflater.inflate(R.layout.options_fragment, container);
+        return inflater.inflate(R.layout.options_fragment, parent);
     }
 
-
+    /**
+     * This method is executing after Fragment View was created.
+     *
+     * @param view               Fragment View Value.
+     * @param savedInstanceState Saving Fragment Values.
+     * @see View
+     * @see Bundle
+     */
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        getDialog().getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
 
-        initVariables(view);
+        initVariables();
 
-        reset.setOnClickListener(v -> {
-            clickReset();
-        });
-
-        scoreShare.setOnClickListener(v -> {
-            clickScoreShare();
-        });
-
-        changeIcon.setOnClickListener(v -> {
-            clickChangeIcon();
-        });
+        reset.setOnClickListener(v -> clickReset());
+        scoreShare.setOnClickListener(v -> clickScoreShare());
+        changeIcon.setOnClickListener(v -> clickChangeIcon());
     }
 
-    /* ************ */
-    /* Init methods */
-    /* ************ */
-
-    public void initVariables(View view) {
-        /* Init main variables */
-        reset = view.findViewById(R.id.reset);
-        scoreShare = view.findViewById(R.id.scoreShare);
-        changeIcon = view.findViewById(R.id.changeIcon);
+    /**
+     * This method is initializing layout variables.
+     *
+     * @see View
+     */
+    private void initVariables() {
+        reset = getView().findViewById(R.id.reset);
+        scoreShare = getView().findViewById(R.id.scoreShare);
+        changeIcon = getView().findViewById(R.id.changeIcon);
     }
 
-    /* ************* */
-    /* Click methods */
-    /* ************* */
-
-    public void clickReset() {
-        /* Click Reset Button */
+    /**
+     * This method is executing after clicking on reset button.
+     * The method is making vibration and open ConfirmFragment for confirming reset.
+     *
+     * @see ConfirmFragment
+     */
+    private void clickReset() {
         ((MainActivity) getActivity()).makeVibration(1);
         ((MainActivity) getActivity()).clickReset();
         dismiss();
     }
 
-    public void clickScoreShare() {
-        /* Click ScoreShare Button */
+    /**
+     * This method is executing after clicking on ScoreShare button.
+     * The method is making vibration and open ScoreShareFragment.
+     *
+     * @see ScoreShareFragment
+     */
+    private void clickScoreShare() {
         ((MainActivity) getActivity()).makeVibration(1);
         ((MainActivity) getActivity()).clickScoreShare();
         dismiss();
     }
 
-    public void clickChangeIcon() {
-        /* Click ChangeIcon Button */
+    /**
+     * This method is executing after clicking on Change Icon button.
+     * The method is making vibration and open ChangeIconFragment.
+     *
+     * @see ChangeIconFragment
+     */
+    private void clickChangeIcon() {
         ((MainActivity) getActivity()).makeVibration(1);
         ((MainActivity) getActivity()).clickChangeIcon();
         dismiss();

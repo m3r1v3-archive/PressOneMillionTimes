@@ -10,16 +10,24 @@ import androidx.core.app.NotificationManagerCompat;
 
 public class NotificationsReceiver extends BroadcastReceiver {
 
+    /**
+     * This method is sending notification.
+     *
+     * @param context Context object.
+     * @param intent  intent needs for getting score.
+     * @see Context
+     * @see Intent
+     */
     @Override
     public void onReceive(Context context, Intent intent) {
         Intent myIntent = new Intent(context, SplashActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, myIntent, 0);
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, myIntent, PendingIntent.FLAG_CANCEL_CURRENT);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "notifyPress1MTimes")
                 .setSmallIcon(R.drawable.ic_stat_name)
                 .setColor(context.getResources().getColor(R.color.red))
-                .setContentTitle("Soon you will reach your goal...")
-                .setContentText("You only pressed " + MainActivity.getScoreForNotifications() + " times")
+                .setContentTitle("The 1M is near")
+                .setContentText("You have already pressed " + intent.getStringExtra("score") + " times")
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 .setContentIntent(pendingIntent)
                 .setAutoCancel(true);
