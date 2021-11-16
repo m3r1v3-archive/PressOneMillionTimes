@@ -27,6 +27,7 @@
         <activity
             android:name=".SplashActivity"
             android:exported="true"
+            android:screenOrientation="portrait"
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -37,6 +38,7 @@
         <activity
             android:name=".MainActivity"
             android:exported="false"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.Press1MTimes">
             <intent-filter>
                 <category android:name="android.intent.category.DEFAULT" />
@@ -46,6 +48,7 @@
         <activity
             android:name=".FinishActivity"
             android:exported="false"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.Press1MTimes">
             <intent-filter>
                 <category android:name="android.intent.category.DEFAULT" />
