@@ -21,75 +21,115 @@ public class ChangeIconFragment extends DialogFragment {
 
     ImageView defaultIcon, P1MTIcon, classicIcon;
 
+    /**
+     * ChangeIcon empty constructor.
+     */
     ChangeIconFragment() {
     }
 
+    /**
+     * This method returns ChangeIconFragment object.
+     *
+     * @return ChangeIconFragment object.
+     */
     public static ChangeIconFragment newInstance() {
-        ChangeIconFragment frag = new ChangeIconFragment();
-        Bundle args = new Bundle();
-        frag.setArguments(args);
-        return frag;
+        return new ChangeIconFragment();
     }
 
+    /**
+     * This method is creating ChangeIconFragment.
+     *
+     * @param inflater           Needs for getting Fragment View.
+     * @param parent             Argument of inflater.inflate().
+     * @param savedInstanceState Save Fragment Values.
+     * @return Fragment View.
+     * @see View
+     * @see Bundle
+     */
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
         getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        return inflater.inflate(R.layout.change_icon_fragment, container);
+        return inflater.inflate(R.layout.change_icon_fragment, parent);
     }
 
+    /**
+     * This method is executing after Fragment View was created.
+     *
+     * @param view               Fragment View Value.
+     * @param savedInstanceState Saving Fragment Values.
+     * @see View
+     * @see Bundle
+     */
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         getDialog().getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
 
-        initVariables(view);
+        initVariables();
 
-        defaultIcon.setOnClickListener(v -> {
-            clickDefaultIcon();
-        });
-
-        P1MTIcon.setOnClickListener(v -> {
-            clickP1MTIcon();
-        });
-
-        classicIcon.setOnClickListener(v -> {
-            clickClassicIcon();
-        });
+        defaultIcon.setOnClickListener(v -> clickDefaultIcon());
+        P1MTIcon.setOnClickListener(v -> clickP1MTIcon());
+        classicIcon.setOnClickListener(v -> clickClassicIcon());
     }
 
-    public void initVariables(View view) {
-        defaultIcon = view.findViewById(R.id.QRCode);
-        P1MTIcon = view.findViewById(R.id.P1MTIcon);
-        classicIcon = view.findViewById(R.id.classicIcon);
+    /**
+     * This method is initializing layout variables.
+     *
+     * @see View
+     */
+    private void initVariables() {
+        defaultIcon = getView().findViewById(R.id.QRCode);
+        P1MTIcon = getView().findViewById(R.id.P1MTIcon);
+        classicIcon = getView().findViewById(R.id.classicIcon);
     }
 
-    public void clickDefaultIcon() {
+    /**
+     * This method is executing after clicking on Default Icon Button.
+     * The method is making vibration and set default application icon.
+     */
+    private void clickDefaultIcon() {
         ((MainActivity) getActivity()).makeVibration(1);
         setIcon("default");
         dismiss();
     }
 
-    public void clickP1MTIcon() {
+    /**
+     * This method is executing after clicking on P1MT Icon Button.
+     * The method is making vibration and set P1MT application icon.
+     */
+    private void clickP1MTIcon() {
         ((MainActivity) getActivity()).makeVibration(1);
         setIcon("P1MT");
         dismiss();
     }
 
-    public void clickClassicIcon() {
+    /**
+     * This method is executing after clicking on Classic Icon Button.
+     * The method is making vibration and set Classic application icon.
+     */
+    private void clickClassicIcon() {
         ((MainActivity) getActivity()).makeVibration(1);
         setIcon("Classic");
         dismiss();
     }
 
-    public void setIcon(String iconName) {
+    /**
+     * This method is setting application icon.
+     * The method is disabling old icon, setting new icon, change icon name in MainActivity and make Toast.
+     *
+     * @param iconName Name of icon.
+     */
+    private void setIcon(String iconName) {
         disableOldIcon();
-        turnOnIcon(iconName);
+        setNewIcon(iconName);
         ((MainActivity) getActivity()).changeIcon(iconName);
         ((MainActivity) getActivity()).makeToast("Application Icon was changed");
     }
 
-    public void disableOldIcon() {
+    /**
+     * This method is disabling old application icon.
+     */
+    private void disableOldIcon() {
         PackageManager packageManager = getActivity().getPackageManager();
         switch (((MainActivity) getActivity()).getApplicationIcon()) {
             case "default":
@@ -110,9 +150,14 @@ public class ChangeIconFragment extends DialogFragment {
         }
     }
 
-    public void turnOnIcon(String selected) {
+    /**
+     * This method is setting new application icon by icon name.
+     *
+     * @param iconName Name of icon.
+     */
+    private void setNewIcon(String iconName) {
         PackageManager packageManager = getActivity().getPackageManager();
-        switch (selected) {
+        switch (iconName) {
             case "default":
                 packageManager.setComponentEnabledSetting(new ComponentName(getContext(), "com.merive.press1mtimes.SplashActivity"),
                         PackageManager.COMPONENT_ENABLED_STATE_ENABLED,

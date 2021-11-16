@@ -15,8 +15,13 @@ import com.merive.press1mtimes.R;
 
 public class ToastFragment extends Fragment {
 
-    TextView text;
+    TextView message;
 
+    /**
+     * This method returns ToastFragment object.
+     *
+     * @return ToastFragment object.
+     */
     public static ToastFragment newInstance(String message) {
         ToastFragment frag = new ToastFragment();
         Bundle args = new Bundle();
@@ -25,27 +30,49 @@ public class ToastFragment extends Fragment {
         return frag;
     }
 
+    /**
+     * This method is creating ToastFragment.
+     *
+     * @param inflater           Needs for getting Fragment View.
+     * @param parent             Argument of inflater.inflate().
+     * @param savedInstanceState Save Fragment Values.
+     * @return Fragment View.
+     * @see View
+     * @see Bundle
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.toast, parent, false);
     }
 
+    /**
+     * This method is executing after Fragment View was created.
+     *
+     * @param view               Fragment View Value.
+     * @param savedInstanceState Saving Fragment Values.
+     * @see View
+     * @see Bundle
+     */
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-        initVariables(view);
+        initVariables();
         setText();
-
-        Handler handler = new Handler(Looper.getMainLooper());
-        handler.postDelayed(() -> {
-            ((MainActivity) getActivity()).removeToast();
-        }, 3500);
+        new Handler(Looper.getMainLooper()).postDelayed(() -> ((MainActivity) getActivity()).removeToast(), 3500);
     }
 
-    private void initVariables(View view) {
-        text = view.findViewById(R.id.toast_text);
+    /**
+     * This method is initializing layout variables.
+     *
+     * @see View
+     */
+    private void initVariables() {
+        message = getView().findViewById(R.id.toast_message);
     }
 
+    /**
+     * This method is setting text value.
+     */
     private void setText() {
-        text.setText(getArguments().getString("message"));
+        message.setText(getArguments().getString("message"));
     }
 }
