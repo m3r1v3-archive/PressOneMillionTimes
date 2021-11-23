@@ -110,6 +110,12 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         sensorManager.unregisterListener(this);
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (notificationState) setAlarm();
+    }
+
     /**
      * This overridden method is registering accelerator changes.
      *
@@ -222,7 +228,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
      */
     private void initLayoutVariables() {
         counter = findViewById(R.id.counter);
-        label = findViewById(R.id.label);
+        label = findViewById(R.id.title);
         button = findViewById(R.id.button);
     }
 
@@ -230,10 +236,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
      * This method is initializing Settings Components.
      */
     private void initSettings() {
-        vibration = findViewById(R.id.vibration);
-        notification = findViewById(R.id.notification);
-        acceleration = findViewById(R.id.acceleration);
-        info = findViewById(R.id.info);
+        vibration = findViewById(R.id.vibration_switch);
+        notification = findViewById(R.id.notification_switch);
+        acceleration = findViewById(R.id.acceleration_switch);
+        info = findViewById(R.id.info_text);
     }
 
     /**
@@ -447,6 +453,9 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
+
+        if (calendar.get(Calendar.HOUR_OF_DAY) >= HOUR) calendar.add(Calendar.DATE, 1);
+
         calendar.set(Calendar.HOUR_OF_DAY, HOUR);
         calendar.set(Calendar.MINUTE, MINUTE);
 

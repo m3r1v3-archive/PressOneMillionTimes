@@ -22,8 +22,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:snowflakeAlphaMax="255"
-            app:snowflakeAlphaMin="150"
+            app:snowflakeAlphaMax="256"
+            app:snowflakeAlphaMin="128"
             app:snowflakeAngleMax="5"
             app:snowflakeImage="@drawable/snowflake"
             app:snowflakeSizeMax="32sp"
@@ -36,35 +36,35 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
-        android:id="@+id/label"
-        android:layout_width="375sp"
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/odibee"
         android:text="@string/app_name"
         android:textAlignment="center"
         android:textAllCaps="false"
         android:textColor="@color/red"
-        android:textSize="52sp"
+        android:textSize="46sp"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.100" />
+        app:layout_constraintVertical_bias="0.1" />
 
     <TextView
         android:id="@+id/counter"
-        android:layout_width="136sp"
-        android:layout_height="36sp"
+        android:layout_width="138sp"
+        android:layout_height="wrap_content"
         android:background="@color/red"
         android:fontFamily="@font/odibee"
+        android:gravity="center_horizontal|center_vertical"
         android:letterSpacing="0.1"
         android:paddingTop="2sp"
-        android:paddingBottom="1sp"
+        android:paddingBottom="0sp"
         android:text="@string/counter_def_value"
-        android:textAlignment="center"
         android:textColor="@color/dark"
-        android:textSize="34sp"
+        android:textSize="32sp"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -101,7 +101,7 @@
         app:srcCompat="@xml/arrow_up" />
 
     <View
-        android:id="@+id/dial_pad"
+        android:id="@+id/settings_pad"
         android:layout_width="match_parent"
         android:layout_height="400sp"
         android:background="@xml/settings_background"
@@ -110,21 +110,21 @@
         app:layout_constraintTop_toBottomOf="parent" />
 
     <TextView
-        android:id="@+id/settings"
-        android:layout_width="wrap_content"
+        android:id="@+id/settings_title"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15sp"
+        android:layout_marginTop="16sp"
         android:fontFamily="@font/odibee"
         android:text="@string/settings"
+        android:gravity="center"
         android:textColor="@color/red"
         android:textSize="36sp"
         app:layout_constraintEnd_toStartOf="parent"
-        app:layout_constraintStart_toEndOf="@id/dial_pad"
-        app:layout_constraintTop_toTopOf="@id/dial_pad" />
-
+        app:layout_constraintStart_toEndOf="@id/settings_pad"
+        app:layout_constraintTop_toTopOf="@id/settings_pad" />
 
     <androidx.appcompat.widget.SwitchCompat
-        android:id="@+id/vibration"
+        android:id="@+id/vibration_switch"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="24sp"
@@ -136,15 +136,15 @@
         android:padding="12sp"
         android:text="@string/vibration"
         android:textColor="@color/red"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toStartOf="@id/settings"
-        app:layout_constraintStart_toEndOf="@id/dial_pad"
-        app:layout_constraintTop_toTopOf="@id/settings"
+        android:textSize="26sp"
+        app:layout_constraintEnd_toStartOf="@id/settings_title"
+        app:layout_constraintStart_toEndOf="@id/settings_pad"
+        app:layout_constraintTop_toTopOf="@id/settings_title"
         app:thumbTint="#3c3c3c"
         app:trackTint="@color/red" />
 
     <androidx.appcompat.widget.SwitchCompat
-        android:id="@+id/notification"
+        android:id="@+id/notification_switch"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="24sp"
@@ -156,15 +156,15 @@
         android:padding="12sp"
         android:text="@string/notification"
         android:textColor="@color/red"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toStartOf="@id/vibration"
-        app:layout_constraintStart_toEndOf="@id/dial_pad"
-        app:layout_constraintTop_toTopOf="@id/vibration"
+        android:textSize="26sp"
+        app:layout_constraintEnd_toStartOf="@id/vibration_switch"
+        app:layout_constraintStart_toEndOf="@id/settings_pad"
+        app:layout_constraintTop_toTopOf="@id/vibration_switch"
         app:thumbTint="#3c3c3c"
         app:trackTint="@color/red" />
 
     <androidx.appcompat.widget.SwitchCompat
-        android:id="@+id/acceleration"
+        android:id="@+id/acceleration_switch"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="24sp"
@@ -176,15 +176,15 @@
         android:padding="12sp"
         android:text="@string/acceleration"
         android:textColor="@color/red"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toStartOf="@id/notification"
-        app:layout_constraintStart_toEndOf="@id/dial_pad"
-        app:layout_constraintTop_toTopOf="@id/notification"
+        android:textSize="26sp"
+        app:layout_constraintEnd_toStartOf="@id/notification_switch"
+        app:layout_constraintStart_toEndOf="@id/settings_pad"
+        app:layout_constraintTop_toTopOf="@id/notification_switch"
         app:thumbTint="#3c3c3c"
         app:trackTint="@color/red" />
 
     <Button
-        android:id="@+id/options"
+        android:id="@+id/options_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="64sp"
@@ -197,13 +197,13 @@
         android:stateListAnimator="@null"
         android:text="@string/options"
         android:textColor="@color/red"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toStartOf="@id/acceleration"
-        app:layout_constraintStart_toEndOf="@id/dial_pad"
-        app:layout_constraintTop_toTopOf="@id/acceleration" />
+        android:textSize="26sp"
+        app:layout_constraintEnd_toStartOf="@id/acceleration_switch"
+        app:layout_constraintStart_toEndOf="@id/settings_pad"
+        app:layout_constraintTop_toTopOf="@id/acceleration_switch" />
 
     <TextView
-        android:id="@+id/info"
+        android:id="@+id/info_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="50sp"
@@ -211,10 +211,10 @@
         android:padding="18sp"
         android:textAlignment="center"
         android:textColor="@color/red"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toStartOf="@id/options"
-        app:layout_constraintStart_toEndOf="@id/dial_pad"
-        app:layout_constraintTop_toTopOf="@id/options" />
+        android:textSize="26sp"
+        app:layout_constraintEnd_toStartOf="@id/options_button"
+        app:layout_constraintStart_toEndOf="@id/settings_pad"
+        app:layout_constraintTop_toTopOf="@id/options_button" />
 
     <FrameLayout
         android:id="@+id/toast_fragment"

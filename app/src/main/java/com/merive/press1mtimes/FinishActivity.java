@@ -32,7 +32,7 @@ public class FinishActivity extends AppCompatActivity
     ImageView easter;
     Handler handler;
     Handler.Callback callback;
-    TextView title, label, footer;
+    TextView title, label, afterword;
     Boolean accelerationState, vibrationState;
 
     SensorManager sensorManager;
@@ -91,7 +91,7 @@ public class FinishActivity extends AppCompatActivity
 
                 defineRotation(axisData[1], axisData[0], title);
                 defineRotation(axisData[1], axisData[0], label);
-                defineRotation(axisData[1], axisData[0], footer);
+                defineRotation(axisData[1], axisData[0], afterword);
                 defineRotation(axisData[1], axisData[0], exit);
             }
         }
@@ -105,9 +105,9 @@ public class FinishActivity extends AppCompatActivity
      * This method is initializing main Layout Components.
      */
     private void initLayoutVariables() {
-        title = findViewById(R.id.title);
-        label = findViewById(R.id.label);
-        footer = findViewById(R.id.footer);
+        title = findViewById(R.id.finish_title);
+        label = findViewById(R.id.title);
+        afterword = findViewById(R.id.afterword);
         exit = findViewById(R.id.exit);
         easter = findViewById(R.id.easter_egg);
     }

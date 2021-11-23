@@ -1,41 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/passwordLayout"
+    android:id="@+id/score_share_layout"
     android:layout_width="340sp"
     android:layout_height="396sp"
     android:layout_gravity="center"
-
     android:background="@xml/background"
     android:minWidth="340sp"
     android:minHeight="396sp"
     android:visibility="visible"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintHorizontal_bias="0.49"
+    app:layout_constraintHorizontal_bias="0.5"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent"
     app:layout_constraintVertical_bias="1.0">
 
-    <Button
-        android:id="@+id/scan"
-        android:layout_width="205sp"
-        android:layout_height="55sp"
-        android:background="@xml/background"
-        android:fontFamily="@font/odibee"
-        android:padding="12sp"
-        android:stateListAnimator="@null"
-        android:text="@string/scan"
-        android:textColor="@color/red"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.94" />
-
     <TextView
-        android:id="@+id/scoreShareTitle"
+        android:id="@+id/score_share_title"
         android:layout_width="0sp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32sp"
@@ -54,7 +36,7 @@
         app:layout_constraintVertical_bias="0.08" />
 
     <ImageView
-        android:id="@+id/QRCode"
+        android:id="@+id/qr_code"
         android:layout_width="200sp"
         android:layout_height="200sp"
         android:background="@xml/qr_code_background"
@@ -64,5 +46,22 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/scan_button"
+        android:layout_width="205sp"
+        android:layout_height="55sp"
+        android:background="@xml/background"
+        android:fontFamily="@font/odibee"
+        android:padding="12sp"
+        android:stateListAnimator="@null"
+        android:text="@string/scan"
+        android:textColor="@color/red"
+        android:textSize="26sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.94" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

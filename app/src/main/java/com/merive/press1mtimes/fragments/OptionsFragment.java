@@ -76,9 +76,9 @@ public class OptionsFragment extends DialogFragment {
      * @see View
      */
     private void initVariables() {
-        reset = getView().findViewById(R.id.reset);
-        scoreShare = getView().findViewById(R.id.scoreShare);
-        changeIcon = getView().findViewById(R.id.changeIcon);
+        reset = getView().findViewById(R.id.reset_button);
+        scoreShare = getView().findViewById(R.id.score_share_button);
+        changeIcon = getView().findViewById(R.id.change_icon_button);
     }
 
     /**

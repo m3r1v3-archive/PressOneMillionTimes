@@ -1,72 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/passwordLayout"
+    android:id="@+id/options_layout"
     android:layout_width="340sp"
     android:layout_height="348sp"
     android:layout_gravity="center"
-
     android:background="@xml/background"
     android:minWidth="340sp"
     android:minHeight="348sp"
     android:visibility="visible"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintHorizontal_bias="0.49"
+    app:layout_constraintHorizontal_bias="0.50"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent"
     app:layout_constraintVertical_bias="1.0">
-
-    <Button
-        android:id="@+id/scoreShare"
-        android:layout_width="205sp"
-        android:layout_height="55sp"
-        android:background="@xml/background"
-        android:fontFamily="@font/odibee"
-        android:stateListAnimator="@null"
-        android:text="@string/scoreshare"
-        android:textColor="@color/red"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.50"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.58" />
-
-    <Button
-        android:id="@+id/changeIcon"
-        android:layout_width="205sp"
-        android:layout_height="55sp"
-        android:background="@xml/background"
-        android:fontFamily="@font/odibee"
-        android:stateListAnimator="@null"
-        android:text="@string/change_icon"
-        android:textColor="@color/red"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.50"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.85" />
-
-    <Button
-        android:id="@+id/reset"
-        android:layout_width="205sp"
-        android:layout_height="55sp"
-        android:background="@xml/background"
-        android:fontFamily="@font/odibee"
-        android:stateListAnimator="@null"
-        android:text="@string/reset"
-        android:textColor="@color/red"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.50"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.30" />
 
     <TextView
         android:id="@+id/optionsTitle"
@@ -85,5 +33,56 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.08" />
+
+    <Button
+        android:id="@+id/score_share_button"
+        android:layout_width="205sp"
+        android:layout_height="55sp"
+        android:background="@xml/background"
+        android:fontFamily="@font/odibee"
+        android:stateListAnimator="@null"
+        android:text="@string/scoreshare"
+        android:textColor="@color/red"
+        android:textSize="26sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.50"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.58" />
+
+    <Button
+        android:id="@+id/change_icon_button"
+        android:layout_width="205sp"
+        android:layout_height="55sp"
+        android:background="@xml/background"
+        android:fontFamily="@font/odibee"
+        android:stateListAnimator="@null"
+        android:text="@string/change_icon"
+        android:textColor="@color/red"
+        android:textSize="26sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.50"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.85" />
+
+    <Button
+        android:id="@+id/reset_button"
+        android:layout_width="205sp"
+        android:layout_height="55sp"
+        android:background="@xml/background"
+        android:fontFamily="@font/odibee"
+        android:stateListAnimator="@null"
+        android:text="@string/reset"
+        android:textColor="@color/red"
+        android:textSize="26sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.50"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.30" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

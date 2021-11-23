@@ -78,9 +78,9 @@ public class ChangeIconFragment extends DialogFragment {
      * @see View
      */
     private void initVariables() {
-        defaultIcon = getView().findViewById(R.id.QRCode);
-        P1MTIcon = getView().findViewById(R.id.P1MTIcon);
-        classicIcon = getView().findViewById(R.id.classicIcon);
+        defaultIcon = getView().findViewById(R.id.default_icon_button);
+        P1MTIcon = getView().findViewById(R.id.p1mt_icon_button);
+        classicIcon = getView().findViewById(R.id.classic_icon_button);
     }
 
     /**

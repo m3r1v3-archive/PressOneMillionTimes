@@ -26,8 +26,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:snowflakeAlphaMax="255"
-            app:snowflakeAlphaMin="150"
+            app:snowflakeAlphaMax="256"
+            app:snowflakeAlphaMin="128"
             app:snowflakeAngleMax="5"
             app:snowflakeImage="@drawable/snowflake"
             app:snowflakeSizeMax="32sp"
@@ -41,15 +41,15 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
-        android:id="@+id/title"
-        android:layout_width="405sp"
+        android:id="@+id/finish_title"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/odibee"
         android:text="@string/you_won"
         android:textAlignment="center"
         android:textAllCaps="false"
         android:textColor="@color/red"
-        android:textSize="48sp"
+        android:textSize="46sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -57,15 +57,15 @@
         app:layout_constraintVertical_bias="0.10" />
 
     <TextView
-        android:id="@+id/label"
-        android:layout_width="250sp"
+        android:id="@+id/congratulation_text"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/odibee"
         android:text="@string/congratulations"
         android:textAlignment="center"
         android:textAllCaps="false"
         android:textColor="@color/red"
-        android:textSize="34sp"
+        android:textSize="36sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -104,7 +104,7 @@
         app:layout_constraintVertical_bias="0.8" />
 
     <TextView
-        android:id="@+id/footer"
+        android:id="@+id/afterword"
         android:layout_width="165sp"
         android:layout_height="wrap_content"
         android:fontFamily="@font/odibee"
@@ -112,7 +112,7 @@
         android:textAlignment="center"
         android:textAllCaps="false"
         android:textColor="@color/red"
-        android:textSize="24sp"
+        android:textSize="26sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

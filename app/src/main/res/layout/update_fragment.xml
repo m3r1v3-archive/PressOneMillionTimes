@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/passwordLayout"
+    android:id="@+id/update_layout"
     android:layout_width="340sp"
     android:layout_height="195sp"
     android:layout_gravity="center"
-
     android:background="@xml/background"
     android:minWidth="340sp"
     android:minHeight="195sp"
@@ -18,17 +17,16 @@
     app:layout_constraintVertical_bias="1.0">
 
     <TextView
-        android:id="@+id/updateTitle"
+        android:id="@+id/update_title"
         android:layout_width="0sp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32sp"
-        android:layout_marginEnd="32sp"
-        android:width="0sp"
+        android:layout_marginStart="16sp"
+        android:layout_marginEnd="16sp"
         android:fontFamily="@font/odibee"
         android:text="@string/new_version_released"
         android:textAlignment="center"
         android:textColor="@color/red"
-        android:textSize="32sp"
+        android:textSize="36sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -36,7 +34,7 @@
         app:layout_constraintVertical_bias="0.12" />
 
     <TextView
-        android:id="@+id/version"
+        android:id="@+id/version_title"
         android:layout_width="0sp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32sp"
@@ -46,7 +44,7 @@
         android:textAlignment="center"
         android:textAllCaps="false"
         android:textColor="@color/red"
-        android:textSize="22sp"
+        android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -55,7 +53,7 @@
         app:layout_constraintVertical_bias="0.45" />
 
     <Button
-        android:id="@+id/download"
+        android:id="@+id/download_button"
         android:layout_width="205sp"
         android:layout_height="55sp"
         android:background="@xml/background"
@@ -63,7 +61,7 @@
         android:stateListAnimator="@null"
         android:text="@string/download"
         android:textColor="@color/red"
-        android:textSize="24sp"
+        android:textSize="26sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.503"
