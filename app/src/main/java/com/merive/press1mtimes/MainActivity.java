@@ -47,10 +47,13 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.regex.Pattern;
 
 
 public class MainActivity extends AppCompatActivity implements SensorEventListener {
+
+    public static LinkedList<String> toastMessages = new LinkedList<>();
 
     static SharedPreferences sharedPreferences;
 
@@ -214,13 +217,15 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
      * @see ToastFragment
      */
     public void makeToast(String message) {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
-        transaction.setReorderingAllowed(true);
-
-        transaction.replace(R.id.toast_fragment, ToastFragment.newInstance(message), null);
-        transaction.commit();
+        MainActivity.toastMessages.add(message);
+        if (MainActivity.toastMessages.size() == 1) {
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction transaction = fragmentManager.beginTransaction();
+            transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+            transaction.setReorderingAllowed(true);
+            transaction.replace(R.id.toast_fragment, new ToastFragment(), null);
+            transaction.commit();
+        }
     }
 
     /**

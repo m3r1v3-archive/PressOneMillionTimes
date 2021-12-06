@@ -2,7 +2,6 @@ package com.merive.press1mtimes.fragments;
 
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,19 +15,6 @@ import com.merive.press1mtimes.R;
 public class ToastFragment extends Fragment {
 
     TextView message;
-
-    /**
-     * This method returns ToastFragment object.
-     *
-     * @return ToastFragment object.
-     */
-    public static ToastFragment newInstance(String message) {
-        ToastFragment frag = new ToastFragment();
-        Bundle args = new Bundle();
-        args.putString("message", message);
-        frag.setArguments(args);
-        return frag;
-    }
 
     /**
      * This method is creating ToastFragment.
@@ -56,8 +42,7 @@ public class ToastFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         initVariables();
-        setText();
-        new Handler(Looper.getMainLooper()).postDelayed(() -> ((MainActivity) getActivity()).removeToast(), 3500);
+        showToast();
     }
 
     /**
@@ -72,7 +57,23 @@ public class ToastFragment extends Fragment {
     /**
      * This method is setting text value.
      */
-    private void setText() {
-        message.setText(getArguments().getString("message"));
+    private void setText(String text) {
+        message.setText(text);
+    }
+
+    /**
+     * This method is showing toast messages
+     */
+    private void showToast() {
+        try {
+            if (MainActivity.toastMessages.isEmpty()) {
+                ((MainActivity) getActivity()).removeToast();
+            } else {
+                setText(MainActivity.toastMessages.getFirst());
+                MainActivity.toastMessages.removeFirst();
+                new Handler().postDelayed(() -> showToast(), 4250);
+            }
+        } catch (NullPointerException ignored) {
+        }
     }
 }
