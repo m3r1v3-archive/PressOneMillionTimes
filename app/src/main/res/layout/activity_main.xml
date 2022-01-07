@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/dark"
+    android:background="@color/gray"
     app:layoutDescription="@xml/activity_main_scene"
     tools:context=".MainActivity">
 
@@ -63,7 +63,7 @@
         android:paddingTop="2sp"
         android:paddingBottom="0sp"
         android:text="@string/counter_def_value"
-        android:textColor="@color/dark"
+        android:textColor="@color/gray"
         android:textSize="32sp"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"

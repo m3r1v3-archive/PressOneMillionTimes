@@ -2,6 +2,6 @@
 <resources>
     <!-- Red Color -->
     <color name="red">#AF251B</color>
-    <!-- Dark Gray Color -->
-    <color name="dark">#2c2c2c</color>
+    <!-- Gray Color -->
+    <color name="gray">#2c2c2c</color>
 </resources>

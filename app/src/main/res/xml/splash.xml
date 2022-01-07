@@ -2,7 +2,7 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:opacity="opaque">
-    <item android:drawable="@color/dark" />
+    <item android:drawable="@color/gray" />
     <item
         android:width="128sp"
         android:height="128sp"

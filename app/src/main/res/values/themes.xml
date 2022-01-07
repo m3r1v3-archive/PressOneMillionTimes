@@ -7,7 +7,7 @@
         <!--    Theme colors    -->
         <item name="colorAccent">@color/red</item>
         <item name="colorPrimary">@color/red</item>
-        <item name="colorPrimaryDark">@color/dark</item>
+        <item name="colorPrimaryDark">@color/gray</item>
 
         <!--    Hide action bar    -->
         <item name="android:windowFullscreen">true</item>
@@ -21,7 +21,7 @@
         <item name="colorPrimary">@color/red</item>
         <item name="colorPrimaryDark">@color/red</item>
         <!--    Set action bar color    -->
-        <item name="android:actionBarStyle">@color/dark</item>
+        <item name="android:actionBarStyle">@color/gray</item>
     </style>
 
     <!--    DialogFragment Animation    -->
