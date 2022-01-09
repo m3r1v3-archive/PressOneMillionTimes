@@ -24,7 +24,6 @@ import android.widget.TextView;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SwitchCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.preference.PreferenceManager;
@@ -35,6 +34,7 @@ import com.merive.press1mtimes.fragments.ChangeIconFragment;
 import com.merive.press1mtimes.fragments.ConfirmFragment;
 import com.merive.press1mtimes.fragments.OptionsFragment;
 import com.merive.press1mtimes.fragments.ScoreShareFragment;
+import com.merive.press1mtimes.fragments.SettingsFragment;
 import com.merive.press1mtimes.fragments.ToastFragment;
 import com.merive.press1mtimes.fragments.UpdateFragment;
 
@@ -58,9 +58,9 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     static SharedPreferences sharedPreferences;
 
     static Boolean vibrationState, accelerationState, notificationState;
-    TextView label, counter, info;
+    TextView label, counter;
     ImageButton button;
-    SwitchCompat vibration, notification, acceleration;
+
 
     SensorManager sensorManager;
     Sensor accelerometer;
@@ -85,11 +85,11 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this.getBaseContext());
 
         initLayoutVariables();
-        initSettings();
+
+        initSettingsFragment();
 
         setScoreToCounter();
-        setSwitchValues();
-        setInfo();
+        setStateValues();
 
         setSnowFallingVisibility();
 
@@ -238,13 +238,14 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     }
 
     /**
-     * This method is initializing Settings Components.
+     * This method is initializing SettingsFragment.
      */
-    private void initSettings() {
-        vibration = findViewById(R.id.vibration_switch);
-        notification = findViewById(R.id.notification_switch);
-        acceleration = findViewById(R.id.acceleration_switch);
-        info = findViewById(R.id.info_text);
+    private void initSettingsFragment() {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.setReorderingAllowed(true);
+        transaction.replace(R.id.settings_fragment, new SettingsFragment(), null);
+        transaction.commit();
     }
 
     /**
@@ -265,28 +266,29 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         return Integer.parseInt(sharedPreferences.getString("score", "000000"));
     }
 
-    /**
-     * This method is setting switch values from SharedPreference.
-     *
-     * @see SharedPreferences
-     */
-    private void setSwitchValues() {
-        vibrationState = sharedPreferences.getBoolean("vibration", false);
-        vibration.setChecked(vibrationState);
+    public boolean getVibrationState() {
+        return sharedPreferences.getBoolean("vibration", false);
+    }
 
-        notificationState = sharedPreferences.getBoolean("notification", false);
-        notification.setChecked(notificationState);
+    public boolean getNotificationState() {
+        return notificationState = sharedPreferences.getBoolean("notification", false);
+    }
 
-        accelerationState = sharedPreferences.getBoolean("acceleration", false);
-        acceleration.setChecked(accelerationState);
+    public boolean getAccelerationState() {
+        return sharedPreferences.getBoolean("acceleration", false);
+    }
+
+    private void setStateValues() {
+        vibrationState = getVibrationState();
+        notificationState = getNotificationState();
+        accelerationState = getAccelerationState();
     }
 
     /**
      * This method is setting info to settings.
      */
-    private void setInfo() {
-        info.setText(("Version: " + BuildConfig.VERSION_NAME +
-                "\n@merive-studio, " + Calendar.getInstance().get(YEAR)));
+    public String getInfo() {
+        return (("P1MT / " + BuildConfig.VERSION_NAME + "\nmerive-studios / MIT License, " + Calendar.getInstance().get(YEAR)));
     }
 
     /**
@@ -424,11 +426,11 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
      * This method is executing after clicking on vibration switch.
      * The method is setting vibration switch value to sharedPreference and vibrationState variable.
      *
-     * @param view View object.
+     * @param value Switch value.
      */
-    public void clickVibration(View view) {
-        sharedPreferences.edit().putBoolean("vibration", vibration.isChecked()).apply();
-        vibrationState = vibration.isChecked();
+    public void clickVibration(boolean value) {
+        sharedPreferences.edit().putBoolean("vibration", value).apply();
+        vibrationState = value;
     }
 
     /**
@@ -437,11 +439,11 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
      * If notification switch is true, will be unable alarm for notification.
      * Else will be disabled.
      *
-     * @param view View object.
+     * @param value Switch value.
      */
-    public void clickNotification(View view) {
-        sharedPreferences.edit().putBoolean("notification", notification.isChecked()).apply();
-        notificationState = notification.isChecked();
+    public void clickNotification(boolean value) {
+        sharedPreferences.edit().putBoolean("notification", value).apply();
+        notificationState = value;
         if (notificationState) setAlarm();
         else offAlarm();
     }
@@ -485,25 +487,16 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
      * This method is executing after clicking on acceleration switch.
      * If acceleration switch value is false, will be setting default rotation for main components.
      *
-     * @param view View object.
+     * @param value Switch value.
      */
-    public void clickAcceleration(View view) {
-        setAccelerationState(acceleration.isChecked());
-        if (!acceleration.isChecked()) {
+    public void clickAcceleration(boolean value) {
+        sharedPreferences.edit().putBoolean("acceleration", value).apply();
+        accelerationState = value;
+        if (!value) {
             setDefaultRotation(label);
             setDefaultRotation(counter);
             setDefaultRotation(button);
         }
-    }
-
-    /**
-     * This method is setting accelerationState value.
-     *
-     * @param state State value.
-     */
-    private void setAccelerationState(boolean state) {
-        sharedPreferences.edit().putBoolean("acceleration", state).apply();
-        accelerationState = state;
     }
 
     /**
