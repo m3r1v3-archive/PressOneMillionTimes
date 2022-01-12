@@ -407,8 +407,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
      * This method is opening FinishActivity.
      */
     private void openFinish() {
-        Intent intent = new Intent(this, FinishActivity.class);
-        startActivity(intent);
+        startActivity(new Intent(this, FinishActivity.class));
+        finish();
     }
 
     /**

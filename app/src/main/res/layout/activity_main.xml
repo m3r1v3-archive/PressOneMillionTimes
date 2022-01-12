@@ -27,7 +27,7 @@
         app:snowflakeSpeedMin="2"
         app:snowflakesAlreadyFalling="false"
         app:snowflakesFadingEnabled="true"
-        app:snowflakesNum="50" />
+        app:snowflakesNum="64" />
 
     <TextView
         android:id="@+id/title"

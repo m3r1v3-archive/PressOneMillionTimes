@@ -8,37 +8,26 @@
     tools:context=".FinishActivity"
     tools:ignore="Overdraw">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/snow_layout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <com.jetradarmobile.snowfall.SnowfallView
+        android:id="@+id/coins"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <com.jetradarmobile.snowfall.SnowfallView
-            android:id="@+id/snow"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="invisible"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:snowflakeAlphaMax="256"
-            app:snowflakeAlphaMin="128"
-            app:snowflakeAngleMax="5"
-            app:snowflakeImage="@drawable/snowflake"
-            app:snowflakeSizeMax="32sp"
-            app:snowflakeSizeMin="8sp"
-            app:snowflakeSpeedMax="8"
-            app:snowflakeSpeedMin="2"
-            app:snowflakesAlreadyFalling="false"
-            app:snowflakesFadingEnabled="true"
-            app:snowflakesNum="50" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        app:layout_constraintTop_toTopOf="parent"
+        app:snowflakeAlphaMax="256"
+        app:snowflakeAlphaMin="128"
+        app:snowflakeAngleMax="5"
+        app:snowflakeImage="@drawable/icon"
+        app:snowflakeSizeMax="36sp"
+        app:snowflakeSizeMin="24sp"
+        app:snowflakeSpeedMax="8"
+        app:snowflakeSpeedMin="2"
+        app:snowflakesAlreadyFalling="false"
+        app:snowflakesFadingEnabled="true"
+        app:snowflakesNum="256" />
 
     <TextView
         android:id="@+id/finish_title"
@@ -72,19 +61,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.25" />
 
-    <ImageView
-        android:id="@+id/easter_egg"
-        android:layout_width="200sp"
-        android:layout_height="200sp"
-        android:contentDescription="@string/todo"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.8"
-        app:srcCompat="@drawable/easter_egg" />
-
     <ImageButton
         android:id="@+id/exit"
         android:layout_width="200sp"
@@ -105,7 +81,7 @@
 
     <TextView
         android:id="@+id/afterword"
-        android:layout_width="165sp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/odibee"
         android:text="@string/hope"
