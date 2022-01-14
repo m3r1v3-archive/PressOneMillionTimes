@@ -41,4 +41,5 @@
 
     <!-- TODO -->
     <string name="todo">TODO</string>
+    <string name="splash_message">Splash message</string>
 </resources>

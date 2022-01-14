@@ -15,7 +15,7 @@ import com.merive.press1mtimes.R;
 public class SettingsFragment extends Fragment {
 
     TextView info;
-    SwitchCompat vibration, notification, acceleration;
+    SwitchCompat vibration, notification, acceleration, splash;
 
     /**
      * This method is creating SettingsFragment.
@@ -57,6 +57,7 @@ public class SettingsFragment extends Fragment {
         vibration = getView().findViewById(R.id.vibration_switch);
         notification = getView().findViewById(R.id.notification_switch);
         acceleration = getView().findViewById(R.id.acceleration_switch);
+        splash = getView().findViewById(R.id.splash_switch);
         info = getView().findViewById(R.id.info_text);
     }
 
@@ -64,6 +65,7 @@ public class SettingsFragment extends Fragment {
         vibration.setChecked(((MainActivity) getActivity()).getVibrationState());
         notification.setChecked(((MainActivity) getActivity()).getNotificationState());
         acceleration.setChecked(((MainActivity) getActivity()).getAccelerationState());
+        splash.setChecked(((MainActivity) getActivity()).getSplashState());
     }
 
     private void setInfo() {
@@ -74,5 +76,6 @@ public class SettingsFragment extends Fragment {
         vibration.setOnClickListener(v -> ((MainActivity) getActivity()).clickVibration(vibration.isChecked()));
         notification.setOnClickListener(v -> ((MainActivity) getActivity()).clickNotification(notification.isChecked()));
         acceleration.setOnClickListener(v -> ((MainActivity) getActivity()).clickAcceleration(acceleration.isChecked()));
+        splash.setOnClickListener(v -> ((MainActivity) getActivity()).clickSplash(splash.isChecked()));
     }
 }

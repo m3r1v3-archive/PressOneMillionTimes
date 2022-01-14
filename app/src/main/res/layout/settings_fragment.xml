@@ -2,13 +2,13 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="400sp">
+    android:layout_height="496sp">
 
     <TextView
         android:id="@+id/settings_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="18dp"
         android:fontFamily="@font/odibee"
         android:gravity="center"
         android:text="@string/settings"
@@ -27,7 +27,6 @@
         android:layout_marginEnd="24dp"
         android:background="@xml/background"
         android:fontFamily="@font/odibee"
-        android:onClick="clickVibration"
         android:padding="12sp"
         android:text="@string/vibration"
         android:textColor="@color/red"
@@ -47,7 +46,6 @@
         android:layout_marginEnd="24dp"
         android:background="@xml/background"
         android:fontFamily="@font/odibee"
-        android:onClick="clickNotification"
         android:padding="12sp"
         android:text="@string/notification"
         android:textColor="@color/red"
@@ -67,7 +65,6 @@
         android:layout_marginEnd="24dp"
         android:background="@xml/background"
         android:fontFamily="@font/odibee"
-        android:onClick="clickAcceleration"
         android:padding="12sp"
         android:text="@string/acceleration"
         android:textColor="@color/red"
@@ -78,12 +75,32 @@
         app:thumbTint="#3c3c3c"
         app:trackTint="@color/red" />
 
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/splash_switch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="18dp"
+        android:layout_marginEnd="24dp"
+        android:background="@xml/background"
+        android:fontFamily="@font/odibee"
+        android:padding="12sp"
+        android:text="@string/splash_message"
+        android:textColor="@color/red"
+        android:textSize="26sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/acceleration_switch"
+        app:thumbTint="#3c3c3c"
+        app:trackTint="@color/red" />
+
     <Button
         android:id="@+id/options_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="64dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="18dp"
         android:layout_marginEnd="64dp"
         android:background="@xml/background"
         android:fontFamily="@font/odibee"
@@ -95,7 +112,7 @@
         android:textSize="26sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/acceleration_switch" />
+        app:layout_constraintTop_toBottomOf="@+id/splash_switch" />
 
     <TextView
         android:id="@+id/info_text"
@@ -108,8 +125,7 @@
         android:textSize="26sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/options_button" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

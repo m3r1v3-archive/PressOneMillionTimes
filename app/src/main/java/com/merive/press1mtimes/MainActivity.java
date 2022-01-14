@@ -19,6 +19,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.view.View;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -37,6 +38,7 @@ import com.merive.press1mtimes.fragments.ScoreShareFragment;
 import com.merive.press1mtimes.fragments.SettingsFragment;
 import com.merive.press1mtimes.fragments.ToastFragment;
 import com.merive.press1mtimes.fragments.UpdateFragment;
+import com.merive.press1mtimes.utils.SplashTexts;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -48,6 +50,7 @@ import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedList;
+import java.util.Random;
 import java.util.regex.Pattern;
 
 
@@ -57,8 +60,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     static SharedPreferences sharedPreferences;
 
-    static Boolean vibrationState, accelerationState, notificationState;
-    TextView label, counter;
+    static Boolean vibrationState, accelerationState, notificationState, splashState;
+    TextView label, counter, splash;
     ImageButton button;
 
 
@@ -98,6 +101,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         makeNotificationChannel();
 
         checkVersion();
+        checkSplashState();
     }
 
     @Override
@@ -278,10 +282,15 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         return sharedPreferences.getBoolean("acceleration", false);
     }
 
+    public boolean getSplashState() {
+        return sharedPreferences.getBoolean("splash", false);
+    }
+
     private void setStateValues() {
         vibrationState = getVibrationState();
         notificationState = getNotificationState();
         accelerationState = getAccelerationState();
+        splashState = getSplashState();
     }
 
     /**
@@ -298,9 +307,13 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
      */
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void setSnowFallingVisibility() {
+        if (checkWinter()) findViewById(R.id.snow).setVisibility(View.VISIBLE);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private boolean checkWinter() {
         LocalDate localDate = new Date().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        if (localDate.getMonthValue() == 12 || localDate.getMonthValue() == 1 || localDate.getMonthValue() == 2)
-            findViewById(R.id.snow).setVisibility(View.VISIBLE);
+        return localDate.getMonthValue() == 12 || localDate.getMonthValue() == 1 || localDate.getMonthValue() == 2;
     }
 
     /**
@@ -379,6 +392,19 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         FragmentManager fm = getSupportFragmentManager();
         UpdateFragment updateFragment = UpdateFragment.newInstance(BuildConfig.VERSION_NAME, actualVersion);
         updateFragment.show(fm, "update_fragment");
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private void checkSplashState() {
+        if (splashState) setSplashAnimation();
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private void setSplashAnimation() {
+        splash = findViewById(R.id.splash);
+        splash.setText(("#" + SplashTexts.values()[new Random().nextInt(SplashTexts.values().length - (checkWinter() ? 0 : 1))]));
+        splash.setVisibility(View.VISIBLE);
+        splash.startAnimation(AnimationUtils.loadAnimation(this, R.anim.splash));
     }
 
     /**
@@ -506,6 +532,11 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
      */
     private void setDefaultRotation(View view) {
         defineRotation(0, 0, view);
+    }
+
+    public void clickSplash(boolean value) {
+        sharedPreferences.edit().putBoolean("splash", value).apply();
+        splashState = value;
     }
 
     /**

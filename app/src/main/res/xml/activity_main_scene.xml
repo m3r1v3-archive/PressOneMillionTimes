@@ -51,7 +51,7 @@
             android:layout_height="0sp">
             <Layout
                 android:layout_width="0sp"
-                android:layout_height="400sp"
+                android:layout_height="496sp"
                 motion:layout_constraintBottom_toBottomOf="parent"
                 motion:layout_constraintEnd_toEndOf="parent"
                 motion:layout_constraintStart_toStartOf="parent" />
