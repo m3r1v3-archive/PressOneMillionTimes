@@ -25,6 +25,8 @@ import android.widget.TextView;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.preference.PreferenceManager;
@@ -36,6 +38,7 @@ import com.merive.press1mtimes.fragments.ConfirmFragment;
 import com.merive.press1mtimes.fragments.OptionsFragment;
 import com.merive.press1mtimes.fragments.ScoreShareFragment;
 import com.merive.press1mtimes.fragments.SettingsFragment;
+import com.merive.press1mtimes.fragments.SplashPositionFragment;
 import com.merive.press1mtimes.fragments.ToastFragment;
 import com.merive.press1mtimes.fragments.UpdateFragment;
 import com.merive.press1mtimes.utils.SplashTexts;
@@ -396,12 +399,24 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void checkSplashState() {
-        if (splashState) setSplashAnimation();
+        if (splashState) {
+            splash = findViewById(R.id.splash);
+            setSplashPosition();
+            setSplashAnimation();
+        }
+    }
+
+    private void setSplashPosition() {
+        ConstraintSet constraintSet = new ConstraintSet();
+        ConstraintLayout constraintLayout = (ConstraintLayout) findViewById(R.id.activity_main);
+        constraintSet.clone(constraintLayout);
+        constraintSet.setHorizontalBias(splash.getId(), sharedPreferences.getFloat("splash_horizontal", (float) 0.98));
+        constraintSet.setVerticalBias(splash.getId(), sharedPreferences.getFloat("splash_vertical", (float) 0.98));
+        constraintSet.applyTo(constraintLayout);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void setSplashAnimation() {
-        splash = findViewById(R.id.splash);
         splash.setText(("#" + SplashTexts.values()[new Random().nextInt(SplashTexts.values().length - (checkWinter() ? 0 : 1))]));
         splash.setVisibility(View.VISIBLE);
         splash.startAnimation(AnimationUtils.loadAnimation(this, R.anim.splash));
@@ -558,7 +573,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
      * @see android.widget.Button
      */
     public void clickReset() {
-        makeVibration(1);
         FragmentManager fm = getSupportFragmentManager();
         ConfirmFragment confirmFragment = ConfirmFragment.newInstance();
         confirmFragment.show(fm, "confirm_fragment");
@@ -570,7 +584,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
      * @see android.widget.Button
      */
     public void clickScoreShare() {
-        makeVibration(1);
         FragmentManager fm = getSupportFragmentManager();
         ScoreShareFragment scoreShareFragment = ScoreShareFragment.newInstance(String.valueOf(getScore()));
         scoreShareFragment.show(fm, "score_share_fragment");
@@ -582,7 +595,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
      * @see android.widget.Button
      */
     public void clickChangeIcon() {
-        makeVibration(1);
         FragmentManager fm = getSupportFragmentManager();
         ChangeIconFragment changeIconFragment = ChangeIconFragment.newInstance();
         changeIconFragment.show(fm, "change_icon_fragment");
@@ -598,6 +610,15 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         return sharedPreferences.getString("icon", "default");
     }
 
+    public void clickSplashPosition() {
+        FragmentManager fm = getSupportFragmentManager();
+        SplashPositionFragment splashPositionFragment = SplashPositionFragment.newInstance();
+        splashPositionFragment.show(fm, "splash_position_fragment");
+    }
+
+    public void setSplashPosition(float horizontal, float vertical) {
+        sharedPreferences.edit().putFloat("splash_horizontal", horizontal).putFloat("splash_vertical", vertical).apply();
+    }
 
     /**
      * This method is removing ToastFragment Fragment Layout.

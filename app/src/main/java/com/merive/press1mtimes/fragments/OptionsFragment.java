@@ -17,7 +17,7 @@ import com.merive.press1mtimes.R;
 
 public class OptionsFragment extends DialogFragment {
 
-    Button reset, scoreShare, changeIcon;
+    Button reset, scoreShare, changeIcon, splashPosition;
 
     /**
      * OptionsFragment empty constructor.
@@ -68,6 +68,7 @@ public class OptionsFragment extends DialogFragment {
         reset.setOnClickListener(v -> clickReset());
         scoreShare.setOnClickListener(v -> clickScoreShare());
         changeIcon.setOnClickListener(v -> clickChangeIcon());
+        splashPosition.setOnClickListener(v -> clickSplashPosition());
     }
 
     /**
@@ -79,6 +80,7 @@ public class OptionsFragment extends DialogFragment {
         reset = getView().findViewById(R.id.reset_button);
         scoreShare = getView().findViewById(R.id.score_share_button);
         changeIcon = getView().findViewById(R.id.change_icon_button);
+        splashPosition = getView().findViewById(R.id.splash_position_button);
     }
 
     /**
@@ -114,6 +116,12 @@ public class OptionsFragment extends DialogFragment {
     private void clickChangeIcon() {
         ((MainActivity) getActivity()).makeVibration(1);
         ((MainActivity) getActivity()).clickChangeIcon();
+        dismiss();
+    }
+
+    private void clickSplashPosition() {
+        ((MainActivity) getActivity()).makeVibration(1);
+        ((MainActivity) getActivity()).clickSplashPosition();
         dismiss();
     }
 }
