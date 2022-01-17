@@ -31,7 +31,7 @@ public class ScoreShareFragment extends DialogFragment {
     Button scan;
 
     /**
-     * ScoreShareFragment empty constructor.
+     * ScoreShareFragment constructor.
      */
     public ScoreShareFragment() {
     }
@@ -50,7 +50,7 @@ public class ScoreShareFragment extends DialogFragment {
     }
 
     /**
-     * This method is creating ScoreShareFragment.
+     * This method executes when ScoreShareFragment is creating.
      *
      * @param inflater           Needs for getting Fragment View.
      * @param parent             Argument of inflater.inflate().
@@ -66,7 +66,7 @@ public class ScoreShareFragment extends DialogFragment {
     }
 
     /**
-     * This method is executing after Fragment View was created.
+     * This method executes after Fragment View has been created.
      *
      * @param view               Fragment View Value.
      * @param savedInstanceState Saving Fragment Values.
@@ -85,7 +85,7 @@ public class ScoreShareFragment extends DialogFragment {
     }
 
     /**
-     * This method is initializing layout variables.
+     * This method initializes layout variables.
      *
      * @see View
      */
@@ -95,7 +95,7 @@ public class ScoreShareFragment extends DialogFragment {
     }
 
     /**
-     * This method is generating QR-Code by score value.
+     * This method generates QR-Code by score value.
      *
      * @param score Score value.
      * @return QR-Code Bitmap image.
@@ -113,12 +113,14 @@ public class ScoreShareFragment extends DialogFragment {
             Bitmap bmp = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
             bmp.setPixels(pixels, 0, width, 0, 0, width, height);
             return bmp;
-        } catch (WriterException ignored) { return null; }
+        } catch (WriterException ignored) {
+            return null;
+        }
     }
 
     /**
-     * This method is executing after clicking on Scan button.
-     * The method is making vibration and open QR scanner.
+     * This method executes after click on Scan button.
+     * The method makes vibration and opens QR scanner.
      */
     private void clickScan() {
         ((MainActivity) getActivity()).makeVibration(1);
@@ -127,7 +129,7 @@ public class ScoreShareFragment extends DialogFragment {
     }
 
     /**
-     * This method is opening QR scanner.
+     * This method opens QR scanner.
      */
     private void openScanner() {
         new IntentIntegrator(getActivity())
@@ -142,7 +144,7 @@ public class ScoreShareFragment extends DialogFragment {
     }
 
     /**
-     * This method is encrypting Score value.
+     * This method encrypts Score value.
      *
      * @param score Score value.
      * @return Encrypted score value.

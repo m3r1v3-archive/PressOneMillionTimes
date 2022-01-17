@@ -17,7 +17,7 @@ public class ToastFragment extends Fragment {
     TextView message;
 
     /**
-     * This method is creating ToastFragment.
+     * This method executes when ToastFragment is creating.
      *
      * @param inflater           Needs for getting Fragment View.
      * @param parent             Argument of inflater.inflate().
@@ -32,7 +32,7 @@ public class ToastFragment extends Fragment {
     }
 
     /**
-     * This method is executing after Fragment View was created.
+     * This method executes after Fragment View has been created.
      *
      * @param view               Fragment View Value.
      * @param savedInstanceState Saving Fragment Values.
@@ -46,7 +46,7 @@ public class ToastFragment extends Fragment {
     }
 
     /**
-     * This method is initializing layout variables.
+     * This method initializes layout variables.
      *
      * @see View
      */
@@ -55,14 +55,14 @@ public class ToastFragment extends Fragment {
     }
 
     /**
-     * This method is setting text value.
+     * This method sets text value to message TextView.
      */
     private void setText(String text) {
         message.setText(text);
     }
 
     /**
-     * This method is showing toast messages
+     * This method shows toast messages.
      */
     private void showToast() {
         try {

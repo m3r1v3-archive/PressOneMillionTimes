@@ -20,7 +20,7 @@ public class SplashPositionFragment extends DialogFragment {
     ImageView leftTop, leftBottom, rightTop, rightBottom;
 
     /**
-     * SplashPosition empty constructor.
+     * SplashPosition constructor.
      */
     SplashPositionFragment() {
     }
@@ -35,7 +35,7 @@ public class SplashPositionFragment extends DialogFragment {
     }
 
     /**
-     * This method is creating SplashPositionFragment.
+     * This method executes when SplashPositionFragment is creating.
      *
      * @param inflater           Needs for getting Fragment View.
      * @param parent             Argument of inflater.inflate().
@@ -51,7 +51,7 @@ public class SplashPositionFragment extends DialogFragment {
     }
 
     /**
-     * This method is executing after Fragment View was created.
+     * This method executes after Fragment View has been created.
      *
      * @param view               Fragment View Value.
      * @param savedInstanceState Saving Fragment Values.
@@ -68,7 +68,7 @@ public class SplashPositionFragment extends DialogFragment {
     }
 
     /**
-     * This method is initializing layout variables.
+     * This method initializes layout variables.
      *
      * @see View
      */
@@ -79,6 +79,11 @@ public class SplashPositionFragment extends DialogFragment {
         leftBottom = getView().findViewById(R.id.left_bottom_button);
     }
 
+    /**
+     * This method sets click listeners for ImageView.
+     *
+     * @see ImageView
+     */
     private void setListeners() {
         rightTop.setOnClickListener(v -> setPosition(0.98f, 0.02f));
         rightBottom.setOnClickListener(v -> setPosition(0.98f, 0.98f));
@@ -86,6 +91,12 @@ public class SplashPositionFragment extends DialogFragment {
         leftBottom.setOnClickListener(v -> setPosition(0.02f, 0.98f));
     }
 
+    /**
+     * This methods saves Splash Message Position in sharedPreference.
+     *
+     * @param horizontal Horizontal float position.
+     * @param vertical Vertical float position.
+     */
     private void setPosition(float horizontal, float vertical) {
         ((MainActivity) getActivity()).makeVibration(1);
         ((MainActivity) getActivity()).setSplashPosition(horizontal, vertical);

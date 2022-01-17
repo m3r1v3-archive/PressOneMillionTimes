@@ -26,7 +26,7 @@ public class UpdateFragment extends DialogFragment {
     Button download;
 
     /**
-     * OptionsFragment empty constructor.
+     * OptionsFragment constructor.
      */
     public UpdateFragment() {
     }
@@ -46,7 +46,7 @@ public class UpdateFragment extends DialogFragment {
     }
 
     /**
-     * This method is creating OptionsFragment.
+     * This method executes when OptionsFragment is creating.
      *
      * @param inflater           Needs for getting Fragment View.
      * @param parent             Argument of inflater.inflate().
@@ -63,7 +63,7 @@ public class UpdateFragment extends DialogFragment {
     }
 
     /**
-     * This method is executing after Fragment View was created.
+     * This method executes after Fragment View has been created.
      *
      * @param view               Fragment View Value.
      * @param savedInstanceState Saving Fragment Values.
@@ -83,7 +83,7 @@ public class UpdateFragment extends DialogFragment {
     }
 
     /**
-     * This method is initializing layout variables.
+     * This method initializes layout variables.
      *
      * @see View
      */
@@ -93,7 +93,7 @@ public class UpdateFragment extends DialogFragment {
     }
 
     /**
-     * This method is setting text to version.
+     * This method sets text to version TextView.
      */
     private void setVersion() {
         version.setText(("Download: " + getArguments().getString("oldVersion") + " → " +
@@ -101,13 +101,12 @@ public class UpdateFragment extends DialogFragment {
     }
 
     /**
-     * This method is executing after clicking on Download button.
-     * The method is making vibration and open P1MT page in browser.
+     * This method executes after click on Download button.
+     * The method makes vibration and opens P1MT page in browser.
      */
     private void clickDownload() {
         ((MainActivity) getActivity()).makeVibration(1);
-        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(getResources().getString(R.string.link)));
-        startActivity(browserIntent);
+        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(getResources().getString(R.string.link))));
         dismiss();
     }
 }

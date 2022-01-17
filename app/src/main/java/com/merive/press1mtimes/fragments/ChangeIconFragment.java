@@ -22,7 +22,7 @@ public class ChangeIconFragment extends DialogFragment {
     ImageView defaultIcon, P1MTIcon, classicIcon;
 
     /**
-     * ChangeIcon empty constructor.
+     * ChangeIcon constructor.
      */
     ChangeIconFragment() {
     }
@@ -37,7 +37,7 @@ public class ChangeIconFragment extends DialogFragment {
     }
 
     /**
-     * This method is creating ChangeIconFragment.
+     * This method executes when ChangeIconFragment is creating.
      *
      * @param inflater           Needs for getting Fragment View.
      * @param parent             Argument of inflater.inflate().
@@ -53,7 +53,7 @@ public class ChangeIconFragment extends DialogFragment {
     }
 
     /**
-     * This method is executing after Fragment View was created.
+     * This method executes after Fragment View has been created.
      *
      * @param view               Fragment View Value.
      * @param savedInstanceState Saving Fragment Values.
@@ -73,7 +73,7 @@ public class ChangeIconFragment extends DialogFragment {
     }
 
     /**
-     * This method is initializing layout variables.
+     * This method initializes layout variables.
      *
      * @see View
      */
@@ -84,8 +84,8 @@ public class ChangeIconFragment extends DialogFragment {
     }
 
     /**
-     * This method is executing after clicking on Default Icon Button.
-     * The method is making vibration and set default application icon.
+     * This method executes after click on Default Icon Button.
+     * The method makes vibration and sets default application icon.
      */
     private void clickDefaultIcon() {
         ((MainActivity) getActivity()).makeVibration(1);
@@ -94,8 +94,8 @@ public class ChangeIconFragment extends DialogFragment {
     }
 
     /**
-     * This method is executing after clicking on P1MT Icon Button.
-     * The method is making vibration and set P1MT application icon.
+     * This method executes after click on P1MT Icon Button.
+     * The method makes vibration and sets P1MT application icon.
      */
     private void clickP1MTIcon() {
         ((MainActivity) getActivity()).makeVibration(1);
@@ -104,8 +104,8 @@ public class ChangeIconFragment extends DialogFragment {
     }
 
     /**
-     * This method is executing after clicking on Classic Icon Button.
-     * The method is making vibration and set Classic application icon.
+     * This method executes after clicking on Classic Icon Button.
+     * The method makes vibration and sets Classic application icon.
      */
     private void clickClassicIcon() {
         ((MainActivity) getActivity()).makeVibration(1);
@@ -114,8 +114,8 @@ public class ChangeIconFragment extends DialogFragment {
     }
 
     /**
-     * This method is setting application icon.
-     * The method is disabling old icon, setting new icon, change icon name in MainActivity and make Toast.
+     * This method sets application icon.
+     * The method disables old icon, sets new icon, changes icon name in MainActivity and makes Toast.
      *
      * @param iconName Name of icon.
      */
@@ -127,7 +127,7 @@ public class ChangeIconFragment extends DialogFragment {
     }
 
     /**
-     * This method is disabling old application icon.
+     * This method disables old application icon.
      */
     private void disableOldIcon() {
         PackageManager packageManager = getActivity().getPackageManager();
@@ -151,7 +151,7 @@ public class ChangeIconFragment extends DialogFragment {
     }
 
     /**
-     * This method is setting new application icon by icon name.
+     * This method sets new application icon by icon name.
      *
      * @param iconName Name of icon.
      */

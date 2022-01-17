@@ -18,7 +18,7 @@ public class SettingsFragment extends Fragment {
     SwitchCompat vibration, notification, acceleration, splash;
 
     /**
-     * This method is creating SettingsFragment.
+     * This method executes when SettingsFragment is creating.
      *
      * @param inflater           Needs for getting Fragment View.
      * @param parent             Argument of inflater.inflate().
@@ -33,7 +33,7 @@ public class SettingsFragment extends Fragment {
     }
 
     /**
-     * This method is executing after Fragment View was created.
+     * This method executes after Fragment View has been created.
      *
      * @param view               Fragment View Value.
      * @param savedInstanceState Saving Fragment Values.
@@ -44,12 +44,12 @@ public class SettingsFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         initVariables();
         setSwitchStates();
-        setInfo();
         setSwitchClickListener();
+        setInfo();
     }
 
     /**
-     * This method is initializing layout variables.
+     * This method initializes layout variables.
      *
      * @see View
      */
@@ -61,6 +61,9 @@ public class SettingsFragment extends Fragment {
         info = getView().findViewById(R.id.info_text);
     }
 
+    /**
+     * This method sets switches states.
+     */
     private void setSwitchStates() {
         vibration.setChecked(((MainActivity) getActivity()).getVibrationState());
         notification.setChecked(((MainActivity) getActivity()).getNotificationState());
@@ -68,14 +71,20 @@ public class SettingsFragment extends Fragment {
         splash.setChecked(((MainActivity) getActivity()).getSplashState());
     }
 
-    private void setInfo() {
-        info.setText(((MainActivity) getActivity()).getInfo());
-    }
-
+    /**
+     * This method sets click listeners for switches.
+     */
     private void setSwitchClickListener() {
         vibration.setOnClickListener(v -> ((MainActivity) getActivity()).clickVibration(vibration.isChecked()));
         notification.setOnClickListener(v -> ((MainActivity) getActivity()).clickNotification(notification.isChecked()));
         acceleration.setOnClickListener(v -> ((MainActivity) getActivity()).clickAcceleration(acceleration.isChecked()));
         splash.setOnClickListener(v -> ((MainActivity) getActivity()).clickSplash(splash.isChecked()));
+    }
+
+    /**
+     * This method sets text for info TextView.
+     */
+    private void setInfo() {
+        info.setText(((MainActivity) getActivity()).getInfo());
     }
 }
