@@ -68,7 +68,7 @@ public class FinishActivity extends AppCompatActivity
     }
 
     /**
-     * This overridden method is registering accelerator changes.
+     * This overridden method registers accelerator changes.
      *
      * @param sensorEvent SensorEvent object.
      * @see SensorEvent
@@ -93,7 +93,7 @@ public class FinishActivity extends AppCompatActivity
     }
 
     /**
-     * This method is initializing main Layout Components.
+     * This method initializes layout components.
      */
     private void initLayoutVariables() {
         title = findViewById(R.id.finish_title);
@@ -103,7 +103,7 @@ public class FinishActivity extends AppCompatActivity
     }
 
     /**
-     * This method is getting states in MainActivity and assigning to variables in FinishActivity.
+     * This method gets states in MainActivity and assigns to variables in FinishActivity.
      */
     private void setStates() {
         accelerationState = MainActivity.accelerationState;
@@ -121,7 +121,7 @@ public class FinishActivity extends AppCompatActivity
     }
 
     /**
-     * This method is setting sensors that using by application.
+     * This method sets sensors that using by application.
      */
     private void setSensors() {
         sensorManager = (SensorManager) getSystemService(
@@ -131,7 +131,7 @@ public class FinishActivity extends AppCompatActivity
     }
 
     /**
-     * This method is executing after clicking on Finish Button.
+     * This method executes after click on Exit Button.
      *
      * @param view View object.
      * @see android.widget.Button
@@ -147,7 +147,7 @@ public class FinishActivity extends AppCompatActivity
     }
 
     /**
-     * This method is making vibration.
+     * This method makes vibration.
      */
     private void makeVibration() {
         if (vibrationState) {

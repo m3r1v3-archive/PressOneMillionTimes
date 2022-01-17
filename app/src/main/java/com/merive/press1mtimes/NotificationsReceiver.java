@@ -11,7 +11,7 @@ import androidx.core.app.NotificationManagerCompat;
 public class NotificationsReceiver extends BroadcastReceiver {
 
     /**
-     * This method is sending notification.
+     * This method sends notifications.
      *
      * @param context Context object.
      * @param intent  intent needs for getting score.

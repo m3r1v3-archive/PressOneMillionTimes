@@ -7,7 +7,7 @@ public class Rotation {
     static final int FACTOR = 10;
 
     /**
-     * This method is defining rotation for views.
+     * This method defines rotation for views.
      *
      * @param axisX X axis value.
      * @param axisY Y axis value.
@@ -26,7 +26,7 @@ public class Rotation {
     }
 
     /**
-     * This method is setting rotation for View.
+     * This method sets rotation for View.
      *
      * @param X    X axis value.
      * @param Y    Y axis value.
