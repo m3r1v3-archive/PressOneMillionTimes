@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.widget.SwitchCompat;
@@ -16,6 +17,7 @@ public class SettingsFragment extends Fragment {
 
     TextView info;
     SwitchCompat vibration, notification, acceleration, splash;
+    Button options;
 
     /**
      * This method executes when SettingsFragment is creating.
@@ -45,6 +47,7 @@ public class SettingsFragment extends Fragment {
         initVariables();
         setSwitchStates();
         setSwitchClickListener();
+        setOptionsListener();
         setInfo();
     }
 
@@ -59,6 +62,7 @@ public class SettingsFragment extends Fragment {
         acceleration = getView().findViewById(R.id.acceleration_switch);
         splash = getView().findViewById(R.id.splash_switch);
         info = getView().findViewById(R.id.info_text);
+        options = getView().findViewById(R.id.options_button);
     }
 
     /**
@@ -79,6 +83,15 @@ public class SettingsFragment extends Fragment {
         notification.setOnClickListener(v -> ((MainActivity) getActivity()).clickNotification(notification.isChecked()));
         acceleration.setOnClickListener(v -> ((MainActivity) getActivity()).clickAcceleration(acceleration.isChecked()));
         splash.setOnClickListener(v -> ((MainActivity) getActivity()).clickSplash(splash.isChecked()));
+    }
+
+    /**
+     * This method sets click listener for Options Button.
+     *
+     * @see Button
+     */
+    private void setOptionsListener() {
+        options.setOnClickListener(v -> ((MainActivity) getActivity()).clickOptions());
     }
 
     /**

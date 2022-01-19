@@ -104,7 +104,6 @@
         android:layout_marginEnd="64dp"
         android:background="@xml/background"
         android:fontFamily="@font/odibee"
-        android:onClick="clickOptions"
         android:padding="12sp"
         android:stateListAnimator="@null"
         android:text="@string/options"

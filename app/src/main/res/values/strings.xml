@@ -17,6 +17,7 @@
 
     <!-- Options Fragment -->
     <string name="options">Options</string>
+    <string name="splash_position">Splash Position</string>
 
     <!-- Reset Fragment -->
     <string name="do_you_want_reset_counter">Reset counter?</string>
@@ -29,8 +30,8 @@
     <!-- Change Icon Fragment -->
     <string name="change_icon">Change App Icon</string>
     <string name="default_icon">Default Icon</string>
-    <string name="p1mt_icon">P1MT Icon</string>
-    <string name="classic_icon">Classic Icon</string>
+    <string name="p1mt_icon">Short Icon</string>
+    <string name="classic_icon">Old Icon</string>
 
     <!-- Update Fragment -->
     <string name="new_version_released">New version was released</string>
@@ -39,7 +40,9 @@
     <!-- Website Link -->
     <string name="link">https://merive.herokuapp.com/P1MT</string>
 
+    <!--  Splash Messages Fragment  -->
+    <string name="splash_message">Splash message</string>
+
     <!-- TODO -->
     <string name="todo">TODO</string>
-    <string name="splash_message">Splash message</string>
 </resources>
