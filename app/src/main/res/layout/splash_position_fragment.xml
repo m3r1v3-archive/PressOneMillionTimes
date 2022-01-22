@@ -24,7 +24,7 @@
         android:layout_marginEnd="32sp"
         android:width="0sp"
         android:fontFamily="@font/odibee"
-        android:text="Select Splash Position"
+        android:text="@string/splash_position"
         android:textAlignment="center"
         android:textAllCaps="false"
         android:textColor="@color/red"
@@ -43,13 +43,13 @@
         android:contentDescription="@string/todo"
         android:cropToPadding="true"
         android:padding="4sp"
+        android:rotation="-45"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.25"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.35"
-        android:rotation="-45"
         app:srcCompat="@xml/arrow_up" />
 
     <ImageView
@@ -60,13 +60,13 @@
         android:contentDescription="@string/todo"
         android:cropToPadding="true"
         android:padding="4sp"
+        android:rotation="45"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.75"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.35"
-        android:rotation="45"
         app:srcCompat="@xml/arrow_up" />
 
     <ImageView
@@ -77,13 +77,13 @@
         android:contentDescription="@string/todo"
         android:cropToPadding="true"
         android:padding="4sp"
+        android:rotation="-135"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.25"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.85"
-        android:rotation="-135"
         app:srcCompat="@xml/arrow_up" />
 
     <ImageView
@@ -94,13 +94,13 @@
         android:contentDescription="@string/todo"
         android:cropToPadding="true"
         android:padding="4sp"
+        android:rotation="135"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.75"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.85"
-        android:rotation="135"
         app:srcCompat="@xml/arrow_up" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

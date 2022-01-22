@@ -8,6 +8,7 @@
     <string name="vibration">Vibration</string>
     <string name="notification">Notification</string>
     <string name="acceleration">Acceleration</string>
+    <string name="splash_message">Splash message</string>
     <string name="reset">Reset</string>
 
     <!--  Finish Activity  -->
@@ -17,7 +18,7 @@
 
     <!-- Options Fragment -->
     <string name="options">Options</string>
-    <string name="splash_position">Splash Position</string>
+    <string name="splash_position">Splash Message Position</string>
 
     <!-- Reset Fragment -->
     <string name="do_you_want_reset_counter">Reset counter?</string>
@@ -39,9 +40,6 @@
 
     <!-- Website Link -->
     <string name="link">https://merive.herokuapp.com/P1MT</string>
-
-    <!--  Splash Messages Fragment  -->
-    <string name="splash_message">Splash message</string>
 
     <!-- TODO -->
     <string name="todo">TODO</string>

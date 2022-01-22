@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Red Color -->
     <color name="red">#AF251B</color>
-    <!-- Gray Color -->
     <color name="gray">#2c2c2c</color>
 </resources>
