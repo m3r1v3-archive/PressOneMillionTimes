@@ -8,6 +8,7 @@
     <string name="vibration">Vibration</string>
     <string name="notification">Notification</string>
     <string name="acceleration">Acceleration</string>
+    <string name="splash_message">Splash message</string>
     <string name="reset">Reset</string>
 
     <!--  Finish Activity  -->
@@ -17,6 +18,7 @@
 
     <!-- Options Fragment -->
     <string name="options">Options</string>
+    <string name="splash_position">Splash Message Position</string>
 
     <!-- Reset Fragment -->
     <string name="do_you_want_reset_counter">Reset counter?</string>
@@ -29,8 +31,8 @@
     <!-- Change Icon Fragment -->
     <string name="change_icon">Change App Icon</string>
     <string name="default_icon">Default Icon</string>
-    <string name="p1mt_icon">P1MT Icon</string>
-    <string name="classic_icon">Classic Icon</string>
+    <string name="p1mt_icon">Short Icon</string>
+    <string name="classic_icon">Old Icon</string>
 
     <!-- Update Fragment -->
     <string name="new_version_released">New version was released</string>

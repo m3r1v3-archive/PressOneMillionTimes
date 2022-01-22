@@ -3,6 +3,7 @@ package com.merive.press1mtimes;
 import static com.merive.press1mtimes.utils.Rotation.defineRotation;
 
 import android.content.Context;
+import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -10,27 +11,18 @@ import android.hardware.SensorManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Looper;
 import android.os.Vibrator;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.util.Date;
-import java.util.Objects;
-
 public class FinishActivity extends AppCompatActivity
         implements SensorEventListener {
 
     ImageButton exit;
-    ImageView easter;
-    Handler handler;
     Handler.Callback callback;
     TextView title, label, afterword;
     Boolean accelerationState, vibrationState;
@@ -57,7 +49,6 @@ public class FinishActivity extends AppCompatActivity
         callback = message -> false;
 
         setStates();
-        setSnowFallingVisibility();
         setSensors();
     }
 
@@ -77,7 +68,7 @@ public class FinishActivity extends AppCompatActivity
     }
 
     /**
-     * This overridden method is registering accelerator changes.
+     * This overridden method registers accelerator changes.
      *
      * @param sensorEvent SensorEvent object.
      * @see SensorEvent
@@ -102,18 +93,17 @@ public class FinishActivity extends AppCompatActivity
     }
 
     /**
-     * This method is initializing main Layout Components.
+     * This method initializes layout components.
      */
     private void initLayoutVariables() {
         title = findViewById(R.id.finish_title);
         label = findViewById(R.id.title);
         afterword = findViewById(R.id.afterword);
         exit = findViewById(R.id.exit);
-        easter = findViewById(R.id.easter_egg);
     }
 
     /**
-     * This method is getting states in MainActivity and assigning to variables in FinishActivity.
+     * This method gets states in MainActivity and assigns to variables in FinishActivity.
      */
     private void setStates() {
         accelerationState = MainActivity.accelerationState;
@@ -121,19 +111,17 @@ public class FinishActivity extends AppCompatActivity
     }
 
     /**
-     * This method is setting visibility for Snow Falling effect if now is winter.
+     * This method is setting visibility for Coins effect.
      *
      * @see com.jetradarmobile.snowfall.SnowfallView
      */
     @RequiresApi(api = Build.VERSION_CODES.O)
-    private void setSnowFallingVisibility() {
-        LocalDate localDate = new Date().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        if (localDate.getMonthValue() == 12 || localDate.getMonthValue() == 1 || localDate.getMonthValue() == 2)
-            findViewById(R.id.snow).setVisibility(View.VISIBLE);
+    private void setCoinsVisibility() {
+        findViewById(R.id.coins).setVisibility(View.VISIBLE);
     }
 
     /**
-     * This method is setting sensors that using by application.
+     * This method sets sensors that using by application.
      */
     private void setSensors() {
         sensorManager = (SensorManager) getSystemService(
@@ -143,34 +131,23 @@ public class FinishActivity extends AppCompatActivity
     }
 
     /**
-     * This method is executing after clicking on Finish Button.
+     * This method executes after click on Exit Button.
      *
      * @param view View object.
      * @see android.widget.Button
      */
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public void clickExit(View view) {
-        exit.setVisibility(View.INVISIBLE);
-        easter.setVisibility(View.VISIBLE);
-
-        makeAnimation();
-
-        handler.postDelayed(this::finish, 500);
+        makeVibration();
+        setCoinsVisibility();
+        new Handler().postDelayed(() -> {
+            startActivity(new Intent(this, MainActivity.class));
+            finish();
+        }, 5000);
     }
 
     /**
-     * This method is making easter animation.
-     */
-    private void makeAnimation() {
-        easter.animate().translationY(-100f).setDuration(200L).start();
-        handler = new Handler(Objects.requireNonNull(Looper.myLooper()), callback);
-        handler.postDelayed(() -> {
-            easter.animate().translationY(80f).setDuration(200L).start();
-            makeVibration();
-        }, 300);
-    }
-
-    /**
-     * This method is making vibration.
+     * This method makes vibration.
      */
     private void makeVibration() {
         if (vibrationState) {

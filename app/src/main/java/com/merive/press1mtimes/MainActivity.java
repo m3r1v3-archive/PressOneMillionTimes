@@ -19,12 +19,14 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.view.View;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SwitchCompat;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.preference.PreferenceManager;
@@ -35,8 +37,11 @@ import com.merive.press1mtimes.fragments.ChangeIconFragment;
 import com.merive.press1mtimes.fragments.ConfirmFragment;
 import com.merive.press1mtimes.fragments.OptionsFragment;
 import com.merive.press1mtimes.fragments.ScoreShareFragment;
+import com.merive.press1mtimes.fragments.SettingsFragment;
+import com.merive.press1mtimes.fragments.SplashPositionFragment;
 import com.merive.press1mtimes.fragments.ToastFragment;
 import com.merive.press1mtimes.fragments.UpdateFragment;
+import com.merive.press1mtimes.utils.SplashTexts;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -48,6 +53,7 @@ import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedList;
+import java.util.Random;
 import java.util.regex.Pattern;
 
 
@@ -57,10 +63,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     static SharedPreferences sharedPreferences;
 
-    static Boolean vibrationState, accelerationState, notificationState;
-    TextView label, counter, info;
+    static Boolean vibrationState, accelerationState, notificationState, splashState;
+    TextView label, counter, splash;
     ImageButton button;
-    SwitchCompat vibration, notification, acceleration;
+
 
     SensorManager sensorManager;
     Sensor accelerometer;
@@ -71,7 +77,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     /**
      * This method is the start point at the MainActivity.
      *
-     * @param savedInstanceState Used by super.onCreate method.
+     * @param savedInstanceState Use by super.onCreate method.
      */
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -85,19 +91,20 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this.getBaseContext());
 
         initLayoutVariables();
-        initSettings();
+
+        initSettingsFragment();
 
         setScoreToCounter();
-        setSwitchValues();
-        setInfo();
+        setStateValues();
 
         setSnowFallingVisibility();
 
         setSensors();
 
-        makeNotificationChannel();
+        createNotificationChannel();
 
         checkVersion();
+        checkSplashState();
     }
 
     @Override
@@ -120,7 +127,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     }
 
     /**
-     * This overridden method is registering accelerator changes.
+     * This overridden method registers accelerator changes.
      *
      * @param sensorEvent SensorEvent object.
      * @see SensorEvent
@@ -144,7 +151,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     }
 
     /**
-     * This method is checking result of QR scanning.
+     * This method checks result of QR scanning.
      *
      * @param requestCode The code what was requested.
      * @param resultCode  The code what was returned.
@@ -163,7 +170,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     }
 
     /**
-     * This method is checking QR result on pattern.
+     * This method checks QR result on pattern.
      *
      * @param result QR result.
      * @see Pattern
@@ -175,7 +182,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     }
 
     /**
-     * This method is setting score by QR result.
+     * This method sets score by QR result.
      *
      * @param result Score value from QR-Code.
      */
@@ -188,7 +195,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     }
 
     /**
-     * This method is setting new score value to sharedPreference.
+     * This method sets new score value to sharedPreference.
      *
      * @param score Score value.
      * @see SharedPreferences
@@ -199,7 +206,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     }
 
     /**
-     * This method is making Vibration.
+     * This method makes vibration.
      *
      * @param times Number of times.
      */
@@ -211,7 +218,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     }
 
     /**
-     * This method is open ToastFragment.
+     * This method opens ToastFragment.
      *
      * @param message Toast message.
      * @see ToastFragment
@@ -229,7 +236,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     }
 
     /**
-     * This method is initializing main Layout Components.
+     * This method initializes main layout components.
      */
     private void initLayoutVariables() {
         counter = findViewById(R.id.counter);
@@ -238,17 +245,18 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     }
 
     /**
-     * This method is initializing Settings Components.
+     * This method sets SettingsFragment.
      */
-    private void initSettings() {
-        vibration = findViewById(R.id.vibration_switch);
-        notification = findViewById(R.id.notification_switch);
-        acceleration = findViewById(R.id.acceleration_switch);
-        info = findViewById(R.id.info_text);
+    private void initSettingsFragment() {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.setReorderingAllowed(true);
+        transaction.replace(R.id.settings_fragment, new SettingsFragment(), null);
+        transaction.commit();
     }
 
     /**
-     * This method is setting score to counter.
+     * This method sets score to counter.
      */
     @SuppressLint("DefaultLocale")
     private void setScoreToCounter() {
@@ -256,7 +264,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     }
 
     /**
-     * This method is getting score from SharedPreference.
+     * This method gets score from SharedPreference.
      *
      * @return Score Value.
      * @see SharedPreferences
@@ -266,43 +274,81 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     }
 
     /**
-     * This method is setting switch values from SharedPreference.
+     * This method returns Vibration state value from sharedPreference.
      *
      * @see SharedPreferences
      */
-    private void setSwitchValues() {
-        vibrationState = sharedPreferences.getBoolean("vibration", false);
-        vibration.setChecked(vibrationState);
-
-        notificationState = sharedPreferences.getBoolean("notification", false);
-        notification.setChecked(notificationState);
-
-        accelerationState = sharedPreferences.getBoolean("acceleration", false);
-        acceleration.setChecked(accelerationState);
+    public boolean getVibrationState() {
+        return sharedPreferences.getBoolean("vibration", false);
     }
 
     /**
-     * This method is setting info to settings.
+     * This method returns Notification state value from sharedPreference.
+     *
+     * @see SharedPreferences
      */
-    private void setInfo() {
-        info.setText(("Version: " + BuildConfig.VERSION_NAME +
-                "\n@merive-studio, " + Calendar.getInstance().get(YEAR)));
+    public boolean getNotificationState() {
+        return notificationState = sharedPreferences.getBoolean("notification", false);
     }
 
     /**
-     * This method is setting visibility for Snow Falling effect if now is winter.
+     * This method returns Acceleration state value from sharedPreference.
+     *
+     * @see SharedPreferences
+     */
+    public boolean getAccelerationState() {
+        return sharedPreferences.getBoolean("acceleration", false);
+    }
+
+    /**
+     * This method returns Splash state value from sharedPreference.
+     *
+     * @see SharedPreferences
+     */
+    public boolean getSplashState() {
+        return sharedPreferences.getBoolean("splash", false);
+    }
+
+    /**
+     * This method sets state values to variables.
+     */
+    private void setStateValues() {
+        vibrationState = getVibrationState();
+        notificationState = getNotificationState();
+        accelerationState = getAccelerationState();
+        splashState = getSplashState();
+    }
+
+    /**
+     * This method sets info to settings.
+     */
+    public String getInfo() {
+        return (("P1MT / " + BuildConfig.VERSION_NAME + "\nmerive-studios / MIT License, " + Calendar.getInstance().get(YEAR)));
+    }
+
+    /**
+     * This method sets visibility for Snow Falling effect if now is winter.
      *
      * @see com.jetradarmobile.snowfall.SnowfallView
      */
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void setSnowFallingVisibility() {
-        LocalDate localDate = new Date().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        if (localDate.getMonthValue() == 12 || localDate.getMonthValue() == 1 || localDate.getMonthValue() == 2)
-            findViewById(R.id.snow).setVisibility(View.VISIBLE);
+        if (checkWinter()) findViewById(R.id.snow).setVisibility(View.VISIBLE);
     }
 
     /**
-     * This method is setting sensors that using by application.
+     * This method checks season on winter.
+     *
+     * @return True if season is winter.
+     */
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private boolean checkWinter() {
+        LocalDate localDate = new Date().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        return localDate.getMonthValue() == 12 || localDate.getMonthValue() == 1 || localDate.getMonthValue() == 2;
+    }
+
+    /**
+     * This method sets sensors that using by application.
      */
     private void setSensors() {
         sensorManager = (SensorManager) getSystemService(
@@ -312,9 +358,9 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     }
 
     /**
-     * This method is making notification channel.
+     * This method creates notification channel.
      */
-    private void makeNotificationChannel() {
+    private void createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             CharSequence name = "Press1MTimesChannel";
             String description = "Channel for Press1MTimes";
@@ -330,7 +376,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     }
 
     /**
-     * This method is checking actual application version.
+     * This method checks actual application version.
      * If P1MT have new version on website, this method will open UpdateFragment.
      *
      * @see UpdateFragment
@@ -346,7 +392,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     }
 
     /**
-     * This method is getting actual application version on website.
+     * This method gets actual application version on website.
      *
      * @return Actual application version.
      * @throws IOException ignored.
@@ -369,7 +415,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     }
 
     /**
-     * This method is opening UpdateFragment.
+     * This method opens UpdateFragment.
      *
      * @param actualVersion Actual application version.
      */
@@ -380,7 +426,41 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     }
 
     /**
-     * This method is executing after clicking on button.
+     * This method checks splashState value and makes Splash Message.
+     */
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private void checkSplashState() {
+        if (splashState) {
+            splash = findViewById(R.id.splash);
+            setSplashPosition();
+            setSplashAnimation();
+        }
+    }
+
+    /**
+     * This method sets Splash Message position.
+     */
+    private void setSplashPosition() {
+        ConstraintSet constraintSet = new ConstraintSet();
+        ConstraintLayout constraintLayout = (ConstraintLayout) findViewById(R.id.activity_main);
+        constraintSet.clone(constraintLayout);
+        constraintSet.setHorizontalBias(splash.getId(), sharedPreferences.getFloat("splash_horizontal", (float) 0.98));
+        constraintSet.setVerticalBias(splash.getId(), sharedPreferences.getFloat("splash_vertical", (float) 0.98));
+        constraintSet.applyTo(constraintLayout);
+    }
+
+    /**
+     * This method sets Splash Message animation.
+     */
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private void setSplashAnimation() {
+        splash.setText(("#" + SplashTexts.values()[new Random().nextInt(SplashTexts.values().length - (checkWinter() ? 0 : 1))]));
+        splash.setVisibility(View.VISIBLE);
+        splash.startAnimation(AnimationUtils.loadAnimation(this, R.anim.splash));
+    }
+
+    /**
+     * This method executes after click on button.
      *
      * @param view View object.
      */
@@ -394,7 +474,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     }
 
     /**
-     * This method is resetting counter value to default value.
+     * This method resets counter value to default value.
      */
     public void resetCounter() {
         setScoreToSharePreference(0);
@@ -402,15 +482,15 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     }
 
     /**
-     * This method is opening FinishActivity.
+     * This method opens FinishActivity.
      */
     private void openFinish() {
-        Intent intent = new Intent(this, FinishActivity.class);
-        startActivity(intent);
+        startActivity(new Intent(this, FinishActivity.class));
+        finish();
     }
 
     /**
-     * This method is setting number of vibration times by score.
+     * This method sets number of vibration times by score.
      *
      * @param score Score value.
      */
@@ -421,33 +501,33 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     }
 
     /**
-     * This method is executing after clicking on vibration switch.
-     * The method is setting vibration switch value to sharedPreference and vibrationState variable.
+     * This method executes after click on vibration switch.
+     * The method sets vibration switch value to sharedPreference and vibrationState variable.
      *
-     * @param view View object.
+     * @param value Switch value.
      */
-    public void clickVibration(View view) {
-        sharedPreferences.edit().putBoolean("vibration", vibration.isChecked()).apply();
-        vibrationState = vibration.isChecked();
+    public void clickVibration(boolean value) {
+        sharedPreferences.edit().putBoolean("vibration", value).apply();
+        vibrationState = value;
     }
 
     /**
-     * This method is executing after clicking on notification switch.
-     * The method is setting notification switch value to sharedPreference and notificationState variable.
+     * This method is executes after click on notification switch.
+     * The method sets notification switch value to sharedPreference and notificationState variable.
      * If notification switch is true, will be unable alarm for notification.
      * Else will be disabled.
      *
-     * @param view View object.
+     * @param value Switch value.
      */
-    public void clickNotification(View view) {
-        sharedPreferences.edit().putBoolean("notification", notification.isChecked()).apply();
-        notificationState = notification.isChecked();
+    public void clickNotification(boolean value) {
+        sharedPreferences.edit().putBoolean("notification", value).apply();
+        notificationState = value;
         if (notificationState) setAlarm();
         else offAlarm();
     }
 
     /**
-     * This method is enabling alarm for notifications.
+     * This method enables alarm for notifications.
      */
     private void setAlarm() {
         Intent intent = new Intent(getBaseContext(), NotificationsReceiver.class);
@@ -470,7 +550,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     }
 
     /**
-     * This method is disabling alarm for notifications.
+     * This method disables alarm for notifications.
      */
     private void offAlarm() {
         AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
@@ -482,14 +562,15 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     }
 
     /**
-     * This method is executing after clicking on acceleration switch.
-     * If acceleration switch value is false, will be setting default rotation for main components.
+     * This method executes after click on acceleration switch.
+     * If acceleration switch value is false, will set default rotation for main components.
      *
-     * @param view View object.
+     * @param value Switch value.
      */
-    public void clickAcceleration(View view) {
-        setAccelerationState(acceleration.isChecked());
-        if (!acceleration.isChecked()) {
+    public void clickAcceleration(boolean value) {
+        sharedPreferences.edit().putBoolean("acceleration", value).apply();
+        accelerationState = value;
+        if (!value) {
             setDefaultRotation(label);
             setDefaultRotation(counter);
             setDefaultRotation(button);
@@ -497,17 +578,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     }
 
     /**
-     * This method is setting accelerationState value.
-     *
-     * @param state State value.
-     */
-    private void setAccelerationState(boolean state) {
-        sharedPreferences.edit().putBoolean("acceleration", state).apply();
-        accelerationState = state;
-    }
-
-    /**
-     * This method is setting default rotation for view.
+     * This method sets default rotation for view.
      *
      * @param view View component.
      */
@@ -515,13 +586,17 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         defineRotation(0, 0, view);
     }
 
+    public void clickSplash(boolean value) {
+        sharedPreferences.edit().putBoolean("splash", value).apply();
+        splashState = value;
+    }
+
     /**
-     * This method is executing after clicking on Options Button.
+     * This method executes after click on Options Button.
      *
-     * @param view View object.
      * @see android.widget.Button
      */
-    public void clickOptions(View view) {
+    public void clickOptions() {
         makeVibration(1);
         FragmentManager fm = getSupportFragmentManager();
         OptionsFragment optionsFragment = OptionsFragment.newInstance();
@@ -529,36 +604,33 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     }
 
     /**
-     * This method is executing after clicking on Reset Button.
+     * This method executes after click on Reset Button.
      *
      * @see android.widget.Button
      */
     public void clickReset() {
-        makeVibration(1);
         FragmentManager fm = getSupportFragmentManager();
         ConfirmFragment confirmFragment = ConfirmFragment.newInstance();
         confirmFragment.show(fm, "confirm_fragment");
     }
 
     /**
-     * This method is executing after clicking on ScoreShare Button.
+     * This method executes after click on ScoreShare Button.
      *
      * @see android.widget.Button
      */
     public void clickScoreShare() {
-        makeVibration(1);
         FragmentManager fm = getSupportFragmentManager();
         ScoreShareFragment scoreShareFragment = ScoreShareFragment.newInstance(String.valueOf(getScore()));
         scoreShareFragment.show(fm, "score_share_fragment");
     }
 
     /**
-     * This method is executing after clicking on ChangeIcon Button.
+     * This method executes after click on ChangeIcon Button.
      *
      * @see android.widget.Button
      */
     public void clickChangeIcon() {
-        makeVibration(1);
         FragmentManager fm = getSupportFragmentManager();
         ChangeIconFragment changeIconFragment = ChangeIconFragment.newInstance();
         changeIconFragment.show(fm, "change_icon_fragment");
@@ -574,9 +646,32 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         return sharedPreferences.getString("icon", "default");
     }
 
+    /**
+     * This method executes after click on Splash Position Option button.
+     * The method opens SplashPosition Fragment.
+     *
+     * @see android.widget.Button
+     * @see SplashPositionFragment
+     */
+    public void clickSplashPosition() {
+        FragmentManager fm = getSupportFragmentManager();
+        SplashPositionFragment splashPositionFragment = SplashPositionFragment.newInstance();
+        splashPositionFragment.show(fm, "splash_position_fragment");
+    }
 
     /**
-     * This method is removing ToastFragment Fragment Layout.
+     * This method sets Splash Position in sharedPreferences.
+     *
+     * @param horizontal Horizontal float value.
+     * @param vertical Vertical float value.
+     * @see SharedPreferences
+     */
+    public void setSplashPosition(float horizontal, float vertical) {
+        sharedPreferences.edit().putFloat("splash_horizontal", horizontal).putFloat("splash_vertical", vertical).apply();
+    }
+
+    /**
+     * This method removes ToastFragment from screen.
      *
      * @see ToastFragment
      * @see android.widget.FrameLayout
@@ -592,7 +687,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     }
 
     /**
-     * This method is changing application icon value in sharedPreference.
+     * This method changes application icon value in sharedPreference.
      *
      * @param icon Icon name.
      */

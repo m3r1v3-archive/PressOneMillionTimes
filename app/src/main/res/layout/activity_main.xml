@@ -2,38 +2,33 @@
 <androidx.constraintlayout.motion.widget.MotionLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/dark"
+    android:background="@color/gray"
     app:layoutDescription="@xml/activity_main_scene"
     tools:context=".MainActivity">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/snow_layout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-
-        <com.jetradarmobile.snowfall.SnowfallView
-            android:id="@+id/snow"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="invisible"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:snowflakeAlphaMax="256"
-            app:snowflakeAlphaMin="128"
-            app:snowflakeAngleMax="5"
-            app:snowflakeImage="@drawable/snowflake"
-            app:snowflakeSizeMax="32sp"
-            app:snowflakeSizeMin="8sp"
-            app:snowflakeSpeedMax="8"
-            app:snowflakeSpeedMin="2"
-            app:snowflakesAlreadyFalling="false"
-            app:snowflakesFadingEnabled="true"
-            app:snowflakesNum="50" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    <com.jetradarmobile.snowfall.SnowfallView
+        android:id="@+id/snow"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:snowflakeAlphaMax="256"
+        app:snowflakeAlphaMin="128"
+        app:snowflakeAngleMax="5"
+        app:snowflakeImage="@drawable/snowflake"
+        app:snowflakeSizeMax="32sp"
+        app:snowflakeSizeMin="8sp"
+        app:snowflakeSpeedMax="8"
+        app:snowflakeSpeedMin="2"
+        app:snowflakesAlreadyFalling="false"
+        app:snowflakesFadingEnabled="true"
+        app:snowflakesNum="64" />
 
     <TextView
         android:id="@+id/title"
@@ -63,7 +58,7 @@
         android:paddingTop="2sp"
         android:paddingBottom="0sp"
         android:text="@string/counter_def_value"
-        android:textColor="@color/dark"
+        android:textColor="@color/gray"
         android:textSize="32sp"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -84,10 +79,25 @@
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.500"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.8" />
+
+    <TextView
+        android:id="@+id/splash"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/odibee"
+        android:textColor="@color/red"
+        android:textSize="24sp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.98"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.98" />
 
     <ImageView
         android:id="@+id/arrow_up"
@@ -100,121 +110,24 @@
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@xml/arrow_up" />
 
-    <View
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/settings_pad"
         android:layout_width="match_parent"
-        android:layout_height="400sp"
+        android:layout_height="496sp"
         android:background="@xml/settings_background"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="parent" />
+        app:layout_constraintTop_toBottomOf="parent">
 
-    <TextView
-        android:id="@+id/settings_title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16sp"
-        android:fontFamily="@font/odibee"
-        android:text="@string/settings"
-        android:gravity="center"
-        android:textColor="@color/red"
-        android:textSize="36sp"
-        app:layout_constraintEnd_toStartOf="parent"
-        app:layout_constraintStart_toEndOf="@id/settings_pad"
-        app:layout_constraintTop_toTopOf="@id/settings_pad" />
-
-    <androidx.appcompat.widget.SwitchCompat
-        android:id="@+id/vibration_switch"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="24sp"
-        android:layout_marginTop="50sp"
-        android:layout_marginRight="24sp"
-        android:background="@xml/background"
-        android:fontFamily="@font/odibee"
-        android:onClick="clickVibration"
-        android:padding="12sp"
-        android:text="@string/vibration"
-        android:textColor="@color/red"
-        android:textSize="26sp"
-        app:layout_constraintEnd_toStartOf="@id/settings_title"
-        app:layout_constraintStart_toEndOf="@id/settings_pad"
-        app:layout_constraintTop_toTopOf="@id/settings_title"
-        app:thumbTint="#3c3c3c"
-        app:trackTint="@color/red" />
-
-    <androidx.appcompat.widget.SwitchCompat
-        android:id="@+id/notification_switch"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="24sp"
-        android:layout_marginTop="70sp"
-        android:layout_marginRight="24sp"
-        android:background="@xml/background"
-        android:fontFamily="@font/odibee"
-        android:onClick="clickNotification"
-        android:padding="12sp"
-        android:text="@string/notification"
-        android:textColor="@color/red"
-        android:textSize="26sp"
-        app:layout_constraintEnd_toStartOf="@id/vibration_switch"
-        app:layout_constraintStart_toEndOf="@id/settings_pad"
-        app:layout_constraintTop_toTopOf="@id/vibration_switch"
-        app:thumbTint="#3c3c3c"
-        app:trackTint="@color/red" />
-
-    <androidx.appcompat.widget.SwitchCompat
-        android:id="@+id/acceleration_switch"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="24sp"
-        android:layout_marginTop="70sp"
-        android:layout_marginRight="24sp"
-        android:background="@xml/background"
-        android:fontFamily="@font/odibee"
-        android:onClick="clickAcceleration"
-        android:padding="12sp"
-        android:text="@string/acceleration"
-        android:textColor="@color/red"
-        android:textSize="26sp"
-        app:layout_constraintEnd_toStartOf="@id/notification_switch"
-        app:layout_constraintStart_toEndOf="@id/settings_pad"
-        app:layout_constraintTop_toTopOf="@id/notification_switch"
-        app:thumbTint="#3c3c3c"
-        app:trackTint="@color/red" />
-
-    <Button
-        android:id="@+id/options_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="64sp"
-        android:layout_marginTop="65sp"
-        android:layout_marginRight="64sp"
-        android:background="@xml/background"
-        android:fontFamily="@font/odibee"
-        android:onClick="clickOptions"
-        android:padding="12sp"
-        android:stateListAnimator="@null"
-        android:text="@string/options"
-        android:textColor="@color/red"
-        android:textSize="26sp"
-        app:layout_constraintEnd_toStartOf="@id/acceleration_switch"
-        app:layout_constraintStart_toEndOf="@id/settings_pad"
-        app:layout_constraintTop_toTopOf="@id/acceleration_switch" />
-
-    <TextView
-        android:id="@+id/info_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="50sp"
-        android:fontFamily="@font/odibee"
-        android:padding="18sp"
-        android:textAlignment="center"
-        android:textColor="@color/red"
-        android:textSize="26sp"
-        app:layout_constraintEnd_toStartOf="@id/options_button"
-        app:layout_constraintStart_toEndOf="@id/settings_pad"
-        app:layout_constraintTop_toTopOf="@id/options_button" />
+        <FrameLayout
+            android:id="@+id/settings_fragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <FrameLayout
         android:id="@+id/toast_fragment"

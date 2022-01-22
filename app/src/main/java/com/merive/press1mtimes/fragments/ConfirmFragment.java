@@ -22,7 +22,7 @@ public class ConfirmFragment extends DialogFragment {
     Button cancel, confirm;
 
     /**
-     * ConfirmFragment empty constructor.
+     * ConfirmFragment constructor.
      */
     public ConfirmFragment() {
     }
@@ -37,7 +37,7 @@ public class ConfirmFragment extends DialogFragment {
     }
 
     /**
-     * This method is creating ConfirmFragment.
+     * This method executes when ConfirmFragment is creating.
      *
      * @param inflater           Needs for getting Fragment View.
      * @param parent             Argument of inflater.inflate().
@@ -53,7 +53,7 @@ public class ConfirmFragment extends DialogFragment {
     }
 
     /**
-     * This method is executing after Fragment View was created.
+     * This method executes after Fragment View has been created.
      *
      * @param view               Fragment View Value.
      * @param savedInstanceState Saving Fragment Values.
@@ -72,7 +72,7 @@ public class ConfirmFragment extends DialogFragment {
     }
 
     /**
-     * This method is initializing layout variables.
+     * This method initializes layout variables.
      *
      * @see View
      */
@@ -83,7 +83,7 @@ public class ConfirmFragment extends DialogFragment {
     }
 
     /**
-     * This method is executing after clicking on Cancel Button.
+     * This method executes after click on Cancel Button.
      */
     private void clickCancel() {
         ((MainActivity) getActivity()).makeVibration(1);
@@ -91,8 +91,8 @@ public class ConfirmFragment extends DialogFragment {
     }
 
     /**
-     * This method is executing after clicking on Confirm Button.
-     * The method is making vibration and reset counter.
+     * This method executes after click on Confirm Button.
+     * The method makes vibration and resets counter.
      */
     private void clickConfirm() {
         ((MainActivity) getActivity()).makeVibration(1);

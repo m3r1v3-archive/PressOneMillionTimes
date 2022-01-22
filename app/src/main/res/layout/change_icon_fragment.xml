@@ -81,7 +81,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.59"
-        app:srcCompat="@drawable/p1mt_icon" />
+        app:srcCompat="@drawable/short_icon" />
 
     <TextView
         android:id="@+id/p1mt_icon_text"
