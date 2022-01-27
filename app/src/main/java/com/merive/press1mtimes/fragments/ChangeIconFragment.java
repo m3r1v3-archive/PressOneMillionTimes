@@ -79,7 +79,7 @@ public class ChangeIconFragment extends DialogFragment {
      */
     private void initVariables() {
         defaultIcon = getView().findViewById(R.id.default_icon_button);
-        P1MTIcon = getView().findViewById(R.id.p1mt_icon_button);
+        P1MTIcon = getView().findViewById(R.id.short_icon_button);
         classicIcon = getView().findViewById(R.id.classic_icon_button);
     }
 
@@ -123,7 +123,7 @@ public class ChangeIconFragment extends DialogFragment {
         disableOldIcon();
         setNewIcon(iconName);
         ((MainActivity) getActivity()).changeIcon(iconName);
-        ((MainActivity) getActivity()).makeToast("Application Icon was changed");
+        ((MainActivity) getActivity()).makeToast(getResources().getString(R.string.icon_changed));
     }
 
     /**

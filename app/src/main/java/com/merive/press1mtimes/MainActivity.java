@@ -164,7 +164,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             try {
                 checkPatternQR(intent.getStringExtra("SCAN_RESULT"));
             } catch (Exception exc) {
-                makeToast("Something went wrong");
+                makeToast(getResources().getString(R.string.error));
             }
         }
     }
@@ -178,7 +178,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     private void checkPatternQR(String result) {
         Pattern pattern = Pattern.compile("P1MT:[(][0-9][0-9][0-9][)][(][0-9][0-9][0-9][)]");
         if (pattern.matcher(result).find()) setScoreByQRResult(result);
-        else makeToast("QR-Code cannot be scanning");
+        else makeToast(getResources().getString(R.string.qr_error));
     }
 
     /**
@@ -191,7 +191,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 replace("(", "").replace(")", "")));
         setScoreToCounter();
         makeVibration(1);
-        makeToast("Press1MTimes Score was updated");
+        makeToast(getResources().getString(R.string.score_updated));
     }
 
     /**
@@ -442,7 +442,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
      */
     private void setSplashPosition() {
         ConstraintSet constraintSet = new ConstraintSet();
-        ConstraintLayout constraintLayout = (ConstraintLayout) findViewById(R.id.activity_main);
+        ConstraintLayout constraintLayout = findViewById(R.id.activity_main);
         constraintSet.clone(constraintLayout);
         constraintSet.setHorizontalBias(splash.getId(), sharedPreferences.getFloat("splash_horizontal", (float) 0.98));
         constraintSet.setVerticalBias(splash.getId(), sharedPreferences.getFloat("splash_vertical", (float) 0.98));

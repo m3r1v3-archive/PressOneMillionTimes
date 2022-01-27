@@ -48,11 +48,20 @@
 <hr/>
 
 <div>
-    <h2>License</h2>
+    <h2>Contribution</h2>
     <p>
         Press1MTimes using <b>MIT License</b>.
         It means that you can do with project anything.
         If you want contribution to project, open Issues and PRs.
         Also read <b>CODE_OF_CONDUCT.md</b> and <b>CONTRIBUTING.md</b>.
+        If you have questions asking in Press1MTimes <b>GitHub Discussions</b>.
+    </p>
+</div>
+
+<div>
+    <h2>Version Scheme</h2>
+    <p>
+        In Press1MTimes we're using the next version scheme - v<i>x.y.z</i>,
+            where <i>x</i> - <b>Major</b> update, <i>y</i> - <b>Minor</b> update, <i>z</i> - <b>Patch</b> update.
     </p>
 </div>

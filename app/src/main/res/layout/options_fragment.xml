@@ -17,7 +17,7 @@
     app:layout_constraintVertical_bias="1.0">
 
     <TextView
-        android:id="@+id/optionsTitle"
+        android:id="@+id/options_title"
         android:layout_width="0sp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32sp"
@@ -47,7 +47,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.50"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/optionsTitle" />
+        app:layout_constraintTop_toBottomOf="@+id/options_title" />
 
     <Button
         android:id="@+id/score_share_button"

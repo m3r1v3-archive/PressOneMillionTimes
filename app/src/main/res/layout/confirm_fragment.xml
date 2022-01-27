@@ -17,7 +17,7 @@
     app:layout_constraintVertical_bias="1.0">
 
     <Button
-        android:id="@+id/cancelConfirm"
+        android:id="@+id/cancel_confirm"
         android:layout_width="115sp"
         android:layout_height="55sp"
         android:background="@xml/background"
@@ -35,7 +35,7 @@
         app:layout_constraintVertical_bias="0.85" />
 
     <Button
-        android:id="@+id/resetConfirm"
+        android:id="@+id/reset_confirm"
         android:layout_width="115sp"
         android:layout_height="55sp"
         android:background="@xml/background"
@@ -53,7 +53,7 @@
         app:layout_constraintVertical_bias="0.85" />
 
     <TextView
-        android:id="@+id/confirmTitle"
+        android:id="@+id/confirm_title"
         android:layout_width="0sp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32sp"

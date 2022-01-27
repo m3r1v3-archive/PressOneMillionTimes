@@ -17,7 +17,7 @@
     app:layout_constraintVertical_bias="1.0">
 
     <TextView
-        android:id="@+id/score_share_title"
+        android:id="@+id/change_icon_title"
         android:layout_width="0sp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32sp"
@@ -52,7 +52,7 @@
         app:srcCompat="@drawable/icon" />
 
     <TextView
-        android:id="@+id/defaultIconText"
+        android:id="@+id/default_icon_text"
         android:layout_width="0sp"
         android:layout_height="wrap_content"
         android:width="0sp"
@@ -68,7 +68,7 @@
         app:layout_constraintVertical_bias="0.28" />
 
     <ImageView
-        android:id="@+id/p1mt_icon_button"
+        android:id="@+id/short_icon_button"
         android:layout_width="84sp"
         android:layout_height="84sp"
         android:background="@xml/background"
@@ -84,7 +84,7 @@
         app:srcCompat="@drawable/short_icon" />
 
     <TextView
-        android:id="@+id/p1mt_icon_text"
+        android:id="@+id/short_icon_text"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:width="0sp"
@@ -95,7 +95,7 @@
         android:textSize="26sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/p1mt_icon_button"
+        app:layout_constraintStart_toEndOf="@+id/short_icon_button"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.58" />
 

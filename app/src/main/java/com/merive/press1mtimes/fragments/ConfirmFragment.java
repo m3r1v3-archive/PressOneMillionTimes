@@ -77,9 +77,9 @@ public class ConfirmFragment extends DialogFragment {
      * @see View
      */
     private void initVariables() {
-        title = getView().findViewById(R.id.confirmTitle);
-        cancel = getView().findViewById(R.id.cancelConfirm);
-        confirm = getView().findViewById(R.id.resetConfirm);
+        title = getView().findViewById(R.id.confirm_title);
+        cancel = getView().findViewById(R.id.cancel_confirm);
+        confirm = getView().findViewById(R.id.reset_confirm);
     }
 
     /**

@@ -1,9 +1,10 @@
 <resources>
-    <!--  Main Activity  -->
-    <string name="app_name">Press 1M Times</string>
-    <string name="counter_def_value">000000</string>
+    <!--  MainActivity  -->
+    <string name="app_name">Press 1M</string>
+    <string name="press1mtimes">Press1MTimes</string>
+    <string name="counter_default_value">000000</string>
 
-    <!--  Settings  -->
+    <!--  SettingsFragment  -->
     <string name="settings">Settings</string>
     <string name="vibration">Vibration</string>
     <string name="notification">Notification</string>
@@ -11,32 +12,39 @@
     <string name="splash_message">Splash message</string>
     <string name="reset">Reset</string>
 
-    <!--  Finish Activity  -->
+    <!--  FinishActivity  -->
     <string name="you_won">You won!</string>
     <string name="congratulations">Congratulations,\nyou completed this game!</string>
     <string name="hope">I hope you enjoyed it ;)</string>
 
-    <!-- Options Fragment -->
+    <!-- OptionsFragment -->
     <string name="options">Options</string>
-    <string name="splash_position">Splash Message Position</string>
 
-    <!-- Reset Fragment -->
-    <string name="do_you_want_reset_counter">Reset counter?</string>
+    <!-- ResetFragment -->
+    <string name="do_you_want_reset_counter">Do reset counter?</string>
     <string name="cancel">Cancel</string>
 
-    <!-- ScoreShare Fragment -->
+    <!-- ScoreShareFragment -->
     <string name="scoreshare">ScoreShare</string>
     <string name="scan">Scan QR</string>
+    <string name="error">Something went wrong!</string>
+    <string name="qr_error">QR-Code cannot be scanning</string>
+    <string name="score_updated">Press1MTimes Score was updated</string>
 
-    <!-- Change Icon Fragment -->
+    <!-- ChangeIconFragment -->
     <string name="change_icon">Change App Icon</string>
     <string name="default_icon">Default Icon</string>
     <string name="p1mt_icon">Short Icon</string>
-    <string name="classic_icon">Old Icon</string>
+    <string name="classic_icon">Classic Icon</string>
+    <string name="icon_changed">Application icon was changed</string>
 
-    <!-- Update Fragment -->
-    <string name="new_version_released">New version was released</string>
+    <!-- UpdateFragment -->
+    <string name="new_version_released">New version released</string>
     <string name="download">Download</string>
+
+    <!--  SplashPositionFragment  -->
+    <string name="splash_position">Splash Position</string>
+    <string name="splash_position_updated">Splash Position was updated</string>
 
     <!-- Website Link -->
     <string name="link">https://merive.herokuapp.com/P1MT</string>
