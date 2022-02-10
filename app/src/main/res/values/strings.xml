@@ -10,7 +10,6 @@
     <string name="notification">Notification</string>
     <string name="acceleration">Acceleration</string>
     <string name="splash_message">Splash</string>
-    <string name="reset">Reset</string>
 
     <!--  FinishActivity  -->
     <string name="you_completed_the_game">You completed the game</string>
@@ -19,6 +18,7 @@
 
     <!-- OptionsFragment -->
     <string name="options">Options</string>
+    <string name="reset">Reset</string>
 
     <!-- ResetFragment -->
     <string name="do_you_want_reset_counter">Do reset counter?</string>

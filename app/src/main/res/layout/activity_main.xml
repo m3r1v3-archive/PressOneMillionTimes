@@ -113,7 +113,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/settings_pad"
         android:layout_width="match_parent"
-        android:layout_height="364sp"
+        android:layout_height="392sp"
         android:background="@xml/settings_background"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
