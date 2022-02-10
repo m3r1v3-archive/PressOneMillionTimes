@@ -9,11 +9,11 @@
     <string name="vibration">Vibration</string>
     <string name="notification">Notification</string>
     <string name="acceleration">Acceleration</string>
-    <string name="splash_message">Splash message</string>
+    <string name="splash_message">Splash</string>
     <string name="reset">Reset</string>
 
     <!--  FinishActivity  -->
-    <string name="you_won">You won!</string>
+    <string name="you_completed_the_game">You completed the game</string>
     <string name="congratulations">Congratulations,\nyou completed this game!</string>
     <string name="hope">I hope you enjoyed it ;)</string>
 

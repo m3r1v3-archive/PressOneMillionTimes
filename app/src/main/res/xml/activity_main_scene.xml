@@ -16,7 +16,7 @@
         <Constraint android:id="@id/settings_pad">
             <Layout
                 android:layout_width="0sp"
-                android:layout_height="250sp"
+                android:layout_height="364sp"
                 android:layout_marginTop="0sp"
                 motion:layout_constraintEnd_toEndOf="parent"
                 motion:layout_constraintStart_toStartOf="parent"
@@ -51,7 +51,7 @@
             android:layout_height="0sp">
             <Layout
                 android:layout_width="0sp"
-                android:layout_height="496sp"
+                android:layout_height="364sp"
                 motion:layout_constraintBottom_toBottomOf="parent"
                 motion:layout_constraintEnd_toEndOf="parent"
                 motion:layout_constraintStart_toStartOf="parent" />
