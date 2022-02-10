@@ -99,7 +99,7 @@ public class ChangeIconFragment extends DialogFragment {
      */
     private void clickP1MTIcon() {
         ((MainActivity) getActivity()).makeVibration(1);
-        setIcon("P1MT");
+        setIcon("short");
         dismiss();
     }
 
@@ -109,7 +109,7 @@ public class ChangeIconFragment extends DialogFragment {
      */
     private void clickClassicIcon() {
         ((MainActivity) getActivity()).makeVibration(1);
-        setIcon("Classic");
+        setIcon("classic");
         dismiss();
     }
 
@@ -137,12 +137,12 @@ public class ChangeIconFragment extends DialogFragment {
                         PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
                         PackageManager.DONT_KILL_APP);
                 break;
-            case "P1MT":
-                packageManager.setComponentEnabledSetting(new ComponentName(getContext(), "com.merive.press1mtimes.P1MT"),
+            case "short":
+                packageManager.setComponentEnabledSetting(new ComponentName(getContext(), "com.merive.press1mtimes.Short"),
                         PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
                         PackageManager.DONT_KILL_APP);
                 break;
-            case "Classic":
+            case "classic":
                 packageManager.setComponentEnabledSetting(new ComponentName(getContext(), "com.merive.press1mtimes.Classic"),
                         PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
                         PackageManager.DONT_KILL_APP);
@@ -163,12 +163,12 @@ public class ChangeIconFragment extends DialogFragment {
                         PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
                         PackageManager.DONT_KILL_APP);
                 break;
-            case "P1MT":
-                packageManager.setComponentEnabledSetting(new ComponentName(getContext(), "com.merive.press1mtimes.P1MT"),
+            case "short":
+                packageManager.setComponentEnabledSetting(new ComponentName(getContext(), "com.merive.press1mtimes.Short"),
                         PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
                         PackageManager.DONT_KILL_APP);
                 break;
-            case "Classic":
+            case "classic":
                 packageManager.setComponentEnabledSetting(new ComponentName(getContext(), "com.merive.press1mtimes.Classic"),
                         PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
                         PackageManager.DONT_KILL_APP);

@@ -1,7 +1,7 @@
 <resources>
     <!--  MainActivity  -->
-    <string name="app_name">Press 1M</string>
-    <string name="press1mtimes">Press1MTimes</string>
+    <string name="app_name">Press1MTimes</string>
+    <string name="app_name_short">Press1M</string>
     <string name="counter_default_value">000000</string>
 
     <!--  SettingsFragment  -->

@@ -42,7 +42,7 @@
         android:background="@xml/background"
         android:contentDescription="@string/todo"
         android:cropToPadding="true"
-        android:padding="4sp"
+        android:padding="8sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.132"
@@ -74,7 +74,7 @@
         android:background="@xml/background"
         android:contentDescription="@string/todo"
         android:cropToPadding="true"
-        android:padding="4sp"
+        android:padding="8sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.132"
@@ -106,14 +106,14 @@
         android:background="@xml/background"
         android:contentDescription="@string/todo"
         android:cropToPadding="true"
-        android:padding="4sp"
+        android:padding="8sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.132"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.92"
-        app:srcCompat="@drawable/old_icon" />
+        app:srcCompat="@drawable/classic_icon" />
 
     <TextView
         android:id="@+id/classic_icon_text"
