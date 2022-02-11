@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/reset_layout"
+    android:layout_width="342sp"
+    android:layout_height="184sp"
+    android:background="@xml/background"
+    android:minWidth="342sp"
+    android:minHeight="184sp">
+
+    <TextView
+        android:id="@+id/reset_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18sp"
+        android:fontFamily="@font/odibee"
+        android:text="@string/reset_score"
+        android:textAlignment="center"
+        android:textColor="@color/red"
+        android:textSize="36sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/reset_title_separator"
+        android:layout_width="0sp"
+        android:layout_height="12sp"
+        android:layout_marginLeft="36sp"
+        android:layout_marginRight="36sp"
+        android:layout_marginBottom="12sp"
+        android:src="@xml/line"
+        app:layout_constraintBottom_toTopOf="@+id/cancel_reset_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/cancel_reset_button"
+        android:layout_width="0sp"
+        android:layout_height="56sp"
+        android:layout_marginStart="16sp"
+        android:layout_marginTop="32sp"
+        android:layout_marginEnd="8sp"
+        android:background="@xml/background"
+        android:fontFamily="@font/odibee"
+        android:gravity="center_vertical|center_horizontal"
+        android:padding="12sp"
+        android:stateListAnimator="@null"
+        android:text="@string/cancel"
+        android:textColor="@color/red"
+        android:textSize="26sp"
+        app:layout_constraintEnd_toStartOf="@id/confirm_reset_button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/reset_title" />
+
+    <Button
+        android:id="@+id/confirm_reset_button"
+        android:layout_width="0sp"
+        android:layout_height="56sp"
+        android:layout_marginStart="8sp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="16sp"
+        android:background="@xml/background"
+        android:fontFamily="@font/odibee"
+        android:gravity="center_vertical|center_horizontal"
+        android:padding="12sp"
+        android:stateListAnimator="@null"
+        android:text="@string/reset"
+        android:textColor="@color/red"
+        android:textSize="26sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/cancel_reset_button"
+        app:layout_constraintTop_toBottomOf="@id/reset_title" />
+
+    <ImageView
+        android:id="@+id/reset_button_separator"
+        android:layout_width="0sp"
+        android:layout_height="12sp"
+        android:layout_marginLeft="36sp"
+        android:layout_marginTop="12sp"
+        android:layout_marginRight="36sp"
+        android:src="@xml/line"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cancel_reset_button" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

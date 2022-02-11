@@ -16,28 +16,28 @@ import androidx.fragment.app.DialogFragment;
 import com.merive.press1mtimes.MainActivity;
 import com.merive.press1mtimes.R;
 
-public class ConfirmFragment extends DialogFragment {
+public class ResetFragment extends DialogFragment {
 
     TextView title;
     Button cancel, confirm;
 
     /**
-     * ConfirmFragment constructor.
+     * ResetFragment constructor.
      */
-    public ConfirmFragment() {
+    public ResetFragment() {
     }
 
     /**
-     * This method returns ConfirmFragment object.
+     * This method returns ResetFragment object.
      *
-     * @return ConfirmFragment object.
+     * @return ResetFragment object.
      */
-    public static ConfirmFragment newInstance() {
-        return new ConfirmFragment();
+    public static ResetFragment newInstance() {
+        return new ResetFragment();
     }
 
     /**
-     * This method executes when ConfirmFragment is creating.
+     * This method executes when ResetFragment is creating.
      *
      * @param inflater           Needs for getting Fragment View.
      * @param parent             Argument of inflater.inflate().
@@ -49,7 +49,7 @@ public class ConfirmFragment extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
         getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        return inflater.inflate(R.layout.confirm_fragment, parent);
+        return inflater.inflate(R.layout.reset_fragment, parent);
     }
 
     /**
@@ -77,9 +77,9 @@ public class ConfirmFragment extends DialogFragment {
      * @see View
      */
     private void initVariables() {
-        title = getView().findViewById(R.id.confirm_title);
-        cancel = getView().findViewById(R.id.cancel_confirm);
-        confirm = getView().findViewById(R.id.reset_confirm);
+        title = getView().findViewById(R.id.reset_title);
+        cancel = getView().findViewById(R.id.cancel_reset_button);
+        confirm = getView().findViewById(R.id.confirm_reset_button);
     }
 
     /**
@@ -97,6 +97,7 @@ public class ConfirmFragment extends DialogFragment {
     private void clickConfirm() {
         ((MainActivity) getActivity()).makeVibration(1);
         ((MainActivity) getActivity()).resetCounter();
+        ((MainActivity) getActivity()).makeToast("The Score has been reset");
         dismiss();
     }
 }
