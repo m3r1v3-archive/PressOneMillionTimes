@@ -2,66 +2,68 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/score_share_layout"
-    android:layout_width="340sp"
-    android:layout_height="396sp"
+    android:layout_width="312sp"
+    android:layout_height="376sp"
     android:layout_gravity="center"
     android:background="@xml/background"
-    android:minWidth="340sp"
-    android:minHeight="396sp"
-    android:visibility="visible"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintHorizontal_bias="0.5"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent"
-    app:layout_constraintVertical_bias="1.0">
+    android:minWidth="312sp"
+    android:minHeight="376sp">
 
     <TextView
         android:id="@+id/score_share_title"
-        android:layout_width="0sp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32sp"
-        android:layout_marginEnd="32sp"
-        android:width="0sp"
+        android:layout_marginTop="20sp"
         android:fontFamily="@font/odibee"
+        android:gravity="center"
         android:text="@string/scoreshare"
-        android:textAlignment="center"
-        android:textAllCaps="false"
+        android:textAllCaps="true"
         android:textColor="@color/red"
         android:textSize="36sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.08" />
-
-    <ImageView
-        android:id="@+id/qr_code"
-        android:layout_width="200sp"
-        android:layout_height="200sp"
-        android:background="@xml/qr_code_background"
-        android:contentDescription="@string/todo"
-        android:cropToPadding="true"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <ImageView
+        android:id="@+id/score_share_title_separator"
+        android:layout_width="0sp"
+        android:layout_height="12sp"
+        android:layout_marginLeft="64sp"
+        android:layout_marginRight="64sp"
+        android:layout_marginBottom="12sp"
+        android:src="@xml/line"
+        app:layout_constraintBottom_toTopOf="@+id/score_share_qr_code"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/score_share_qr_code"
+        android:layout_width="196sp"
+        android:layout_height="196sp"
+        android:layout_marginTop="28sp"
+        android:background="@xml/qr_code_background"
+        android:cropToPadding="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/score_share_title" />
+
     <Button
-        android:id="@+id/scan_button"
-        android:layout_width="205sp"
-        android:layout_height="55sp"
+        android:id="@+id/score_share_scan_button"
+        android:layout_width="0sp"
+        android:layout_height="56sp"
+        android:layout_marginStart="64sp"
+        android:layout_marginTop="16sp"
+        android:layout_marginEnd="64sp"
         android:background="@xml/background"
         android:fontFamily="@font/odibee"
         android:padding="12sp"
         android:stateListAnimator="@null"
         android:text="@string/scan"
+        android:textAllCaps="false"
         android:textColor="@color/red"
         android:textSize="26sp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.94" />
+        app:layout_constraintTop_toBottomOf="@+id/score_share_qr_code" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

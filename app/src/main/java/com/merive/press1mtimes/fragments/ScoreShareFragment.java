@@ -90,8 +90,8 @@ public class ScoreShareFragment extends DialogFragment {
      * @see View
      */
     private void initVariables() {
-        code = getView().findViewById(R.id.qr_code);
-        scan = getView().findViewById(R.id.scan_button);
+        code = getView().findViewById(R.id.score_share_qr_code);
+        scan = getView().findViewById(R.id.score_share_scan_button);
     }
 
     /**
