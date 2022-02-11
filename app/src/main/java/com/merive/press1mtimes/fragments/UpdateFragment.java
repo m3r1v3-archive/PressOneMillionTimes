@@ -96,8 +96,7 @@ public class UpdateFragment extends DialogFragment {
      * This method sets text to version TextView.
      */
     private void setVersion() {
-        version.setText(("Download: " + getArguments().getString("oldVersion") + " → " +
-                getArguments().getString("newVersion")));
+        version.setText(("Installed - " + getArguments().getString("oldVersion") + " / Actual - " + getArguments().getString("newVersion")));
     }
 
     /**

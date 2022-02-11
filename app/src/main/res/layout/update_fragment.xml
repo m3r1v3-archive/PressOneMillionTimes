@@ -46,6 +46,7 @@
         android:layout_marginEnd="64sp"
         android:background="@xml/background"
         android:fontFamily="@font/odibee"
+        android:padding="12sp"
         android:stateListAnimator="@null"
         android:text="@string/download"
         android:textAllCaps="false"
