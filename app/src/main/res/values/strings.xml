@@ -39,7 +39,7 @@
     <string name="icon_changed">Application icon was changed</string>
 
     <!-- UpdateFragment -->
-    <string name="new_version_released">New version released</string>
+    <string name="update_released">Update Released</string>
     <string name="download">Download</string>
 
     <!--  SplashPositionFragment  -->
