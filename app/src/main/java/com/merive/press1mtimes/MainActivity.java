@@ -333,7 +333,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
      */
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void setSnowFallingVisibility() {
-        if (checkWinter()) findViewById(R.id.snow).setVisibility(View.VISIBLE);
+        if (checkWinter()) findViewById(R.id.coins).setVisibility(View.VISIBLE);
     }
 
     /**
