@@ -33,9 +33,9 @@
 
     <!-- ChangeIconFragment -->
     <string name="change_icon">Change Icon</string>
-    <string name="default_icon">Default Icon</string>
-    <string name="p1mt_icon">Short Icon</string>
-    <string name="classic_icon">Classic Icon</string>
+    <string name="default_icon">Default</string>
+    <string name="p1mt_icon">Short</string>
+    <string name="classic_icon">Classic</string>
     <string name="icon_changed">Application icon was changed</string>
 
     <!-- UpdateFragment -->

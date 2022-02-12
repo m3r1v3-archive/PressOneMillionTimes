@@ -8,10 +8,10 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.DialogFragment;
 
 import com.merive.press1mtimes.MainActivity;
@@ -19,7 +19,7 @@ import com.merive.press1mtimes.R;
 
 public class ChangeIconFragment extends DialogFragment {
 
-    ImageView defaultIcon, P1MTIcon, classicIcon;
+    ConstraintLayout defaultIcon, P1MTIcon, classicIcon;
 
     /**
      * ChangeIcon constructor.
@@ -78,9 +78,9 @@ public class ChangeIconFragment extends DialogFragment {
      * @see View
      */
     private void initVariables() {
-        defaultIcon = getView().findViewById(R.id.default_icon_button);
-        P1MTIcon = getView().findViewById(R.id.short_icon_button);
-        classicIcon = getView().findViewById(R.id.classic_icon_button);
+        defaultIcon = getView().findViewById(R.id.default_icon);
+        P1MTIcon = getView().findViewById(R.id.short_icon);
+        classicIcon = getView().findViewById(R.id.classic_icon);
     }
 
     /**
