@@ -12,8 +12,8 @@
     <string name="splash_message">Splash</string>
 
     <!--  FinishActivity  -->
-    <string name="you_completed_the_game">You completed the game</string>
-    <string name="congratulations">Congratulations,\nyou completed this game!</string>
+    <string name="you_completed_the_game">You completed game</string>
+    <string name="congratulations">Congratulations,\nyou completed Press1MTimes!</string>
     <string name="hope">I hope you enjoyed it ;)</string>
 
     <!-- OptionsFragment -->
@@ -45,6 +45,7 @@
     <!--  SplashPositionFragment  -->
     <string name="splash_position">Splash Position</string>
     <string name="splash_position_updated">Splash Position was updated</string>
+    <string name="left_top">Left/Top</string>
 
     <!-- Website Link -->
     <string name="link">https://merive.herokuapp.com/P1MT</string>
