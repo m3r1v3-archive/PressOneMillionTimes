@@ -88,16 +88,15 @@ public class UpdateFragment extends DialogFragment {
      * @see View
      */
     private void initVariables() {
-        version = getView().findViewById(R.id.version_title);
-        download = getView().findViewById(R.id.download_button);
+        version = getView().findViewById(R.id.update_version_title);
+        download = getView().findViewById(R.id.update_button);
     }
 
     /**
      * This method sets text to version TextView.
      */
     private void setVersion() {
-        version.setText(("Download: " + getArguments().getString("oldVersion") + " → " +
-                getArguments().getString("newVersion")));
+        version.setText(("Installed - " + getArguments().getString("oldVersion") + " / Actual - " + getArguments().getString("newVersion")));
     }
 
     /**

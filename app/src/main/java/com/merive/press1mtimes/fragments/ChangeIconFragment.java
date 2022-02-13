@@ -8,10 +8,10 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.DialogFragment;
 
 import com.merive.press1mtimes.MainActivity;
@@ -19,7 +19,7 @@ import com.merive.press1mtimes.R;
 
 public class ChangeIconFragment extends DialogFragment {
 
-    ImageView defaultIcon, P1MTIcon, classicIcon;
+    ConstraintLayout defaultIcon, P1MTIcon, classicIcon;
 
     /**
      * ChangeIcon constructor.
@@ -78,9 +78,9 @@ public class ChangeIconFragment extends DialogFragment {
      * @see View
      */
     private void initVariables() {
-        defaultIcon = getView().findViewById(R.id.default_icon_button);
-        P1MTIcon = getView().findViewById(R.id.short_icon_button);
-        classicIcon = getView().findViewById(R.id.classic_icon_button);
+        defaultIcon = getView().findViewById(R.id.default_icon);
+        P1MTIcon = getView().findViewById(R.id.short_icon);
+        classicIcon = getView().findViewById(R.id.classic_icon);
     }
 
     /**
@@ -99,7 +99,7 @@ public class ChangeIconFragment extends DialogFragment {
      */
     private void clickP1MTIcon() {
         ((MainActivity) getActivity()).makeVibration(1);
-        setIcon("P1MT");
+        setIcon("short");
         dismiss();
     }
 
@@ -109,7 +109,7 @@ public class ChangeIconFragment extends DialogFragment {
      */
     private void clickClassicIcon() {
         ((MainActivity) getActivity()).makeVibration(1);
-        setIcon("Classic");
+        setIcon("classic");
         dismiss();
     }
 
@@ -137,12 +137,12 @@ public class ChangeIconFragment extends DialogFragment {
                         PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
                         PackageManager.DONT_KILL_APP);
                 break;
-            case "P1MT":
-                packageManager.setComponentEnabledSetting(new ComponentName(getContext(), "com.merive.press1mtimes.P1MT"),
+            case "short":
+                packageManager.setComponentEnabledSetting(new ComponentName(getContext(), "com.merive.press1mtimes.Short"),
                         PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
                         PackageManager.DONT_KILL_APP);
                 break;
-            case "Classic":
+            case "classic":
                 packageManager.setComponentEnabledSetting(new ComponentName(getContext(), "com.merive.press1mtimes.Classic"),
                         PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
                         PackageManager.DONT_KILL_APP);
@@ -163,12 +163,12 @@ public class ChangeIconFragment extends DialogFragment {
                         PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
                         PackageManager.DONT_KILL_APP);
                 break;
-            case "P1MT":
-                packageManager.setComponentEnabledSetting(new ComponentName(getContext(), "com.merive.press1mtimes.P1MT"),
+            case "short":
+                packageManager.setComponentEnabledSetting(new ComponentName(getContext(), "com.merive.press1mtimes.Short"),
                         PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
                         PackageManager.DONT_KILL_APP);
                 break;
-            case "Classic":
+            case "classic":
                 packageManager.setComponentEnabledSetting(new ComponentName(getContext(), "com.merive.press1mtimes.Classic"),
                         PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
                         PackageManager.DONT_KILL_APP);

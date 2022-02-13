@@ -10,6 +10,7 @@ import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.DialogFragment;
 
 import com.merive.press1mtimes.MainActivity;
@@ -17,7 +18,7 @@ import com.merive.press1mtimes.R;
 
 public class SplashPositionFragment extends DialogFragment {
 
-    ImageView leftTop, leftBottom, rightTop, rightBottom;
+    ConstraintLayout leftTop, leftBottom, rightTop, rightBottom;
 
     /**
      * SplashPosition constructor.
@@ -73,10 +74,10 @@ public class SplashPositionFragment extends DialogFragment {
      * @see View
      */
     private void initVariables() {
-        rightTop = getView().findViewById(R.id.right_top_button);
-        rightBottom = getView().findViewById(R.id.right_bottom_button);
-        leftTop = getView().findViewById(R.id.left_top_button);
-        leftBottom = getView().findViewById(R.id.left_bottom_button);
+        rightTop = getView().findViewById(R.id.right_top_position);
+        rightBottom = getView().findViewById(R.id.right_bottom_position);
+        leftTop = getView().findViewById(R.id.left_top_position);
+        leftBottom = getView().findViewById(R.id.left_bottom_position);
     }
 
     /**
@@ -95,7 +96,7 @@ public class SplashPositionFragment extends DialogFragment {
      * This methods saves Splash Message Position in sharedPreference.
      *
      * @param horizontal Horizontal float position.
-     * @param vertical Vertical float position.
+     * @param vertical   Vertical float position.
      */
     private void setPosition(float horizontal, float vertical) {
         ((MainActivity) getActivity()).makeVibration(1);

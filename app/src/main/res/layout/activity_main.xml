@@ -10,7 +10,7 @@
     tools:context=".MainActivity">
 
     <com.jetradarmobile.snowfall.SnowfallView
-        android:id="@+id/snow"
+        android:id="@+id/coins"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="invisible"
@@ -21,23 +21,23 @@
         app:snowflakeAlphaMax="256"
         app:snowflakeAlphaMin="128"
         app:snowflakeAngleMax="5"
-        app:snowflakeImage="@drawable/snowflake"
-        app:snowflakeSizeMax="32sp"
-        app:snowflakeSizeMin="8sp"
+        app:snowflakeImage="@drawable/short_icon"
+        app:snowflakeSizeMax="36sp"
+        app:snowflakeSizeMin="24sp"
         app:snowflakeSpeedMax="8"
         app:snowflakeSpeedMin="2"
         app:snowflakesAlreadyFalling="false"
         app:snowflakesFadingEnabled="true"
-        app:snowflakesNum="64" />
+        app:snowflakesNum="128" />
 
     <TextView
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/odibee"
-        android:text="@string/press1mtimes"
+        android:text="@string/app_name"
         android:textAlignment="center"
-        android:textAllCaps="false"
+        android:textAllCaps="true"
         android:textColor="@color/red"
         android:textSize="46sp"
         android:visibility="visible"
@@ -47,10 +47,23 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.1" />
 
+    <ImageView
+        android:id="@+id/main_title_separator"
+        android:layout_width="match_parent"
+        android:layout_height="12sp"
+        android:layout_marginLeft="48sp"
+        android:layout_marginRight="48sp"
+        android:layout_marginBottom="12sp"
+        android:src="@xml/line"
+        app:layout_constraintBottom_toTopOf="@+id/counter"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <TextView
         android:id="@+id/counter"
         android:layout_width="138sp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="36sp"
         android:background="@color/red"
         android:fontFamily="@font/odibee"
         android:gravity="center_horizontal|center_vertical"
@@ -59,13 +72,11 @@
         android:paddingBottom="0sp"
         android:text="@string/counter_default_value"
         android:textColor="@color/gray"
-        android:textSize="32sp"
+        android:textSize="34sp"
         android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.25"
+        app:layout_constraintTop_toBottomOf="@+id/title"
         tools:ignore="TextContrastCheck" />
 
     <ImageButton
@@ -90,7 +101,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/odibee"
         android:textColor="@color/red"
-        android:textSize="24sp"
+        android:textSize="26sp"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -101,19 +112,19 @@
 
     <ImageView
         android:id="@+id/arrow_up"
-        android:layout_width="48sp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:contentDescription="@string/todo"
+        android:layout_marginBottom="8sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.50"
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@xml/arrow_up" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/settings_pad"
         android:layout_width="match_parent"
-        android:layout_height="496sp"
+        android:layout_height="384sp"
         android:background="@xml/settings_background"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

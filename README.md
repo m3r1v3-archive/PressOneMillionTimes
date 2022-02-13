@@ -1,13 +1,7 @@
 <div align="center">
     <img src="https://github.com/merive/Press1MTimes/blob/master/app/src/main/res/drawable/icon.png" width="64">
     <h1 align="center">Press1MTimes</h1>
-    <p align="center">Android Clicker-Game</p>
-</div>
-
-<hr/>
-
-<div align="center">
-    <h2 align="center">The Clicker-Game</h2>
+    <h2 align="center">The Android Clicker-Game</h2>
     <p>
         This game haven't hardcore gameplay.
         The game just time killer.
@@ -58,10 +52,22 @@
     </p>
 </div>
 
+<hr/>
+
 <div>
     <h2>Version Scheme</h2>
     <p>
         In Press1MTimes we're using the next version scheme - v<i>x.y.z</i>,
             where <i>x</i> - <b>Major</b> update, <i>y</i> - <b>Minor</b> update, <i>z</i> - <b>Patch</b> update.
+    </p>
+</div>
+
+<hr/>
+
+<div>
+    <h2>More Information</h2>
+    <p>
+        More information you can find on <a href="https://merive.herokuapp.com/P1MT/">Press1MTimes Website</a>. 
+        There you can find Press1MTimes's APK file.
     </p>
 </div>

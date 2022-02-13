@@ -87,7 +87,7 @@ public class OptionsFragment extends DialogFragment {
      * This method executes after clicking on reset button.
      * The method makes vibration and opens ConfirmFragment for confirming reset.
      *
-     * @see ConfirmFragment
+     * @see ResetFragment
      */
     private void clickReset() {
         ((MainActivity) getActivity()).makeVibration(1);

@@ -34,7 +34,7 @@ import androidx.preference.PreferenceManager;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 import com.merive.press1mtimes.fragments.ChangeIconFragment;
-import com.merive.press1mtimes.fragments.ConfirmFragment;
+import com.merive.press1mtimes.fragments.ResetFragment;
 import com.merive.press1mtimes.fragments.OptionsFragment;
 import com.merive.press1mtimes.fragments.ScoreShareFragment;
 import com.merive.press1mtimes.fragments.SettingsFragment;
@@ -333,7 +333,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
      */
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void setSnowFallingVisibility() {
-        if (checkWinter()) findViewById(R.id.snow).setVisibility(View.VISIBLE);
+        if (checkWinter()) findViewById(R.id.coins).setVisibility(View.VISIBLE);
     }
 
     /**
@@ -610,7 +610,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
      */
     public void clickReset() {
         FragmentManager fm = getSupportFragmentManager();
-        ConfirmFragment confirmFragment = ConfirmFragment.newInstance();
+        ResetFragment confirmFragment = ResetFragment.newInstance();
         confirmFragment.show(fm, "confirm_fragment");
     }
 
