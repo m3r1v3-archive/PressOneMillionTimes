@@ -1,5 +1,5 @@
 <div align="center">
-    <img src="https://github.com/merive/Press1MTimes/blob/master/app/src/main/res/drawable/icon.png" width="64">
+    <img src="https://github.com/merive-inc/Press1MTimes/blob/main/app/src/main/res/drawable/icon.png" width="64">
     <h1 align="center">Press1MTimes</h1>
     <h2 align="center">The Android Clicker-Game</h2>
     <p>
@@ -11,9 +11,7 @@
     </p>
 </div>
 
-<hr/>
-
-<div>
+<div align="center">
     <h2>Installing</h2>
     <p>
         You can install P1MT using one of the next method:
@@ -39,9 +37,7 @@
     </p>
 </div>
 
-<hr/>
-
-<div>
+<div align="center">
     <h2>Contribution</h2>
     <p>
         Press1MTimes using <b>MIT License</b>.
@@ -52,9 +48,7 @@
     </p>
 </div>
 
-<hr/>
-
-<div>
+<div align="center">
     <h2>Version Scheme</h2>
     <p>
         In Press1MTimes we're using the next version scheme - v<i>x.y.z</i>,
@@ -62,12 +56,10 @@
     </p>
 </div>
 
-<hr/>
-
-<div>
+<div align="center">
     <h2>More Information</h2>
     <p>
         More information you can find on <a href="https://merive.herokuapp.com/P1MT/">Press1MTimes Website</a>. 
-        There you can find Press1MTimes's APK file.
+        There you can find Press1MTimes APK file.
     </p>
 </div>
