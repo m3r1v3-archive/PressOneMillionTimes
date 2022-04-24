@@ -151,7 +151,8 @@ public class ScoreShareFragment extends DialogFragment {
      */
     @SuppressLint("DefaultLocale")
     private String encryptScore(String score) {
-        return "press1mtimes://" + String.format("%6d", Integer.parseInt(score));
+        return "press1mtimes://" + Integer.toHexString(Integer.parseInt(score));
     }
+
 }
 

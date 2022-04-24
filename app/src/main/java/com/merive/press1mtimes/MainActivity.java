@@ -34,8 +34,8 @@ import androidx.preference.PreferenceManager;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 import com.merive.press1mtimes.fragments.ChangeIconFragment;
-import com.merive.press1mtimes.fragments.ResetFragment;
 import com.merive.press1mtimes.fragments.OptionsFragment;
+import com.merive.press1mtimes.fragments.ResetFragment;
 import com.merive.press1mtimes.fragments.ScoreShareFragment;
 import com.merive.press1mtimes.fragments.SettingsFragment;
 import com.merive.press1mtimes.fragments.SplashPositionFragment;
@@ -105,7 +105,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
         checkVersion();
         checkSplashState();
-        try { checkPatternQR(getIntent().getData().toString()); }
+        try { checkPatternQR(getIntent().getData().toString());}
         catch (NullPointerException ignored) {}
     }
 
@@ -178,7 +178,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
      * @see Pattern
      */
     private void checkPatternQR(String result) {
-        Pattern pattern = Pattern.compile("press1mtimes://\\d{6}");
+        Pattern pattern = Pattern.compile("press1mtimes://[0-9A-F]{1,6}");
         if (pattern.matcher(result).find()) setScoreByQRResult(result);
         else makeToast(getResources().getString(R.string.qr_error));
     }
@@ -189,7 +189,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
      * @param result Score value from QR-Code.
      */
     private void setScoreByQRResult(String result) {
-        setScoreToSharePreference(Integer.parseInt(result.replace("press1mtimes://", "")));
+        setScoreToSharePreference(Integer.parseInt(result.replace("press1mtimes://", ""), 16));
         setScoreToCounter();
         makeVibration(1);
         makeToast(getResources().getString(R.string.score_updated));
