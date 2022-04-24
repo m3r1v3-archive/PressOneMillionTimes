@@ -105,6 +105,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
         checkVersion();
         checkSplashState();
+        try { checkPatternQR(getIntent().getData().toString()); }
+        catch (NullPointerException ignored) {}
     }
 
     @Override
@@ -176,7 +178,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
      * @see Pattern
      */
     private void checkPatternQR(String result) {
-        Pattern pattern = Pattern.compile("P1MT:[(][0-9][0-9][0-9][)][(][0-9][0-9][0-9][)]");
+        Pattern pattern = Pattern.compile("press1mtimes://\\d{6}");
         if (pattern.matcher(result).find()) setScoreByQRResult(result);
         else makeToast(getResources().getString(R.string.qr_error));
     }
@@ -187,8 +189,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
      * @param result Score value from QR-Code.
      */
     private void setScoreByQRResult(String result) {
-        setScoreToSharePreference(Integer.parseInt(result.replace("P1MT:", "").
-                replace("(", "").replace(")", "")));
+        setScoreToSharePreference(Integer.parseInt(result.replace("press1mtimes://", "")));
         setScoreToCounter();
         makeVibration(1);
         makeToast(getResources().getString(R.string.score_updated));
@@ -663,7 +664,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
      * This method sets Splash Position in sharedPreferences.
      *
      * @param horizontal Horizontal float value.
-     * @param vertical Vertical float value.
+     * @param vertical   Vertical float value.
      * @see SharedPreferences
      */
     public void setSplashPosition(float horizontal, float vertical) {
