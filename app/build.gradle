@@ -5,17 +5,21 @@ plugins {
 android {
     signingConfigs {
         realise {
-            storeFile file('src\\main\\res\\Press1MTimesKey.jks')
-            keyAlias 'Press1MTimesKey'
-            storePassword '[Press1MTimes]'
-            keyPassword '[Press1MTimes]'
+            Properties properties = new Properties()
+            properties.load(project.rootProject.file('local.properties').newDataInputStream())
+            storeFile file(properties.getProperty('storeFile'))
+            keyAlias properties.getProperty('keyAlias')
+            storePassword properties.getProperty('storePassword')
+            keyPassword properties.getProperty('keyPassword')
         }
 
         debug {
-            storeFile file('src\\main\\res\\Press1MTimesKey.jks')
-            keyAlias 'Press1MTimesKey'
-            storePassword '[Press1MTimes]'
-            keyPassword '[Press1MTimes]'
+            Properties properties = new Properties()
+            properties.load(project.rootProject.file('local.properties').newDataInputStream())
+            storeFile file(properties.getProperty('storeFile'))
+            keyAlias properties.getProperty('keyAlias')
+            storePassword properties.getProperty('storePassword')
+            keyPassword properties.getProperty('keyPassword')
         }
     }
     compileSdkVersion 32

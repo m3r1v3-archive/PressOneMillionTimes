@@ -13,9 +13,7 @@
 
 <div>
     <h2 align="center">Installing</h2>
-    <p>
-        You can install P1MT using one of the next method:
-    </p>
+    <h3 align="center">You can install P1MT using one of the next method</h3>
     <h3>Method #1 (Using APK)</h3>
     <p>
         1. Install Press1MTimes from our <a href="https://merive.herokuapp.com/P1MT">Website</a> or from <a href="https://github.com/merive/Press1MTimes/releases">Releases</a> in repository<br>
