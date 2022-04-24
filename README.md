@@ -11,8 +11,8 @@
     </p>
 </div>
 
-<div align="center">
-    <h2>Installing</h2>
+<div>
+    <h2 align="center">Installing</h2>
     <p>
         You can install P1MT using one of the next method:
     </p>
@@ -37,8 +37,8 @@
     </p>
 </div>
 
-<div align="center">
-    <h2>Contribution</h2>
+<div>
+    <h2 align="center">Contribution</h2>
     <p>
         Press1MTimes using <b>MIT License</b>.
         It means that you can do with project anything.
@@ -48,8 +48,8 @@
     </p>
 </div>
 
-<div align="center">
-    <h2>Version Scheme</h2>
+<div>
+    <h2 align="center">Version Scheme</h2>
     <p>
         In Press1MTimes we're using the next version scheme - v<i>x.y.z</i>,
             where <i>x</i> - <b>Major</b> update, <i>y</i> - <b>Minor</b> update, <i>z</i> - <b>Patch</b> update.
