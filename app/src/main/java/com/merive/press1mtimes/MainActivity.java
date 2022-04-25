@@ -38,7 +38,7 @@ import com.merive.press1mtimes.fragments.OptionsFragment;
 import com.merive.press1mtimes.fragments.ResetFragment;
 import com.merive.press1mtimes.fragments.ScoreShareFragment;
 import com.merive.press1mtimes.fragments.SettingsFragment;
-import com.merive.press1mtimes.fragments.SplashPositionFragment;
+import com.merive.press1mtimes.fragments.SplashMessageFragment;
 import com.merive.press1mtimes.fragments.ToastFragment;
 import com.merive.press1mtimes.fragments.UpdateFragment;
 import com.merive.press1mtimes.utils.SplashTexts;
@@ -97,16 +97,16 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         setScoreToCounter();
         setStateValues();
 
-        setSnowFallingVisibility();
-
         setSensors();
 
         createNotificationChannel();
 
         checkVersion();
         checkSplashState();
-        try { checkPatternQR(getIntent().getData().toString());}
-        catch (NullPointerException ignored) {}
+        try {
+            checkPatternQR(getIntent().getData().toString());
+        } catch (NullPointerException ignored) {
+        }
     }
 
     @Override
@@ -324,17 +324,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
      * This method sets info to settings.
      */
     public String getInfo() {
-        return (("P1MT / " + BuildConfig.VERSION_NAME + "\nmerive-studios / MIT License, " + Calendar.getInstance().get(YEAR)));
-    }
-
-    /**
-     * This method sets visibility for Snow Falling effect if now is winter.
-     *
-     * @see com.jetradarmobile.snowfall.SnowfallView
-     */
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    private void setSnowFallingVisibility() {
-        if (checkWinter()) findViewById(R.id.coins).setVisibility(View.VISIBLE);
+        return (("P1MT / " + BuildConfig.VERSION_NAME + "\nmerive inc. / MIT License, " + Calendar.getInstance().get(YEAR)));
     }
 
     /**
@@ -652,12 +642,12 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
      * The method opens SplashPosition Fragment.
      *
      * @see android.widget.Button
-     * @see SplashPositionFragment
+     * @see SplashMessageFragment
      */
     public void clickSplashPosition() {
         FragmentManager fm = getSupportFragmentManager();
-        SplashPositionFragment splashPositionFragment = SplashPositionFragment.newInstance();
-        splashPositionFragment.show(fm, "splash_position_fragment");
+        SplashMessageFragment splashMessageFragment = SplashMessageFragment.newInstance();
+        splashMessageFragment.show(fm, "splash_position_fragment");
     }
 
     /**

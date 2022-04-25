@@ -22,7 +22,7 @@ import androidx.appcompat.app.AppCompatActivity;
 public class FinishActivity extends AppCompatActivity
         implements SensorEventListener {
 
-    ImageButton exit;
+    ImageButton close;
     Handler.Callback callback;
     TextView title, label, afterword;
     Boolean accelerationState, vibrationState;
@@ -83,7 +83,7 @@ public class FinishActivity extends AppCompatActivity
                 defineRotation(axisData[1], axisData[0], title);
                 defineRotation(axisData[1], axisData[0], label);
                 defineRotation(axisData[1], axisData[0], afterword);
-                defineRotation(axisData[1], axisData[0], exit);
+                defineRotation(axisData[1], axisData[0], close);
             }
         }
     }
@@ -99,7 +99,7 @@ public class FinishActivity extends AppCompatActivity
         title = findViewById(R.id.finish_title);
         label = findViewById(R.id.title);
         afterword = findViewById(R.id.afterword);
-        exit = findViewById(R.id.exit);
+        close = findViewById(R.id.close);
     }
 
     /**
@@ -131,13 +131,13 @@ public class FinishActivity extends AppCompatActivity
     }
 
     /**
-     * This method executes after click on Exit Button.
+     * This method executes after click on CloseButton.
      *
      * @param view View object.
      * @see android.widget.Button
      */
     @RequiresApi(api = Build.VERSION_CODES.O)
-    public void clickExit(View view) {
+    public void clickClose(View view) {
         makeVibration();
         setCoinsVisibility();
         new Handler().postDelayed(() -> {

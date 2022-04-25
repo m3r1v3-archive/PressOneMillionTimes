@@ -2,12 +2,12 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/splash_position_layout"
-    android:layout_width="342sp"
-    android:layout_height="412sp"
+    android:layout_width="296sp"
+    android:layout_height="248sp"
     android:layout_gravity="center"
     android:background="@xml/background"
-    android:minWidth="342sp"
-    android:minHeight="412sp">
+    android:minWidth="296sp"
+    android:minHeight="248sp">
 
     <TextView
         android:id="@+id/splash_position_title"
@@ -15,7 +15,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20sp"
         android:fontFamily="@font/odibee"
-        android:text="@string/splash_position"
+        android:singleLine="true"
+        android:text="@string/splash_message"
         android:textAlignment="center"
         android:textAllCaps="true"
         android:textColor="@color/red"
@@ -32,127 +33,20 @@
         android:layout_marginRight="36sp"
         android:layout_marginBottom="12sp"
         android:src="@xml/line"
-        app:layout_constraintBottom_toTopOf="@+id/left_top_position"
+        app:layout_constraintBottom_toTopOf="@+id/left_bottom_position"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/left_top_position"
-        android:layout_width="142sp"
-        android:layout_height="142sp"
-        android:layout_marginTop="28sp"
-        android:background="@xml/background"
-        android:padding="6sp"
-        app:layout_constraintEnd_toStartOf="@+id/right_top_position"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/splash_position_title">
-
-        <ImageView
-            android:id="@+id/left_top_button"
-            android:layout_width="64sp"
-            android:layout_height="64sp"
-            android:layout_marginTop="8sp"
-            android:background="@xml/background"
-            android:contentDescription="@string/todo"
-            android:cropToPadding="true"
-            android:padding="18sp"
-            android:rotation="-90"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@xml/arrow_to_corner" />
-
-        <ImageView
-            android:id="@+id/splash_position_left_top_separator"
-            android:layout_width="0sp"
-            android:layout_height="12sp"
-            android:layout_marginLeft="18sp"
-            android:layout_marginRight="18sp"
-            android:layout_marginBottom="8sp"
-            android:src="@xml/line"
-            app:layout_constraintBottom_toTopOf="@+id/left_top_text"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <TextView
-            android:id="@+id/left_top_text"
-            android:layout_width="0sp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="28sp"
-            android:fontFamily="@font/odibee"
-            android:text="@string/left_top"
-            android:textAlignment="center"
-            android:textColor="@color/red"
-            android:textSize="26sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/left_top_button" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/right_top_position"
-        android:layout_width="142sp"
-        android:layout_height="142sp"
-        android:layout_marginTop="28sp"
-        android:background="@xml/background"
-        android:padding="6sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/left_top_position"
-        app:layout_constraintTop_toBottomOf="@+id/splash_position_title">
-
-        <ImageView
-            android:id="@+id/right_top_button"
-            android:layout_width="64sp"
-            android:layout_height="64sp"
-            android:layout_marginTop="6sp"
-            android:background="@xml/background"
-            android:contentDescription="@string/todo"
-            android:cropToPadding="true"
-            android:padding="18sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@xml/arrow_to_corner" />
-
-        <ImageView
-            android:id="@+id/splash_position_right_top_separator"
-            android:layout_width="0sp"
-            android:layout_height="12sp"
-            android:layout_marginLeft="18sp"
-            android:layout_marginRight="18sp"
-            android:layout_marginBottom="8sp"
-            android:src="@xml/line"
-            app:layout_constraintBottom_toTopOf="@+id/right_top_text"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <TextView
-            android:id="@+id/right_top_text"
-            android:layout_width="0sp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="28sp"
-            android:fontFamily="@font/odibee"
-            android:text="Right/Top"
-            android:textAlignment="center"
-            android:textColor="@color/red"
-            android:textSize="26sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/right_top_button" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/right_bottom_position"
-        android:layout_width="142sp"
+        android:layout_width="96sp"
         android:layout_height="142sp"
-        android:layout_marginTop="16sp"
+        android:layout_marginTop="28sp"
         android:background="@xml/background"
         android:padding="6sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/left_bottom_position"
-        app:layout_constraintTop_toBottomOf="@+id/right_top_position">
+        app:layout_constraintTop_toBottomOf="@id/splash_position_title">
 
         <ImageView
             android:id="@+id/right_bottom_button"
@@ -187,7 +81,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="28sp"
             android:fontFamily="@font/odibee"
-            android:text="Right/Bottom"
+            android:text="@string/right"
             android:textAlignment="center"
             android:textColor="@color/red"
             android:textSize="26sp"
@@ -199,14 +93,14 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/left_bottom_position"
-        android:layout_width="142sp"
+        android:layout_width="96sp"
         android:layout_height="142sp"
-        android:layout_marginTop="16sp"
+        android:layout_marginTop="28sp"
         android:background="@xml/background"
         android:padding="6sp"
         app:layout_constraintEnd_toStartOf="@+id/right_bottom_position"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/left_top_position">
+        app:layout_constraintTop_toBottomOf="@id/splash_position_title">
 
         <ImageView
             android:id="@+id/left_bottom_button"
@@ -241,7 +135,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="28sp"
             android:fontFamily="@font/odibee"
-            android:text="Left/Bottom"
+            android:singleLine="true"
+            android:text="@string/left"
             android:textAlignment="center"
             android:textColor="@color/red"
             android:textSize="26sp"

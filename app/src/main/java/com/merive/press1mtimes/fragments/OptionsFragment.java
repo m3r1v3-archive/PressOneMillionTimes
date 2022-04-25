@@ -17,7 +17,7 @@ import com.merive.press1mtimes.R;
 
 public class OptionsFragment extends DialogFragment {
 
-    Button reset, scoreShare, changeIcon, splashPosition;
+    Button resetButton, scoreShareButton, changeIconButton, splashMessageButton;
 
     /**
      * OptionsFragment constructor.
@@ -65,10 +65,10 @@ public class OptionsFragment extends DialogFragment {
 
         initVariables();
 
-        reset.setOnClickListener(v -> clickReset());
-        scoreShare.setOnClickListener(v -> clickScoreShare());
-        changeIcon.setOnClickListener(v -> clickChangeIcon());
-        splashPosition.setOnClickListener(v -> clickSplashPosition());
+        resetButton.setOnClickListener(v -> clickReset());
+        scoreShareButton.setOnClickListener(v -> clickScoreShare());
+        changeIconButton.setOnClickListener(v -> clickChangeIcon());
+        splashMessageButton.setOnClickListener(v -> clickSplashPosition());
     }
 
     /**
@@ -77,10 +77,10 @@ public class OptionsFragment extends DialogFragment {
      * @see View
      */
     private void initVariables() {
-        reset = getView().findViewById(R.id.reset_button);
-        scoreShare = getView().findViewById(R.id.score_share_button);
-        changeIcon = getView().findViewById(R.id.change_icon_button);
-        splashPosition = getView().findViewById(R.id.splash_position_button);
+        resetButton = getView().findViewById(R.id.reset_button);
+        scoreShareButton = getView().findViewById(R.id.score_share_button);
+        changeIconButton = getView().findViewById(R.id.change_icon_button);
+        splashMessageButton = getView().findViewById(R.id.splash_position_button);
     }
 
     /**
@@ -122,7 +122,7 @@ public class OptionsFragment extends DialogFragment {
     /**
      * This method executes after click Splash Position button.
      *
-     * @see SplashPositionFragment
+     * @see SplashMessageFragment
      */
     private void clickSplashPosition() {
         ((MainActivity) getActivity()).makeVibration(1);

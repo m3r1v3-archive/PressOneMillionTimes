@@ -13,6 +13,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/odibee"
         android:padding="8sp"
+        android:singleLine="true"
         android:textAlignment="center"
         android:textColor="@color/red"
         android:textSize="26sp"

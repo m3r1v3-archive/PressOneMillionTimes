@@ -8,7 +8,7 @@
     <string name="vibration">Vibration</string>
     <string name="notification">Notification</string>
     <string name="acceleration">Acceleration</string>
-    <string name="splash_message">Splash</string>
+    <string name="splash">Splash</string>
 
     <!--  FinishActivity  -->
     <string name="you_completed_the_game">You completed game</string>
@@ -41,10 +41,11 @@
     <string name="update_released">Update Released</string>
     <string name="download">Download</string>
 
-    <!--  SplashPositionFragment  -->
-    <string name="splash_position">Splash Position</string>
+    <!--  SplashMessageFragment  -->
+    <string name="splash_message">Splash Message</string>
     <string name="splash_position_updated">Splash Position was updated</string>
-    <string name="left_top">Left/Top</string>
+    <string name="left">Left</string>
+    <string name="right">Right</string>
 
     <!-- Website Link -->
     <string name="link">https://merive.herokuapp.com/P1MT</string>

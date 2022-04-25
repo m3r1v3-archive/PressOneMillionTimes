@@ -16,14 +16,14 @@ import androidx.fragment.app.DialogFragment;
 import com.merive.press1mtimes.MainActivity;
 import com.merive.press1mtimes.R;
 
-public class SplashPositionFragment extends DialogFragment {
+public class SplashMessageFragment extends DialogFragment {
 
-    ConstraintLayout leftTop, leftBottom, rightTop, rightBottom;
+    ConstraintLayout leftBottom, rightBottom;
 
     /**
      * SplashPosition constructor.
      */
-    SplashPositionFragment() {
+    SplashMessageFragment() {
     }
 
     /**
@@ -31,8 +31,8 @@ public class SplashPositionFragment extends DialogFragment {
      *
      * @return ChangeIconFragment object.
      */
-    public static SplashPositionFragment newInstance() {
-        return new SplashPositionFragment();
+    public static SplashMessageFragment newInstance() {
+        return new SplashMessageFragment();
     }
 
     /**
@@ -48,7 +48,7 @@ public class SplashPositionFragment extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
         getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        return inflater.inflate(R.layout.splash_position_fragment, parent);
+        return inflater.inflate(R.layout.splash_message_fragment, parent);
     }
 
     /**
@@ -74,9 +74,7 @@ public class SplashPositionFragment extends DialogFragment {
      * @see View
      */
     private void initVariables() {
-        rightTop = getView().findViewById(R.id.right_top_position);
         rightBottom = getView().findViewById(R.id.right_bottom_position);
-        leftTop = getView().findViewById(R.id.left_top_position);
         leftBottom = getView().findViewById(R.id.left_bottom_position);
     }
 
@@ -86,9 +84,7 @@ public class SplashPositionFragment extends DialogFragment {
      * @see ImageView
      */
     private void setListeners() {
-        rightTop.setOnClickListener(v -> setPosition(0.98f, 0.02f));
         rightBottom.setOnClickListener(v -> setPosition(0.98f, 0.98f));
-        leftTop.setOnClickListener(v -> setPosition(0.02f, 0.02f));
         leftBottom.setOnClickListener(v -> setPosition(0.02f, 0.98f));
     }
 

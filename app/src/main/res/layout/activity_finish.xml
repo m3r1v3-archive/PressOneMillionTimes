@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/gray"
-    tools:context=".FinishActivity"
-    tools:ignore="Overdraw">
+    tools:context=".FinishActivity">
 
     <com.jetradarmobile.snowfall.SnowfallView
         android:id="@+id/coins"
@@ -34,6 +33,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/odibee"
+        android:singleLine="true"
         android:text="@string/you_completed_the_game"
         android:textAlignment="center"
         android:textAllCaps="true"
@@ -73,13 +73,13 @@
         app:layout_constraintTop_toBottomOf="@+id/finish_title" />
 
     <ImageButton
-        android:id="@+id/exit"
+        android:id="@+id/close"
         android:layout_width="200sp"
         android:layout_height="200sp"
         android:background="@drawable/close"
         android:contentDescription="@string/todo"
         android:fontFamily="sans-serif-medium"
-        android:onClick="clickExit"
+        android:onClick="clickClose"
         android:textColor="@color/red"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
