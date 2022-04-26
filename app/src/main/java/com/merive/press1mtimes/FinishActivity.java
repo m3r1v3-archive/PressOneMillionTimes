@@ -1,13 +1,7 @@
 package com.merive.press1mtimes;
 
-import static com.merive.press1mtimes.utils.Rotation.defineRotation;
-
 import android.content.Context;
 import android.content.Intent;
-import android.hardware.Sensor;
-import android.hardware.SensorEvent;
-import android.hardware.SensorEventListener;
-import android.hardware.SensorManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -19,17 +13,12 @@ import android.widget.TextView;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
-public class FinishActivity extends AppCompatActivity
-        implements SensorEventListener {
+public class FinishActivity extends AppCompatActivity {
 
     ImageButton close;
     Handler.Callback callback;
-    TextView title, label, afterword;
-    Boolean accelerationState, vibrationState;
-
-    SensorManager sensorManager;
-    Sensor accelerometer;
-    float[] axisData = new float[3];
+    TextView title, text, afterword;
+    Boolean animationState, vibrationState, clicked = false;
 
 
     /**
@@ -49,47 +38,6 @@ public class FinishActivity extends AppCompatActivity
         callback = message -> false;
 
         setStates();
-        setSensors();
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        if (accelerometer != null) {
-            sensorManager.registerListener(this, accelerometer,
-                    SensorManager.SENSOR_DELAY_NORMAL);
-        }
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        sensorManager.unregisterListener(this);
-    }
-
-    /**
-     * This overridden method registers accelerator changes.
-     *
-     * @param sensorEvent SensorEvent object.
-     * @see SensorEvent
-     */
-    @Override
-    public void onSensorChanged(SensorEvent sensorEvent) {
-        if (accelerationState) {
-            int sensorType = sensorEvent.sensor.getType();
-            if (sensorType == Sensor.TYPE_ACCELEROMETER) {
-                axisData = sensorEvent.values.clone();
-
-                defineRotation(axisData[1], axisData[0], title);
-                defineRotation(axisData[1], axisData[0], label);
-                defineRotation(axisData[1], axisData[0], afterword);
-                defineRotation(axisData[1], axisData[0], close);
-            }
-        }
-    }
-
-    @Override
-    public void onAccuracyChanged(Sensor sensor, int i) {
     }
 
     /**
@@ -97,7 +45,7 @@ public class FinishActivity extends AppCompatActivity
      */
     private void initLayoutVariables() {
         title = findViewById(R.id.finish_title);
-        label = findViewById(R.id.title);
+        text = findViewById(R.id.congratulation_text);
         afterword = findViewById(R.id.afterword);
         close = findViewById(R.id.close);
     }
@@ -106,7 +54,7 @@ public class FinishActivity extends AppCompatActivity
      * This method gets states in MainActivity and assigns to variables in FinishActivity.
      */
     private void setStates() {
-        accelerationState = MainActivity.accelerationState;
+        animationState = MainActivity.animationState;
         vibrationState = MainActivity.vibrationState;
     }
 
@@ -121,16 +69,6 @@ public class FinishActivity extends AppCompatActivity
     }
 
     /**
-     * This method sets sensors that using by application.
-     */
-    private void setSensors() {
-        sensorManager = (SensorManager) getSystemService(
-                Context.SENSOR_SERVICE);
-        accelerometer = sensorManager.getDefaultSensor(
-                Sensor.TYPE_ACCELEROMETER);
-    }
-
-    /**
      * This method executes after click on CloseButton.
      *
      * @param view View object.
@@ -138,12 +76,16 @@ public class FinishActivity extends AppCompatActivity
      */
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void clickClose(View view) {
-        makeVibration();
-        setCoinsVisibility();
-        new Handler().postDelayed(() -> {
-            startActivity(new Intent(this, MainActivity.class));
-            finish();
-        }, 5000);
+        if (!clicked) {
+            clicked = true;
+            makeVibration();
+            makeBreezeAnimation(title, text, afterword, close);
+            setCoinsVisibility();
+            new Handler().postDelayed(() -> {
+                startActivity(new Intent(this, MainActivity.class));
+                finish();
+            }, 5000);
+        }
     }
 
     /**
@@ -154,5 +96,10 @@ public class FinishActivity extends AppCompatActivity
             Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
             v.vibrate(150L);
         }
+    }
+
+    private void makeBreezeAnimation(View... views) {
+        for (View view : views)
+            view.animate().scaleX(0.975f).scaleY(0.975f).setDuration(175).withEndAction(() -> view.animate().scaleX(1).scaleY(1).setDuration(175));
     }
 }

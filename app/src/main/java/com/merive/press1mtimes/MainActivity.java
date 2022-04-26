@@ -1,6 +1,5 @@
 package com.merive.press1mtimes;
 
-import static com.merive.press1mtimes.utils.Rotation.defineRotation;
 import static java.util.Calendar.YEAR;
 
 import android.annotation.SuppressLint;
@@ -11,10 +10,6 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.hardware.Sensor;
-import android.hardware.SensorEvent;
-import android.hardware.SensorEventListener;
-import android.hardware.SensorManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Vibrator;
@@ -57,20 +52,16 @@ import java.util.Random;
 import java.util.regex.Pattern;
 
 
-public class MainActivity extends AppCompatActivity implements SensorEventListener {
+public class MainActivity extends AppCompatActivity {
 
     public static LinkedList<String> toastMessages = new LinkedList<>();
 
     static SharedPreferences sharedPreferences;
 
-    static Boolean vibrationState, accelerationState, notificationState, splashState;
-    TextView label, counter, splash;
+    static Boolean vibrationState, animationState, notificationState, splashState;
+    TextView title, counter, splash;
     ImageButton button;
 
-
-    SensorManager sensorManager;
-    Sensor accelerometer;
-    float[] axisData = new float[3];
 
     int HOUR = 12, MINUTE = 0;
 
@@ -97,8 +88,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         setScoreToCounter();
         setStateValues();
 
-        setSensors();
-
         createNotificationChannel();
 
         checkVersion();
@@ -110,46 +99,9 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
-        if (accelerometer != null)
-            sensorManager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_NORMAL);
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        sensorManager.unregisterListener(this);
-    }
-
-    @Override
     protected void onDestroy() {
         super.onDestroy();
         if (notificationState) setAlarm();
-    }
-
-    /**
-     * This overridden method registers accelerator changes.
-     *
-     * @param sensorEvent SensorEvent object.
-     * @see SensorEvent
-     */
-    @Override
-    public void onSensorChanged(SensorEvent sensorEvent) {
-        if (sharedPreferences.getBoolean("acceleration", false)) {
-            int sensorType = sensorEvent.sensor.getType();
-            if (sensorType == Sensor.TYPE_ACCELEROMETER) {
-                axisData = sensorEvent.values.clone();
-
-                defineRotation(axisData[1], axisData[0], label);
-                defineRotation(axisData[1], axisData[0], counter);
-                defineRotation(axisData[1], axisData[0], button);
-            }
-        }
-    }
-
-    @Override
-    public void onAccuracyChanged(Sensor sensor, int i) {
     }
 
     /**
@@ -241,7 +193,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
      */
     private void initLayoutVariables() {
         counter = findViewById(R.id.counter);
-        label = findViewById(R.id.title);
+        title = findViewById(R.id.title);
         button = findViewById(R.id.button);
     }
 
@@ -293,12 +245,12 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     }
 
     /**
-     * This method returns Acceleration state value from sharedPreference.
+     * This method returns animation state value from sharedPreference.
      *
      * @see SharedPreferences
      */
-    public boolean getAccelerationState() {
-        return sharedPreferences.getBoolean("acceleration", false);
+    public boolean getAnimationState() {
+        return sharedPreferences.getBoolean("animation", false);
     }
 
     /**
@@ -316,7 +268,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     private void setStateValues() {
         vibrationState = getVibrationState();
         notificationState = getNotificationState();
-        accelerationState = getAccelerationState();
+        animationState = getAnimationState();
         splashState = getSplashState();
     }
 
@@ -336,16 +288,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     private boolean checkWinter() {
         LocalDate localDate = new Date().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         return localDate.getMonthValue() == 12 || localDate.getMonthValue() == 1 || localDate.getMonthValue() == 2;
-    }
-
-    /**
-     * This method sets sensors that using by application.
-     */
-    private void setSensors() {
-        sensorManager = (SensorManager) getSystemService(
-                Context.SENSOR_SERVICE);
-        accelerometer = sensorManager.getDefaultSensor(
-                Sensor.TYPE_ACCELEROMETER);
     }
 
     /**
@@ -461,7 +403,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             openFinish();
         } else setScoreToSharePreference(getScore() + 1);
         setScoreToCounter();
-        setVibrationTimes(getScore());
+        makeVibrationByScore(getScore());
+        if (animationState) makeBreezeAnimation(title, counter, button);
     }
 
     /**
@@ -485,10 +428,15 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
      *
      * @param score Score value.
      */
-    private void setVibrationTimes(int score) {
+    private void makeVibrationByScore(int score) {
         if (score % 100000 == 0) makeVibration(3);
         else if (score % 10000 == 0) makeVibration(2);
         else if (score % 1000 == 0) makeVibration(1);
+    }
+
+    private void makeBreezeAnimation(View... views) {
+        for (View view : views)
+            view.animate().scaleX(0.975f).scaleY(0.975f).setDuration(175).withEndAction(() -> view.animate().scaleX(1).scaleY(1).setDuration(175));
     }
 
     /**
@@ -553,28 +501,14 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     }
 
     /**
-     * This method executes after click on acceleration switch.
-     * If acceleration switch value is false, will set default rotation for main components.
+     * This method executes after click on animation switch.
+     * If animation switch value is false, will set default rotation for main components.
      *
      * @param value Switch value.
      */
-    public void clickAcceleration(boolean value) {
-        sharedPreferences.edit().putBoolean("acceleration", value).apply();
-        accelerationState = value;
-        if (!value) {
-            setDefaultRotation(label);
-            setDefaultRotation(counter);
-            setDefaultRotation(button);
-        }
-    }
-
-    /**
-     * This method sets default rotation for view.
-     *
-     * @param view View component.
-     */
-    private void setDefaultRotation(View view) {
-        defineRotation(0, 0, view);
+    public void clickAnimation(boolean value) {
+        sharedPreferences.edit().putBoolean("animation", value).apply();
+        animationState = value;
     }
 
     public void clickSplash(boolean value) {

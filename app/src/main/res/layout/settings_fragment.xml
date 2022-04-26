@@ -75,7 +75,7 @@
         app:trackTint="@color/red" />
 
     <androidx.appcompat.widget.SwitchCompat
-        android:id="@+id/acceleration_switch"
+        android:id="@+id/animation_switch"
         android:layout_width="0sp"
         android:layout_height="56sp"
         android:layout_marginStart="16sp"
@@ -86,7 +86,7 @@
         android:gravity="center_vertical"
         android:padding="12sp"
         android:singleLine="true"
-        android:text="@string/acceleration"
+        android:text="@string/animation"
         android:textColor="@color/red"
         android:textSize="26sp"
         app:layout_constraintEnd_toStartOf="@+id/splash_switch"
@@ -111,7 +111,7 @@
         android:textColor="@color/red"
         android:textSize="26sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/acceleration_switch"
+        app:layout_constraintStart_toEndOf="@id/animation_switch"
         app:layout_constraintTop_toBottomOf="@+id/notification_switch"
         app:thumbTint="#3c3c3c"
         app:trackTint="@color/red" />

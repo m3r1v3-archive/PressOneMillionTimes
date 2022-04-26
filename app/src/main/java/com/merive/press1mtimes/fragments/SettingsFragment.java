@@ -59,7 +59,7 @@ public class SettingsFragment extends Fragment {
     private void initVariables() {
         vibration = getView().findViewById(R.id.vibration_switch);
         notification = getView().findViewById(R.id.notification_switch);
-        acceleration = getView().findViewById(R.id.acceleration_switch);
+        acceleration = getView().findViewById(R.id.animation_switch);
         splash = getView().findViewById(R.id.splash_switch);
         info = getView().findViewById(R.id.info_text);
         options = getView().findViewById(R.id.options_button);
@@ -71,7 +71,7 @@ public class SettingsFragment extends Fragment {
     private void setSwitchStates() {
         vibration.setChecked(((MainActivity) getActivity()).getVibrationState());
         notification.setChecked(((MainActivity) getActivity()).getNotificationState());
-        acceleration.setChecked(((MainActivity) getActivity()).getAccelerationState());
+        acceleration.setChecked(((MainActivity) getActivity()).getAnimationState());
         splash.setChecked(((MainActivity) getActivity()).getSplashState());
     }
 
@@ -81,7 +81,7 @@ public class SettingsFragment extends Fragment {
     private void setSwitchClickListener() {
         vibration.setOnClickListener(v -> ((MainActivity) getActivity()).clickVibration(vibration.isChecked()));
         notification.setOnClickListener(v -> ((MainActivity) getActivity()).clickNotification(notification.isChecked()));
-        acceleration.setOnClickListener(v -> ((MainActivity) getActivity()).clickAcceleration(acceleration.isChecked()));
+        acceleration.setOnClickListener(v -> ((MainActivity) getActivity()).clickAnimation(acceleration.isChecked()));
         splash.setOnClickListener(v -> ((MainActivity) getActivity()).clickSplash(splash.isChecked()));
     }
 
