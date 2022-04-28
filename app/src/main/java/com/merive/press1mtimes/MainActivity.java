@@ -59,16 +59,16 @@ public class MainActivity extends AppCompatActivity {
     static SharedPreferences sharedPreferences;
 
     static Boolean vibrationState, animationState, notificationState, splashState;
-    TextView title, counter, splash;
-    ImageButton button;
+    TextView titleText, counterText, splashText;
+    ImageButton pressButton;
 
 
     int HOUR = 12, MINUTE = 0;
 
     /**
-     * This method is the start point at the MainActivity.
+     * Called by the system when the service is first created
      *
-     * @param savedInstanceState Use by super.onCreate method.
+     * @param savedInstanceState Using by super.onCreate method
      */
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -82,7 +82,6 @@ public class MainActivity extends AppCompatActivity {
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this.getBaseContext());
 
         initLayoutVariables();
-
         initSettingsFragment();
 
         setScoreToCounter();
@@ -92,12 +91,17 @@ public class MainActivity extends AppCompatActivity {
 
         checkVersion();
         checkSplashState();
+
         try {
             checkPatternQR(getIntent().getData().toString());
         } catch (NullPointerException ignored) {
         }
     }
 
+    /**
+     * Called by the system to notify a Service that it is no longer used and is being removed
+     * Needs for setting notification alarm when application is closing
+     */
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -105,11 +109,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * This method checks result of QR scanning.
+     * Executes when QR Code was scanned and was opened MainActivity
+     * Checks QR Code result pattern
      *
-     * @param requestCode The code what was requested.
-     * @param resultCode  The code what was returned.
-     * @param intent      Intent object.
+     * @param requestCode The code what was requested
+     * @param resultCode  The code what was returned
+     * @param intent      Intent object
      */
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
         super.onActivityResult(requestCode, resultCode, intent);
@@ -124,7 +129,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * This method checks QR result on pattern.
+     * Checks QR Code result pattern
+     * If result corresponds to the pattern, executes setScoreByQRResult method
      *
      * @param result QR result.
      * @see Pattern
@@ -136,44 +142,42 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * This method sets score by QR result.
+     * Sets score by QR Code Result value
      *
-     * @param result Score value from QR-Code.
+     * @param result Score value from QR Code result
      */
     private void setScoreByQRResult(String result) {
-        setScoreToSharePreference(Integer.parseInt(result.replace("press1mtimes://", ""), 16));
+        setScoreToSharedPreference(Integer.parseInt(result.replace("press1mtimes://", ""), 16));
         setScoreToCounter();
         makeVibration(1);
         makeToast(getResources().getString(R.string.score_updated));
     }
 
     /**
-     * This method sets new score value to sharedPreference.
+     * Sets score value to SharedPreferences memory
      *
-     * @param score Score value.
+     * @param score Score value
      * @see SharedPreferences
      */
     @SuppressLint("DefaultLocale")
-    private void setScoreToSharePreference(int score) {
+    private void setScoreToSharedPreference(int score) {
         sharedPreferences.edit().putString("score", String.format("%06d", score)).apply();
     }
 
     /**
-     * This method makes vibration.
+     * Makes vibration on device
      *
-     * @param times Number of times.
+     * @param times Vibration times (Using for make vibration longer)
      */
     public void makeVibration(int times) {
-        if (vibrationState) {
-            Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-            v.vibrate(150L * times);
-        }
+        if (vibrationState)
+            ((Vibrator) getSystemService(Context.VIBRATOR_SERVICE)).vibrate(150L * times);
     }
 
     /**
-     * This method opens ToastFragment.
+     * Makes ToastFragment
      *
-     * @param message Toast message.
+     * @param message Toast message value
      * @see ToastFragment
      */
     public void makeToast(String message) {
@@ -189,16 +193,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * This method initializes main layout components.
+     * Initializes basic layout components
      */
     private void initLayoutVariables() {
-        counter = findViewById(R.id.counter);
-        title = findViewById(R.id.title);
-        button = findViewById(R.id.button);
+        counterText = findViewById(R.id.counter);
+        titleText = findViewById(R.id.title);
+        pressButton = findViewById(R.id.button);
     }
 
     /**
-     * This method sets SettingsFragment.
+     * Initializes SettingFragment
      */
     private void initSettingsFragment() {
         FragmentManager fragmentManager = getSupportFragmentManager();
@@ -209,17 +213,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * This method sets score to counter.
+     * Sets score value to counterText component
      */
     @SuppressLint("DefaultLocale")
     private void setScoreToCounter() {
-        counter.setText(String.format("%06d", getScore()));
+        counterText.setText(String.format("%06d", getScore()));
     }
 
     /**
-     * This method gets score from SharedPreference.
+     * Gets score value from SharedPreference.
      *
-     * @return Score Value.
+     * @return Score value (default value is 000000)
      * @see SharedPreferences
      */
     private int getScore() {
@@ -227,7 +231,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * This method returns Vibration state value from sharedPreference.
+     * Returns vibration setting value from SharedPreferences memory (default value is false)
      *
      * @see SharedPreferences
      */
@@ -236,7 +240,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * This method returns Notification state value from sharedPreference.
+     * Returns notification setting value from SharedPreferences memory (default value is false)
      *
      * @see SharedPreferences
      */
@@ -245,7 +249,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * This method returns animation state value from sharedPreference.
+     * Returns animation setting value from SharedPreferences memory (default value is false)
      *
      * @see SharedPreferences
      */
@@ -254,7 +258,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * This method returns Splash state value from sharedPreference.
+     * Returns splash setting value from SharedPreferences memory (default value is false)
      *
      * @see SharedPreferences
      */
@@ -263,7 +267,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * This method sets state values to variables.
+     * Sets settings values to state variables
      */
     private void setStateValues() {
         vibrationState = getVibrationState();
@@ -273,16 +277,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * This method sets info to settings.
+     * Returns project info string
      */
     public String getInfo() {
-        return (("P1MT / " + BuildConfig.VERSION_NAME + "\nmerive inc. / MIT License, " + Calendar.getInstance().get(YEAR)));
+        return (("P1MT / " + BuildConfig.VERSION_NAME + "\nmerive_ inc. / MIT License, " + Calendar.getInstance().get(YEAR)));
     }
 
     /**
-     * This method checks season on winter.
+     * Checks season on winter (needs for exclusive SplashMessage)
      *
-     * @return True if season is winter.
+     * @return Return true if season is winter
      */
     @RequiresApi(api = Build.VERSION_CODES.O)
     private boolean checkWinter() {
@@ -291,7 +295,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * This method creates notification channel.
+     * Creates notification channel (needs for notifications)
      */
     private void createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -309,8 +313,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * This method checks actual application version.
-     * If P1MT have new version on website, this method will open UpdateFragment.
+     * Checks installed version and compares it with actual version on website
+     * If Press1MTimes have new version on website, will have opened UpdateFragment
      *
      * @see UpdateFragment
      */
@@ -325,18 +329,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * This method gets actual application version on website.
+     * Gets actual Press1MTimes version on official websites
      *
-     * @return Actual application version.
-     * @throws IOException ignored.
+     * @return Actual application version string value
+     * @throws IOException ignored
      * @see UpdateFragment
      */
     private String getActualVersion() throws IOException {
-        URL url = new URL(getResources().getString(R.string.link));
         BufferedReader reader = null;
         StringBuilder builder = new StringBuilder();
         try {
-            reader = new BufferedReader(new InputStreamReader(url.openStream(), StandardCharsets.UTF_8));
+            reader = new BufferedReader(new InputStreamReader(new URL(getResources().getString(R.string.link)).openStream(), StandardCharsets.UTF_8));
             for (String line; (line = reader.readLine()) != null; ) builder.append(line.trim());
         } finally {
             if (reader != null) try {
@@ -348,75 +351,76 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * This method opens UpdateFragment.
+     * Open UpdateFragment
      *
-     * @param actualVersion Actual application version.
+     * @param actualVersion Actual application version value
      */
     private void openUpdateFragment(String actualVersion) {
-        FragmentManager fm = getSupportFragmentManager();
-        UpdateFragment updateFragment = UpdateFragment.newInstance(BuildConfig.VERSION_NAME, actualVersion);
-        updateFragment.show(fm, "update_fragment");
+        UpdateFragment.newInstance(BuildConfig.VERSION_NAME, actualVersion).show(getSupportFragmentManager(), "update_fragment");
     }
 
     /**
-     * This method checks splashState value and makes Splash Message.
+     * Checks splashState value
+     * If value is true, sets splash position and starts splash animation
      */
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void checkSplashState() {
         if (splashState) {
-            splash = findViewById(R.id.splash);
+            splashText = findViewById(R.id.splash);
             setSplashPosition();
-            setSplashAnimation();
+            makeSplashAnimation();
         }
     }
 
     /**
-     * This method sets Splash Message position.
+     * Sets SplashMessage position (default 0.98f for horizontal and vertical)
      */
     private void setSplashPosition() {
         ConstraintSet constraintSet = new ConstraintSet();
-        ConstraintLayout constraintLayout = findViewById(R.id.activity_main);
-        constraintSet.clone(constraintLayout);
-        constraintSet.setHorizontalBias(splash.getId(), sharedPreferences.getFloat("splash_horizontal", (float) 0.98));
-        constraintSet.setVerticalBias(splash.getId(), sharedPreferences.getFloat("splash_vertical", (float) 0.98));
-        constraintSet.applyTo(constraintLayout);
+        constraintSet.clone((ConstraintLayout) findViewById(R.id.activity_main));
+        constraintSet.setHorizontalBias(splashText.getId(), sharedPreferences.getFloat("splash_horizontal", 0.98f));
+        constraintSet.setVerticalBias(splashText.getId(), sharedPreferences.getFloat("splash_vertical", 0.98f));
+        constraintSet.applyTo((ConstraintLayout) findViewById(R.id.activity_main));
     }
 
     /**
-     * This method sets Splash Message animation.
+     * Makes SplashMessage animation, sets TextView value and makes it visible
      */
     @RequiresApi(api = Build.VERSION_CODES.O)
-    private void setSplashAnimation() {
-        splash.setText(("#" + SplashTexts.values()[new Random().nextInt(SplashTexts.values().length - (checkWinter() ? 0 : 1))]));
-        splash.setVisibility(View.VISIBLE);
-        splash.startAnimation(AnimationUtils.loadAnimation(this, R.anim.splash));
+    private void makeSplashAnimation() {
+        splashText.setText(("#" + SplashTexts.values()[new Random().nextInt(SplashTexts.values().length - (checkWinter() ? 0 : 1))]));
+        splashText.setVisibility(View.VISIBLE);
+        splashText.startAnimation(AnimationUtils.loadAnimation(this, R.anim.splash));
     }
 
     /**
-     * This method executes after click on button.
+     * Executes after click on pressButton
+     * It checks score value on maximum result, increase score value and make vibration effect for round score values
+     * Also if make BreezeAnimation for basic components if animationState is true
      *
-     * @param view View object.
+     * @param view View object
      */
     public void clickButton(View view) {
         if (getScore() == 999999) {
             resetCounter();
             openFinish();
-        } else setScoreToSharePreference(getScore() + 1);
+        } else setScoreToSharedPreference(getScore() + 1);
         setScoreToCounter();
         makeVibrationByScore(getScore());
-        if (animationState) makeBreezeAnimation(title, counter, button);
+        if (animationState) makeBreezeAnimation(titleText, counterText, pressButton);
     }
 
     /**
-     * This method resets counter value to default value.
+     * Resets score value to default value (default score value is 000000)
+     * Updates score value in SharedPreferences memory and sets default value to counter
      */
     public void resetCounter() {
-        setScoreToSharePreference(0);
+        setScoreToSharedPreference(0);
         setScoreToCounter();
     }
 
     /**
-     * This method opens FinishActivity.
+     * Opens FinishActivity
      */
     private void openFinish() {
         startActivity(new Intent(this, FinishActivity.class));
@@ -424,9 +428,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * This method sets number of vibration times by score.
+     * Sets number of vibration times by round value of score.
      *
-     * @param score Score value.
+     * @param score Score value
      */
     private void makeVibrationByScore(int score) {
         if (score % 100000 == 0) makeVibration(3);
@@ -434,16 +438,21 @@ public class MainActivity extends AppCompatActivity {
         else if (score % 1000 == 0) makeVibration(1);
     }
 
+    /**
+     * Makes BreezeAnimation for views
+     *
+     * @param views Views what will be animated
+     */
     private void makeBreezeAnimation(View... views) {
         for (View view : views)
             view.animate().scaleX(0.975f).scaleY(0.975f).setDuration(175).withEndAction(() -> view.animate().scaleX(1).scaleY(1).setDuration(175));
     }
 
     /**
-     * This method executes after click on vibration switch.
-     * The method sets vibration switch value to sharedPreference and vibrationState variable.
+     * Executes after click on VibrationSwitch in SettingsFragment
+     * Sets current vibration switch value to SharedPreferences memory and update vibrationState variable value
      *
-     * @param value Switch value.
+     * @param value Vibration switch value
      */
     public void clickVibration(boolean value) {
         sharedPreferences.edit().putBoolean("vibration", value).apply();
@@ -451,12 +460,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * This method is executes after click on notification switch.
-     * The method sets notification switch value to sharedPreference and notificationState variable.
-     * If notification switch is true, will be unable alarm for notification.
-     * Else will be disabled.
+     * Executes after click on notification switch in SettingsFragment
+     * Sets notification switch value to SharedPreferences memory and update notificationState variable value
+     * If notification switch is true, will be unable alarm for notifications, else will be disabled
      *
-     * @param value Switch value.
+     * @param value Notifications switch value
      */
     public void clickNotification(boolean value) {
         sharedPreferences.edit().putBoolean("notification", value).apply();
@@ -466,7 +474,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * This method enables alarm for notifications.
+     * Enables notification alarm, sets current score value to intent extras
      */
     private void setAlarm() {
         Intent intent = new Intent(getBaseContext(), NotificationsReceiver.class);
@@ -489,82 +497,78 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * This method disables alarm for notifications.
+     * Disables notification alarm
      */
     private void offAlarm() {
         AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-        Intent intent = new Intent(MainActivity.this, NotificationsReceiver.class);
         PendingIntent pendingIntent =
-                PendingIntent.getService(MainActivity.this, 0, intent, 0);
-
+                PendingIntent.getService(MainActivity.this, 0, new Intent(MainActivity.this, NotificationsReceiver.class), 0);
         if (pendingIntent != null && alarmManager != null) alarmManager.cancel(pendingIntent);
     }
 
     /**
-     * This method executes after click on animation switch.
-     * If animation switch value is false, will set default rotation for main components.
+     * Executes after click on animation switch
+     * Sets animation switch value to SharedPreferences memory and update animationState value
      *
-     * @param value Switch value.
+     * @param value Animation switch value
      */
     public void clickAnimation(boolean value) {
         sharedPreferences.edit().putBoolean("animation", value).apply();
         animationState = value;
     }
 
+    /**
+     * Executes after click on splash switch
+     * Sets splash switch value to SharedPreferences memory and update splashState value
+     *
+     * @param value Splash switch value
+     */
     public void clickSplash(boolean value) {
         sharedPreferences.edit().putBoolean("splash", value).apply();
         splashState = value;
     }
 
     /**
-     * This method executes after click on Options Button.
+     * Opens OptionsFragment
      *
      * @see android.widget.Button
      */
     public void clickOptions() {
         makeVibration(1);
-        FragmentManager fm = getSupportFragmentManager();
-        OptionsFragment optionsFragment = OptionsFragment.newInstance();
-        optionsFragment.show(fm, "options_fragment");
+        OptionsFragment.newInstance().show(getSupportFragmentManager(), "options_fragment");
     }
 
     /**
-     * This method executes after click on Reset Button.
+     * Opens ResetFragment
      *
      * @see android.widget.Button
      */
     public void clickReset() {
-        FragmentManager fm = getSupportFragmentManager();
-        ResetFragment confirmFragment = ResetFragment.newInstance();
-        confirmFragment.show(fm, "confirm_fragment");
+        ResetFragment.newInstance().show(getSupportFragmentManager(), "reset_fragment");
     }
 
     /**
-     * This method executes after click on ScoreShare Button.
+     * Opens ScoreShareFragment
      *
      * @see android.widget.Button
      */
     public void clickScoreShare() {
-        FragmentManager fm = getSupportFragmentManager();
-        ScoreShareFragment scoreShareFragment = ScoreShareFragment.newInstance(String.valueOf(getScore()));
-        scoreShareFragment.show(fm, "score_share_fragment");
+        ScoreShareFragment.newInstance(String.valueOf(getScore())).show(getSupportFragmentManager(), "score_share_fragment");
     }
 
     /**
-     * This method executes after click on ChangeIcon Button.
+     * Opens ChangeIconFragment
      *
      * @see android.widget.Button
      */
     public void clickChangeIcon() {
-        FragmentManager fm = getSupportFragmentManager();
-        ChangeIconFragment changeIconFragment = ChangeIconFragment.newInstance();
-        changeIconFragment.show(fm, "change_icon_fragment");
+        ChangeIconFragment.newInstance().show(getSupportFragmentManager(), "change_icon_fragment");
     }
 
     /**
-     * This method returns application icon name from sharedPreference.
+     * Returns current application icon name from SharedPreferences memory.
      *
-     * @return Application icon name.
+     * @return Current application icon name
      * @see SharedPreferences
      */
     public String getApplicationIcon() {
@@ -572,23 +576,20 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * This method executes after click on Splash Position Option button.
-     * The method opens SplashPosition Fragment.
+     * Opens SplashMessageFragment
      *
      * @see android.widget.Button
      * @see SplashMessageFragment
      */
-    public void clickSplashPosition() {
-        FragmentManager fm = getSupportFragmentManager();
-        SplashMessageFragment splashMessageFragment = SplashMessageFragment.newInstance();
-        splashMessageFragment.show(fm, "splash_position_fragment");
+    public void clickSplashMessage() {
+        SplashMessageFragment.newInstance().show(getSupportFragmentManager(), "splash_message_fragment");
     }
 
     /**
-     * This method sets Splash Position in sharedPreferences.
+     * Sets SplashMessage Position to SharedPreferences memory
      *
-     * @param horizontal Horizontal float value.
-     * @param vertical   Vertical float value.
+     * @param horizontal Horizontal float value
+     * @param vertical   Vertical float value
      * @see SharedPreferences
      */
     public void setSplashPosition(float horizontal, float vertical) {
@@ -596,25 +597,24 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * This method removes ToastFragment from screen.
+     * Removes ToastFragment from the screen
      *
      * @see ToastFragment
      * @see android.widget.FrameLayout
      */
     public void removeToast() {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
         transaction.setReorderingAllowed(true);
 
-        transaction.remove(fragmentManager.findFragmentById(R.id.toast_fragment));
+        transaction.remove(getSupportFragmentManager().findFragmentById(R.id.toast_fragment));
         transaction.commit();
     }
 
     /**
-     * This method changes application icon value in sharedPreference.
+     * Changes application icon value in SharedPreference memory
      *
-     * @param icon Icon name.
+     * @param icon Icon name value
      */
     public void changeIcon(String icon) {
         sharedPreferences.edit().putString("icon", icon).apply();

@@ -126,7 +126,7 @@ public class OptionsFragment extends DialogFragment {
      */
     private void clickSplashPosition() {
         ((MainActivity) getActivity()).makeVibration(1);
-        ((MainActivity) getActivity()).clickSplashPosition();
+        ((MainActivity) getActivity()).clickSplashMessage();
         dismiss();
     }
 }
