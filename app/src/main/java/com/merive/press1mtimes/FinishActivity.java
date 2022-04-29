@@ -22,9 +22,9 @@ public class FinishActivity extends AppCompatActivity {
 
 
     /**
-     * This method is the start point at the FinishActivity.
+     * Called by the system when the service is first created. Do not call this method directly
      *
-     * @param savedInstanceState Used by super.onCreate method.
+     * @param savedInstanceState Using by super.onCreate method
      */
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -41,7 +41,7 @@ public class FinishActivity extends AppCompatActivity {
     }
 
     /**
-     * This method initializes layout components.
+     * Initializes basic layout components
      */
     private void initLayoutVariables() {
         title = findViewById(R.id.finish_title);
@@ -51,7 +51,9 @@ public class FinishActivity extends AppCompatActivity {
     }
 
     /**
-     * This method gets states in MainActivity and assigns to variables in FinishActivity.
+     * Gets settings states values from MainActivity
+     * animationState needs for making animation after close button clicking
+     * vibrationState needs for making vibration after close button clicking
      */
     private void setStates() {
         animationState = MainActivity.animationState;
@@ -59,7 +61,7 @@ public class FinishActivity extends AppCompatActivity {
     }
 
     /**
-     * This method is setting visibility for Coins effect.
+     * Makes visible coins rain effect
      *
      * @see com.jetradarmobile.snowfall.SnowfallView
      */
@@ -69,7 +71,9 @@ public class FinishActivity extends AppCompatActivity {
     }
 
     /**
-     * This method executes after click on CloseButton.
+     * Executes after close button clicking
+     * Sets the click state (required to remove the finish() multiple execution bug)
+     * Makes final animation, closes FinishActivity and starts MainActivity
      *
      * @param view View object.
      * @see android.widget.Button
@@ -79,7 +83,7 @@ public class FinishActivity extends AppCompatActivity {
         if (!clicked) {
             clicked = true;
             makeVibration();
-            makeBreezeAnimation(title, text, afterword, close);
+            makeBreathAnimation(title, text, afterword, close);
             setCoinsVisibility();
             new Handler().postDelayed(() -> {
                 startActivity(new Intent(this, MainActivity.class));
@@ -89,7 +93,7 @@ public class FinishActivity extends AppCompatActivity {
     }
 
     /**
-     * This method makes vibration.
+     * Makes vibration effect
      */
     private void makeVibration() {
         if (vibrationState) {
@@ -98,7 +102,12 @@ public class FinishActivity extends AppCompatActivity {
         }
     }
 
-    private void makeBreezeAnimation(View... views) {
+    /**
+     * Makes BreathAnimation for views
+     *
+     * @param views Views what will be animated
+     */
+    private void makeBreathAnimation(View... views) {
         for (View view : views)
             view.animate().scaleX(0.975f).scaleY(0.975f).setDuration(175).withEndAction(() -> view.animate().scaleX(1).scaleY(1).setDuration(175));
     }

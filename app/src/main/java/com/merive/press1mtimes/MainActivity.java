@@ -396,7 +396,7 @@ public class MainActivity extends AppCompatActivity {
     /**
      * Executes after click on pressButton
      * It checks score value on maximum result, increase score value and make vibration effect for round score values
-     * Also if make BreezeAnimation for basic components if animationState is true
+     * Also if make BreathAnimation for basic components if animationState is true
      *
      * @param view View object
      */
@@ -407,7 +407,7 @@ public class MainActivity extends AppCompatActivity {
         } else setScoreToSharedPreference(getScore() + 1);
         setScoreToCounter();
         makeVibrationByScore(getScore());
-        if (animationState) makeBreezeAnimation(titleText, counterText, pressButton);
+        if (animationState) makeBreathAnimation(titleText, counterText, pressButton);
     }
 
     /**
@@ -439,11 +439,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Makes BreezeAnimation for views
+     * Makes BreathAnimation for views
      *
      * @param views Views what will be animated
      */
-    private void makeBreezeAnimation(View... views) {
+    private void makeBreathAnimation(View... views) {
         for (View view : views)
             view.animate().scaleX(0.975f).scaleY(0.975f).setDuration(175).withEndAction(() -> view.animate().scaleX(1).scaleY(1).setDuration(175));
     }
