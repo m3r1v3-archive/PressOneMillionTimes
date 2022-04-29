@@ -22,7 +22,7 @@ public class FinishActivity extends AppCompatActivity {
 
 
     /**
-     * Called by the system when the service is first created. Do not call this method directly
+     * Called by the system when the service is first created
      *
      * @param savedInstanceState Using by super.onCreate method
      */

@@ -11,10 +11,10 @@ import androidx.core.app.NotificationManagerCompat;
 public class NotificationsReceiver extends BroadcastReceiver {
 
     /**
-     * This method sends notifications.
+     * Called when the BroadcastReceiver is receiving an Intent broadcast
      *
-     * @param context Context object.
-     * @param intent  intent needs for getting score.
+     * @param context The Context in which the receiver is running
+     * @param intent  The Intent being received
      * @see Context
      * @see Intent
      */
