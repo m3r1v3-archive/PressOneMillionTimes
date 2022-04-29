@@ -28,7 +28,7 @@ import androidx.preference.PreferenceManager;
 
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
-import com.merive.press1mtimes.fragments.ChangeIconFragment;
+import com.merive.press1mtimes.fragments.IconsFragment;
 import com.merive.press1mtimes.fragments.OptionsFragment;
 import com.merive.press1mtimes.fragments.ResetFragment;
 import com.merive.press1mtimes.fragments.ScoreShareFragment;
@@ -557,12 +557,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Opens ChangeIconFragment
+     * Opens IconFragment
      *
      * @see android.widget.Button
      */
-    public void clickChangeIcon() {
-        ChangeIconFragment.newInstance().show(getSupportFragmentManager(), "change_icon_fragment");
+    public void clickIcons() {
+        IconsFragment.newInstance().show(getSupportFragmentManager(), "icons_fragment");
     }
 
     /**

@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20sp"
         android:fontFamily="@font/odibee"
-        android:text="@string/change_icon"
+        android:text="@string/icons"
         android:textAlignment="center"
         android:textAllCaps="true"
         android:textColor="@color/red"

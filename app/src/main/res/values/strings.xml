@@ -30,8 +30,8 @@
     <string name="qr_error">QR-Code cannot be scanning</string>
     <string name="score_updated">Press1MTimes Score was updated</string>
 
-    <!-- ChangeIconFragment -->
-    <string name="change_icon">Change Icon</string>
+    <!-- IconsFragment -->
+    <string name="icons">Icons</string>
     <string name="default_icon">Default</string>
     <string name="p1mt_icon">Short</string>
     <string name="classic_icon">Classic</string>

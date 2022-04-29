@@ -17,7 +17,7 @@ import com.merive.press1mtimes.R;
 
 public class OptionsFragment extends DialogFragment {
 
-    Button resetButton, scoreShareButton, changeIconButton, splashMessageButton;
+    Button resetButton, scoreShareButton, iconsButton, splashMessageButton;
 
     /**
      * OptionsFragment constructor.
@@ -67,7 +67,7 @@ public class OptionsFragment extends DialogFragment {
 
         resetButton.setOnClickListener(v -> clickReset());
         scoreShareButton.setOnClickListener(v -> clickScoreShare());
-        changeIconButton.setOnClickListener(v -> clickChangeIcon());
+        iconsButton.setOnClickListener(v -> clickIcons());
         splashMessageButton.setOnClickListener(v -> clickSplashPosition());
     }
 
@@ -79,7 +79,7 @@ public class OptionsFragment extends DialogFragment {
     private void initVariables() {
         resetButton = getView().findViewById(R.id.reset_button);
         scoreShareButton = getView().findViewById(R.id.score_share_button);
-        changeIconButton = getView().findViewById(R.id.change_icon_button);
+        iconsButton = getView().findViewById(R.id.icons_button);
         splashMessageButton = getView().findViewById(R.id.splash_position_button);
     }
 
@@ -108,14 +108,14 @@ public class OptionsFragment extends DialogFragment {
     }
 
     /**
-     * This method executes after clicking on Change Icon button.
-     * The method makes vibration and opens ChangeIconFragment.
+     * This method executes after clicking on iconsButton.
+     * The method makes vibration and opens IconsFragment.
      *
-     * @see ChangeIconFragment
+     * @see IconsFragment
      */
-    private void clickChangeIcon() {
+    private void clickIcons() {
         ((MainActivity) getActivity()).makeVibration(1);
-        ((MainActivity) getActivity()).clickChangeIcon();
+        ((MainActivity) getActivity()).clickIcons();
         dismiss();
     }
 
