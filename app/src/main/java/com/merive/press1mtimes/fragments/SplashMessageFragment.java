@@ -18,30 +18,25 @@ import com.merive.press1mtimes.R;
 
 public class SplashMessageFragment extends DialogFragment {
 
-    ConstraintLayout leftBottom, rightBottom;
+    ConstraintLayout leftButton, rightButton;
+
 
     /**
-     * SplashPosition constructor.
-     */
-    SplashMessageFragment() {
-    }
-
-    /**
-     * This method returns SplashPositionFragment object.
+     * Creates new instance of SplashMessageFragment that will be initialized with the given arguments
      *
-     * @return ChangeIconFragment object.
+     * @return New instance of SplashMessageFragment with necessary arguments
      */
     public static SplashMessageFragment newInstance() {
         return new SplashMessageFragment();
     }
 
     /**
-     * This method executes when SplashPositionFragment is creating.
+     * Called to have the fragment instantiate its user interface view
      *
-     * @param inflater           Needs for getting Fragment View.
-     * @param parent             Argument of inflater.inflate().
-     * @param savedInstanceState Save Fragment Values.
-     * @return Fragment View.
+     * @param inflater           The LayoutInflater object that can be used to inflate any views in the fragment
+     * @param parent             If non-null, this is the parent view that the fragment's UI should be attached to
+     * @param savedInstanceState If non-null, this fragment is being re-constructed from a previous saved state as given here
+     * @return Return the View for the fragment's UI, or null
      * @see View
      * @see Bundle
      */
@@ -52,10 +47,11 @@ public class SplashMessageFragment extends DialogFragment {
     }
 
     /**
-     * This method executes after Fragment View has been created.
+     * Called immediately after onCreateView has returned, but before any saved state has been restored in to the view
+     * There initializes basic variables, sets click listeners for buttons
      *
-     * @param view               Fragment View Value.
-     * @param savedInstanceState Saving Fragment Values.
+     * @param view               The View returned by onCreateView
+     * @param savedInstanceState If non-null, this fragment is being re-constructed from a previous saved state as given here
      * @see View
      * @see Bundle
      */
@@ -69,30 +65,30 @@ public class SplashMessageFragment extends DialogFragment {
     }
 
     /**
-     * This method initializes layout variables.
+     * Initializes basic layout components
      *
      * @see View
      */
     private void initVariables() {
-        rightBottom = getView().findViewById(R.id.right_bottom_position);
-        leftBottom = getView().findViewById(R.id.left_bottom_position);
+        rightButton = getView().findViewById(R.id.right_bottom_position);
+        leftButton = getView().findViewById(R.id.left_bottom_position);
     }
 
     /**
-     * This method sets click listeners for ImageView.
+     * This method sets click listeners for rightButton and leftButton
      *
      * @see ImageView
      */
     private void setListeners() {
-        rightBottom.setOnClickListener(v -> setPosition(0.98f, 0.98f));
-        leftBottom.setOnClickListener(v -> setPosition(0.02f, 0.98f));
+        rightButton.setOnClickListener(v -> setPosition(0.98f, 0.98f));
+        leftButton.setOnClickListener(v -> setPosition(0.02f, 0.98f));
     }
 
     /**
-     * This methods saves Splash Message Position in sharedPreference.
+     * This methods saves Splash Message Position in sharedPreferences memory
      *
-     * @param horizontal Horizontal float position.
-     * @param vertical   Vertical float position.
+     * @param horizontal Horizontal float position value
+     * @param vertical   Vertical float position value
      */
     private void setPosition(float horizontal, float vertical) {
         ((MainActivity) getActivity()).makeVibration(1);
