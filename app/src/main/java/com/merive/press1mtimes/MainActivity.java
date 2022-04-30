@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
         setTheme(R.style.Theme_Press1MTimes);
 
         super.onCreate(savedInstanceState);
-        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+        overridePendingTransition(R.anim.breath_in, R.anim.breath_out);
         setContentView(R.layout.activity_main);
 
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this.getBaseContext());
@@ -185,7 +185,7 @@ public class MainActivity extends AppCompatActivity {
         if (MainActivity.toastMessages.size() == 1) {
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction transaction = fragmentManager.beginTransaction();
-            transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+            transaction.setCustomAnimations(R.anim.breath_in, R.anim.breath_out);
             transaction.setReorderingAllowed(true);
             transaction.replace(R.id.toast_fragment, new ToastFragment(), null);
             transaction.commit();
@@ -604,7 +604,7 @@ public class MainActivity extends AppCompatActivity {
      */
     public void removeToast() {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+        transaction.setCustomAnimations(R.anim.breath_in, R.anim.breath_out);
         transaction.setReorderingAllowed(true);
 
         transaction.remove(getSupportFragmentManager().findFragmentById(R.id.toast_fragment));
