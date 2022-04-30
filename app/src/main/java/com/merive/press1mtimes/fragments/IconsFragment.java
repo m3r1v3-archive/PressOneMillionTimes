@@ -108,8 +108,8 @@ public class IconsFragment extends DialogFragment {
     }
 
     /**
-     * This method sets application icon.
-     * The method disables old icon, sets new icon, changes icon name in MainActivity and makes Toast.
+     * Sets application icon
+     * Disables old icon, sets new icon, changes icon name in MainActivity and makes toast
      *
      * @param iconName Name of icon.
      */
@@ -147,7 +147,7 @@ public class IconsFragment extends DialogFragment {
     /**
      * Sets new application icon by icon name
      *
-     * @param iconName Name of icon.
+     * @param iconName Name of icon
      */
     private void setNewIcon(String iconName) {
         PackageManager packageManager = getActivity().getPackageManager();
