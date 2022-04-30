@@ -14,15 +14,15 @@ import com.merive.press1mtimes.R;
 
 public class ToastFragment extends Fragment {
 
-    TextView message;
+    TextView messageText;
 
     /**
-     * This method executes when ToastFragment is creating.
+     * Called to have the fragment instantiate its user interface view
      *
-     * @param inflater           Needs for getting Fragment View.
-     * @param parent             Argument of inflater.inflate().
-     * @param savedInstanceState Save Fragment Values.
-     * @return Fragment View.
+     * @param inflater           The LayoutInflater object that can be used to inflate any views in the fragment
+     * @param parent             If non-null, this is the parent view that the fragment's UI should be attached to
+     * @param savedInstanceState If non-null, this fragment is being re-constructed from a previous saved state as given here
+     * @return Return the View for the fragment's UI, or null
      * @see View
      * @see Bundle
      */
@@ -32,10 +32,11 @@ public class ToastFragment extends Fragment {
     }
 
     /**
-     * This method executes after Fragment View has been created.
+     * Called immediately after onCreateView has returned, but before any saved state has been restored in to the view
+     * Initializes basic components and shows toast messages
      *
-     * @param view               Fragment View Value.
-     * @param savedInstanceState Saving Fragment Values.
+     * @param view               The View returned by onCreateView
+     * @param savedInstanceState If non-null, this fragment is being re-constructed from a previous saved state as given here
      * @see View
      * @see Bundle
      */
@@ -46,23 +47,25 @@ public class ToastFragment extends Fragment {
     }
 
     /**
-     * This method initializes layout variables.
+     * Initializes basic layout components
      *
      * @see View
      */
     private void initVariables() {
-        message = getView().findViewById(R.id.toast_message);
+        messageText = getView().findViewById(R.id.toast_message);
     }
 
     /**
-     * This method sets text value to message TextView.
+     * Sets text value to messageText TextView
      */
     private void setText(String text) {
-        message.setText(text);
+        messageText.setText(text);
     }
 
     /**
-     * This method shows toast messages.
+     * Shows toast messages if messages contains in toastMessages LinkedList in MainActivity
+     *
+     * @see MainActivity
      */
     private void showToast() {
         try {
@@ -71,7 +74,7 @@ public class ToastFragment extends Fragment {
             } else {
                 setText(MainActivity.toastMessages.getFirst());
                 MainActivity.toastMessages.removeFirst();
-                new Handler().postDelayed(() -> showToast(), 4250);
+                new Handler().postDelayed(() -> showToast(), 3000);
             }
         } catch (NullPointerException ignored) {
         }
