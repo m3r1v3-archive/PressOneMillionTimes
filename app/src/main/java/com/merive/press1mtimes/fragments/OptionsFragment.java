@@ -20,27 +20,21 @@ public class OptionsFragment extends DialogFragment {
     Button resetButton, scoreShareButton, iconsButton, splashMessageButton;
 
     /**
-     * OptionsFragment constructor.
-     */
-    public OptionsFragment() {
-    }
-
-    /**
-     * This method returns OptionsFragment object.
+     * Creates new instance of OptionsFragment that will be initialized with the given arguments
      *
-     * @return OptionsFragment object.
+     * @return New instance of OptionsFragment with necessary arguments
      */
     public static OptionsFragment newInstance() {
         return new OptionsFragment();
     }
 
     /**
-     * This method executes when OptionsFragment is creating.
+     * Called to have the fragment instantiate its user interface view
      *
-     * @param inflater           Needs for getting Fragment View.
-     * @param parent             Argument of inflater.inflate().
-     * @param savedInstanceState Save Fragment Values.
-     * @return Fragment View.
+     * @param inflater           The LayoutInflater object that can be used to inflate any views in the fragment
+     * @param parent             If non-null, this is the parent view that the fragment's UI should be attached to
+     * @param savedInstanceState If non-null, this fragment is being re-constructed from a previous saved state as given here
+     * @return Return the View for the fragment's UI, or null
      * @see View
      * @see Bundle
      */
@@ -51,10 +45,11 @@ public class OptionsFragment extends DialogFragment {
     }
 
     /**
-     * This method executes after Fragment View was created.
+     * Called immediately after onCreateView has returned, but before any saved state has been restored in to the view
+     * There initializes basic variables, sets click listeners for buttons
      *
-     * @param view               Fragment View Value.
-     * @param savedInstanceState Saving Fragment Values.
+     * @param view               Fragment View Value
+     * @param savedInstanceState Saving Fragment Values
      * @see View
      * @see Bundle
      */
@@ -64,15 +59,11 @@ public class OptionsFragment extends DialogFragment {
         getDialog().getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
 
         initVariables();
-
-        resetButton.setOnClickListener(v -> clickReset());
-        scoreShareButton.setOnClickListener(v -> clickScoreShare());
-        iconsButton.setOnClickListener(v -> clickIcons());
-        splashMessageButton.setOnClickListener(v -> clickSplashPosition());
+        setListeners();
     }
 
     /**
-     * This method initializes layout variables.
+     * Initializes basic layout components
      *
      * @see View
      */
@@ -84,8 +75,20 @@ public class OptionsFragment extends DialogFragment {
     }
 
     /**
-     * This method executes after clicking on reset button.
-     * The method makes vibration and opens ConfirmFragment for confirming reset.
+     * This method sets click listeners for rightButton and leftButton
+     *
+     * @see Button
+     */
+    private void setListeners() {
+        resetButton.setOnClickListener(v -> clickReset());
+        scoreShareButton.setOnClickListener(v -> clickScoreShare());
+        iconsButton.setOnClickListener(v -> clickIcons());
+        splashMessageButton.setOnClickListener(v -> clickSplash());
+    }
+
+    /**
+     * This method executes after clicking on resetButton
+     * The method makes vibration and opens ConfirmFragment for confirming reset
      *
      * @see ResetFragment
      */
@@ -96,8 +99,8 @@ public class OptionsFragment extends DialogFragment {
     }
 
     /**
-     * This method executes after clicking on ScoreShare button.
-     * The method makes vibration and opens ScoreShareFragment.
+     * Executes when clicking scoreShareButton
+     * Makes vibration and opens ScoreShareFragment
      *
      * @see ScoreShareFragment
      */
@@ -108,8 +111,8 @@ public class OptionsFragment extends DialogFragment {
     }
 
     /**
-     * This method executes after clicking on iconsButton.
-     * The method makes vibration and opens IconsFragment.
+     * Executes when clicking iconsButton
+     * The method makes vibration and opens IconsFragment
      *
      * @see IconsFragment
      */
@@ -120,11 +123,12 @@ public class OptionsFragment extends DialogFragment {
     }
 
     /**
-     * This method executes after click Splash Position button.
+     * Executes when clicking splashButton
+     * Makes vibration and opens SplashMessagesFragment
      *
      * @see SplashMessageFragment
      */
-    private void clickSplashPosition() {
+    private void clickSplash() {
         ((MainActivity) getActivity()).makeVibration(1);
         ((MainActivity) getActivity()).clickSplashMessage();
         dismiss();
