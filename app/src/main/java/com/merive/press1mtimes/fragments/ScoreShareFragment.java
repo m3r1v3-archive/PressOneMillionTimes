@@ -27,19 +27,13 @@ import com.merive.press1mtimes.ScannerActivity;
 
 public class ScoreShareFragment extends DialogFragment {
 
-    ImageView code;
-    Button scan;
+    ImageView QRCodeImage;
+    Button scanButton;
 
     /**
-     * ScoreShareFragment constructor.
-     */
-    public ScoreShareFragment() {
-    }
-
-    /**
-     * This method returns ScoreShareFragment object.
+     * Creates new instance of ScoreShareFragment that will be initialized with the given arguments
      *
-     * @return ScoreShareFragment object.
+     * @return New instance of ScoreShareFragment with necessary arguments
      */
     public static ScoreShareFragment newInstance(String score) {
         ScoreShareFragment frag = new ScoreShareFragment();
@@ -50,12 +44,12 @@ public class ScoreShareFragment extends DialogFragment {
     }
 
     /**
-     * This method executes when ScoreShareFragment is creating.
+     * Called to have the fragment instantiate its user interface view
      *
-     * @param inflater           Needs for getting Fragment View.
-     * @param parent             Argument of inflater.inflate().
-     * @param savedInstanceState Save Fragment Values.
-     * @return Fragment View.
+     * @param inflater           The LayoutInflater object that can be used to inflate any views in the fragment
+     * @param parent             If non-null, this is the parent view that the fragment's UI should be attached to
+     * @param savedInstanceState If non-null, this fragment is being re-constructed from a previous saved state as given here
+     * @return Return the View for the fragment's UI, or null
      * @see View
      * @see Bundle
      */
@@ -66,10 +60,11 @@ public class ScoreShareFragment extends DialogFragment {
     }
 
     /**
-     * This method executes after Fragment View has been created.
+     * Called immediately after onCreateView has returned, but before any saved state has been restored in to the view
+     * There initializes basic variables, sets button listeners and sets QRCode
      *
-     * @param view               Fragment View Value.
-     * @param savedInstanceState Saving Fragment Values.
+     * @param view               The View returned by onCreateView
+     * @param savedInstanceState If non-null, this fragment is being re-constructed from a previous saved state as given here
      * @see View
      * @see Bundle
      */
@@ -79,31 +74,49 @@ public class ScoreShareFragment extends DialogFragment {
         getDialog().getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
 
         initVariables();
-
-        code.setImageBitmap(makeQRCode(getArguments().getString("score")));
-        scan.setOnClickListener(v -> clickScan());
+        setListeners();
+        setQRCode();
     }
 
     /**
-     * This method initializes layout variables.
+     * Initializes basic layout components
      *
      * @see View
      */
     private void initVariables() {
-        code = getView().findViewById(R.id.score_share_qr_code);
-        scan = getView().findViewById(R.id.score_share_scan_button);
+        QRCodeImage = getView().findViewById(R.id.score_share_qr_code);
+        scanButton = getView().findViewById(R.id.score_share_scan_button);
     }
 
     /**
-     * This method generates QR-Code by score value.
+     * Sets button click listeners
      *
-     * @param score Score value.
-     * @return QR-Code Bitmap image.
+     * @see Button
+     */
+    private void setListeners() {
+        scanButton.setOnClickListener(v -> clickScan());
+    }
+
+    /**
+     * Sets QR Code Bitmap image to QRCodeImage ImageView
+     *
+     * @see Bitmap
+     * @see ImageView
+     */
+    private void setQRCode() {
+        QRCodeImage.setImageBitmap(makeQRCode(getArguments().getString("score")));
+    }
+
+    /**
+     * Generates QR Code by score value
+     *
+     * @param score Score string value
+     * @return QR Code Bitmap image
      * @see Bitmap
      */
     private Bitmap makeQRCode(String score) {
         try {
-            BitMatrix bitMatrix = new QRCodeWriter().encode(encryptScore(score), BarcodeFormat.QR_CODE, 512, 512);
+            BitMatrix bitMatrix = new QRCodeWriter().encode(getQRString(score), BarcodeFormat.QR_CODE, 512, 512);
             int width = bitMatrix.getWidth();
             int height = bitMatrix.getHeight();
             int[] pixels = new int[width * height];
@@ -119,8 +132,8 @@ public class ScoreShareFragment extends DialogFragment {
     }
 
     /**
-     * This method executes after click on Scan button.
-     * The method makes vibration and opens QR scanner.
+     * Executes when clicking on scanButton
+     * Makes vibration effect and opens QR Code scanner
      */
     private void clickScan() {
         ((MainActivity) getActivity()).makeVibration(1);
@@ -129,7 +142,7 @@ public class ScoreShareFragment extends DialogFragment {
     }
 
     /**
-     * This method opens QR scanner.
+     * Opens QR Code scanner
      */
     private void openScanner() {
         new IntentIntegrator(getActivity())
@@ -144,13 +157,13 @@ public class ScoreShareFragment extends DialogFragment {
     }
 
     /**
-     * This method encrypts Score value.
+     * Makes necessary QR Code message
      *
-     * @param score Score value.
-     * @return Encrypted score value.
+     * @param score Score value for QR Code message
+     * @return Necessary QR Code message
      */
     @SuppressLint("DefaultLocale")
-    private String encryptScore(String score) {
+    private String getQRString(String score) {
         return "press1mtimes://" + Integer.toHexString(Integer.parseInt(score));
     }
 
