@@ -196,8 +196,8 @@ public class MainActivity extends AppCompatActivity {
      * Initializes basic layout components
      */
     private void initLayoutVariables() {
+        titleText = findViewById(R.id.main_title);
         counterText = findViewById(R.id.counter);
-        titleText = findViewById(R.id.title);
         pressButton = findViewById(R.id.button);
     }
 
@@ -205,8 +205,7 @@ public class MainActivity extends AppCompatActivity {
      * Initializes SettingFragment
      */
     private void initSettingsFragment() {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.setReorderingAllowed(true);
         transaction.replace(R.id.settings_fragment, new SettingsFragment(), null);
         transaction.commit();

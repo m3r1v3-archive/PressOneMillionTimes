@@ -11,9 +11,9 @@
     <string name="splash">Splash</string>
 
     <!--  FinishActivity  -->
-    <string name="you_completed_the_game">You completed game</string>
+    <string name="finish">Finish of Press1MTimes</string>
     <string name="congratulations">Congratulations,\nyou completed Press1MTimes!</string>
-    <string name="hope">I hope you enjoyed it ;)</string>
+    <string name="hope">I hope you enjoyed it</string>
 
     <!-- OptionsFragment -->
     <string name="options">Options</string>

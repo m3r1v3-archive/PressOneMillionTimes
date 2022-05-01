@@ -39,7 +39,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/update_button"
+        android:id="@+id/download_update_button"
         android:layout_width="0sp"
         android:layout_height="56sp"
         android:layout_marginStart="64sp"

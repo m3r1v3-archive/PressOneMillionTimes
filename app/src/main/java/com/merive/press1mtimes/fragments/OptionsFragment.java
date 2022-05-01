@@ -71,7 +71,7 @@ public class OptionsFragment extends DialogFragment {
         resetButton = getView().findViewById(R.id.reset_button);
         scoreShareButton = getView().findViewById(R.id.score_share_button);
         iconsButton = getView().findViewById(R.id.icons_button);
-        splashMessageButton = getView().findViewById(R.id.splash_position_button);
+        splashMessageButton = getView().findViewById(R.id.splash_button);
     }
 
     /**

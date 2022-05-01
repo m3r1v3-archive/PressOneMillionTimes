@@ -34,7 +34,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/odibee"
         android:singleLine="true"
-        android:text="@string/you_completed_the_game"
+        android:text="@string/finish"
         android:textAlignment="center"
         android:textAllCaps="true"
         android:textColor="@color/red"

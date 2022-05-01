@@ -70,8 +70,8 @@ public class SplashMessageFragment extends DialogFragment {
      * @see View
      */
     private void initVariables() {
-        rightButton = getView().findViewById(R.id.right_bottom_position);
-        leftButton = getView().findViewById(R.id.left_bottom_position);
+        rightButton = getView().findViewById(R.id.right_position_button);
+        leftButton = getView().findViewById(R.id.left_position_button);
     }
 
     /**

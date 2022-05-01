@@ -31,7 +31,7 @@ public class SettingsFragment extends Fragment {
      */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.settings_fragment, parent);
+        return inflater.inflate(R.layout.settings_fragment, parent, false);
     }
 
     /**

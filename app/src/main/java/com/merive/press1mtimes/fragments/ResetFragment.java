@@ -73,8 +73,8 @@ public class ResetFragment extends DialogFragment {
      */
     private void initVariables() {
         titleText = getView().findViewById(R.id.reset_title);
-        cancelButton = getView().findViewById(R.id.cancel_reset_button);
-        confirmButton = getView().findViewById(R.id.confirm_reset_button);
+        cancelButton = getView().findViewById(R.id.reset_cancel_button);
+        confirmButton = getView().findViewById(R.id.reset_confirm_button);
     }
 
     /**
