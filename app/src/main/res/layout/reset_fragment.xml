@@ -17,7 +17,7 @@
         android:fontFamily="@font/odibee"
         android:gravity="center"
         android:singleLine="true"
-        android:text="@string/reset_score"
+        android:text="@string/reset"
         android:textAllCaps="true"
         android:textColor="@color/red"
         android:textSize="36sp"

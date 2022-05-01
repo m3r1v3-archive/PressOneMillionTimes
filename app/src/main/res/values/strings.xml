@@ -19,7 +19,6 @@
     <string name="options">Options</string>
 
     <!-- ResetFragment -->
-    <string name="reset_score">Reset The Score?</string>
     <string name="reset">Reset</string>
     <string name="cancel">Cancel</string>
 

@@ -18,31 +18,26 @@ import com.merive.press1mtimes.R;
 
 public class ResetFragment extends DialogFragment {
 
-    TextView title;
-    Button cancel, confirm;
+    TextView titleText;
+    Button cancelButton, confirmButton;
+
 
     /**
-     * ResetFragment constructor.
-     */
-    public ResetFragment() {
-    }
-
-    /**
-     * This method returns ResetFragment object.
+     * Creates new instance of ResetFragment that will be initialized with the given arguments
      *
-     * @return ResetFragment object.
+     * @return New instance of ResetFragment with necessary arguments
      */
     public static ResetFragment newInstance() {
         return new ResetFragment();
     }
 
     /**
-     * This method executes when ResetFragment is creating.
+     * Called to have the fragment instantiate its user interface view
      *
-     * @param inflater           Needs for getting Fragment View.
-     * @param parent             Argument of inflater.inflate().
-     * @param savedInstanceState Save Fragment Values.
-     * @return Fragment View.
+     * @param inflater           The LayoutInflater object that can be used to inflate any views in the fragment
+     * @param parent             If non-null, this is the parent view that the fragment's UI should be attached to
+     * @param savedInstanceState If non-null, this fragment is being re-constructed from a previous saved state as given here
+     * @return Return the View for the fragment's UI, or null
      * @see View
      * @see Bundle
      */
@@ -53,10 +48,11 @@ public class ResetFragment extends DialogFragment {
     }
 
     /**
-     * This method executes after Fragment View has been created.
+     * Called immediately after onCreateView has returned, but before any saved state has been restored in to the view
+     * There initializes basic variables, sets button listeners
      *
-     * @param view               Fragment View Value.
-     * @param savedInstanceState Saving Fragment Values.
+     * @param view               The View returned by onCreateView
+     * @param savedInstanceState If non-null, this fragment is being re-constructed from a previous saved state as given here
      * @see View
      * @see Bundle
      */
@@ -66,24 +62,34 @@ public class ResetFragment extends DialogFragment {
         getDialog().getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
 
         initVariables();
+        setListeners();
 
-        cancel.setOnClickListener(v -> clickCancel());
-        confirm.setOnClickListener(v -> clickConfirm());
     }
 
     /**
-     * This method initializes layout variables.
+     * Initializes basic layout components
      *
      * @see View
      */
     private void initVariables() {
-        title = getView().findViewById(R.id.reset_title);
-        cancel = getView().findViewById(R.id.cancel_reset_button);
-        confirm = getView().findViewById(R.id.confirm_reset_button);
+        titleText = getView().findViewById(R.id.reset_title);
+        cancelButton = getView().findViewById(R.id.cancel_reset_button);
+        confirmButton = getView().findViewById(R.id.confirm_reset_button);
     }
 
     /**
-     * This method executes after click on Cancel Button.
+     * Sets button click listeners
+     *
+     * @see Button
+     */
+    private void setListeners() {
+        cancelButton.setOnClickListener(v -> clickCancel());
+        confirmButton.setOnClickListener(v -> clickConfirm());
+    }
+
+    /**
+     * Executes when clicking on cancelButton
+     * Makes vibration effect and closes ResetFragment
      */
     private void clickCancel() {
         ((MainActivity) getActivity()).makeVibration(1);
@@ -91,8 +97,8 @@ public class ResetFragment extends DialogFragment {
     }
 
     /**
-     * This method executes after click on Confirm Button.
-     * The method makes vibration and resets counter.
+     * Executes when clicking on confirmButton
+     * Makes vibration, resets counter value (sets default value (default value is 000000)) and makes toast message
      */
     private void clickConfirm() {
         ((MainActivity) getActivity()).makeVibration(1);
