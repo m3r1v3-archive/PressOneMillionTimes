@@ -13,7 +13,6 @@
         android:id="@+id/coins"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -31,16 +30,16 @@
         app:snowflakesNum="128" />
 
     <TextView
-        android:id="@+id/title"
+        android:id="@+id/main_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/odibee"
+        android:singleLine="true"
         android:text="@string/app_name"
         android:textAlignment="center"
         android:textAllCaps="true"
         android:textColor="@color/red"
         android:textSize="46sp"
-        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -73,10 +72,9 @@
         android:text="@string/counter_default_value"
         android:textColor="@color/gray"
         android:textSize="34sp"
-        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/title"
+        app:layout_constraintTop_toBottomOf="@+id/main_title"
         tools:ignore="TextContrastCheck" />
 
     <ImageButton
@@ -87,7 +85,6 @@
         android:contentDescription="@string/todo"
         android:onClick="clickButton"
         android:textAlignment="center"
-        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -114,8 +111,8 @@
         android:id="@+id/arrow_up"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:contentDescription="@string/todo"
         android:layout_marginBottom="8sp"
+        android:contentDescription="@string/todo"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -1,13 +1,7 @@
 package com.merive.press1mtimes;
 
-import static com.merive.press1mtimes.utils.Rotation.defineRotation;
-
 import android.content.Context;
 import android.content.Intent;
-import android.hardware.Sensor;
-import android.hardware.SensorEvent;
-import android.hardware.SensorEventListener;
-import android.hardware.SensorManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -19,29 +13,24 @@ import android.widget.TextView;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
-public class FinishActivity extends AppCompatActivity
-        implements SensorEventListener {
+public class FinishActivity extends AppCompatActivity {
 
-    ImageButton exit;
+    ImageButton close;
     Handler.Callback callback;
-    TextView title, label, afterword;
-    Boolean accelerationState, vibrationState;
-
-    SensorManager sensorManager;
-    Sensor accelerometer;
-    float[] axisData = new float[3];
+    TextView title, text, afterword;
+    Boolean animationState, vibrationState, clicked = false;
 
 
     /**
-     * This method is the start point at the FinishActivity.
+     * Called by the system when the service is first created
      *
-     * @param savedInstanceState Used by super.onCreate method.
+     * @param savedInstanceState Using by super.onCreate method
      */
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+        overridePendingTransition(R.anim.breath_in, R.anim.breath_out);
         setContentView(R.layout.activity_finish);
 
         initLayoutVariables();
@@ -49,69 +38,30 @@ public class FinishActivity extends AppCompatActivity
         callback = message -> false;
 
         setStates();
-        setSensors();
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        if (accelerometer != null) {
-            sensorManager.registerListener(this, accelerometer,
-                    SensorManager.SENSOR_DELAY_NORMAL);
-        }
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        sensorManager.unregisterListener(this);
     }
 
     /**
-     * This overridden method registers accelerator changes.
-     *
-     * @param sensorEvent SensorEvent object.
-     * @see SensorEvent
-     */
-    @Override
-    public void onSensorChanged(SensorEvent sensorEvent) {
-        if (accelerationState) {
-            int sensorType = sensorEvent.sensor.getType();
-            if (sensorType == Sensor.TYPE_ACCELEROMETER) {
-                axisData = sensorEvent.values.clone();
-
-                defineRotation(axisData[1], axisData[0], title);
-                defineRotation(axisData[1], axisData[0], label);
-                defineRotation(axisData[1], axisData[0], afterword);
-                defineRotation(axisData[1], axisData[0], exit);
-            }
-        }
-    }
-
-    @Override
-    public void onAccuracyChanged(Sensor sensor, int i) {
-    }
-
-    /**
-     * This method initializes layout components.
+     * Initializes basic layout components
      */
     private void initLayoutVariables() {
         title = findViewById(R.id.finish_title);
-        label = findViewById(R.id.title);
+        text = findViewById(R.id.congratulation_text);
         afterword = findViewById(R.id.afterword);
-        exit = findViewById(R.id.exit);
+        close = findViewById(R.id.close);
     }
 
     /**
-     * This method gets states in MainActivity and assigns to variables in FinishActivity.
+     * Gets settings states values from MainActivity
+     * animationState needs for making animation after close button clicking
+     * vibrationState needs for making vibration after close button clicking
      */
     private void setStates() {
-        accelerationState = MainActivity.accelerationState;
+        animationState = MainActivity.animationState;
         vibrationState = MainActivity.vibrationState;
     }
 
     /**
-     * This method is setting visibility for Coins effect.
+     * Makes visible coins rain effect
      *
      * @see com.jetradarmobile.snowfall.SnowfallView
      */
@@ -121,38 +71,44 @@ public class FinishActivity extends AppCompatActivity
     }
 
     /**
-     * This method sets sensors that using by application.
-     */
-    private void setSensors() {
-        sensorManager = (SensorManager) getSystemService(
-                Context.SENSOR_SERVICE);
-        accelerometer = sensorManager.getDefaultSensor(
-                Sensor.TYPE_ACCELEROMETER);
-    }
-
-    /**
-     * This method executes after click on Exit Button.
+     * Executes after close button clicking
+     * Sets the click state (required to remove the finish() multiple execution bug)
+     * Makes final animation, closes FinishActivity and starts MainActivity
      *
      * @param view View object.
      * @see android.widget.Button
      */
     @RequiresApi(api = Build.VERSION_CODES.O)
-    public void clickExit(View view) {
-        makeVibration();
-        setCoinsVisibility();
-        new Handler().postDelayed(() -> {
-            startActivity(new Intent(this, MainActivity.class));
-            finish();
-        }, 5000);
+    public void clickClose(View view) {
+        if (!clicked) {
+            clicked = true;
+            makeVibration();
+            makeBreathAnimation(title, text, afterword, close);
+            setCoinsVisibility();
+            new Handler().postDelayed(() -> {
+                startActivity(new Intent(this, MainActivity.class));
+                finish();
+            }, 5000);
+        }
     }
 
     /**
-     * This method makes vibration.
+     * Makes vibration effect
      */
     private void makeVibration() {
         if (vibrationState) {
             Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
             v.vibrate(150L);
         }
+    }
+
+    /**
+     * Makes BreathAnimation for views
+     *
+     * @param views Views what will be animated
+     */
+    private void makeBreathAnimation(View... views) {
+        for (View view : views)
+            view.animate().scaleX(0.975f).scaleY(0.975f).setDuration(175).withEndAction(() -> view.animate().scaleX(1).scaleY(1).setDuration(175));
     }
 }

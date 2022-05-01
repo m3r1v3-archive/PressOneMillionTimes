@@ -1,5 +1,5 @@
 <div align="center">
-    <img src="https://github.com/merive/Press1MTimes/blob/master/app/src/main/res/drawable/icon.png" width="64">
+    <img src="https://github.com/merive-inc/Press1MTimes/blob/main/app/src/main/res/drawable/icon.png" width="64">
     <h1 align="center">Press1MTimes</h1>
     <h2 align="center">The Android Clicker-Game</h2>
     <p>
@@ -11,13 +11,9 @@
     </p>
 </div>
 
-<hr/>
-
 <div>
-    <h2>Installing</h2>
-    <p>
-        You can install P1MT using one of the next method:
-    </p>
+    <h2 align="center">Installing</h2>
+    <h3 align="center">You can install P1MT using one of the next method</h3>
     <h3>Method #1 (Using APK)</h3>
     <p>
         1. Install Press1MTimes from our <a href="https://merive.herokuapp.com/P1MT">Website</a> or from <a href="https://github.com/merive/Press1MTimes/releases">Releases</a> in repository<br>
@@ -39,10 +35,8 @@
     </p>
 </div>
 
-<hr/>
-
 <div>
-    <h2>Contribution</h2>
+    <h2 align="center">Contribution</h2>
     <p>
         Press1MTimes using <b>MIT License</b>.
         It means that you can do with project anything.
@@ -52,22 +46,18 @@
     </p>
 </div>
 
-<hr/>
-
 <div>
-    <h2>Version Scheme</h2>
+    <h2 align="center">Version Scheme</h2>
     <p>
         In Press1MTimes we're using the next version scheme - v<i>x.y.z</i>,
             where <i>x</i> - <b>Major</b> update, <i>y</i> - <b>Minor</b> update, <i>z</i> - <b>Patch</b> update.
     </p>
 </div>
 
-<hr/>
-
-<div>
+<div align="center">
     <h2>More Information</h2>
     <p>
         More information you can find on <a href="https://merive.herokuapp.com/P1MT/">Press1MTimes Website</a>. 
-        There you can find Press1MTimes's APK file.
+        There you can find Press1MTimes APK file.
     </p>
 </div>

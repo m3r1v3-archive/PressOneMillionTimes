@@ -15,17 +15,17 @@ import com.merive.press1mtimes.R;
 
 public class SettingsFragment extends Fragment {
 
-    TextView info;
-    SwitchCompat vibration, notification, acceleration, splash;
-    Button options;
+    TextView infoText;
+    SwitchCompat vibrationSwitch, notificationSwitch, accelerationSwitch, splashSwitch;
+    Button optionsButton;
 
     /**
-     * This method executes when SettingsFragment is creating.
+     * Called to have the fragment instantiate its user interface view
      *
-     * @param inflater           Needs for getting Fragment View.
-     * @param parent             Argument of inflater.inflate().
-     * @param savedInstanceState Save Fragment Values.
-     * @return Fragment View.
+     * @param inflater           The LayoutInflater object that can be used to inflate any views in the fragment
+     * @param parent             If non-null, this is the parent view that the fragment's UI should be attached to
+     * @param savedInstanceState If non-null, this fragment is being re-constructed from a previous saved state as given here
+     * @return Return the View for the fragment's UI, or null
      * @see View
      * @see Bundle
      */
@@ -35,10 +35,11 @@ public class SettingsFragment extends Fragment {
     }
 
     /**
-     * This method executes after Fragment View has been created.
+     * Called immediately after onCreateView has returned, but before any saved state has been restored in to the view
+     * There initializes basic variables, sets switch states, sets switch click listeners and sets information about application to info TextView
      *
-     * @param view               Fragment View Value.
-     * @param savedInstanceState Saving Fragment Values.
+     * @param view               The View returned by onCreateView
+     * @param savedInstanceState If non-null, this fragment is being re-constructed from a previous saved state as given here
      * @see View
      * @see Bundle
      */
@@ -52,52 +53,62 @@ public class SettingsFragment extends Fragment {
     }
 
     /**
-     * This method initializes layout variables.
+     * Initializes basic layout components
      *
      * @see View
      */
     private void initVariables() {
-        vibration = getView().findViewById(R.id.vibration_switch);
-        notification = getView().findViewById(R.id.notification_switch);
-        acceleration = getView().findViewById(R.id.acceleration_switch);
-        splash = getView().findViewById(R.id.splash_switch);
-        info = getView().findViewById(R.id.info_text);
-        options = getView().findViewById(R.id.options_button);
+        vibrationSwitch = getView().findViewById(R.id.vibration_switch);
+        notificationSwitch = getView().findViewById(R.id.notification_switch);
+        accelerationSwitch = getView().findViewById(R.id.animation_switch);
+        splashSwitch = getView().findViewById(R.id.splash_switch);
+
+        optionsButton = getView().findViewById(R.id.options_button);
+
+        infoText = getView().findViewById(R.id.info_text);
     }
 
     /**
-     * This method sets switches states.
+     * Sets switch states values
+     *
+     * @see SwitchCompat
      */
     private void setSwitchStates() {
-        vibration.setChecked(((MainActivity) getActivity()).getVibrationState());
-        notification.setChecked(((MainActivity) getActivity()).getNotificationState());
-        acceleration.setChecked(((MainActivity) getActivity()).getAccelerationState());
-        splash.setChecked(((MainActivity) getActivity()).getSplashState());
+        vibrationSwitch.setChecked(((MainActivity) getActivity()).getVibrationState());
+        notificationSwitch.setChecked(((MainActivity) getActivity()).getNotificationState());
+        accelerationSwitch.setChecked(((MainActivity) getActivity()).getAnimationState());
+        splashSwitch.setChecked(((MainActivity) getActivity()).getSplashState());
     }
 
     /**
-     * This method sets click listeners for switches.
+     * Sets click listeners for switches
+     *
+     * @see SwitchCompat
      */
     private void setSwitchClickListener() {
-        vibration.setOnClickListener(v -> ((MainActivity) getActivity()).clickVibration(vibration.isChecked()));
-        notification.setOnClickListener(v -> ((MainActivity) getActivity()).clickNotification(notification.isChecked()));
-        acceleration.setOnClickListener(v -> ((MainActivity) getActivity()).clickAcceleration(acceleration.isChecked()));
-        splash.setOnClickListener(v -> ((MainActivity) getActivity()).clickSplash(splash.isChecked()));
+        vibrationSwitch.setOnClickListener(v -> ((MainActivity) getActivity()).clickVibration(vibrationSwitch.isChecked()));
+        notificationSwitch.setOnClickListener(v -> ((MainActivity) getActivity()).clickNotification(notificationSwitch.isChecked()));
+        accelerationSwitch.setOnClickListener(v -> ((MainActivity) getActivity()).clickAnimation(accelerationSwitch.isChecked()));
+        splashSwitch.setOnClickListener(v -> ((MainActivity) getActivity()).clickSplash(splashSwitch.isChecked()));
     }
 
     /**
-     * This method sets click listener for Options Button.
+     * Sets click listener for optionsButton
      *
      * @see Button
+     * @see MainActivity
      */
     private void setOptionsListener() {
-        options.setOnClickListener(v -> ((MainActivity) getActivity()).clickOptions());
+        optionsButton.setOnClickListener(v -> ((MainActivity) getActivity()).clickOptions());
     }
 
     /**
-     * This method sets text for info TextView.
+     * Sets information info from getInfo() to infoText TextView
+     *
+     * @see TextView
+     * @see MainActivity
      */
     private void setInfo() {
-        info.setText(((MainActivity) getActivity()).getInfo());
+        infoText.setText(((MainActivity) getActivity()).getInfo());
     }
 }

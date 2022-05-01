@@ -16,6 +16,7 @@
         android:layout_marginTop="20sp"
         android:fontFamily="@font/odibee"
         android:gravity="center"
+        android:singleLine="true"
         android:text="@string/update_released"
         android:textAlignment="center"
         android:textAllCaps="true"
@@ -38,7 +39,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/update_button"
+        android:id="@+id/download_update_button"
         android:layout_width="0sp"
         android:layout_height="56sp"
         android:layout_marginStart="64sp"
@@ -47,6 +48,7 @@
         android:background="@xml/background"
         android:fontFamily="@font/odibee"
         android:padding="12sp"
+        android:singleLine="true"
         android:stateListAnimator="@null"
         android:text="@string/download"
         android:textAllCaps="false"
@@ -64,6 +66,7 @@
         android:layout_marginTop="28sp"
         android:layout_marginRight="32sp"
         android:fontFamily="@font/odibee"
+        android:singleLine="true"
         android:textAlignment="center"
         android:textAllCaps="false"
         android:textColor="@color/red"

@@ -1,6 +1,5 @@
 package com.merive.press1mtimes.fragments;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -22,19 +21,13 @@ import com.merive.press1mtimes.R;
 
 public class UpdateFragment extends DialogFragment {
 
-    TextView version;
-    Button download;
+    TextView versionText;
+    Button downloadButton;
 
     /**
-     * OptionsFragment constructor.
-     */
-    public UpdateFragment() {
-    }
-
-    /**
-     * This method returns OptionsFragment object with necessary arguments.
+     * Creates new instance of UpdateFragment that will be initialized with the given arguments
      *
-     * @return OptionsFragment object.
+     * @return New instance of UpdateFragment with necessary arguments
      */
     public static UpdateFragment newInstance(String oldVersion, String newVersion) {
         UpdateFragment frag = new UpdateFragment();
@@ -46,62 +39,68 @@ public class UpdateFragment extends DialogFragment {
     }
 
     /**
-     * This method executes when OptionsFragment is creating.
+     * Called to have the fragment instantiate its user interface view
      *
-     * @param inflater           Needs for getting Fragment View.
-     * @param parent             Argument of inflater.inflate().
-     * @param savedInstanceState Save Fragment Values.
-     * @return Fragment View.
+     * @param inflater           The LayoutInflater object that can be used to inflate any views in the fragment
+     * @param parent             If non-null, this is the parent view that the fragment's UI should be attached to
+     * @param savedInstanceState If non-null, this fragment is being re-constructed from a previous saved state as given here
+     * @return Return the View for the fragment's UI, or null
      * @see View
      * @see Bundle
      */
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup parent,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
         getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         return inflater.inflate(R.layout.update_fragment, parent);
     }
 
     /**
-     * This method executes after Fragment View has been created.
+     * Called immediately after onCreateView has returned, but before any saved state has been restored in to the view
      *
-     * @param view               Fragment View Value.
-     * @param savedInstanceState Saving Fragment Values.
+     * @param view               The View returned by onCreateView
+     * @param savedInstanceState If non-null, this fragment is being re-constructed from a previous saved state as given here
      * @see View
      * @see Bundle
      */
-    @SuppressLint("SetTextI18n")
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         getDialog().getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
 
         initVariables();
+        setListeners();
         setVersion();
-
-        download.setOnClickListener(v -> clickDownload());
     }
 
     /**
-     * This method initializes layout variables.
+     * Initializes basic layout components
      *
      * @see View
      */
     private void initVariables() {
-        version = getView().findViewById(R.id.update_version_title);
-        download = getView().findViewById(R.id.update_button);
+        versionText = getView().findViewById(R.id.update_version_title);
+        downloadButton = getView().findViewById(R.id.download_update_button);
     }
 
     /**
-     * This method sets text to version TextView.
+     * Sets button click listeners
+     *
+     * @see Button
+     */
+    private void setListeners() {
+        downloadButton.setOnClickListener(v -> clickDownload());
+    }
+
+    /**
+     * Sets text to versionText TextView
      */
     private void setVersion() {
-        version.setText(("Installed - " + getArguments().getString("oldVersion") + " / Actual - " + getArguments().getString("newVersion")));
+        versionText.setText(("Installed - " + getArguments().getString("oldVersion") + " / Actual - " + getArguments().getString("newVersion")));
     }
 
     /**
-     * This method executes after click on Download button.
-     * The method makes vibration and opens P1MT page in browser.
+     * Executes when clicking on downloadButton
+     * Makes vibration and opens P1MT web page in browser
      */
     private void clickDownload() {
         ((MainActivity) getActivity()).makeVibration(1);

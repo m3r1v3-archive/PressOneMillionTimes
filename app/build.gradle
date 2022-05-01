@@ -5,28 +5,32 @@ plugins {
 android {
     signingConfigs {
         realise {
-            storeFile file('src\\main\\res\\Press1MTimesKey.jks')
-            keyAlias 'Press1MTimesKey'
-            storePassword '[Press1MTimes]'
-            keyPassword '[Press1MTimes]'
+            Properties properties = new Properties()
+            properties.load(project.rootProject.file('local.properties').newDataInputStream())
+            storeFile file(properties.getProperty('storeFile'))
+            keyAlias properties.getProperty('keyAlias')
+            storePassword properties.getProperty('storePassword')
+            keyPassword properties.getProperty('keyPassword')
         }
 
         debug {
-            storeFile file('src\\main\\res\\Press1MTimesKey.jks')
-            keyAlias 'Press1MTimesKey'
-            storePassword '[Press1MTimes]'
-            keyPassword '[Press1MTimes]'
+            Properties properties = new Properties()
+            properties.load(project.rootProject.file('local.properties').newDataInputStream())
+            storeFile file(properties.getProperty('storeFile'))
+            keyAlias properties.getProperty('keyAlias')
+            storePassword properties.getProperty('storePassword')
+            keyPassword properties.getProperty('keyPassword')
         }
     }
-    compileSdkVersion 31
+    compileSdkVersion 32
     buildToolsVersion "30.0.3"
 
     defaultConfig {
         applicationId "com.merive.press1mtimes"
         minSdkVersion 24
-        targetSdkVersion 31
-        versionCode 51
-        versionName "2.2.0"
+        targetSdkVersion 32
+        versionCode 52
+        versionName "2.2.1"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }

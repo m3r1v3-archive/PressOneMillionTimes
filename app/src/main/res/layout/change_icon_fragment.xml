@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/change_icon_layout"
+    android:id="@+id/icons_layout"
     android:layout_width="364sp"
     android:layout_height="276sp"
     android:layout_gravity="center"
@@ -17,12 +17,12 @@
     app:layout_constraintVertical_bias="1.0">
 
     <TextView
-        android:id="@+id/change_icon_title"
+        android:id="@+id/icons_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20sp"
         android:fontFamily="@font/odibee"
-        android:text="@string/change_icon"
+        android:text="@string/icons"
         android:textAlignment="center"
         android:textAllCaps="true"
         android:textColor="@color/red"
@@ -32,7 +32,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/change_icon_title_separator"
+        android:id="@+id/icons_title_separator"
         android:layout_width="0sp"
         android:layout_height="12sp"
         android:layout_marginLeft="36sp"
@@ -52,7 +52,7 @@
         android:padding="12sp"
         app:layout_constraintEnd_toStartOf="@+id/short_icon"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/change_icon_title">
+        app:layout_constraintTop_toBottomOf="@+id/icons_title">
 
         <ImageView
             android:id="@+id/default_icon_button"
@@ -68,7 +68,7 @@
             app:srcCompat="@drawable/icon" />
 
         <ImageView
-            android:id="@+id/change_icon_default_separator"
+            android:id="@+id/default_icon_separator"
             android:layout_width="0sp"
             android:layout_height="12sp"
             android:layout_marginBottom="8sp"
@@ -101,7 +101,7 @@
         android:padding="12sp"
         app:layout_constraintEnd_toStartOf="@+id/classic_icon"
         app:layout_constraintStart_toEndOf="@+id/default_icon"
-        app:layout_constraintTop_toBottomOf="@+id/change_icon_title">
+        app:layout_constraintTop_toBottomOf="@+id/icons_title">
 
         <ImageView
             android:id="@+id/short_icon_button"
@@ -117,7 +117,7 @@
             app:srcCompat="@drawable/short_icon" />
 
         <ImageView
-            android:id="@+id/change_icon_short_separator"
+            android:id="@+id/short_icon_separator"
             android:layout_width="0sp"
             android:layout_height="12sp"
             android:layout_marginBottom="8sp"
@@ -150,7 +150,7 @@
         android:padding="12sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/short_icon"
-        app:layout_constraintTop_toBottomOf="@+id/change_icon_title">
+        app:layout_constraintTop_toBottomOf="@+id/icons_title">
 
         <ImageView
             android:id="@+id/classic_icon_button"
@@ -166,7 +166,7 @@
             app:srcCompat="@drawable/classic_icon" />
 
         <ImageView
-            android:id="@+id/change_icon_classic_separator"
+            android:id="@+id/classic_icon_separator"
             android:layout_width="0sp"
             android:layout_height="12sp"
             android:layout_marginBottom="8sp"
