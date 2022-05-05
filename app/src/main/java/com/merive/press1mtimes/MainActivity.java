@@ -204,9 +204,10 @@ public class MainActivity extends AppCompatActivity {
     /**
      * Initializes SettingFragment
      */
-    private void initSettingsFragment() {
+    public void initSettingsFragment() {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.setReorderingAllowed(true);
+        transaction.setCustomAnimations(R.anim.breath_in, R.anim.breath_out);
         transaction.replace(R.id.settings_fragment, new SettingsFragment(), null);
         transaction.commit();
     }
@@ -379,7 +380,7 @@ public class MainActivity extends AppCompatActivity {
         constraintSet.clone((ConstraintLayout) findViewById(R.id.activity_main));
         constraintSet.setHorizontalBias(splashText.getId(), sharedPreferences.getFloat("splash_horizontal", 0.98f));
         constraintSet.setVerticalBias(splashText.getId(), sharedPreferences.getFloat("splash_vertical", 0.98f));
-        constraintSet.applyTo((ConstraintLayout) findViewById(R.id.activity_main));
+        constraintSet.applyTo(findViewById(R.id.activity_main));
     }
 
     /**
@@ -534,7 +535,11 @@ public class MainActivity extends AppCompatActivity {
      */
     public void clickOptions() {
         makeVibration(1);
-        OptionsFragment.newInstance().show(getSupportFragmentManager(), "options_fragment");
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.setReorderingAllowed(true);
+        transaction.setCustomAnimations(R.anim.breath_in, R.anim.breath_out);
+        transaction.replace(R.id.settings_fragment, new OptionsFragment(), null);
+        transaction.commit();
     }
 
     /**

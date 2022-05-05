@@ -1,32 +1,22 @@
 package com.merive.press1mtimes.fragments;
 
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.Fragment;
 
 import com.merive.press1mtimes.MainActivity;
 import com.merive.press1mtimes.R;
 
-public class OptionsFragment extends DialogFragment {
+public class OptionsFragment extends Fragment {
 
-    Button resetButton, scoreShareButton, iconsButton, splashMessageButton;
-
-    /**
-     * Creates new instance of OptionsFragment that will be initialized with the given arguments
-     *
-     * @return New instance of OptionsFragment with necessary arguments
-     */
-    public static OptionsFragment newInstance() {
-        return new OptionsFragment();
-    }
+    Button resetButton, scoreShareButton, iconsButton, splashMessageButton, cancelButton;
+    TextView suggestionText;
 
     /**
      * Called to have the fragment instantiate its user interface view
@@ -40,8 +30,7 @@ public class OptionsFragment extends DialogFragment {
      */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
-        getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        return inflater.inflate(R.layout.options_fragment, parent);
+        return inflater.inflate(R.layout.options_fragment, parent, false);
     }
 
     /**
@@ -54,12 +43,10 @@ public class OptionsFragment extends DialogFragment {
      * @see Bundle
      */
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        getDialog().getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
-
+    public void onViewCreated(View view, Bundle savedInstanceState) {
         initVariables();
         setListeners();
+        setLongListeners();
     }
 
     /**
@@ -72,10 +59,12 @@ public class OptionsFragment extends DialogFragment {
         scoreShareButton = getView().findViewById(R.id.score_share_button);
         iconsButton = getView().findViewById(R.id.icons_button);
         splashMessageButton = getView().findViewById(R.id.splash_button);
+        cancelButton = getView().findViewById(R.id.options_cancel_button);
+        suggestionText = getView().findViewById(R.id.options_suggestion_text);
     }
 
     /**
-     * This method sets click listeners for rightButton and leftButton
+     * This method sets click listeners for OptionsFragment buttons
      *
      * @see Button
      */
@@ -84,6 +73,35 @@ public class OptionsFragment extends DialogFragment {
         scoreShareButton.setOnClickListener(v -> clickScoreShare());
         iconsButton.setOnClickListener(v -> clickIcons());
         splashMessageButton.setOnClickListener(v -> clickSplash());
+        cancelButton.setOnClickListener(v -> clickCancel());
+    }
+
+    /**
+     * This method sets long click listeners for OptionsFragment buttons
+     *
+     * @see Button
+     */
+    private void setLongListeners() {
+        resetButton.setOnLongClickListener(v -> {
+            longClickReset();
+            resetSuggestion();
+            return true;
+        });
+        scoreShareButton.setOnLongClickListener(v -> {
+            longClickScoreShare();
+            resetSuggestion();
+            return true;
+        });
+        iconsButton.setOnLongClickListener(v -> {
+            longClickIcons();
+            resetSuggestion();
+            return true;
+        });
+        splashMessageButton.setOnLongClickListener(v -> {
+            longClickSplash();
+            resetSuggestion();
+            return true;
+        });
     }
 
     /**
@@ -95,7 +113,7 @@ public class OptionsFragment extends DialogFragment {
     private void clickReset() {
         ((MainActivity) getActivity()).makeVibration(1);
         ((MainActivity) getActivity()).clickReset();
-        dismiss();
+        ((MainActivity) getActivity()).initSettingsFragment();
     }
 
     /**
@@ -107,7 +125,7 @@ public class OptionsFragment extends DialogFragment {
     private void clickScoreShare() {
         ((MainActivity) getActivity()).makeVibration(1);
         ((MainActivity) getActivity()).clickScoreShare();
-        dismiss();
+        ((MainActivity) getActivity()).initSettingsFragment();
     }
 
     /**
@@ -119,7 +137,7 @@ public class OptionsFragment extends DialogFragment {
     private void clickIcons() {
         ((MainActivity) getActivity()).makeVibration(1);
         ((MainActivity) getActivity()).clickIcons();
-        dismiss();
+        ((MainActivity) getActivity()).initSettingsFragment();
     }
 
     /**
@@ -131,6 +149,55 @@ public class OptionsFragment extends DialogFragment {
     private void clickSplash() {
         ((MainActivity) getActivity()).makeVibration(1);
         ((MainActivity) getActivity()).clickSplashMessage();
-        dismiss();
+        ((MainActivity) getActivity()).initSettingsFragment();
+    }
+
+    /**
+     * Executes when clicking cancelButton
+     * Makes vibration and returns to SettingsFragment
+     *
+     * @see SplashMessageFragment
+     */
+    private void clickCancel() {
+        ((MainActivity) getActivity()).makeVibration(1);
+        ((MainActivity) getActivity()).initSettingsFragment();
+    }
+
+    /**
+     * Executes when making long click on resetButton
+     * Change suggestionText text value
+     */
+    private void longClickReset() {
+        suggestionText.setText(getResources().getString(R.string.options_suggestion_reset));
+    }
+
+    /**
+     * Executes when making long click on scoreShareButton
+     * Change suggestionText text value
+     */
+    private void longClickScoreShare() {
+        suggestionText.setText(getResources().getString(R.string.options_suggestion_score_share));
+    }
+
+    /**
+     * Executes when making long click on iconsButton
+     * Change suggestionText text value
+     */
+    private void longClickIcons() {
+        suggestionText.setText(getResources().getString(R.string.options_suggestion_icons));
+    }
+
+    /**
+     * Executes when making long click on splashButton
+     * Change suggestionText text value
+     */
+    private void longClickSplash() {
+        suggestionText.setText(getResources().getString(R.string.options_suggestion_splash));
+    }
+
+    private void resetSuggestion() {
+        new Handler().postDelayed(() -> {
+            suggestionText.setText(getResources().getString(R.string.options_suggestion));
+        }, 2500);
     }
 }

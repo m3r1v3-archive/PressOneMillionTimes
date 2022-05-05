@@ -1,13 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/options_layout"
-    android:layout_width="342sp"
-    android:layout_height="234sp"
-    android:layout_gravity="center"
-    android:background="@xml/background"
-    android:minWidth="342sp"
-    android:minHeight="234sp">
+    android:id="@+id/options_fragment"
+    android:layout_width="match_parent"
+    android:layout_height="384sp">
 
     <TextView
         android:id="@+id/options_title"
@@ -116,5 +112,55 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/icons_button"
         app:layout_constraintTop_toBottomOf="@+id/score_share_button" />
+
+    <Button
+        android:id="@+id/options_cancel_button"
+        android:layout_width="match_parent"
+        android:layout_height="56sp"
+        android:layout_marginStart="64sp"
+        android:layout_marginTop="16sp"
+        android:layout_marginEnd="64sp"
+        android:background="@xml/background"
+        android:fontFamily="@font/odibee"
+        android:gravity="center_vertical|center_horizontal"
+        android:singleLine="true"
+        android:stateListAnimator="@null"
+        android:text="@string/cancel"
+        android:textAllCaps="false"
+        android:textColor="@color/red"
+        android:textSize="26sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/splash_button" />
+
+    <ImageView
+        android:id="@+id/options_cancel_button_separator"
+        android:layout_width="0sp"
+        android:layout_height="12sp"
+        android:layout_marginLeft="36sp"
+        android:layout_marginTop="12sp"
+        android:layout_marginRight="36sp"
+        android:src="@xml/line"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/options_cancel_button" />
+
+    <TextView
+        android:id="@+id/options_suggestion_text"
+        android:layout_width="match_parent"
+        android:layout_height="56sp"
+        android:layout_marginStart="16sp"
+        android:layout_marginTop="28sp"
+        android:layout_marginEnd="16sp"
+        android:fontFamily="@font/odibee"
+        android:gravity="center_vertical|center_horizontal"
+        android:text="@string/options_suggestion"
+        android:textColor="@color/red"
+        android:textSize="26sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/options_cancel_button"
+        app:layout_constraintVertical_bias="0.25" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
