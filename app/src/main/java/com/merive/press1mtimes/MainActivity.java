@@ -390,7 +390,7 @@ public class MainActivity extends AppCompatActivity {
     private void makeSplashAnimation() {
         splashText.setText(("#" + SplashTexts.values()[new Random().nextInt(SplashTexts.values().length - (checkWinter() ? 0 : 1))]));
         splashText.setVisibility(View.VISIBLE);
-        splashText.startAnimation(AnimationUtils.loadAnimation(this, R.anim.splash));
+        splashText.startAnimation(AnimationUtils.loadAnimation(this, R.anim.fade_out));
     }
 
     /**
