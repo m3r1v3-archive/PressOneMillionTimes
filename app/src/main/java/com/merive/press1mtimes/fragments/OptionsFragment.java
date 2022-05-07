@@ -156,8 +156,11 @@ public class OptionsFragment extends Fragment {
      * @see SplashMessageFragment
      */
     private void clickCancel() {
-        ((MainActivity) getActivity()).makeVibration(1);
-        ((MainActivity) getActivity()).initSettingsFragment();
+        if (!showTip) {
+            ((MainActivity) getActivity()).makeVibration(1);
+            ((MainActivity) getActivity()).initSettingsFragment();
+            showTip = false;
+        }
     }
 
     /**
@@ -165,7 +168,10 @@ public class OptionsFragment extends Fragment {
      * Change tipText text value
      */
     private void longClickReset() {
-        setFadeText(tipText, getResources().getString(R.string.options_tip_reset));
+        if (!showTip) {
+            setFadeText(tipText, getResources().getString(R.string.options_tip_reset));
+            showTip = true;
+        }
     }
 
     /**
@@ -206,7 +212,9 @@ public class OptionsFragment extends Fragment {
      */
     private void resetTip() {
         if (showTip) {
-            new Handler().postDelayed(() -> setFadeText(tipText, getResources().getString(R.string.options_tip)), 2500);
+            new Handler().postDelayed(() -> {
+                if (showTip) setFadeText(tipText, getResources().getString(R.string.options_tip));
+            }, 2500);
             showTip = false;
         }
     }
