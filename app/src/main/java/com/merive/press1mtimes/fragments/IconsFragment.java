@@ -2,33 +2,24 @@ package com.merive.press1mtimes.fragments;
 
 import android.content.ComponentName;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.Fragment;
 
 import com.merive.press1mtimes.MainActivity;
 import com.merive.press1mtimes.R;
 
-public class IconsFragment extends DialogFragment {
+public class IconsFragment extends Fragment {
 
     ConstraintLayout defaultIconButton, P1MTIconButton, classicIconButton;
-
-    /**
-     * Creates new instance of IconsFragment that will be initialized with the given arguments
-     *
-     * @return New instance of IconsFragment with necessary arguments
-     */
-    public static IconsFragment newInstance() {
-        return new IconsFragment();
-    }
+    Button cancelButton;
 
     /**
      * Called to have the fragment instantiate its user interface view
@@ -42,8 +33,7 @@ public class IconsFragment extends DialogFragment {
      */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
-        getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        return inflater.inflate(R.layout.change_icon_fragment, parent);
+        return inflater.inflate(R.layout.icons_fragment, parent, false);
     }
 
     /**
@@ -57,13 +47,9 @@ public class IconsFragment extends DialogFragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        getDialog().getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
 
         initVariables();
-
-        defaultIconButton.setOnClickListener(v -> clickDefaultIcon());
-        P1MTIconButton.setOnClickListener(v -> clickP1MTIcon());
-        classicIconButton.setOnClickListener(v -> clickClassicIcon());
+        setListeners();
     }
 
     /**
@@ -75,6 +61,17 @@ public class IconsFragment extends DialogFragment {
         defaultIconButton = getView().findViewById(R.id.default_icon);
         P1MTIconButton = getView().findViewById(R.id.short_icon);
         classicIconButton = getView().findViewById(R.id.classic_icon);
+        cancelButton = getView().findViewById(R.id.icons_cancel_button);
+    }
+
+    /**
+     * This method sets click listeners for OptionsFragment buttons
+     */
+    private void setListeners() {
+        defaultIconButton.setOnClickListener(v -> clickDefaultIcon());
+        P1MTIconButton.setOnClickListener(v -> clickP1MTIcon());
+        classicIconButton.setOnClickListener(v -> clickClassicIcon());
+        cancelButton.setOnClickListener(v -> clickCancel());
     }
 
     /**
@@ -84,7 +81,7 @@ public class IconsFragment extends DialogFragment {
     private void clickDefaultIcon() {
         ((MainActivity) getActivity()).makeVibration(1);
         setIcon("default");
-        dismiss();
+        ((MainActivity) getActivity()).initSettingsFragment();
     }
 
     /**
@@ -94,7 +91,7 @@ public class IconsFragment extends DialogFragment {
     private void clickP1MTIcon() {
         ((MainActivity) getActivity()).makeVibration(1);
         setIcon("short");
-        dismiss();
+        ((MainActivity) getActivity()).initSettingsFragment();
     }
 
     /**
@@ -104,7 +101,16 @@ public class IconsFragment extends DialogFragment {
     private void clickClassicIcon() {
         ((MainActivity) getActivity()).makeVibration(1);
         setIcon("classic");
-        dismiss();
+        ((MainActivity) getActivity()).initSettingsFragment();
+    }
+
+    /**
+     * Executes when clicking on cancelButton
+     * Makes vibration effect and closes IconsFragment
+     */
+    private void clickCancel() {
+        ((MainActivity) getActivity()).makeVibration(1);
+        ((MainActivity) getActivity()).initSettingsFragment();
     }
 
     /**

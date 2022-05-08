@@ -1,20 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/icons_layout"
-    android:layout_width="364sp"
-    android:layout_height="276sp"
-    android:layout_gravity="center"
-    android:background="@xml/background"
-    android:minWidth="364sp"
-    android:minHeight="276sp"
-    android:visibility="visible"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintHorizontal_bias="0.49"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent"
-    app:layout_constraintVertical_bias="1.0">
+    android:id="@+id/icons_fragment"
+    android:layout_width="match_parent"
+    android:layout_height="372sp">
 
     <TextView
         android:id="@+id/icons_title"
@@ -189,5 +178,37 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/classic_icon_button" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <Button
+        android:id="@+id/icons_cancel_button"
+        android:layout_width="match_parent"
+        android:layout_height="56sp"
+        android:layout_marginStart="64sp"
+        android:layout_marginTop="16sp"
+        android:layout_marginEnd="64sp"
+        android:background="@xml/background"
+        android:fontFamily="@font/odibee"
+        android:gravity="center_vertical|center_horizontal"
+        android:singleLine="true"
+        android:stateListAnimator="@null"
+        android:text="@string/cancel"
+        android:textAllCaps="false"
+        android:textColor="@color/red"
+        android:textSize="26sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/short_icon" />
+
+    <ImageView
+        android:id="@+id/options_cancel_button_separator"
+        android:layout_width="0sp"
+        android:layout_height="12sp"
+        android:layout_marginLeft="36sp"
+        android:layout_marginTop="12sp"
+        android:layout_marginRight="36sp"
+        android:src="@xml/line"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/icons_cancel_button" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

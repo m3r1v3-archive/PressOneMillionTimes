@@ -568,12 +568,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Opens IconFragment
+     * Opens IconsFragment
      *
      * @see android.widget.Button
      */
     public void clickIcons() {
-        IconsFragment.newInstance().show(getSupportFragmentManager(), "icons_fragment");
+        makeVibration(1);
+        getSupportFragmentManager()
+                .beginTransaction()
+                .setReorderingAllowed(true)
+                .setCustomAnimations(R.anim.breath_in, R.anim.breath_out)
+                .replace(R.id.settings_fragment, new IconsFragment(), null)
+                .commit();
     }
 
     /**
