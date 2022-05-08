@@ -31,7 +31,7 @@ public class OptionsFragment extends Fragment {
      */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.options_fragment, parent, false);
+        return inflater.inflate(R.layout.fragment_options, parent, false);
     }
 
     /**
