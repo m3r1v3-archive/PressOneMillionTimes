@@ -121,7 +121,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/settings_pad"
         android:layout_width="match_parent"
-        android:layout_height="384sp"
+        android:layout_height="wrap_content"
         android:background="@xml/settings_background"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -130,7 +130,7 @@
         <FrameLayout
             android:id="@+id/settings_fragment"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

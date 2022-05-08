@@ -535,11 +535,12 @@ public class MainActivity extends AppCompatActivity {
      */
     public void clickOptions() {
         makeVibration(1);
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.setReorderingAllowed(true);
-        transaction.setCustomAnimations(R.anim.breath_in, R.anim.breath_out);
-        transaction.replace(R.id.settings_fragment, new OptionsFragment(), null);
-        transaction.commit();
+        getSupportFragmentManager()
+                .beginTransaction()
+                .setReorderingAllowed(true)
+                .setCustomAnimations(R.anim.breath_in, R.anim.breath_out)
+                .replace(R.id.settings_fragment, new OptionsFragment(), null)
+                .commit();
     }
 
     /**
@@ -548,7 +549,13 @@ public class MainActivity extends AppCompatActivity {
      * @see android.widget.Button
      */
     public void clickReset() {
-        ResetFragment.newInstance().show(getSupportFragmentManager(), "reset_fragment");
+        makeVibration(1);
+        getSupportFragmentManager()
+                .beginTransaction()
+                .setReorderingAllowed(true)
+                .setCustomAnimations(R.anim.breath_in, R.anim.breath_out)
+                .replace(R.id.settings_fragment, new ResetFragment(), null)
+                .commit();
     }
 
     /**

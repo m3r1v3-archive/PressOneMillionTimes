@@ -1,13 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/reset_layout"
-    android:layout_width="342sp"
-    android:layout_height="164sp"
-    android:layout_gravity="center"
-    android:background="@xml/background"
-    android:minWidth="342sp"
-    android:minHeight="164sp">
+    android:id="@+id/reset_fragment"
+    android:layout_width="match_parent"
+    android:layout_height="164sp">
 
     <TextView
         android:id="@+id/reset_title"

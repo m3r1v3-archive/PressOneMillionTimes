@@ -1,7 +1,5 @@
 package com.merive.press1mtimes.fragments;
 
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,25 +9,16 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.Fragment;
 
 import com.merive.press1mtimes.MainActivity;
 import com.merive.press1mtimes.R;
 
-public class ResetFragment extends DialogFragment {
+public class ResetFragment extends Fragment {
 
     TextView titleText;
     Button cancelButton, confirmButton;
 
-
-    /**
-     * Creates new instance of ResetFragment that will be initialized with the given arguments
-     *
-     * @return New instance of ResetFragment with necessary arguments
-     */
-    public static ResetFragment newInstance() {
-        return new ResetFragment();
-    }
 
     /**
      * Called to have the fragment instantiate its user interface view
@@ -43,8 +32,7 @@ public class ResetFragment extends DialogFragment {
      */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
-        getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        return inflater.inflate(R.layout.reset_fragment, parent);
+        return inflater.inflate(R.layout.reset_fragment, parent, false);
     }
 
     /**
@@ -59,11 +47,9 @@ public class ResetFragment extends DialogFragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        getDialog().getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
 
         initVariables();
         setListeners();
-
     }
 
     /**
@@ -93,7 +79,7 @@ public class ResetFragment extends DialogFragment {
      */
     private void clickCancel() {
         ((MainActivity) getActivity()).makeVibration(1);
-        dismiss();
+        ((MainActivity) getActivity()).initSettingsFragment();
     }
 
     /**
@@ -104,6 +90,6 @@ public class ResetFragment extends DialogFragment {
         ((MainActivity) getActivity()).makeVibration(1);
         ((MainActivity) getActivity()).resetCounter();
         ((MainActivity) getActivity()).makeToast("The Score has been reset");
-        dismiss();
+        ((MainActivity) getActivity()).initSettingsFragment();
     }
 }
