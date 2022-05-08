@@ -56,7 +56,7 @@ public class ScoreShareFragment extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
         getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        return inflater.inflate(R.layout.score_share_fragment, parent);
+        return inflater.inflate(R.layout.fragment_score_share, parent);
     }
 
     /**
