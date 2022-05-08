@@ -214,8 +214,8 @@ public class OptionsFragment extends Fragment {
         if (showTip) {
             new Handler().postDelayed(() -> {
                 if (showTip) setFadeText(tipText, getResources().getString(R.string.options_tip));
+                showTip = false;
             }, 2500);
-            showTip = false;
         }
     }
 

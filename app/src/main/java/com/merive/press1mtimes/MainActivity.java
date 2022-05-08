@@ -171,7 +171,7 @@ public class MainActivity extends AppCompatActivity {
      */
     public void makeVibration(int times) {
         if (vibrationState)
-            ((Vibrator) getSystemService(Context.VIBRATOR_SERVICE)).vibrate(150L * times);
+            ((Vibrator) getSystemService(Context.VIBRATOR_SERVICE)).vibrate(75L * times);
     }
 
     /**
