@@ -3,7 +3,6 @@ package com.merive.press1mtimes.fragments;
 import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,7 +12,7 @@ import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.Fragment;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
@@ -25,23 +24,10 @@ import com.merive.press1mtimes.R;
 import com.merive.press1mtimes.ScannerActivity;
 
 
-public class ScoreShareFragment extends DialogFragment {
+public class ScoreShareFragment extends Fragment {
 
     ImageView QRCodeImage;
-    Button scanButton;
-
-    /**
-     * Creates new instance of ScoreShareFragment that will be initialized with the given arguments
-     *
-     * @return New instance of ScoreShareFragment with necessary arguments
-     */
-    public static ScoreShareFragment newInstance(String score) {
-        ScoreShareFragment frag = new ScoreShareFragment();
-        Bundle args = new Bundle();
-        args.putString("score", score);
-        frag.setArguments(args);
-        return frag;
-    }
+    Button scanButton, cancel;
 
     /**
      * Called to have the fragment instantiate its user interface view
@@ -55,8 +41,7 @@ public class ScoreShareFragment extends DialogFragment {
      */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
-        getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        return inflater.inflate(R.layout.fragment_score_share, parent);
+        return inflater.inflate(R.layout.fragment_score_share, parent, false);
     }
 
     /**
@@ -71,7 +56,6 @@ public class ScoreShareFragment extends DialogFragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        getDialog().getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
 
         initVariables();
         setListeners();
@@ -86,6 +70,7 @@ public class ScoreShareFragment extends DialogFragment {
     private void initVariables() {
         QRCodeImage = getView().findViewById(R.id.score_share_qr_code);
         scanButton = getView().findViewById(R.id.score_share_scan_button);
+        cancel = getView().findViewById(R.id.score_share_cancel_button);
     }
 
     /**
@@ -95,6 +80,7 @@ public class ScoreShareFragment extends DialogFragment {
      */
     private void setListeners() {
         scanButton.setOnClickListener(v -> clickScan());
+        cancel.setOnClickListener(v -> clickCancel());
     }
 
     /**
@@ -104,7 +90,7 @@ public class ScoreShareFragment extends DialogFragment {
      * @see ImageView
      */
     private void setQRCode() {
-        QRCodeImage.setImageBitmap(makeQRCode(getArguments().getString("score")));
+        QRCodeImage.setImageBitmap(makeQRCode(String.valueOf(((MainActivity) getActivity()).getScore())));
     }
 
     /**
@@ -138,7 +124,16 @@ public class ScoreShareFragment extends DialogFragment {
     private void clickScan() {
         ((MainActivity) getActivity()).makeVibration(1);
         openScanner();
-        dismiss();
+        ((MainActivity) getActivity()).initSettingsFragment();
+    }
+
+    /**
+     * Executes when clicking on cancelButton
+     * Makes vibration effect and closes ScoreShareFragment
+     */
+    private void clickCancel() {
+        ((MainActivity) getActivity()).makeVibration(1);
+        ((MainActivity) getActivity()).initSettingsFragment();
     }
 
     /**

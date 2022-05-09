@@ -226,7 +226,7 @@ public class MainActivity extends AppCompatActivity {
      * @return Score value (default value is 000000)
      * @see SharedPreferences
      */
-    private int getScore() {
+    public int getScore() {
         return Integer.parseInt(sharedPreferences.getString("score", "000000"));
     }
 
@@ -564,7 +564,13 @@ public class MainActivity extends AppCompatActivity {
      * @see android.widget.Button
      */
     public void clickScoreShare() {
-        ScoreShareFragment.newInstance(String.valueOf(getScore())).show(getSupportFragmentManager(), "score_share_fragment");
+        makeVibration(1);
+        getSupportFragmentManager()
+                .beginTransaction()
+                .setReorderingAllowed(true)
+                .setCustomAnimations(R.anim.breath_in, R.anim.breath_out)
+                .replace(R.id.settings_fragment, new ScoreShareFragment(), null)
+                .commit();
     }
 
     /**

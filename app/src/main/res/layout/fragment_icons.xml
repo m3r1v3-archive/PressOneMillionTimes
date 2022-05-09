@@ -200,7 +200,7 @@
         app:layout_constraintTop_toBottomOf="@+id/short_icon" />
 
     <ImageView
-        android:id="@+id/options_cancel_button_separator"
+        android:id="@+id/icons_cancel_button_separator"
         android:layout_width="0sp"
         android:layout_height="12sp"
         android:layout_marginLeft="36sp"
