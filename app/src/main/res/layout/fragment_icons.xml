@@ -3,13 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/fragment_icons"
     android:layout_width="match_parent"
-    android:layout_height="372sp">
+    android:layout_height="wrap_content"
+    android:paddingTop="18sp"
+    android:paddingBottom="12sp">
 
     <TextView
         android:id="@+id/icons_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20sp"
         android:fontFamily="@font/odibee"
         android:text="@string/icons"
         android:textAlignment="center"

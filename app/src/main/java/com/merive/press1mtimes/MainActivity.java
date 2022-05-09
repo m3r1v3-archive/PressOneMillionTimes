@@ -605,7 +605,13 @@ public class MainActivity extends AppCompatActivity {
      * @see SplashMessageFragment
      */
     public void clickSplashMessage() {
-        SplashMessageFragment.newInstance().show(getSupportFragmentManager(), "splash_message_fragment");
+        makeVibration(1);
+        getSupportFragmentManager()
+                .beginTransaction()
+                .setReorderingAllowed(true)
+                .setCustomAnimations(R.anim.breath_in, R.anim.breath_out)
+                .replace(R.id.settings_fragment, new SplashMessageFragment(), null)
+                .commit();
     }
 
     /**
