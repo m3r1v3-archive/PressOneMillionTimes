@@ -1,32 +1,23 @@
 package com.merive.press1mtimes.fragments;
 
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.Fragment;
 
 import com.merive.press1mtimes.MainActivity;
 import com.merive.press1mtimes.R;
 
-public class OptionsFragment extends DialogFragment {
+public class OptionsFragment extends Fragment {
 
-    Button resetButton, scoreShareButton, iconsButton, splashMessageButton;
-
-    /**
-     * Creates new instance of OptionsFragment that will be initialized with the given arguments
-     *
-     * @return New instance of OptionsFragment with necessary arguments
-     */
-    public static OptionsFragment newInstance() {
-        return new OptionsFragment();
-    }
+    Button resetButton, scoreShareButton, iconsButton, splashMessageButton, cancelButton;
+    TextView tipText;
+    boolean showTip = false;
 
     /**
      * Called to have the fragment instantiate its user interface view
@@ -40,8 +31,7 @@ public class OptionsFragment extends DialogFragment {
      */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
-        getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        return inflater.inflate(R.layout.options_fragment, parent);
+        return inflater.inflate(R.layout.fragment_options, parent, false);
     }
 
     /**
@@ -54,12 +44,10 @@ public class OptionsFragment extends DialogFragment {
      * @see Bundle
      */
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        getDialog().getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
-
+    public void onViewCreated(View view, Bundle savedInstanceState) {
         initVariables();
         setListeners();
+        setLongListeners();
     }
 
     /**
@@ -72,10 +60,12 @@ public class OptionsFragment extends DialogFragment {
         scoreShareButton = getView().findViewById(R.id.score_share_button);
         iconsButton = getView().findViewById(R.id.icons_button);
         splashMessageButton = getView().findViewById(R.id.splash_button);
+        cancelButton = getView().findViewById(R.id.options_cancel_button);
+        tipText = getView().findViewById(R.id.options_tip_text);
     }
 
     /**
-     * This method sets click listeners for rightButton and leftButton
+     * This method sets click listeners for OptionsFragment buttons
      *
      * @see Button
      */
@@ -84,6 +74,35 @@ public class OptionsFragment extends DialogFragment {
         scoreShareButton.setOnClickListener(v -> clickScoreShare());
         iconsButton.setOnClickListener(v -> clickIcons());
         splashMessageButton.setOnClickListener(v -> clickSplash());
+        cancelButton.setOnClickListener(v -> clickCancel());
+    }
+
+    /**
+     * This method sets long click listeners for OptionsFragment buttons
+     *
+     * @see Button
+     */
+    private void setLongListeners() {
+        resetButton.setOnLongClickListener(v -> {
+            longClickReset();
+            resetTip();
+            return true;
+        });
+        scoreShareButton.setOnLongClickListener(v -> {
+            longClickScoreShare();
+            resetTip();
+            return true;
+        });
+        iconsButton.setOnLongClickListener(v -> {
+            longClickIcons();
+            resetTip();
+            return true;
+        });
+        splashMessageButton.setOnLongClickListener(v -> {
+            longClickSplash();
+            resetTip();
+            return true;
+        });
     }
 
     /**
@@ -95,7 +114,6 @@ public class OptionsFragment extends DialogFragment {
     private void clickReset() {
         ((MainActivity) getActivity()).makeVibration(1);
         ((MainActivity) getActivity()).clickReset();
-        dismiss();
     }
 
     /**
@@ -107,7 +125,6 @@ public class OptionsFragment extends DialogFragment {
     private void clickScoreShare() {
         ((MainActivity) getActivity()).makeVibration(1);
         ((MainActivity) getActivity()).clickScoreShare();
-        dismiss();
     }
 
     /**
@@ -119,7 +136,6 @@ public class OptionsFragment extends DialogFragment {
     private void clickIcons() {
         ((MainActivity) getActivity()).makeVibration(1);
         ((MainActivity) getActivity()).clickIcons();
-        dismiss();
     }
 
     /**
@@ -131,6 +147,87 @@ public class OptionsFragment extends DialogFragment {
     private void clickSplash() {
         ((MainActivity) getActivity()).makeVibration(1);
         ((MainActivity) getActivity()).clickSplashMessage();
-        dismiss();
+    }
+
+    /**
+     * Executes when clicking cancelButton
+     * Makes vibration and returns to SettingsFragment
+     *
+     * @see SplashMessageFragment
+     */
+    private void clickCancel() {
+        if (!showTip) {
+            ((MainActivity) getActivity()).makeVibration(1);
+            ((MainActivity) getActivity()).initSettingsFragment();
+            showTip = false;
+        }
+    }
+
+    /**
+     * Executes when making long click on resetButton
+     * Change tipText text value
+     */
+    private void longClickReset() {
+        if (!showTip) {
+            setFadeText(tipText, getResources().getString(R.string.options_tip_reset));
+            showTip = true;
+        }
+    }
+
+    /**
+     * Executes when making long click on scoreShareButton
+     * Change tipText text value
+     */
+    private void longClickScoreShare() {
+        if (!showTip) {
+            setFadeText(tipText, getResources().getString(R.string.options_tip_score_share));
+            showTip = true;
+        }
+    }
+
+    /**
+     * Executes when making long click on iconsButton
+     * Change tipText text value
+     */
+    private void longClickIcons() {
+        if (!showTip) {
+            setFadeText(tipText, getResources().getString(R.string.options_tip_icons));
+            showTip = true;
+        }
+    }
+
+    /**
+     * Executes when making long click on splashButton
+     * Change tipText text value
+     */
+    private void longClickSplash() {
+        if (!showTip) {
+            setFadeText(tipText, getResources().getString(R.string.options_tip_splash));
+            showTip = true;
+        }
+    }
+
+    /**
+     * Resets tipText text to default value
+     */
+    private void resetTip() {
+        if (showTip) {
+            new Handler().postDelayed(() -> {
+                if (showTip) setFadeText(tipText, getResources().getString(R.string.options_tip));
+                showTip = false;
+            }, 2500);
+        }
+    }
+
+    /**
+     * Sets text to TextView with fade animation
+     *
+     * @param view TextView component
+     * @param text Future TextView text value
+     */
+    private void setFadeText(TextView view, String text) {
+        view.animate().alpha(1.0f).setDuration(625).withEndAction(() -> view.animate().alpha(0.1f).setDuration(625));
+        new Handler().postDelayed(() -> view.setText(text), 625);
+        view.animate().alpha(0.1f).setDuration(625).withEndAction(() -> view.animate().alpha(1.0f).setDuration(625));
     }
 }

@@ -17,6 +17,11 @@
 
     <!-- OptionsFragment -->
     <string name="options">Options</string>
+    <string name="options_tip">Tip\nHold down the button to get information</string>
+    <string name="options_tip_reset">Tip\nUse Reset button for reset counter</string>
+    <string name="options_tip_score_share">Tip\nUse ScoreShare button for share or get score</string>
+    <string name="options_tip_icons">Tip\nUse Icons button for change application icon</string>
+    <string name="options_tip_splash">Tip\nUse Splash button for change splash position</string>
 
     <!-- ResetFragment -->
     <string name="reset">Reset</string>

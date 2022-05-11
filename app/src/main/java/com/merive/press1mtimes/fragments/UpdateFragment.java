@@ -51,7 +51,7 @@ public class UpdateFragment extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
         getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        return inflater.inflate(R.layout.update_fragment, parent);
+        return inflater.inflate(R.layout.fragment_update, parent);
     }
 
     /**

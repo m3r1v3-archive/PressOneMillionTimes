@@ -171,7 +171,7 @@ public class MainActivity extends AppCompatActivity {
      */
     public void makeVibration(int times) {
         if (vibrationState)
-            ((Vibrator) getSystemService(Context.VIBRATOR_SERVICE)).vibrate(150L * times);
+            ((Vibrator) getSystemService(Context.VIBRATOR_SERVICE)).vibrate(75L * times);
     }
 
     /**
@@ -204,9 +204,10 @@ public class MainActivity extends AppCompatActivity {
     /**
      * Initializes SettingFragment
      */
-    private void initSettingsFragment() {
+    public void initSettingsFragment() {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.setReorderingAllowed(true);
+        transaction.setCustomAnimations(R.anim.breath_in, R.anim.breath_out);
         transaction.replace(R.id.settings_fragment, new SettingsFragment(), null);
         transaction.commit();
     }
@@ -225,7 +226,7 @@ public class MainActivity extends AppCompatActivity {
      * @return Score value (default value is 000000)
      * @see SharedPreferences
      */
-    private int getScore() {
+    public int getScore() {
         return Integer.parseInt(sharedPreferences.getString("score", "000000"));
     }
 
@@ -379,7 +380,7 @@ public class MainActivity extends AppCompatActivity {
         constraintSet.clone((ConstraintLayout) findViewById(R.id.activity_main));
         constraintSet.setHorizontalBias(splashText.getId(), sharedPreferences.getFloat("splash_horizontal", 0.98f));
         constraintSet.setVerticalBias(splashText.getId(), sharedPreferences.getFloat("splash_vertical", 0.98f));
-        constraintSet.applyTo((ConstraintLayout) findViewById(R.id.activity_main));
+        constraintSet.applyTo(findViewById(R.id.activity_main));
     }
 
     /**
@@ -389,7 +390,7 @@ public class MainActivity extends AppCompatActivity {
     private void makeSplashAnimation() {
         splashText.setText(("#" + SplashTexts.values()[new Random().nextInt(SplashTexts.values().length - (checkWinter() ? 0 : 1))]));
         splashText.setVisibility(View.VISIBLE);
-        splashText.startAnimation(AnimationUtils.loadAnimation(this, R.anim.splash));
+        splashText.startAnimation(AnimationUtils.loadAnimation(this, R.anim.fade_out));
     }
 
     /**
@@ -534,7 +535,12 @@ public class MainActivity extends AppCompatActivity {
      */
     public void clickOptions() {
         makeVibration(1);
-        OptionsFragment.newInstance().show(getSupportFragmentManager(), "options_fragment");
+        getSupportFragmentManager()
+                .beginTransaction()
+                .setReorderingAllowed(true)
+                .setCustomAnimations(R.anim.breath_in, R.anim.breath_out)
+                .replace(R.id.settings_fragment, new OptionsFragment(), null)
+                .commit();
     }
 
     /**
@@ -543,7 +549,13 @@ public class MainActivity extends AppCompatActivity {
      * @see android.widget.Button
      */
     public void clickReset() {
-        ResetFragment.newInstance().show(getSupportFragmentManager(), "reset_fragment");
+        makeVibration(1);
+        getSupportFragmentManager()
+                .beginTransaction()
+                .setReorderingAllowed(true)
+                .setCustomAnimations(R.anim.breath_in, R.anim.breath_out)
+                .replace(R.id.settings_fragment, new ResetFragment(), null)
+                .commit();
     }
 
     /**
@@ -552,16 +564,28 @@ public class MainActivity extends AppCompatActivity {
      * @see android.widget.Button
      */
     public void clickScoreShare() {
-        ScoreShareFragment.newInstance(String.valueOf(getScore())).show(getSupportFragmentManager(), "score_share_fragment");
+        makeVibration(1);
+        getSupportFragmentManager()
+                .beginTransaction()
+                .setReorderingAllowed(true)
+                .setCustomAnimations(R.anim.breath_in, R.anim.breath_out)
+                .replace(R.id.settings_fragment, new ScoreShareFragment(), null)
+                .commit();
     }
 
     /**
-     * Opens IconFragment
+     * Opens IconsFragment
      *
      * @see android.widget.Button
      */
     public void clickIcons() {
-        IconsFragment.newInstance().show(getSupportFragmentManager(), "icons_fragment");
+        makeVibration(1);
+        getSupportFragmentManager()
+                .beginTransaction()
+                .setReorderingAllowed(true)
+                .setCustomAnimations(R.anim.breath_in, R.anim.breath_out)
+                .replace(R.id.settings_fragment, new IconsFragment(), null)
+                .commit();
     }
 
     /**
@@ -581,7 +605,13 @@ public class MainActivity extends AppCompatActivity {
      * @see SplashMessageFragment
      */
     public void clickSplashMessage() {
-        SplashMessageFragment.newInstance().show(getSupportFragmentManager(), "splash_message_fragment");
+        makeVibration(1);
+        getSupportFragmentManager()
+                .beginTransaction()
+                .setReorderingAllowed(true)
+                .setCustomAnimations(R.anim.breath_in, R.anim.breath_out)
+                .replace(R.id.settings_fragment, new SplashMessageFragment(), null)
+                .commit();
     }
 
     /**

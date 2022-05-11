@@ -1,34 +1,25 @@
 package com.merive.press1mtimes.fragments;
 
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.Fragment;
 
 import com.merive.press1mtimes.MainActivity;
 import com.merive.press1mtimes.R;
 
-public class SplashMessageFragment extends DialogFragment {
+public class SplashMessageFragment extends Fragment {
 
     ConstraintLayout leftButton, rightButton;
+    Button cancel;
 
-
-    /**
-     * Creates new instance of SplashMessageFragment that will be initialized with the given arguments
-     *
-     * @return New instance of SplashMessageFragment with necessary arguments
-     */
-    public static SplashMessageFragment newInstance() {
-        return new SplashMessageFragment();
-    }
 
     /**
      * Called to have the fragment instantiate its user interface view
@@ -42,8 +33,7 @@ public class SplashMessageFragment extends DialogFragment {
      */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
-        getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        return inflater.inflate(R.layout.splash_message_fragment, parent);
+        return inflater.inflate(R.layout.fragment_splash_message, parent, false);
     }
 
     /**
@@ -58,7 +48,6 @@ public class SplashMessageFragment extends DialogFragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        getDialog().getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
 
         initVariables();
         setListeners();
@@ -70,8 +59,9 @@ public class SplashMessageFragment extends DialogFragment {
      * @see View
      */
     private void initVariables() {
-        rightButton = getView().findViewById(R.id.right_position_button);
-        leftButton = getView().findViewById(R.id.left_position_button);
+        rightButton = getView().findViewById(R.id.splash_right_position_button);
+        leftButton = getView().findViewById(R.id.splash_left_position_button);
+        cancel = getView().findViewById(R.id.splash_message_cancel_button);
     }
 
     /**
@@ -82,6 +72,16 @@ public class SplashMessageFragment extends DialogFragment {
     private void setListeners() {
         rightButton.setOnClickListener(v -> setPosition(0.98f, 0.98f));
         leftButton.setOnClickListener(v -> setPosition(0.02f, 0.98f));
+        cancel.setOnClickListener(v -> clickCancel());
+    }
+
+    /**
+     * Executes when clicking on cancelButton
+     * Makes vibration effect and closes SplashMessageFragment
+     */
+    private void clickCancel() {
+        ((MainActivity) getActivity()).makeVibration(1);
+        ((MainActivity) getActivity()).initSettingsFragment();
     }
 
     /**
@@ -94,7 +94,7 @@ public class SplashMessageFragment extends DialogFragment {
         ((MainActivity) getActivity()).makeVibration(1);
         ((MainActivity) getActivity()).setSplashPosition(horizontal, vertical);
         ((MainActivity) getActivity()).makeToast(getResources().getString(R.string.splash_position_updated));
-        dismiss();
+        ((MainActivity) getActivity()).initSettingsFragment();
     }
 }
 
