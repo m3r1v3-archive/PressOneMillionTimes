@@ -23,7 +23,6 @@
         android:icon="@mipmap/ic_launcher_default"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_default_round"
-        android:supportsRtl="true"
         android:theme="@style/Theme.Press1MTimes">
         <activity
             android:name=".SplashActivity"
