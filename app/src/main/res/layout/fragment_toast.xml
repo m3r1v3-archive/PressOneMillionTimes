@@ -14,7 +14,7 @@
         android:fontFamily="@font/odibee"
         android:padding="8sp"
         android:singleLine="true"
-        android:textAlignment="center"
+        android:gravity="center"
         android:textColor="@color/red"
         android:textSize="26sp"
         app:layout_constraintBottom_toBottomOf="parent"
