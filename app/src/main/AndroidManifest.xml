@@ -54,7 +54,7 @@
 
         <activity
             android:name=".FinishActivity"
-            android:exported="false"
+            android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Press1MTimes">
             <intent-filter>
@@ -96,7 +96,9 @@
             </intent-filter>
         </activity-alias>
 
-        <receiver android:name=".NotificationsReceiver" />
+        <receiver
+            android:name=".NotificationsReceiver"
+            android:exported="false" />
     </application>
 
 </manifest>

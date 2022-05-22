@@ -480,8 +480,7 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(getBaseContext(), NotificationsReceiver.class);
         intent.putExtra("score", String.valueOf(getScore()));
 
-        PendingIntent pendingIntent =
-                PendingIntent.getBroadcast(MainActivity.this, 0, intent, PendingIntent.FLAG_IMMUTABLE | PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT | PendingIntent.FLAG_IMMUTABLE);
 
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
@@ -502,7 +501,7 @@ public class MainActivity extends AppCompatActivity {
     private void offAlarm() {
         AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
         PendingIntent pendingIntent =
-                PendingIntent.getService(MainActivity.this, 0, new Intent(MainActivity.this, NotificationsReceiver.class), PendingIntent.FLAG_IMMUTABLE | PendingIntent.FLAG_UPDATE_CURRENT);
+                PendingIntent.getService(MainActivity.this, 0, new Intent(MainActivity.this, NotificationsReceiver.class), PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
         if (pendingIntent != null && alarmManager != null) alarmManager.cancel(pendingIntent);
     }
 
