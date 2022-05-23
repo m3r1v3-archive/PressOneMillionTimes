@@ -22,6 +22,7 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
+import androidx.core.splashscreen.SplashScreen;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.preference.PreferenceManager;
@@ -73,11 +74,12 @@ public class MainActivity extends AppCompatActivity {
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setTheme(R.style.Theme_Press1MTimes);
+        SplashScreen.installSplashScreen(this);
 
         super.onCreate(savedInstanceState);
-        overridePendingTransition(R.anim.breath_in, R.anim.breath_out);
         setContentView(R.layout.activity_main);
+
+        overridePendingTransition(R.anim.breath_in, R.anim.breath_out);
 
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this.getBaseContext());
 

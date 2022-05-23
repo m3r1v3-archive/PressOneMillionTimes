@@ -65,7 +65,7 @@ public class UpdateFragment extends DialogFragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        getDialog().getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
+        getDialog().getWindow().getAttributes().windowAnimations = R.style.Theme_Press1MTimes_Animation;
 
         initVariables();
         setListeners();

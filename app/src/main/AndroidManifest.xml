@@ -28,7 +28,7 @@
             android:name=".SplashActivity"
             android:exported="true"
             android:screenOrientation="portrait"
-            android:theme="@style/SplashTheme">
+            android:theme="@style/Theme.Press1MTimes.Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

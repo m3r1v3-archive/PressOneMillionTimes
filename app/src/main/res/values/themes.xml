@@ -1,6 +1,6 @@
 <resources>
     <!--    Splash theme    -->
-    <style name="SplashTheme" parent="Theme.AppCompat.NoActionBar">
+    <style name="Theme.Press1MTimes.Splash" parent="Theme.AppCompat.NoActionBar">
         <!--    Set splash    -->
         <item name="android:windowBackground">@xml/splash</item>
 
@@ -11,6 +11,13 @@
 
         <!--    Hide action bar    -->
         <item name="android:windowFullscreen">true</item>
+    </style>
+
+    <style name="Theme.Press1MTimes.Starting" parent="Theme.SplashScreen">
+        <!--    Background color    -->
+        <item name="windowSplashScreenBackground">@color/gray</item>
+        <!--    Theme after SplashScreen    -->
+        <item name="postSplashScreenTheme">@style/Theme.Press1MTimes</item>
     </style>
 
     <!--    Base application theme    -->
@@ -25,7 +32,7 @@
     </style>
 
     <!--    DialogFragment Animation    -->
-    <style name="DialogAnimation">
+    <style name="Theme.Press1MTimes.Animation">
         <item name="android:windowEnterAnimation">@anim/breath_in</item>
         <item name="android:windowExitAnimation">@anim/breath_out</item>
     </style>

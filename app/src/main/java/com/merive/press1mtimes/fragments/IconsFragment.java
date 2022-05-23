@@ -127,52 +127,46 @@ public class IconsFragment extends Fragment {
     }
 
     /**
-     * Disables previous icon
+     * Gets current icon from SharedPreference and disables it
      */
     private void disablePreviousIcon() {
-        PackageManager packageManager = getActivity().getPackageManager();
-        switch (((MainActivity) getActivity()).getApplicationIcon()) {
-            case "default":
-                packageManager.setComponentEnabledSetting(new ComponentName(getContext(), "com.merive.press1mtimes.SplashActivity"),
-                        PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
-                        PackageManager.DONT_KILL_APP);
-                break;
-            case "short":
-                packageManager.setComponentEnabledSetting(new ComponentName(getContext(), "com.merive.press1mtimes.Short"),
-                        PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
-                        PackageManager.DONT_KILL_APP);
-                break;
-            case "classic":
-                packageManager.setComponentEnabledSetting(new ComponentName(getContext(), "com.merive.press1mtimes.Classic"),
-                        PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
-                        PackageManager.DONT_KILL_APP);
-                break;
-        }
+        if (((MainActivity) getActivity()).getApplicationIcon().equals("default"))
+            disableIcon("com.merive.press1mtimes.SplashActivity");
+        else if (((MainActivity) getActivity()).getApplicationIcon().equals("short"))
+            disableIcon("com.merive.press1mtimes.Short");
+        else if (((MainActivity) getActivity()).getApplicationIcon().equals("classic"))
+            disableIcon("com.merive.press1mtimes.Classic");
     }
 
     /**
-     * Sets new application icon by icon name
+     * Disables previous icon using package name
+     *
+     * @param cls Icon package name
+     */
+    private void disableIcon(String cls) {
+        getActivity().getPackageManager().setComponentEnabledSetting(new ComponentName(getContext(), cls), PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
+    }
+
+    /**
+     * Gets new icon package name and enable it
      *
      * @param iconName Name of icon
      */
     private void setNewIcon(String iconName) {
-        PackageManager packageManager = getActivity().getPackageManager();
-        switch (iconName) {
-            case "default":
-                packageManager.setComponentEnabledSetting(new ComponentName(getContext(), "com.merive.press1mtimes.SplashActivity"),
-                        PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
-                        PackageManager.DONT_KILL_APP);
-                break;
-            case "short":
-                packageManager.setComponentEnabledSetting(new ComponentName(getContext(), "com.merive.press1mtimes.Short"),
-                        PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
-                        PackageManager.DONT_KILL_APP);
-                break;
-            case "classic":
-                packageManager.setComponentEnabledSetting(new ComponentName(getContext(), "com.merive.press1mtimes.Classic"),
-                        PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
-                        PackageManager.DONT_KILL_APP);
-                break;
-        }
+        if (iconName.equals("default"))
+            enableIcon("com.merive.press1mtimes.SplashActivity");
+        else if (iconName.equals("short"))
+            enableIcon("com.merive.press1mtimes.Short");
+        else if (iconName.equals("classic"))
+            enableIcon("com.merive.press1mtimes.Classic");
+    }
+
+    /**
+     * Enables new icon using package name
+     *
+     * @param cls Icon package name
+     */
+    private void enableIcon(String cls) {
+        getActivity().getPackageManager().setComponentEnabledSetting(new ComponentName(getContext(), cls), PackageManager.COMPONENT_ENABLED_STATE_ENABLED, PackageManager.DONT_KILL_APP);
     }
 }
