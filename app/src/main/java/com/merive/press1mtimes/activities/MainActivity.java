@@ -22,7 +22,6 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
-import androidx.core.splashscreen.SplashScreen;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.preference.PreferenceManager;
@@ -30,7 +29,6 @@ import androidx.preference.PreferenceManager;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 import com.merive.press1mtimes.BuildConfig;
-import com.merive.press1mtimes.receivers.NotificationsReceiver;
 import com.merive.press1mtimes.R;
 import com.merive.press1mtimes.fragments.IconsFragment;
 import com.merive.press1mtimes.fragments.OptionsFragment;
@@ -40,6 +38,7 @@ import com.merive.press1mtimes.fragments.SettingsFragment;
 import com.merive.press1mtimes.fragments.SplashMessageFragment;
 import com.merive.press1mtimes.fragments.ToastFragment;
 import com.merive.press1mtimes.fragments.UpdateFragment;
+import com.merive.press1mtimes.receivers.NotificationsReceiver;
 import com.merive.press1mtimes.utils.Icons;
 import com.merive.press1mtimes.utils.SplashTexts;
 
@@ -78,8 +77,6 @@ public class MainActivity extends AppCompatActivity {
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        SplashScreen.installSplashScreen(this);
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 

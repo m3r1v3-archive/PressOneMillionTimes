@@ -39,7 +39,7 @@
         android:layout_width="196sp"
         android:layout_height="196sp"
         android:layout_marginTop="28sp"
-        android:background="@xml/qr_code_background"
+        android:background="@xml/filled_background"
         android:cropToPadding="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
