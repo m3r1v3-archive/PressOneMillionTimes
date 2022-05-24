@@ -15,10 +15,11 @@ import androidx.fragment.app.Fragment;
 
 import com.merive.press1mtimes.MainActivity;
 import com.merive.press1mtimes.R;
+import com.merive.press1mtimes.utils.Icons;
 
 public class IconsFragment extends Fragment {
 
-    ConstraintLayout defaultIconButton, P1MTIconButton, classicIconButton;
+    ConstraintLayout defaultIconButton, ShortIconButton, millionIconButton;
     Button cancelButton;
 
     /**
@@ -59,8 +60,8 @@ public class IconsFragment extends Fragment {
      */
     private void initVariables() {
         defaultIconButton = getView().findViewById(R.id.default_icon);
-        P1MTIconButton = getView().findViewById(R.id.short_icon);
-        classicIconButton = getView().findViewById(R.id.classic_icon);
+        ShortIconButton = getView().findViewById(R.id.short_icon);
+        millionIconButton = getView().findViewById(R.id.million_icon);
         cancelButton = getView().findViewById(R.id.icons_cancel_button);
     }
 
@@ -69,8 +70,8 @@ public class IconsFragment extends Fragment {
      */
     private void setListeners() {
         defaultIconButton.setOnClickListener(v -> clickDefaultIcon());
-        P1MTIconButton.setOnClickListener(v -> clickP1MTIcon());
-        classicIconButton.setOnClickListener(v -> clickClassicIcon());
+        ShortIconButton.setOnClickListener(v -> clickShortIcon());
+        millionIconButton.setOnClickListener(v -> clickMillionIcon());
         cancelButton.setOnClickListener(v -> clickCancel());
     }
 
@@ -80,27 +81,27 @@ public class IconsFragment extends Fragment {
      */
     private void clickDefaultIcon() {
         ((MainActivity) getActivity()).makeVibration(1);
-        setIcon("default");
+        setIcon(Icons.DEFAULT.getValue());
         ((MainActivity) getActivity()).initSettingsFragment();
     }
 
     /**
-     * Executes after click on P1MTIconButton
-     * Makes vibration and updates application icon to P1MT icon
+     * Executes after click on ShortIconButton
+     * Makes vibration and updates application icon to Short icon
      */
-    private void clickP1MTIcon() {
+    private void clickShortIcon() {
         ((MainActivity) getActivity()).makeVibration(1);
-        setIcon("short");
+        setIcon(Icons.SHORT.getValue());
         ((MainActivity) getActivity()).initSettingsFragment();
     }
 
     /**
-     * Executes after click on ClassicIconButton
-     * Makes vibration and updates application icon to Classic icon
+     * Executes after click on MillionIconButton
+     * Makes vibration and updates application icon to Million icon
      **/
-    private void clickClassicIcon() {
+    private void clickMillionIcon() {
         ((MainActivity) getActivity()).makeVibration(1);
-        setIcon("classic");
+        setIcon(Icons.MILLION.getValue());
         ((MainActivity) getActivity()).initSettingsFragment();
     }
 
@@ -119,7 +120,7 @@ public class IconsFragment extends Fragment {
      *
      * @param iconName Name of icon.
      */
-    private void setIcon(String iconName) {
+    private void setIcon(int iconName) {
         disablePreviousIcon();
         setNewIcon(iconName);
         ((MainActivity) getActivity()).changeIcon(iconName);
@@ -130,12 +131,12 @@ public class IconsFragment extends Fragment {
      * Gets current icon from SharedPreference and disables it
      */
     private void disablePreviousIcon() {
-        if (((MainActivity) getActivity()).getApplicationIcon().equals("default"))
+        if (((MainActivity) getActivity()).getApplicationIcon() == Icons.DEFAULT.getValue())
             disableIcon("com.merive.press1mtimes.SplashActivity");
-        else if (((MainActivity) getActivity()).getApplicationIcon().equals("short"))
+        else if (((MainActivity) getActivity()).getApplicationIcon() == Icons.SHORT.getValue())
             disableIcon("com.merive.press1mtimes.Short");
-        else if (((MainActivity) getActivity()).getApplicationIcon().equals("classic"))
-            disableIcon("com.merive.press1mtimes.Classic");
+        else if (((MainActivity) getActivity()).getApplicationIcon() == Icons.MILLION.getValue())
+            disableIcon("com.merive.press1mtimes.Million");
     }
 
     /**
@@ -152,13 +153,13 @@ public class IconsFragment extends Fragment {
      *
      * @param iconName Name of icon
      */
-    private void setNewIcon(String iconName) {
-        if (iconName.equals("default"))
+    private void setNewIcon(int iconName) {
+        if (iconName == Icons.DEFAULT.getValue())
             enableIcon("com.merive.press1mtimes.SplashActivity");
-        else if (iconName.equals("short"))
+        else if (iconName == Icons.SHORT.getValue())
             enableIcon("com.merive.press1mtimes.Short");
-        else if (iconName.equals("classic"))
-            enableIcon("com.merive.press1mtimes.Classic");
+        else if (iconName == Icons.MILLION.getValue())
+            enableIcon("com.merive.press1mtimes.Million");
     }
 
     /**

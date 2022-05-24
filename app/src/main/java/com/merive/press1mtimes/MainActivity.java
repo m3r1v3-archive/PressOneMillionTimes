@@ -37,6 +37,7 @@ import com.merive.press1mtimes.fragments.SettingsFragment;
 import com.merive.press1mtimes.fragments.SplashMessageFragment;
 import com.merive.press1mtimes.fragments.ToastFragment;
 import com.merive.press1mtimes.fragments.UpdateFragment;
+import com.merive.press1mtimes.utils.Icons;
 import com.merive.press1mtimes.utils.SplashTexts;
 
 import java.io.BufferedReader;
@@ -595,8 +596,8 @@ public class MainActivity extends AppCompatActivity {
      * @return Current application icon name
      * @see SharedPreferences
      */
-    public String getApplicationIcon() {
-        return sharedPreferences.getString("icon", "default");
+    public int getApplicationIcon() {
+        return sharedPreferences.getInt("iconCode", Icons.DEFAULT.getValue());
     }
 
     /**
@@ -646,7 +647,7 @@ public class MainActivity extends AppCompatActivity {
      *
      * @param icon Icon name value
      */
-    public void changeIcon(String icon) {
-        sharedPreferences.edit().putString("icon", icon).apply();
+    public void changeIcon(int icon) {
+        sharedPreferences.edit().putInt("iconCode", icon).apply();
     }
 }
