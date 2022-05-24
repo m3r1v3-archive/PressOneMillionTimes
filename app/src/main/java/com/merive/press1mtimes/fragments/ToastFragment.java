@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
-import com.merive.press1mtimes.MainActivity;
+import com.merive.press1mtimes.activities.MainActivity;
 import com.merive.press1mtimes.R;
 
 public class ToastFragment extends Fragment {

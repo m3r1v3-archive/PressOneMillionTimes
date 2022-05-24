@@ -25,7 +25,7 @@
         android:roundIcon="@mipmap/ic_launcher_default_round"
         android:theme="@style/Theme.Press1MTimes">
         <activity
-            android:name=".SplashActivity"
+            android:name=".activities.SplashActivity"
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Press1MTimes.Splash">
@@ -36,7 +36,7 @@
         </activity>
 
         <activity
-            android:name=".MainActivity"
+            android:name=".activities.MainActivity"
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Press1MTimes"
@@ -52,7 +52,7 @@
         </activity>
 
         <activity
-            android:name=".FinishActivity"
+            android:name=".activities.FinishActivity"
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Press1MTimes">
@@ -62,7 +62,7 @@
         </activity>
 
         <activity
-            android:name=".ScannerActivity"
+            android:name=".activities.ScannerActivity"
             android:stateNotNeeded="true"
             android:theme="@style/zxing_CaptureTheme"
             android:windowSoftInputMode="stateAlwaysHidden" />
@@ -74,7 +74,7 @@
             android:icon="@mipmap/ic_launcher_short"
             android:label="@string/app_name"
             android:roundIcon="@mipmap/ic_launcher_short_round"
-            android:targetActivity=".SplashActivity">
+            android:targetActivity=".activities.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -88,7 +88,7 @@
             android:icon="@mipmap/ic_launcher_million"
             android:label="@string/app_name"
             android:roundIcon="@mipmap/ic_launcher_million_round"
-            android:targetActivity=".SplashActivity">
+            android:targetActivity=".activities.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -96,7 +96,7 @@
         </activity-alias>
 
         <receiver
-            android:name=".NotificationsReceiver"
+            android:name=".receivers.NotificationsReceiver"
             android:exported="false" />
     </application>
 

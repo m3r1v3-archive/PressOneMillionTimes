@@ -1,4 +1,4 @@
-package com.merive.press1mtimes;
+package com.merive.press1mtimes.activities;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,6 +12,8 @@ import android.widget.TextView;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.merive.press1mtimes.R;
 
 public class FinishActivity extends AppCompatActivity {
 

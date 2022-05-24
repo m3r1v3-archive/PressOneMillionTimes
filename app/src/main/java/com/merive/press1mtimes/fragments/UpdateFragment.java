@@ -15,7 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
-import com.merive.press1mtimes.MainActivity;
+import com.merive.press1mtimes.activities.MainActivity;
 import com.merive.press1mtimes.R;
 
 

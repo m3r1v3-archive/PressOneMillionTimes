@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.merive.press1mtimes.MainActivity;
+import com.merive.press1mtimes.activities.MainActivity;
 import com.merive.press1mtimes.R;
 
 public class ResetFragment extends Fragment {

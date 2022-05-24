@@ -13,7 +13,7 @@ import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
-import com.merive.press1mtimes.MainActivity;
+import com.merive.press1mtimes.activities.MainActivity;
 import com.merive.press1mtimes.R;
 import com.merive.press1mtimes.utils.Icons;
 
@@ -132,7 +132,7 @@ public class IconsFragment extends Fragment {
      */
     private void disablePreviousIcon() {
         if (((MainActivity) getActivity()).getApplicationIcon() == Icons.DEFAULT.getValue())
-            disableIcon("com.merive.press1mtimes.SplashActivity");
+            disableIcon("com.merive.press1mtimes.activities.SplashActivity");
         else if (((MainActivity) getActivity()).getApplicationIcon() == Icons.SHORT.getValue())
             disableIcon("com.merive.press1mtimes.Short");
         else if (((MainActivity) getActivity()).getApplicationIcon() == Icons.MILLION.getValue())
@@ -155,7 +155,7 @@ public class IconsFragment extends Fragment {
      */
     private void setNewIcon(int iconName) {
         if (iconName == Icons.DEFAULT.getValue())
-            enableIcon("com.merive.press1mtimes.SplashActivity");
+            enableIcon("com.merive.press1mtimes.activities.SplashActivity");
         else if (iconName == Icons.SHORT.getValue())
             enableIcon("com.merive.press1mtimes.Short");
         else if (iconName == Icons.MILLION.getValue())

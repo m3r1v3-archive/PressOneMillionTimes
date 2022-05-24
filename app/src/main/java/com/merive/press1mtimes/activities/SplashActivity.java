@@ -1,4 +1,4 @@
-package com.merive.press1mtimes;
+package com.merive.press1mtimes.activities;
 
 import android.content.Intent;
 import android.os.Bundle;

@@ -19,9 +19,9 @@ import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.qrcode.QRCodeWriter;
-import com.merive.press1mtimes.MainActivity;
+import com.merive.press1mtimes.activities.MainActivity;
 import com.merive.press1mtimes.R;
-import com.merive.press1mtimes.ScannerActivity;
+import com.merive.press1mtimes.activities.ScannerActivity;
 
 
 public class ScoreShareFragment extends Fragment {

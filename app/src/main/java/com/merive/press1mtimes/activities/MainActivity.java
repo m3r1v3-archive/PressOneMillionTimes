@@ -1,4 +1,4 @@
-package com.merive.press1mtimes;
+package com.merive.press1mtimes.activities;
 
 import static java.util.Calendar.YEAR;
 
@@ -29,6 +29,9 @@ import androidx.preference.PreferenceManager;
 
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
+import com.merive.press1mtimes.BuildConfig;
+import com.merive.press1mtimes.receivers.NotificationsReceiver;
+import com.merive.press1mtimes.R;
 import com.merive.press1mtimes.fragments.IconsFragment;
 import com.merive.press1mtimes.fragments.OptionsFragment;
 import com.merive.press1mtimes.fragments.ResetFragment;

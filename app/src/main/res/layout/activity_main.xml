@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@color/gray"
     app:layoutDescription="@xml/activity_main_scene"
-    tools:context=".MainActivity">
+    tools:context=".activities.MainActivity">
 
     <com.jetradarmobile.snowfall.SnowfallView
         android:id="@+id/coins"
