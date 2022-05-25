@@ -34,65 +34,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/splash_right_position_button"
-        android:layout_width="96sp"
-        android:layout_height="142sp"
-        android:layout_marginTop="28sp"
-        android:background="@xml/background"
-        android:padding="6sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/splash_left_position_button"
-        app:layout_constraintTop_toBottomOf="@id/splash_message_title">
-
-        <ImageView
-            android:id="@+id/right_button"
-            android:layout_width="64sp"
-            android:layout_height="64sp"
-            android:layout_marginTop="8sp"
-            android:background="@xml/background"
-            android:contentDescription="@string/todo"
-            android:cropToPadding="true"
-            android:padding="18sp"
-            android:rotation="90"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@xml/arrow_to_corner" />
-
-        <ImageView
-            android:id="@+id/splash_right_separator"
-            android:layout_width="0sp"
-            android:layout_height="12sp"
-            android:layout_marginLeft="18sp"
-            android:layout_marginRight="18sp"
-            android:layout_marginBottom="8sp"
-            android:src="@xml/line"
-            app:layout_constraintBottom_toTopOf="@+id/splash_right_text"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <TextView
-            android:id="@+id/splash_right_text"
-            android:layout_width="0sp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="28sp"
-            android:fontFamily="@font/odibee"
-            android:gravity="center"
-            android:text="@string/right"
-            android:textColor="@color/red"
-            android:textSize="26sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/right_button" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/splash_left_position_button"
-        android:layout_width="96sp"
-        android:layout_height="142sp"
+        android:layout_width="0sp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="28sp"
         android:layout_marginTop="28sp"
+        android:layout_marginEnd="28sp"
         android:background="@xml/background"
         android:padding="6sp"
         app:layout_constraintEnd_toStartOf="@+id/splash_right_position_button"
@@ -108,11 +57,11 @@
             android:contentDescription="@string/todo"
             android:cropToPadding="true"
             android:padding="18sp"
-            android:rotation="-180"
+            android:rotation="-90"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@xml/arrow_to_corner" />
+            app:srcCompat="@xml/arrow" />
 
         <ImageView
             android:id="@+id/splash_left_separator"
@@ -140,6 +89,62 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/left_button" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/splash_right_position_button"
+        android:layout_width="0sp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="28sp"
+        android:layout_marginTop="28sp"
+        android:layout_marginEnd="28sp"
+        android:background="@xml/background"
+        android:padding="6sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/splash_left_position_button"
+        app:layout_constraintTop_toBottomOf="@id/splash_message_title">
+
+        <ImageView
+            android:id="@+id/right_button"
+            android:layout_width="64sp"
+            android:layout_height="64sp"
+            android:layout_marginTop="8sp"
+            android:background="@xml/background"
+            android:contentDescription="@string/todo"
+            android:cropToPadding="true"
+            android:padding="18sp"
+            android:rotation="90"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@xml/arrow" />
+
+        <ImageView
+            android:id="@+id/splash_right_separator"
+            android:layout_width="0sp"
+            android:layout_height="12sp"
+            android:layout_marginLeft="18sp"
+            android:layout_marginRight="18sp"
+            android:layout_marginBottom="8sp"
+            android:src="@xml/line"
+            app:layout_constraintBottom_toTopOf="@+id/splash_right_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/splash_right_text"
+            android:layout_width="0sp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="28sp"
+            android:fontFamily="@font/odibee"
+            android:gravity="center"
+            android:text="@string/right"
+            android:textColor="@color/red"
+            android:textSize="26sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/right_button" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

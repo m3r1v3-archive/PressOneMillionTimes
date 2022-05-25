@@ -116,7 +116,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@xml/arrow_up" />
+        app:srcCompat="@xml/arrow" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/settings_pad"
