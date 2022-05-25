@@ -35,11 +35,12 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/default_icon"
-        android:layout_width="wrap_content"
-        android:layout_height="172sp"
-        android:layout_marginTop="28dp"
+        android:layout_width="0sp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="28sp"
+        android:layout_marginTop="28sp"
         android:background="@xml/background"
-        android:padding="12sp"
+        android:padding="6sp"
         app:layout_constraintEnd_toStartOf="@+id/short_icon"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/icons_title">
@@ -84,11 +85,13 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/short_icon"
-        android:layout_width="wrap_content"
-        android:layout_height="172sp"
-        android:layout_marginTop="28dp"
+        android:layout_width="0sp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16sp"
+        android:layout_marginTop="28sp"
+        android:layout_marginEnd="16sp"
         android:background="@xml/background"
-        android:padding="12sp"
+        android:padding="6sp"
         app:layout_constraintEnd_toStartOf="@+id/million_icon"
         app:layout_constraintStart_toEndOf="@+id/default_icon"
         app:layout_constraintTop_toBottomOf="@+id/icons_title">
@@ -133,11 +136,12 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/million_icon"
-        android:layout_width="wrap_content"
-        android:layout_height="172sp"
-        android:layout_marginTop="28dp"
+        android:layout_width="0sp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28sp"
+        android:layout_marginEnd="28sp"
         android:background="@xml/background"
-        android:padding="12sp"
+        android:padding="6sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/short_icon"
         app:layout_constraintTop_toBottomOf="@+id/icons_title">
