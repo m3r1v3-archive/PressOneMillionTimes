@@ -3,11 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/fragment_update"
     android:layout_width="342sp"
-    android:layout_height="208sp"
+    android:layout_height="204sp"
     android:layout_gravity="center"
     android:background="@xml/background"
     android:minWidth="342sp"
-    android:minHeight="208sp">
+    android:minHeight="204sp">
 
     <TextView
         android:id="@+id/update_title"
@@ -15,9 +15,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20sp"
         android:fontFamily="@font/odibee"
+        android:gravity="center"
         android:singleLine="true"
         android:text="@string/update_released"
-        android:gravity="center"
         android:textAllCaps="true"
         android:textColor="@color/red"
         android:textSize="36sp"
@@ -37,8 +37,25 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <TextView
+        android:id="@+id/update_version_title"
+        android:layout_width="0sp"
+        android:layout_height="28sp"
+        android:layout_marginLeft="32sp"
+        android:layout_marginTop="28sp"
+        android:layout_marginRight="32sp"
+        android:fontFamily="@font/odibee"
+        android:gravity="center"
+        android:singleLine="true"
+        android:textAllCaps="false"
+        android:textColor="@color/red"
+        android:textSize="26sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/update_title" />
+
     <Button
-        android:id="@+id/download_update_button"
+        android:id="@+id/update_download_button"
         android:layout_width="0sp"
         android:layout_height="56sp"
         android:layout_marginStart="64sp"
@@ -56,22 +73,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/update_version_title" />
-
-    <TextView
-        android:id="@+id/update_version_title"
-        android:layout_width="0sp"
-        android:layout_height="28sp"
-        android:layout_marginLeft="32sp"
-        android:layout_marginTop="28sp"
-        android:layout_marginRight="32sp"
-        android:fontFamily="@font/odibee"
-        android:singleLine="true"
-        android:gravity="center"
-        android:textAllCaps="false"
-        android:textColor="@color/red"
-        android:textSize="26sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/update_title" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

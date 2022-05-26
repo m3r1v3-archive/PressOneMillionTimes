@@ -59,9 +59,9 @@ public class IconsFragment extends Fragment {
      * @see View
      */
     private void initVariables() {
-        defaultIconButton = getView().findViewById(R.id.default_icon);
-        ShortIconButton = getView().findViewById(R.id.short_icon);
-        millionIconButton = getView().findViewById(R.id.million_icon);
+        defaultIconButton = getView().findViewById(R.id.default_icon_button);
+        ShortIconButton = getView().findViewById(R.id.short_icon_button);
+        millionIconButton = getView().findViewById(R.id.million_icon_button);
         cancelButton = getView().findViewById(R.id.icons_cancel_button);
     }
 

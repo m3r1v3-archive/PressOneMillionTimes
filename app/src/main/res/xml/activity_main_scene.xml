@@ -8,12 +8,12 @@
         motion:duration="3000">
         <OnSwipe
             motion:dragDirection="dragUp"
-            motion:touchAnchorId="@id/settings_pad"
+            motion:touchAnchorId="@id/pad"
             motion:touchAnchorSide="top" />
     </Transition>
 
     <ConstraintSet android:id="@+id/base_state">
-        <Constraint android:id="@id/settings_pad">
+        <Constraint android:id="@id/pad">
             <Layout
                 android:layout_width="0sp"
                 android:layout_height="wrap_content"
@@ -38,7 +38,7 @@
     <ConstraintSet android:id="@+id/dial">
 
         <Constraint
-            android:id="@id/settings_pad"
+            android:id="@id/pad"
             android:layout_height="0sp">
             <Layout
                 android:layout_width="0sp"

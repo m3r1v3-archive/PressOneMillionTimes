@@ -211,7 +211,7 @@ public class MainActivity extends AppCompatActivity {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.setReorderingAllowed(true);
         transaction.setCustomAnimations(R.anim.breath_in, R.anim.breath_out);
-        transaction.replace(R.id.settings_fragment, new SettingsFragment(), null);
+        transaction.replace(R.id.pad_fragment, new SettingsFragment(), null);
         transaction.commit();
     }
 
@@ -541,7 +541,7 @@ public class MainActivity extends AppCompatActivity {
                 .beginTransaction()
                 .setReorderingAllowed(true)
                 .setCustomAnimations(R.anim.breath_in, R.anim.breath_out)
-                .replace(R.id.settings_fragment, new OptionsFragment(), null)
+                .replace(R.id.pad_fragment, new OptionsFragment(), null)
                 .commit();
     }
 
@@ -556,7 +556,7 @@ public class MainActivity extends AppCompatActivity {
                 .beginTransaction()
                 .setReorderingAllowed(true)
                 .setCustomAnimations(R.anim.breath_in, R.anim.breath_out)
-                .replace(R.id.settings_fragment, new ResetFragment(), null)
+                .replace(R.id.pad_fragment, new ResetFragment(), null)
                 .commit();
     }
 
@@ -571,7 +571,7 @@ public class MainActivity extends AppCompatActivity {
                 .beginTransaction()
                 .setReorderingAllowed(true)
                 .setCustomAnimations(R.anim.breath_in, R.anim.breath_out)
-                .replace(R.id.settings_fragment, new ScoreShareFragment(), null)
+                .replace(R.id.pad_fragment, new ScoreShareFragment(), null)
                 .commit();
     }
 
@@ -586,7 +586,7 @@ public class MainActivity extends AppCompatActivity {
                 .beginTransaction()
                 .setReorderingAllowed(true)
                 .setCustomAnimations(R.anim.breath_in, R.anim.breath_out)
-                .replace(R.id.settings_fragment, new IconsFragment(), null)
+                .replace(R.id.pad_fragment, new IconsFragment(), null)
                 .commit();
     }
 
@@ -612,7 +612,7 @@ public class MainActivity extends AppCompatActivity {
                 .beginTransaction()
                 .setReorderingAllowed(true)
                 .setCustomAnimations(R.anim.breath_in, R.anim.breath_out)
-                .replace(R.id.settings_fragment, new SplashMessageFragment(), null)
+                .replace(R.id.pad_fragment, new SplashMessageFragment(), null)
                 .commit();
     }
 
