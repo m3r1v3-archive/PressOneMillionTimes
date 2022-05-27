@@ -13,8 +13,8 @@ import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
-import com.merive.press1mtimes.activities.MainActivity;
 import com.merive.press1mtimes.R;
+import com.merive.press1mtimes.activities.MainActivity;
 import com.merive.press1mtimes.utils.Icons;
 
 public class IconsFragment extends Fragment {
@@ -123,7 +123,7 @@ public class IconsFragment extends Fragment {
     private void setIcon(int iconName) {
         disablePreviousIcon();
         setNewIcon(iconName);
-        ((MainActivity) getActivity()).changeIcon(iconName);
+        MainActivity.preferencesManager.setIcon(iconName);
         ((MainActivity) getActivity()).makeToast(getResources().getString(R.string.icon_changed));
     }
 
@@ -131,11 +131,11 @@ public class IconsFragment extends Fragment {
      * Gets current icon from SharedPreference and disables it
      */
     private void disablePreviousIcon() {
-        if (((MainActivity) getActivity()).getApplicationIcon() == Icons.DEFAULT.getValue())
+        if (MainActivity.preferencesManager.getIcon() == Icons.DEFAULT.getValue())
             disableIcon("com.merive.press1mtimes.activities.SplashActivity");
-        else if (((MainActivity) getActivity()).getApplicationIcon() == Icons.SHORT.getValue())
+        else if (MainActivity.preferencesManager.getIcon() == Icons.SHORT.getValue())
             disableIcon("com.merive.press1mtimes.Short");
-        else if (((MainActivity) getActivity()).getApplicationIcon() == Icons.MILLION.getValue())
+        else if (MainActivity.preferencesManager.getIcon() == Icons.MILLION.getValue())
             disableIcon("com.merive.press1mtimes.Million");
     }
 

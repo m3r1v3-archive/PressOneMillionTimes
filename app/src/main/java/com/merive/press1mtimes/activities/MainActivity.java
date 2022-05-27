@@ -24,7 +24,6 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.preference.PreferenceManager;
 
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
@@ -38,8 +37,8 @@ import com.merive.press1mtimes.fragments.SettingsFragment;
 import com.merive.press1mtimes.fragments.SplashMessageFragment;
 import com.merive.press1mtimes.fragments.ToastFragment;
 import com.merive.press1mtimes.fragments.UpdateFragment;
+import com.merive.press1mtimes.preferences.PreferencesManager;
 import com.merive.press1mtimes.receivers.NotificationsReceiver;
-import com.merive.press1mtimes.utils.Icons;
 import com.merive.press1mtimes.utils.SplashTexts;
 
 import java.io.BufferedReader;
@@ -60,14 +59,10 @@ public class MainActivity extends AppCompatActivity {
 
     public static LinkedList<String> toastMessages = new LinkedList<>();
 
-    static SharedPreferences sharedPreferences;
+    public static PreferencesManager preferencesManager;
 
-    static Boolean vibrationState, animationState, notificationState, splashState;
-    TextView titleText, counterText, splashText;
-    ImageButton pressButton;
-
-
-    int HOUR = 12, MINUTE = 0;
+    private TextView titleText, counterText, splashText;
+    private ImageButton pressButton;
 
     /**
      * Called by the system when the service is first created
@@ -82,13 +77,12 @@ public class MainActivity extends AppCompatActivity {
 
         overridePendingTransition(R.anim.breath_in, R.anim.breath_out);
 
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this.getBaseContext());
+        preferencesManager = new PreferencesManager(this.getBaseContext());
 
         initLayoutVariables();
         initSettingsFragment();
 
         setScoreToCounter();
-        setStateValues();
 
         createNotificationChannel();
 
@@ -108,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (notificationState) setAlarm();
+        if (preferencesManager.getNotification()) setAlarm();
     }
 
     /**
@@ -150,21 +144,10 @@ public class MainActivity extends AppCompatActivity {
      * @param result Score value from QR Code result
      */
     private void setScoreByQRResult(String result) {
-        setScoreToSharedPreference(Integer.parseInt(result.replace("press1mtimes://", ""), 16));
+        preferencesManager.setScore(Integer.parseInt(result.replace("press1mtimes://", ""), 16));
         setScoreToCounter();
         makeVibration(1);
         makeToast(getResources().getString(R.string.score_updated));
-    }
-
-    /**
-     * Sets score value to SharedPreferences memory
-     *
-     * @param score Score value
-     * @see SharedPreferences
-     */
-    @SuppressLint("DefaultLocale")
-    private void setScoreToSharedPreference(int score) {
-        sharedPreferences.edit().putString("score", String.format("%06d", score)).apply();
     }
 
     /**
@@ -173,7 +156,7 @@ public class MainActivity extends AppCompatActivity {
      * @param times Vibration times (Using for make vibration longer)
      */
     public void makeVibration(int times) {
-        if (vibrationState)
+        if (preferencesManager.getVibration())
             ((Vibrator) getSystemService(Context.VIBRATOR_SERVICE)).vibrate(75L * times);
     }
 
@@ -220,63 +203,7 @@ public class MainActivity extends AppCompatActivity {
      */
     @SuppressLint("DefaultLocale")
     private void setScoreToCounter() {
-        counterText.setText(String.format("%06d", getScore()));
-    }
-
-    /**
-     * Gets score value from SharedPreference.
-     *
-     * @return Score value (default value is 000000)
-     * @see SharedPreferences
-     */
-    public int getScore() {
-        return Integer.parseInt(sharedPreferences.getString("score", "000000"));
-    }
-
-    /**
-     * Returns vibration setting value from SharedPreferences memory (default value is false)
-     *
-     * @see SharedPreferences
-     */
-    public boolean getVibrationState() {
-        return sharedPreferences.getBoolean("vibration", false);
-    }
-
-    /**
-     * Returns notification setting value from SharedPreferences memory (default value is false)
-     *
-     * @see SharedPreferences
-     */
-    public boolean getNotificationState() {
-        return notificationState = sharedPreferences.getBoolean("notification", false);
-    }
-
-    /**
-     * Returns animation setting value from SharedPreferences memory (default value is false)
-     *
-     * @see SharedPreferences
-     */
-    public boolean getAnimationState() {
-        return sharedPreferences.getBoolean("animation", false);
-    }
-
-    /**
-     * Returns splash setting value from SharedPreferences memory (default value is false)
-     *
-     * @see SharedPreferences
-     */
-    public boolean getSplashState() {
-        return sharedPreferences.getBoolean("splash", false);
-    }
-
-    /**
-     * Sets settings values to state variables
-     */
-    private void setStateValues() {
-        vibrationState = getVibrationState();
-        notificationState = getNotificationState();
-        animationState = getAnimationState();
-        splashState = getSplashState();
+        counterText.setText(String.format("%06d", preferencesManager.getScore()));
     }
 
     /**
@@ -368,7 +295,7 @@ public class MainActivity extends AppCompatActivity {
      */
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void checkSplashState() {
-        if (splashState) {
+        if (preferencesManager.getSplash()) {
             splashText = findViewById(R.id.splash);
             setSplashPosition();
             makeSplashAnimation();
@@ -381,8 +308,8 @@ public class MainActivity extends AppCompatActivity {
     private void setSplashPosition() {
         ConstraintSet constraintSet = new ConstraintSet();
         constraintSet.clone((ConstraintLayout) findViewById(R.id.activity_main));
-        constraintSet.setHorizontalBias(splashText.getId(), sharedPreferences.getFloat("splash_horizontal", 0.98f));
-        constraintSet.setVerticalBias(splashText.getId(), sharedPreferences.getFloat("splash_vertical", 0.98f));
+        constraintSet.setHorizontalBias(splashText.getId(), preferencesManager.getSplashPositionHorizontal());
+        constraintSet.setVerticalBias(splashText.getId(), preferencesManager.getSplashPositionVertical());
         constraintSet.applyTo(findViewById(R.id.activity_main));
     }
 
@@ -404,13 +331,14 @@ public class MainActivity extends AppCompatActivity {
      * @param view View object
      */
     public void clickButton(View view) {
-        if (getScore() == 999999) {
+        if (preferencesManager.getScore() == 999999) {
             resetCounter();
             openFinish();
-        } else setScoreToSharedPreference(getScore() + 1);
+        } else preferencesManager.setScore(preferencesManager.getScore() + 1);
         setScoreToCounter();
-        makeVibrationByScore(getScore());
-        if (animationState) makeBreathAnimation(titleText, counterText, pressButton);
+        makeVibrationByScore(preferencesManager.getScore());
+        if (preferencesManager.getAnimation())
+            makeBreathAnimation(titleText, counterText, pressButton);
     }
 
     /**
@@ -418,7 +346,7 @@ public class MainActivity extends AppCompatActivity {
      * Updates score value in SharedPreferences memory and sets default value to counter
      */
     public void resetCounter() {
-        setScoreToSharedPreference(0);
+        preferencesManager.setScore(0);
         setScoreToCounter();
     }
 
@@ -458,8 +386,7 @@ public class MainActivity extends AppCompatActivity {
      * @param value Vibration switch value
      */
     public void clickVibration(boolean value) {
-        sharedPreferences.edit().putBoolean("vibration", value).apply();
-        vibrationState = value;
+        preferencesManager.setVibration(value);
     }
 
     /**
@@ -470,9 +397,8 @@ public class MainActivity extends AppCompatActivity {
      * @param value Notifications switch value
      */
     public void clickNotification(boolean value) {
-        sharedPreferences.edit().putBoolean("notification", value).apply();
-        notificationState = value;
-        if (notificationState) setAlarm();
+        preferencesManager.setNotification(value);
+        if (preferencesManager.getNotification()) setAlarm();
         else offAlarm();
     }
 
@@ -481,17 +407,16 @@ public class MainActivity extends AppCompatActivity {
      */
     private void setAlarm() {
         Intent intent = new Intent(getBaseContext(), NotificationsReceiver.class);
-        intent.putExtra("score", String.valueOf(getScore()));
+        intent.putExtra("score", preferencesManager.getScore());
 
         PendingIntent pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT | PendingIntent.FLAG_IMMUTABLE);
 
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
 
-        if (calendar.get(Calendar.HOUR_OF_DAY) >= HOUR) calendar.add(Calendar.DATE, 1);
+        if (calendar.get(Calendar.HOUR_OF_DAY) >= 12) calendar.add(Calendar.DATE, 1);
 
-        calendar.set(Calendar.HOUR_OF_DAY, HOUR);
-        calendar.set(Calendar.MINUTE, MINUTE);
+        calendar.set(Calendar.HOUR_OF_DAY, 12);
 
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
@@ -515,8 +440,7 @@ public class MainActivity extends AppCompatActivity {
      * @param value Animation switch value
      */
     public void clickAnimation(boolean value) {
-        sharedPreferences.edit().putBoolean("animation", value).apply();
-        animationState = value;
+        preferencesManager.setAnimation(value);
     }
 
     /**
@@ -526,8 +450,7 @@ public class MainActivity extends AppCompatActivity {
      * @param value Splash switch value
      */
     public void clickSplash(boolean value) {
-        sharedPreferences.edit().putBoolean("splash", value).apply();
-        splashState = value;
+        preferencesManager.setSplash(value);
     }
 
     /**
@@ -591,16 +514,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Returns current application icon name from SharedPreferences memory.
-     *
-     * @return Current application icon name
-     * @see SharedPreferences
-     */
-    public int getApplicationIcon() {
-        return sharedPreferences.getInt("iconCode", Icons.DEFAULT.getValue());
-    }
-
-    /**
      * Opens SplashMessageFragment
      *
      * @see android.widget.Button
@@ -624,7 +537,7 @@ public class MainActivity extends AppCompatActivity {
      * @see SharedPreferences
      */
     public void setSplashPosition(float horizontal, float vertical) {
-        sharedPreferences.edit().putFloat("splash_horizontal", horizontal).putFloat("splash_vertical", vertical).apply();
+        preferencesManager.setSplashPosition(horizontal, vertical);
     }
 
     /**
@@ -640,14 +553,5 @@ public class MainActivity extends AppCompatActivity {
 
         transaction.remove(getSupportFragmentManager().findFragmentById(R.id.toast_fragment));
         transaction.commit();
-    }
-
-    /**
-     * Changes application icon value in SharedPreference memory
-     *
-     * @param icon Icon name value
-     */
-    public void changeIcon(int icon) {
-        sharedPreferences.edit().putInt("iconCode", icon).apply();
     }
 }

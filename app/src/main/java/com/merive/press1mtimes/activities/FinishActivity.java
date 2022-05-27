@@ -20,7 +20,7 @@ public class FinishActivity extends AppCompatActivity {
     ImageButton close;
     Handler.Callback callback;
     TextView title, text, afterword;
-    Boolean animationState, vibrationState, clicked = false;
+    boolean clicked = false;
 
 
     /**
@@ -38,8 +38,6 @@ public class FinishActivity extends AppCompatActivity {
         initLayoutVariables();
 
         callback = message -> false;
-
-        setStates();
     }
 
     /**
@@ -50,16 +48,6 @@ public class FinishActivity extends AppCompatActivity {
         text = findViewById(R.id.congratulation_text);
         afterword = findViewById(R.id.afterword);
         close = findViewById(R.id.close);
-    }
-
-    /**
-     * Gets settings states values from MainActivity
-     * animationState needs for making animation after close button clicking
-     * vibrationState needs for making vibration after close button clicking
-     */
-    private void setStates() {
-        animationState = MainActivity.animationState;
-        vibrationState = MainActivity.vibrationState;
     }
 
     /**
@@ -85,7 +73,8 @@ public class FinishActivity extends AppCompatActivity {
         if (!clicked) {
             clicked = true;
             makeVibration();
-            makeBreathAnimation(title, text, afterword, close);
+            if (MainActivity.preferencesManager.getAnimation())
+                makeBreathAnimation(title, text, afterword, close);
             setCoinsVisibility();
             new Handler().postDelayed(() -> {
                 startActivity(new Intent(this, MainActivity.class));
@@ -98,7 +87,7 @@ public class FinishActivity extends AppCompatActivity {
      * Makes vibration effect
      */
     private void makeVibration() {
-        if (vibrationState) {
+        if (MainActivity.preferencesManager.getVibration()) {
             Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
             v.vibrate(150L);
         }

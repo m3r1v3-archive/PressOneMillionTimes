@@ -10,8 +10,8 @@ import android.widget.TextView;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.fragment.app.Fragment;
 
-import com.merive.press1mtimes.activities.MainActivity;
 import com.merive.press1mtimes.R;
+import com.merive.press1mtimes.activities.MainActivity;
 
 public class SettingsFragment extends Fragment {
 
@@ -74,10 +74,10 @@ public class SettingsFragment extends Fragment {
      * @see SwitchCompat
      */
     private void setSwitchStates() {
-        vibrationSwitch.setChecked(((MainActivity) getActivity()).getVibrationState());
-        notificationSwitch.setChecked(((MainActivity) getActivity()).getNotificationState());
-        accelerationSwitch.setChecked(((MainActivity) getActivity()).getAnimationState());
-        splashSwitch.setChecked(((MainActivity) getActivity()).getSplashState());
+        vibrationSwitch.setChecked(MainActivity.preferencesManager.getVibration());
+        notificationSwitch.setChecked(MainActivity.preferencesManager.getNotification());
+        accelerationSwitch.setChecked(MainActivity.preferencesManager.getAnimation());
+        splashSwitch.setChecked(MainActivity.preferencesManager.getSplash());
     }
 
     /**
