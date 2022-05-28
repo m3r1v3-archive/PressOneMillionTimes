@@ -81,7 +81,7 @@ public class SplashMessageFragment extends Fragment {
      */
     private void clickCancel() {
         ((MainActivity) getActivity()).makeVibration(1);
-        ((MainActivity) getActivity()).initSettingsFragment();
+        ((MainActivity) getActivity()).setFragment(new SettingsFragment());
     }
 
     /**
@@ -94,7 +94,7 @@ public class SplashMessageFragment extends Fragment {
         ((MainActivity) getActivity()).makeVibration(1);
         ((MainActivity) getActivity()).setSplashPosition(horizontal, vertical);
         ((MainActivity) getActivity()).makeToast(getResources().getString(R.string.splash_position_updated));
-        ((MainActivity) getActivity()).initSettingsFragment();
+        ((MainActivity) getActivity()).setFragment(new SettingsFragment());
     }
 }
 

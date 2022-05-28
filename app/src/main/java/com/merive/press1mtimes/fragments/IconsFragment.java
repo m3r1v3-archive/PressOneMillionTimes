@@ -82,7 +82,7 @@ public class IconsFragment extends Fragment {
     private void clickDefaultIcon() {
         ((MainActivity) getActivity()).makeVibration(1);
         setIcon(Icons.DEFAULT.getValue());
-        ((MainActivity) getActivity()).initSettingsFragment();
+        ((MainActivity) getActivity()).setFragment(new SettingsFragment());
     }
 
     /**
@@ -92,7 +92,7 @@ public class IconsFragment extends Fragment {
     private void clickShortIcon() {
         ((MainActivity) getActivity()).makeVibration(1);
         setIcon(Icons.SHORT.getValue());
-        ((MainActivity) getActivity()).initSettingsFragment();
+        ((MainActivity) getActivity()).setFragment(new SettingsFragment());
     }
 
     /**
@@ -102,7 +102,7 @@ public class IconsFragment extends Fragment {
     private void clickMillionIcon() {
         ((MainActivity) getActivity()).makeVibration(1);
         setIcon(Icons.MILLION.getValue());
-        ((MainActivity) getActivity()).initSettingsFragment();
+        ((MainActivity) getActivity()).setFragment(new SettingsFragment());
     }
 
     /**
@@ -111,7 +111,7 @@ public class IconsFragment extends Fragment {
      */
     private void clickCancel() {
         ((MainActivity) getActivity()).makeVibration(1);
-        ((MainActivity) getActivity()).initSettingsFragment();
+        ((MainActivity) getActivity()).setFragment(new SettingsFragment());
     }
 
     /**

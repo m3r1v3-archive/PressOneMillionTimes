@@ -99,7 +99,7 @@ public class SettingsFragment extends Fragment {
      * @see MainActivity
      */
     private void setOptionsListener() {
-        optionsButton.setOnClickListener(v -> ((MainActivity) getActivity()).clickOptions());
+        optionsButton.setOnClickListener(v -> ((MainActivity) getActivity()).setFragment(new OptionsFragment()));
     }
 
     /**

@@ -124,7 +124,7 @@ public class ScoreShareFragment extends Fragment {
     private void clickScan() {
         ((MainActivity) getActivity()).makeVibration(1);
         openScanner();
-        ((MainActivity) getActivity()).initSettingsFragment();
+        ((MainActivity) getActivity()).setFragment(new SettingsFragment());
     }
 
     /**
@@ -133,7 +133,7 @@ public class ScoreShareFragment extends Fragment {
      */
     private void clickCancel() {
         ((MainActivity) getActivity()).makeVibration(1);
-        ((MainActivity) getActivity()).initSettingsFragment();
+        ((MainActivity) getActivity()).setFragment(new SettingsFragment());
     }
 
     /**
