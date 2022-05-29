@@ -12,8 +12,8 @@ import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
-import com.merive.press1mtimes.activities.MainActivity;
 import com.merive.press1mtimes.R;
+import com.merive.press1mtimes.activities.MainActivity;
 
 public class SplashMessageFragment extends Fragment {
 
@@ -97,5 +97,3 @@ public class SplashMessageFragment extends Fragment {
         ((MainActivity) getActivity()).setFragment(new SettingsFragment());
     }
 }
-
-

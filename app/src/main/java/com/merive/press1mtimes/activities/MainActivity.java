@@ -1,7 +1,5 @@
 package com.merive.press1mtimes.activities;
 
-import static java.util.Calendar.YEAR;
-
 import android.app.AlarmManager;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -106,13 +104,11 @@ public class MainActivity extends AppCompatActivity {
      */
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
         super.onActivityResult(requestCode, resultCode, intent);
-        if (IntentIntegrator.parseActivityResult(requestCode, resultCode, intent) != null) {
+        if (IntentIntegrator.parseActivityResult(requestCode, resultCode, intent) != null)
             try {
                 checkQRPattern(intent.getStringExtra("SCAN_RESULT"));
-            } catch (Exception exc) {
-                makeToast(getResources().getString(R.string.error));
+            } catch (NullPointerException ignore) {
             }
-        }
     }
 
     /**
@@ -194,13 +190,6 @@ public class MainActivity extends AppCompatActivity {
      */
     private void setScoreToCounter() {
         counterText.setText(String.format("%06d", preferencesManager.getScore()));
-    }
-
-    /**
-     * Returns project info string
-     */
-    public String getInfo() {
-        return (("P1MT / " + BuildConfig.VERSION_NAME + "\nmerive_ inc. / MIT License, " + Calendar.getInstance().get(YEAR)));
     }
 
     /**
@@ -349,9 +338,7 @@ public class MainActivity extends AppCompatActivity {
      * @param score Score value
      */
     private void makeVibrationByScore(int score) {
-        if (score % 100000 == 0) makeVibration(3);
-        else if (score % 10000 == 0) makeVibration(2);
-        else if (score % 1000 == 0) makeVibration(1);
+        makeVibration(score % 100000 == 0 ? 3 : score % 10000 == 0 ? 2 : 1);
     }
 
     /**
@@ -365,32 +352,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Executes after click on VibrationSwitch in SettingsFragment
-     * Sets current vibration switch value to SharedPreferences memory and update vibrationState variable value
-     *
-     * @param value Vibration switch value
-     */
-    public void clickVibration(boolean value) {
-        preferencesManager.setVibration(value);
-    }
-
-    /**
-     * Executes after click on notification switch in SettingsFragment
-     * Sets notification switch value to SharedPreferences memory and update notificationState variable value
-     * If notification switch is true, will be unable alarm for notifications, else will be disabled
-     *
-     * @param value Notifications switch value
-     */
-    public void clickNotification(boolean value) {
-        preferencesManager.setNotification(value);
-        if (preferencesManager.getNotification()) setAlarm();
-        else offAlarm();
-    }
-
-    /**
      * Enables notification alarm, sets current score value to intent extras
      */
-    private void setAlarm() {
+    public void setAlarm() {
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
         if (calendar.get(Calendar.HOUR_OF_DAY) >= 12) calendar.add(Calendar.DATE, 1);
@@ -404,30 +368,10 @@ public class MainActivity extends AppCompatActivity {
     /**
      * Disables notification alarm
      */
-    private void offAlarm() {
+    public void offAlarm() {
         AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
         PendingIntent pendingIntent = PendingIntent.getService(MainActivity.this, 0, new Intent(MainActivity.this, NotificationsReceiver.class), PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
         if (pendingIntent != null && alarmManager != null) alarmManager.cancel(pendingIntent);
-    }
-
-    /**
-     * Executes after click on animation switch
-     * Sets animation switch value to SharedPreferences memory and update animationState value
-     *
-     * @param value Animation switch value
-     */
-    public void clickAnimation(boolean value) {
-        preferencesManager.setAnimation(value);
-    }
-
-    /**
-     * Executes after click on splash switch
-     * Sets splash switch value to SharedPreferences memory and update splashState value
-     *
-     * @param value Splash switch value
-     */
-    public void clickSplash(boolean value) {
-        preferencesManager.setSplash(value);
     }
 
     /**
