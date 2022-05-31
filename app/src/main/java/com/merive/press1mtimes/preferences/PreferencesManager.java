@@ -23,6 +23,10 @@ public class PreferencesManager {
         sharedPreferences.edit().putString("score", String.format("%06d", score)).apply();
     }
 
+    public void setScore() {
+        sharedPreferences.edit().putString("score", String.format("%06d", 0)).apply();
+    }
+
     public boolean getVibration() {
         return sharedPreferences.getBoolean("vibration", false);
     }

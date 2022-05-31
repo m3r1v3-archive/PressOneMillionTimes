@@ -95,7 +95,7 @@
         </activity-alias>
 
         <receiver
-            android:name=".receivers.NotificationsReceiver"
+            android:name=".receivers.NotificationReceiver"
             android:exported="false" />
     </application>
 

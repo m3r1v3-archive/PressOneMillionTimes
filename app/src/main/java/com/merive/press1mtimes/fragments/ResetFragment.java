@@ -88,7 +88,8 @@ public class ResetFragment extends Fragment {
      */
     private void clickConfirm() {
         ((MainActivity) getActivity()).makeVibration(1);
-        ((MainActivity) getActivity()).resetCounter();
+        ((MainActivity) getActivity()).resetScore();
+        ((MainActivity) getActivity()).setScoreToCounter();
         ((MainActivity) getActivity()).makeToast("The Score has been reset");
         ((MainActivity) getActivity()).setFragment(new SettingsFragment());
     }

@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
@@ -25,10 +26,9 @@ import com.google.zxing.integration.android.IntentIntegrator;
 import com.merive.press1mtimes.BuildConfig;
 import com.merive.press1mtimes.R;
 import com.merive.press1mtimes.fragments.SettingsFragment;
-import com.merive.press1mtimes.fragments.ToastFragment;
 import com.merive.press1mtimes.fragments.UpdateFragment;
 import com.merive.press1mtimes.preferences.PreferencesManager;
-import com.merive.press1mtimes.receivers.NotificationsReceiver;
+import com.merive.press1mtimes.receivers.NotificationReceiver;
 import com.merive.press1mtimes.utils.SplashTexts;
 
 import java.io.BufferedReader;
@@ -40,14 +40,11 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.LinkedList;
 import java.util.Random;
 import java.util.regex.Pattern;
 
 
 public class MainActivity extends AppCompatActivity {
-
-    public static LinkedList<String> toastMessages = new LinkedList<>();
 
     public static PreferencesManager preferencesManager;
 
@@ -147,20 +144,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Makes ToastFragment
+     * Makes Toast message
      *
-     * @param message Toast message value
-     * @see ToastFragment
+     * @param text Toast text value
      */
-    public void makeToast(String message) {
-        MainActivity.toastMessages.add(message);
-        if (MainActivity.toastMessages.size() == 1) {
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .setCustomAnimations(R.anim.breath_in, R.anim.breath_out)
-                    .setReorderingAllowed(true)
-                    .replace(R.id.toast_fragment, new ToastFragment(), null).commit();
-        }
+    public void makeToast(String text) {
+        Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT).show();
     }
 
     /**
@@ -188,7 +177,7 @@ public class MainActivity extends AppCompatActivity {
     /**
      * Sets score value to counterText component
      */
-    private void setScoreToCounter() {
+    public void setScoreToCounter() {
         counterText.setText(String.format("%06d", preferencesManager.getScore()));
     }
 
@@ -210,9 +199,7 @@ public class MainActivity extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationChannel channel = new NotificationChannel("notifyPress1MTimes", "Press1MTimesChannel", NotificationManager.IMPORTANCE_DEFAULT);
             channel.setDescription("Channel for Press1MTimes");
-
-            NotificationManager notificationManager = getSystemService(NotificationManager.class);
-            notificationManager.createNotificationChannel(channel);
+            getSystemService(NotificationManager.class).createNotificationChannel(channel);
         }
     }
 
@@ -306,7 +293,7 @@ public class MainActivity extends AppCompatActivity {
      */
     public void clickButton(View view) {
         if (preferencesManager.getScore() == 999999) {
-            resetCounter();
+            resetScore();
             openFinish();
         } else preferencesManager.setScore(preferencesManager.getScore() + 1);
         setScoreToCounter();
@@ -319,9 +306,8 @@ public class MainActivity extends AppCompatActivity {
      * Resets score value to default value (default score value is 000000)
      * Updates score value in SharedPreferences memory and sets default value to counter
      */
-    public void resetCounter() {
+    public void resetScore() {
         preferencesManager.setScore(0);
-        setScoreToCounter();
     }
 
     /**
@@ -357,12 +343,11 @@ public class MainActivity extends AppCompatActivity {
     public void setAlarm() {
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
-        if (calendar.get(Calendar.HOUR_OF_DAY) >= 12) calendar.add(Calendar.DATE, 1);
         calendar.set(Calendar.HOUR_OF_DAY, 12);
+        if (calendar.get(Calendar.HOUR_OF_DAY) >= 12) calendar.add(Calendar.DATE, 1);
 
-        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
-                AlarmManager.INTERVAL_DAY, PendingIntent.getBroadcast(MainActivity.this, 0, new Intent(getBaseContext(), NotificationsReceiver.class).putExtra("score", preferencesManager.getScore()), PendingIntent.FLAG_CANCEL_CURRENT | PendingIntent.FLAG_IMMUTABLE));
+        ((AlarmManager) getSystemService(Context.ALARM_SERVICE)).setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
+                AlarmManager.INTERVAL_DAY, PendingIntent.getBroadcast(MainActivity.this, 0, new Intent(getBaseContext(), NotificationReceiver.class).putExtra("score", String.valueOf(preferencesManager.getScore())), PendingIntent.FLAG_CANCEL_CURRENT | PendingIntent.FLAG_IMMUTABLE));
     }
 
     /**
@@ -370,7 +355,7 @@ public class MainActivity extends AppCompatActivity {
      */
     public void offAlarm() {
         AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-        PendingIntent pendingIntent = PendingIntent.getService(MainActivity.this, 0, new Intent(MainActivity.this, NotificationsReceiver.class), PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+        PendingIntent pendingIntent = PendingIntent.getService(MainActivity.this, 0, new Intent(MainActivity.this, NotificationReceiver.class), PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
         if (pendingIntent != null && alarmManager != null) alarmManager.cancel(pendingIntent);
     }
 
@@ -383,19 +368,5 @@ public class MainActivity extends AppCompatActivity {
      */
     public void setSplashPosition(float horizontal, float vertical) {
         preferencesManager.setSplashPosition(horizontal, vertical);
-    }
-
-    /**
-     * Removes ToastFragment from the screen
-     *
-     * @see ToastFragment
-     * @see android.widget.FrameLayout
-     */
-    public void removeToast() {
-        getSupportFragmentManager()
-                .beginTransaction()
-                .setCustomAnimations(R.anim.breath_in, R.anim.breath_out)
-                .setReorderingAllowed(true)
-                .remove(getSupportFragmentManager().findFragmentById(R.id.toast_fragment)).commit();
     }
 }
