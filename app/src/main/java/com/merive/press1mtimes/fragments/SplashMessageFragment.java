@@ -93,7 +93,7 @@ public class SplashMessageFragment extends Fragment {
     private void setPosition(float horizontal, float vertical) {
         ((MainActivity) getActivity()).makeVibration(1);
         ((MainActivity) getActivity()).setSplashPosition(horizontal, vertical);
-        ((MainActivity) getActivity()).makeToast(getResources().getString(R.string.splash_position_updated));
+        ((MainActivity) getActivity()).makeToast(getResources().getString(R.string.splash_position_changed));
         ((MainActivity) getActivity()).setFragment(new SettingsFragment());
     }
 }

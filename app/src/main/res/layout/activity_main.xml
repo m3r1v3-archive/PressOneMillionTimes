@@ -69,7 +69,6 @@
         android:letterSpacing="0.1"
         android:paddingTop="2sp"
         android:paddingBottom="0sp"
-        android:text="@string/counter_default_value"
         android:textColor="@color/gray"
         android:textSize="34sp"
         app:layout_constraintEnd_toEndOf="parent"
