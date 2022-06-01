@@ -5,21 +5,10 @@ plugins {
 android {
     signingConfigs {
         realise {
-            Properties properties = new Properties()
-            properties.load(project.rootProject.file('local.properties').newDataInputStream())
-            storeFile file(properties.getProperty('storeFile'))
-            keyAlias properties.getProperty('keyAlias')
-            storePassword properties.getProperty('storePassword')
-            keyPassword properties.getProperty('keyPassword')
-        }
-
-        debug {
-            Properties properties = new Properties()
-            properties.load(project.rootProject.file('local.properties').newDataInputStream())
-            storeFile file(properties.getProperty('storeFile'))
-            keyAlias properties.getProperty('keyAlias')
-            storePassword properties.getProperty('storePassword')
-            keyPassword properties.getProperty('keyPassword')
+            storeFile = file("keystore/Press1MTimesKey.jks")
+            storePassword System.getenv("SIGNING_STORE_PASSWORD")
+            keyAlias System.getenv("SIGNING_KEY_ALIAS")
+            keyPassword System.getenv("SIGNING_KEY_PASSWORD")
         }
     }
     compileSdkVersion 32
@@ -29,8 +18,8 @@ android {
         applicationId "com.merive.press1mtimes"
         minSdkVersion 24
         targetSdkVersion 32
-        versionCode 53
-        versionName "2.3.0"
+        versionCode 54
+        versionName "2.3.1"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -42,8 +31,8 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
     }
 }
 
@@ -51,7 +40,7 @@ dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
 
     implementation 'androidx.appcompat:appcompat:1.4.1'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.3'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation "androidx.core:core:1.7.0"
     implementation 'androidx.preference:preference:1.2.0'
 

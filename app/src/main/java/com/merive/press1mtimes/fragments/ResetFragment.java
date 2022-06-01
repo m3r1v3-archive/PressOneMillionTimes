@@ -11,8 +11,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.merive.press1mtimes.MainActivity;
 import com.merive.press1mtimes.R;
+import com.merive.press1mtimes.activities.MainActivity;
 
 public class ResetFragment extends Fragment {
 
@@ -79,7 +79,7 @@ public class ResetFragment extends Fragment {
      */
     private void clickCancel() {
         ((MainActivity) getActivity()).makeVibration(1);
-        ((MainActivity) getActivity()).initSettingsFragment();
+        ((MainActivity) getActivity()).setFragment(new SettingsFragment());
     }
 
     /**
@@ -88,8 +88,9 @@ public class ResetFragment extends Fragment {
      */
     private void clickConfirm() {
         ((MainActivity) getActivity()).makeVibration(1);
-        ((MainActivity) getActivity()).resetCounter();
+        ((MainActivity) getActivity()).resetScore();
+        ((MainActivity) getActivity()).setScoreToCounter();
         ((MainActivity) getActivity()).makeToast("The Score has been reset");
-        ((MainActivity) getActivity()).initSettingsFragment();
+        ((MainActivity) getActivity()).setFragment(new SettingsFragment());
     }
 }

@@ -10,8 +10,8 @@ import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
-import com.merive.press1mtimes.MainActivity;
 import com.merive.press1mtimes.R;
+import com.merive.press1mtimes.activities.MainActivity;
 
 public class OptionsFragment extends Fragment {
 
@@ -113,7 +113,7 @@ public class OptionsFragment extends Fragment {
      */
     private void clickReset() {
         ((MainActivity) getActivity()).makeVibration(1);
-        ((MainActivity) getActivity()).clickReset();
+        ((MainActivity) getActivity()).setFragment(new ResetFragment());
     }
 
     /**
@@ -124,7 +124,7 @@ public class OptionsFragment extends Fragment {
      */
     private void clickScoreShare() {
         ((MainActivity) getActivity()).makeVibration(1);
-        ((MainActivity) getActivity()).clickScoreShare();
+        ((MainActivity) getActivity()).setFragment(new ScoreShareFragment());
     }
 
     /**
@@ -135,7 +135,7 @@ public class OptionsFragment extends Fragment {
      */
     private void clickIcons() {
         ((MainActivity) getActivity()).makeVibration(1);
-        ((MainActivity) getActivity()).clickIcons();
+        ((MainActivity) getActivity()).setFragment(new IconsFragment());
     }
 
     /**
@@ -146,7 +146,7 @@ public class OptionsFragment extends Fragment {
      */
     private void clickSplash() {
         ((MainActivity) getActivity()).makeVibration(1);
-        ((MainActivity) getActivity()).clickSplashMessage();
+        ((MainActivity) getActivity()).setFragment(new SplashMessageFragment());
     }
 
     /**
@@ -158,7 +158,7 @@ public class OptionsFragment extends Fragment {
     private void clickCancel() {
         if (!showTip) {
             ((MainActivity) getActivity()).makeVibration(1);
-            ((MainActivity) getActivity()).initSettingsFragment();
+            ((MainActivity) getActivity()).setFragment(new SettingsFragment());
             showTip = false;
         }
     }

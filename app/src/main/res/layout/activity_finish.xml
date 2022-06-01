@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/gray"
-    tools:context=".FinishActivity">
+    tools:context=".activities.FinishActivity">
 
     <com.jetradarmobile.snowfall.SnowfallView
         android:id="@+id/coins"
@@ -34,9 +34,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/odibee"
+        android:gravity="center"
         android:singleLine="true"
         android:text="@string/finish"
-        android:textAlignment="center"
         android:textAllCaps="true"
         android:textColor="@color/red"
         android:textSize="46sp"
@@ -64,8 +64,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="36sp"
         android:fontFamily="@font/odibee"
+        android:gravity="center"
         android:text="@string/congratulations"
-        android:textAlignment="center"
         android:textAllCaps="false"
         android:textColor="@color/red"
         android:textSize="36sp"
@@ -95,8 +95,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/odibee"
+        android:gravity="center"
         android:text="@string/hope"
-        android:textAlignment="center"
         android:textAllCaps="false"
         android:textColor="@color/red"
         android:textSize="28sp"

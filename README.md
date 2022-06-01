@@ -16,17 +16,11 @@
     <h3 align="center">You can install P1MT using one of the next method</h3>
     <h3 align="center">Method #1 (Using APK)</h3>
     <p>
-        1. Install Press1MTimes from our <a href="https://merive.herokuapp.com/P1MT">Website</a> or from <a href="https://github.com/merive/Press1MTimes/releases">Releases</a> in repository<br>
+        1. Install Press1MTimes from our <a href="https://merive.herokuapp.com/P1MT">Website</a> or from <a href="https://github.com/merive-inc/Press1MTimes/releases">Releases</a> in repository<br>
         2. Install Press1MTimes on your Android Device<br>
         3. Launch the application and start playing
     </p>
-    <h3 align="center">Method #2 (Using APK in repository files)</h3>
-    <p>
-        1. Clone Press1MTimes Repository (<i>git clone https://github.com/merive/Press1MTimes.git</i>)<br>
-        2. Move the APK file from APK folder in repository to your device<br>
-        3. Install & Launch Application
-    </p>
-    <h3 align="center">Method #3 (Build application from source code)</h3>
+    <h3 align="center">Method #2 (Build application from source code)</h3>
     <p>
         1. Download and Launch <a href="https://developer.android.com/studio">Android Studio</a><br>
         2. Clone Press1MTimes Repository (<i>git clone https://github.com/merive/Press1MTimes.git</i>) and open repository in Android Studio<br>

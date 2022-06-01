@@ -1,5 +1,7 @@
 package com.merive.press1mtimes.fragments;
 
+import static java.util.Calendar.YEAR;
+
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,8 +12,11 @@ import android.widget.TextView;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.fragment.app.Fragment;
 
-import com.merive.press1mtimes.MainActivity;
+import com.merive.press1mtimes.BuildConfig;
 import com.merive.press1mtimes.R;
+import com.merive.press1mtimes.activities.MainActivity;
+
+import java.util.Calendar;
 
 public class SettingsFragment extends Fragment {
 
@@ -74,10 +79,10 @@ public class SettingsFragment extends Fragment {
      * @see SwitchCompat
      */
     private void setSwitchStates() {
-        vibrationSwitch.setChecked(((MainActivity) getActivity()).getVibrationState());
-        notificationSwitch.setChecked(((MainActivity) getActivity()).getNotificationState());
-        accelerationSwitch.setChecked(((MainActivity) getActivity()).getAnimationState());
-        splashSwitch.setChecked(((MainActivity) getActivity()).getSplashState());
+        vibrationSwitch.setChecked(MainActivity.preferencesManager.getVibration());
+        notificationSwitch.setChecked(MainActivity.preferencesManager.getNotification());
+        accelerationSwitch.setChecked(MainActivity.preferencesManager.getAnimation());
+        splashSwitch.setChecked(MainActivity.preferencesManager.getSplash());
     }
 
     /**
@@ -86,10 +91,10 @@ public class SettingsFragment extends Fragment {
      * @see SwitchCompat
      */
     private void setSwitchClickListener() {
-        vibrationSwitch.setOnClickListener(v -> ((MainActivity) getActivity()).clickVibration(vibrationSwitch.isChecked()));
-        notificationSwitch.setOnClickListener(v -> ((MainActivity) getActivity()).clickNotification(notificationSwitch.isChecked()));
-        accelerationSwitch.setOnClickListener(v -> ((MainActivity) getActivity()).clickAnimation(accelerationSwitch.isChecked()));
-        splashSwitch.setOnClickListener(v -> ((MainActivity) getActivity()).clickSplash(splashSwitch.isChecked()));
+        vibrationSwitch.setOnClickListener(v -> MainActivity.preferencesManager.setVibration(vibrationSwitch.isChecked()));
+        notificationSwitch.setOnClickListener(v -> clickNotification(notificationSwitch.isChecked()));
+        accelerationSwitch.setOnClickListener(v -> MainActivity.preferencesManager.setAnimation(accelerationSwitch.isChecked()));
+        splashSwitch.setOnClickListener(v -> MainActivity.preferencesManager.setSplash(splashSwitch.isChecked()));
     }
 
     /**
@@ -99,7 +104,24 @@ public class SettingsFragment extends Fragment {
      * @see MainActivity
      */
     private void setOptionsListener() {
-        optionsButton.setOnClickListener(v -> ((MainActivity) getActivity()).clickOptions());
+        optionsButton.setOnClickListener(v -> {
+            ((MainActivity) getActivity()).setFragment(new OptionsFragment());
+            ((MainActivity) getActivity()).makeVibration(1);
+        });
+    }
+
+    /**
+     * Executes after click on notification switch in SettingsFragment
+     * Sets notification switch value to SharedPreferences memory and update notificationState variable value
+     * If notification switch is true, will be unable alarm for notifications, else will be disabled
+     *
+     * @param value Notifications switch value
+     */
+    private void clickNotification(boolean value) {
+        MainActivity.preferencesManager.setNotification(notificationSwitch.isChecked());
+        if (MainActivity.preferencesManager.getNotification())
+            ((MainActivity) getActivity()).setAlarm();
+        else ((MainActivity) getActivity()).offAlarm();
     }
 
     /**
@@ -109,6 +131,13 @@ public class SettingsFragment extends Fragment {
      * @see MainActivity
      */
     private void setInfo() {
-        infoText.setText(((MainActivity) getActivity()).getInfo());
+        infoText.setText(getInfo());
+    }
+
+    /**
+     * Returns project info string
+     */
+    private String getInfo() {
+        return ("P1MT / " + BuildConfig.VERSION_NAME + "\nmerive_ inc. / MIT License, " + Calendar.getInstance().get(YEAR));
     }
 }

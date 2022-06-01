@@ -15,8 +15,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
-import com.merive.press1mtimes.MainActivity;
 import com.merive.press1mtimes.R;
+import com.merive.press1mtimes.activities.MainActivity;
 
 
 public class UpdateFragment extends DialogFragment {
@@ -32,8 +32,8 @@ public class UpdateFragment extends DialogFragment {
     public static UpdateFragment newInstance(String oldVersion, String newVersion) {
         UpdateFragment frag = new UpdateFragment();
         Bundle args = new Bundle();
-        args.putString("oldVersion", oldVersion);
-        args.putString("newVersion", newVersion);
+        args.putString("old_version", oldVersion);
+        args.putString("new_version", newVersion);
         frag.setArguments(args);
         return frag;
     }
@@ -65,7 +65,7 @@ public class UpdateFragment extends DialogFragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        getDialog().getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
+        getDialog().getWindow().getAttributes().windowAnimations = R.style.Theme_Press1MTimes_Animation;
 
         initVariables();
         setListeners();
@@ -79,7 +79,7 @@ public class UpdateFragment extends DialogFragment {
      */
     private void initVariables() {
         versionText = getView().findViewById(R.id.update_version_title);
-        downloadButton = getView().findViewById(R.id.download_update_button);
+        downloadButton = getView().findViewById(R.id.update_download_button);
     }
 
     /**
@@ -95,7 +95,7 @@ public class UpdateFragment extends DialogFragment {
      * Sets text to versionText TextView
      */
     private void setVersion() {
-        versionText.setText(("Installed - " + getArguments().getString("oldVersion") + " / Actual - " + getArguments().getString("newVersion")));
+        versionText.setText(("Installed - " + getArguments().getString("old_version") + " / Actual - " + getArguments().getString("new_version")));
     }
 
     /**

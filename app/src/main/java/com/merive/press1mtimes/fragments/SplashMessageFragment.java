@@ -12,8 +12,8 @@ import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
-import com.merive.press1mtimes.MainActivity;
 import com.merive.press1mtimes.R;
+import com.merive.press1mtimes.activities.MainActivity;
 
 public class SplashMessageFragment extends Fragment {
 
@@ -81,7 +81,7 @@ public class SplashMessageFragment extends Fragment {
      */
     private void clickCancel() {
         ((MainActivity) getActivity()).makeVibration(1);
-        ((MainActivity) getActivity()).initSettingsFragment();
+        ((MainActivity) getActivity()).setFragment(new SettingsFragment());
     }
 
     /**
@@ -93,9 +93,7 @@ public class SplashMessageFragment extends Fragment {
     private void setPosition(float horizontal, float vertical) {
         ((MainActivity) getActivity()).makeVibration(1);
         ((MainActivity) getActivity()).setSplashPosition(horizontal, vertical);
-        ((MainActivity) getActivity()).makeToast(getResources().getString(R.string.splash_position_updated));
-        ((MainActivity) getActivity()).initSettingsFragment();
+        ((MainActivity) getActivity()).makeToast(getResources().getString(R.string.splash_position_changed));
+        ((MainActivity) getActivity()).setFragment(new SettingsFragment());
     }
 }
-
-

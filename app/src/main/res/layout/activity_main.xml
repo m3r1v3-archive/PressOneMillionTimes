@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@color/gray"
     app:layoutDescription="@xml/activity_main_scene"
-    tools:context=".MainActivity">
+    tools:context=".activities.MainActivity">
 
     <com.jetradarmobile.snowfall.SnowfallView
         android:id="@+id/coins"
@@ -34,9 +34,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/odibee"
+        android:gravity="center"
         android:singleLine="true"
         android:text="@string/app_name"
-        android:textAlignment="center"
         android:textAllCaps="true"
         android:textColor="@color/red"
         android:textSize="46sp"
@@ -69,7 +69,6 @@
         android:letterSpacing="0.1"
         android:paddingTop="2sp"
         android:paddingBottom="0sp"
-        android:text="@string/counter_default_value"
         android:textColor="@color/gray"
         android:textSize="34sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -83,8 +82,8 @@
         android:layout_height="200sp"
         android:background="@drawable/button"
         android:contentDescription="@string/todo"
+        android:gravity="center"
         android:onClick="clickButton"
-        android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -116,19 +115,20 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@xml/arrow_up" />
+        app:srcCompat="@xml/arrow" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/settings_pad"
+        android:id="@+id/pad"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@xml/settings_background"
+        android:background="@xml/pad_background"
+        android:clickable="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="parent">
 
         <FrameLayout
-            android:id="@+id/settings_fragment"
+            android:id="@+id/pad_fragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -136,18 +136,5 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <FrameLayout
-        android:id="@+id/toast_fragment"
-        android:layout_width="match_parent"
-        android:layout_height="76sp"
-        android:layout_marginLeft="4sp"
-        android:layout_marginRight="4sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
 
 </androidx.constraintlayout.motion.widget.MotionLayout>

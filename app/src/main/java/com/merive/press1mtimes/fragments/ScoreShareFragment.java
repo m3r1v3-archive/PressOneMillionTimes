@@ -19,9 +19,9 @@ import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.qrcode.QRCodeWriter;
-import com.merive.press1mtimes.MainActivity;
 import com.merive.press1mtimes.R;
-import com.merive.press1mtimes.ScannerActivity;
+import com.merive.press1mtimes.activities.MainActivity;
+import com.merive.press1mtimes.activities.ScannerActivity;
 
 
 public class ScoreShareFragment extends Fragment {
@@ -90,7 +90,7 @@ public class ScoreShareFragment extends Fragment {
      * @see ImageView
      */
     private void setQRCode() {
-        QRCodeImage.setImageBitmap(makeQRCode(String.valueOf(((MainActivity) getActivity()).getScore())));
+        QRCodeImage.setImageBitmap(makeQRCode(String.valueOf(MainActivity.preferencesManager.getScore())));
     }
 
     /**
@@ -124,7 +124,7 @@ public class ScoreShareFragment extends Fragment {
     private void clickScan() {
         ((MainActivity) getActivity()).makeVibration(1);
         openScanner();
-        ((MainActivity) getActivity()).initSettingsFragment();
+        ((MainActivity) getActivity()).setFragment(new SettingsFragment());
     }
 
     /**
@@ -133,7 +133,7 @@ public class ScoreShareFragment extends Fragment {
      */
     private void clickCancel() {
         ((MainActivity) getActivity()).makeVibration(1);
-        ((MainActivity) getActivity()).initSettingsFragment();
+        ((MainActivity) getActivity()).setFragment(new SettingsFragment());
     }
 
     /**

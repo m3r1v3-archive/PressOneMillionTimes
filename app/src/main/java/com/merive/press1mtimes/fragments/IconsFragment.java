@@ -13,12 +13,13 @@ import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
-import com.merive.press1mtimes.MainActivity;
 import com.merive.press1mtimes.R;
+import com.merive.press1mtimes.activities.MainActivity;
+import com.merive.press1mtimes.utils.Icons;
 
 public class IconsFragment extends Fragment {
 
-    ConstraintLayout defaultIconButton, P1MTIconButton, classicIconButton;
+    ConstraintLayout defaultIconButton, ShortIconButton, millionIconButton;
     Button cancelButton;
 
     /**
@@ -58,9 +59,9 @@ public class IconsFragment extends Fragment {
      * @see View
      */
     private void initVariables() {
-        defaultIconButton = getView().findViewById(R.id.default_icon);
-        P1MTIconButton = getView().findViewById(R.id.short_icon);
-        classicIconButton = getView().findViewById(R.id.classic_icon);
+        defaultIconButton = getView().findViewById(R.id.default_icon_button);
+        ShortIconButton = getView().findViewById(R.id.short_icon_button);
+        millionIconButton = getView().findViewById(R.id.million_icon_button);
         cancelButton = getView().findViewById(R.id.icons_cancel_button);
     }
 
@@ -69,8 +70,8 @@ public class IconsFragment extends Fragment {
      */
     private void setListeners() {
         defaultIconButton.setOnClickListener(v -> clickDefaultIcon());
-        P1MTIconButton.setOnClickListener(v -> clickP1MTIcon());
-        classicIconButton.setOnClickListener(v -> clickClassicIcon());
+        ShortIconButton.setOnClickListener(v -> clickShortIcon());
+        millionIconButton.setOnClickListener(v -> clickMillionIcon());
         cancelButton.setOnClickListener(v -> clickCancel());
     }
 
@@ -80,28 +81,28 @@ public class IconsFragment extends Fragment {
      */
     private void clickDefaultIcon() {
         ((MainActivity) getActivity()).makeVibration(1);
-        setIcon("default");
-        ((MainActivity) getActivity()).initSettingsFragment();
+        setIcon(Icons.DEFAULT.getValue());
+        ((MainActivity) getActivity()).setFragment(new SettingsFragment());
     }
 
     /**
-     * Executes after click on P1MTIconButton
-     * Makes vibration and updates application icon to P1MT icon
+     * Executes after click on ShortIconButton
+     * Makes vibration and updates application icon to Short icon
      */
-    private void clickP1MTIcon() {
+    private void clickShortIcon() {
         ((MainActivity) getActivity()).makeVibration(1);
-        setIcon("short");
-        ((MainActivity) getActivity()).initSettingsFragment();
+        setIcon(Icons.SHORT.getValue());
+        ((MainActivity) getActivity()).setFragment(new SettingsFragment());
     }
 
     /**
-     * Executes after click on ClassicIconButton
-     * Makes vibration and updates application icon to Classic icon
+     * Executes after click on MillionIconButton
+     * Makes vibration and updates application icon to Million icon
      **/
-    private void clickClassicIcon() {
+    private void clickMillionIcon() {
         ((MainActivity) getActivity()).makeVibration(1);
-        setIcon("classic");
-        ((MainActivity) getActivity()).initSettingsFragment();
+        setIcon(Icons.MILLION.getValue());
+        ((MainActivity) getActivity()).setFragment(new SettingsFragment());
     }
 
     /**
@@ -110,7 +111,7 @@ public class IconsFragment extends Fragment {
      */
     private void clickCancel() {
         ((MainActivity) getActivity()).makeVibration(1);
-        ((MainActivity) getActivity()).initSettingsFragment();
+        ((MainActivity) getActivity()).setFragment(new SettingsFragment());
     }
 
     /**
@@ -119,60 +120,54 @@ public class IconsFragment extends Fragment {
      *
      * @param iconName Name of icon.
      */
-    private void setIcon(String iconName) {
+    private void setIcon(int iconName) {
         disablePreviousIcon();
         setNewIcon(iconName);
-        ((MainActivity) getActivity()).changeIcon(iconName);
+        MainActivity.preferencesManager.setIcon(iconName);
         ((MainActivity) getActivity()).makeToast(getResources().getString(R.string.icon_changed));
     }
 
     /**
-     * Disables previous icon
+     * Gets current icon from SharedPreference and disables it
      */
     private void disablePreviousIcon() {
-        PackageManager packageManager = getActivity().getPackageManager();
-        switch (((MainActivity) getActivity()).getApplicationIcon()) {
-            case "default":
-                packageManager.setComponentEnabledSetting(new ComponentName(getContext(), "com.merive.press1mtimes.SplashActivity"),
-                        PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
-                        PackageManager.DONT_KILL_APP);
-                break;
-            case "short":
-                packageManager.setComponentEnabledSetting(new ComponentName(getContext(), "com.merive.press1mtimes.Short"),
-                        PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
-                        PackageManager.DONT_KILL_APP);
-                break;
-            case "classic":
-                packageManager.setComponentEnabledSetting(new ComponentName(getContext(), "com.merive.press1mtimes.Classic"),
-                        PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
-                        PackageManager.DONT_KILL_APP);
-                break;
-        }
+        if (MainActivity.preferencesManager.getIcon() == Icons.DEFAULT.getValue())
+            disableIcon("com.merive.press1mtimes.activities.SplashActivity");
+        else if (MainActivity.preferencesManager.getIcon() == Icons.SHORT.getValue())
+            disableIcon("com.merive.press1mtimes.Short");
+        else if (MainActivity.preferencesManager.getIcon() == Icons.MILLION.getValue())
+            disableIcon("com.merive.press1mtimes.Million");
     }
 
     /**
-     * Sets new application icon by icon name
+     * Disables previous icon using package name
+     *
+     * @param cls Icon package name
+     */
+    private void disableIcon(String cls) {
+        getActivity().getPackageManager().setComponentEnabledSetting(new ComponentName(getContext(), cls), PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
+    }
+
+    /**
+     * Gets new icon package name and enable it
      *
      * @param iconName Name of icon
      */
-    private void setNewIcon(String iconName) {
-        PackageManager packageManager = getActivity().getPackageManager();
-        switch (iconName) {
-            case "default":
-                packageManager.setComponentEnabledSetting(new ComponentName(getContext(), "com.merive.press1mtimes.SplashActivity"),
-                        PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
-                        PackageManager.DONT_KILL_APP);
-                break;
-            case "short":
-                packageManager.setComponentEnabledSetting(new ComponentName(getContext(), "com.merive.press1mtimes.Short"),
-                        PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
-                        PackageManager.DONT_KILL_APP);
-                break;
-            case "classic":
-                packageManager.setComponentEnabledSetting(new ComponentName(getContext(), "com.merive.press1mtimes.Classic"),
-                        PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
-                        PackageManager.DONT_KILL_APP);
-                break;
-        }
+    private void setNewIcon(int iconName) {
+        if (iconName == Icons.DEFAULT.getValue())
+            enableIcon("com.merive.press1mtimes.activities.SplashActivity");
+        else if (iconName == Icons.SHORT.getValue())
+            enableIcon("com.merive.press1mtimes.Short");
+        else if (iconName == Icons.MILLION.getValue())
+            enableIcon("com.merive.press1mtimes.Million");
+    }
+
+    /**
+     * Enables new icon using package name
+     *
+     * @param cls Icon package name
+     */
+    private void enableIcon(String cls) {
+        getActivity().getPackageManager().setComponentEnabledSetting(new ComponentName(getContext(), cls), PackageManager.COMPONENT_ENABLED_STATE_ENABLED, PackageManager.DONT_KILL_APP);
     }
 }
