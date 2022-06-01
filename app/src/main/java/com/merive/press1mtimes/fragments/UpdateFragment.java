@@ -15,8 +15,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
-import com.merive.press1mtimes.activities.MainActivity;
 import com.merive.press1mtimes.R;
+import com.merive.press1mtimes.activities.MainActivity;
 
 
 public class UpdateFragment extends DialogFragment {
@@ -32,8 +32,8 @@ public class UpdateFragment extends DialogFragment {
     public static UpdateFragment newInstance(String oldVersion, String newVersion) {
         UpdateFragment frag = new UpdateFragment();
         Bundle args = new Bundle();
-        args.putString("oldVersion", oldVersion);
-        args.putString("newVersion", newVersion);
+        args.putString("old_version", oldVersion);
+        args.putString("new_version", newVersion);
         frag.setArguments(args);
         return frag;
     }
@@ -95,7 +95,7 @@ public class UpdateFragment extends DialogFragment {
      * Sets text to versionText TextView
      */
     private void setVersion() {
-        versionText.setText(("Installed - " + getArguments().getString("oldVersion") + " / Actual - " + getArguments().getString("newVersion")));
+        versionText.setText(("Installed - " + getArguments().getString("old_version") + " / Actual - " + getArguments().getString("new_version")));
     }
 
     /**

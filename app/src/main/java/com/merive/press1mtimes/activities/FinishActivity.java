@@ -18,7 +18,6 @@ import com.merive.press1mtimes.R;
 public class FinishActivity extends AppCompatActivity {
 
     ImageButton close;
-    Handler.Callback callback;
     TextView title, text, afterword;
     boolean clicked = false;
 
@@ -36,8 +35,6 @@ public class FinishActivity extends AppCompatActivity {
         setContentView(R.layout.activity_finish);
 
         initLayoutVariables();
-
-        callback = message -> false;
     }
 
     /**
@@ -88,8 +85,7 @@ public class FinishActivity extends AppCompatActivity {
      */
     private void makeVibration() {
         if (MainActivity.preferencesManager.getVibration()) {
-            Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-            v.vibrate(150L);
+            ((Vibrator) getSystemService(Context.VIBRATOR_SERVICE)).vibrate(75L);
         }
     }
 
