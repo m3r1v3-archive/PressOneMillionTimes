@@ -7,15 +7,7 @@ android {
         realise {
             Properties properties = new Properties()
             properties.load(project.rootProject.file('local.properties').newDataInputStream())
-            storeFile file(properties.getProperty('storeFile'))
-            keyAlias properties.getProperty('keyAlias')
-            storePassword properties.getProperty('storePassword')
-            keyPassword properties.getProperty('keyPassword')
-        }
 
-        debug {
-            Properties properties = new Properties()
-            properties.load(project.rootProject.file('local.properties').newDataInputStream())
             storeFile file(properties.getProperty('storeFile'))
             keyAlias properties.getProperty('keyAlias')
             storePassword properties.getProperty('storePassword')
