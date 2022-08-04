@@ -32,7 +32,7 @@
         android:layout_marginLeft="36sp"
         android:layout_marginRight="36sp"
         android:layout_marginBottom="12sp"
-        android:src="@xml/line"
+        android:src="@xml/horizontal_line"
         app:layout_constraintBottom_toTopOf="@+id/update_version_title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

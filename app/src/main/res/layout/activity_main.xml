@@ -53,28 +53,64 @@
         android:layout_marginLeft="48sp"
         android:layout_marginRight="48sp"
         android:layout_marginBottom="12sp"
-        android:src="@xml/line"
-        app:layout_constraintBottom_toTopOf="@+id/counter"
+        android:src="@xml/horizontal_line"
+        app:layout_constraintBottom_toTopOf="@+id/counter_layout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <TextView
-        android:id="@+id/counter"
-        android:layout_width="138sp"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/counter_layout"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="36sp"
-        android:background="@color/red"
-        android:fontFamily="@font/odibee"
-        android:gravity="center_horizontal|center_vertical"
-        android:letterSpacing="0.1"
-        android:paddingTop="2sp"
-        android:paddingBottom="0sp"
-        android:textColor="@color/gray"
-        android:textSize="34sp"
+        android:background="@xml/filled_background"
+        android:padding="2dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/main_title"
-        tools:ignore="TextContrastCheck" />
+        app:layout_constraintTop_toBottomOf="@+id/main_title">
+
+        <ImageView
+            android:id="@+id/counter_icon"
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            android:gravity="center"
+            android:paddingStart="12dp"
+            android:src="@drawable/short_icon"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/counter_separator"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/gray" />
+
+        <ImageView
+            android:id="@+id/counter_separator"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:gravity="center"
+            android:src="@xml/vertical_line"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/counter"
+            app:layout_constraintStart_toEndOf="@id/counter_icon"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/gray" />
+
+        <TextView
+            android:id="@+id/counter"
+            android:layout_width="132dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/odibee"
+            android:gravity="center"
+            android:letterSpacing="0.1"
+            android:paddingEnd="12dp"
+            android:paddingBottom="0sp"
+            android:textColor="@color/gray"
+            android:textSize="34sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/counter_separator"
+            tools:ignore="TextContrastCheck" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ImageButton
         android:id="@+id/button"

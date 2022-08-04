@@ -29,7 +29,7 @@
         android:layout_marginLeft="36sp"
         android:layout_marginRight="36sp"
         android:layout_marginBottom="12sp"
-        android:src="@xml/line"
+        android:src="@xml/horizontal_line"
         app:layout_constraintBottom_toTopOf="@+id/reset_cancel_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -83,7 +83,7 @@
         android:layout_marginLeft="36sp"
         android:layout_marginTop="12sp"
         android:layout_marginRight="36sp"
-        android:src="@xml/line"
+        android:src="@xml/horizontal_line"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/reset_confirm_button" />

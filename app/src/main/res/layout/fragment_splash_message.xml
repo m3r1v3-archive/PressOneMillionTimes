@@ -29,7 +29,7 @@
         android:layout_marginLeft="36sp"
         android:layout_marginRight="36sp"
         android:layout_marginBottom="12sp"
-        android:src="@xml/line"
+        android:src="@xml/horizontal_line"
         app:layout_constraintBottom_toTopOf="@+id/splash_left_position_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -70,7 +70,7 @@
             android:layout_marginLeft="18sp"
             android:layout_marginRight="18sp"
             android:layout_marginBottom="8sp"
-            android:src="@xml/line"
+            android:src="@xml/horizontal_line"
             app:layout_constraintBottom_toTopOf="@+id/splash_left_text"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
@@ -127,7 +127,7 @@
             android:layout_marginLeft="18sp"
             android:layout_marginRight="18sp"
             android:layout_marginBottom="8sp"
-            android:src="@xml/line"
+            android:src="@xml/horizontal_line"
             app:layout_constraintBottom_toTopOf="@+id/splash_right_text"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
@@ -176,7 +176,7 @@
         android:layout_marginTop="12sp"
         android:layout_marginRight="36sp"
         android:layout_marginBottom="20sp"
-        android:src="@xml/line"
+        android:src="@xml/horizontal_line"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/splash_message_cancel_button" />

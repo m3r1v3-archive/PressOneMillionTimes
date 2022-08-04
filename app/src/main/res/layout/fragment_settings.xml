@@ -29,7 +29,7 @@
         android:layout_marginLeft="48sp"
         android:layout_marginRight="48sp"
         android:layout_marginBottom="12sp"
-        android:src="@xml/line"
+        android:src="@xml/horizontal_line"
         app:layout_constraintBottom_toTopOf="@+id/vibration_switch"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -145,7 +145,7 @@
         android:layout_marginLeft="48sp"
         android:layout_marginTop="12sp"
         android:layout_marginRight="48sp"
-        android:src="@xml/line"
+        android:src="@xml/horizontal_line"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/options_button" />

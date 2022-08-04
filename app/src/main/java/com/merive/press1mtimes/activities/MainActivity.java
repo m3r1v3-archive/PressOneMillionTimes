@@ -299,7 +299,7 @@ public class MainActivity extends AppCompatActivity {
         setScoreToCounter();
         makeVibrationByScore(preferencesManager.getScore());
         if (preferencesManager.getAnimation())
-            makeBreathAnimation(titleText, counterText, pressButton);
+            makeBreathAnimation(titleText, findViewById(R.id.counter_layout), pressButton);
     }
 
     /**

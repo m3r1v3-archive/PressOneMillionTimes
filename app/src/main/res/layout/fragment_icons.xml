@@ -28,7 +28,7 @@
         android:layout_marginLeft="36sp"
         android:layout_marginRight="36sp"
         android:layout_marginBottom="12sp"
-        android:src="@xml/line"
+        android:src="@xml/horizontal_line"
         app:layout_constraintBottom_toTopOf="@+id/short_icon_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -63,7 +63,7 @@
             android:layout_width="0sp"
             android:layout_height="12sp"
             android:layout_marginBottom="8sp"
-            android:src="@xml/line"
+            android:src="@xml/horizontal_line"
             app:layout_constraintBottom_toTopOf="@+id/default_icon_text"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
@@ -114,7 +114,7 @@
             android:layout_width="0sp"
             android:layout_height="12sp"
             android:layout_marginBottom="8sp"
-            android:src="@xml/line"
+            android:src="@xml/horizontal_line"
             app:layout_constraintBottom_toTopOf="@+id/short_icon_text"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
@@ -164,7 +164,7 @@
             android:layout_width="0sp"
             android:layout_height="12sp"
             android:layout_marginBottom="8sp"
-            android:src="@xml/line"
+            android:src="@xml/horizontal_line"
             app:layout_constraintBottom_toTopOf="@+id/million_icon_text"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
@@ -211,7 +211,7 @@
         android:layout_marginLeft="36sp"
         android:layout_marginTop="12sp"
         android:layout_marginRight="36sp"
-        android:src="@xml/line"
+        android:src="@xml/horizontal_line"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/icons_cancel_button" />
