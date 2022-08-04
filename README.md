@@ -11,16 +11,18 @@
     </p>
 </div>
 
+<hr/>
+
 <div>
-    <h2 align="center">Installing</h2>
-    <h3 align="center">You can install P1MT using one of the next method</h3>
-    <h3 align="center">Method #1 (Using APK)</h3>
+    <h2>Installing</h2>
+    <h3>You can install P1MT using one of the next method</h3>
+    <h3>Method #1 (Using APK)</h3>
     <p>
         1. Install Press1MTimes from our <a href="https://merive.herokuapp.com/P1MT">Website</a> or from <a href="https://github.com/merive-inc/Press1MTimes/releases">Releases</a> in repository<br>
         2. Install Press1MTimes on your Android Device<br>
         3. Launch the application and start playing
     </p>
-    <h3 align="center">Method #2 (Build application from source code)</h3>
+    <h3>Method #2 (Build application from source code)</h3>
     <p>
         1. Download and Launch <a href="https://developer.android.com/studio">Android Studio</a><br>
         2. Clone Press1MTimes Repository (<i>git clone https://github.com/merive/Press1MTimes.git</i>) and open repository in Android Studio<br>
@@ -29,8 +31,10 @@
     </p>
 </div>
 
+<hr/>
+
 <div>
-    <h2 align="center">Contribution</h2>
+    <h2>Contribution</h2>
     <p>
         Press1MTimes using <b>MIT License</b>.
         It means that you can do with project anything.
@@ -40,8 +44,10 @@
     </p>
 </div>
 
+<hr/>
+
 <div>
-    <h2 align="center">Version Scheme</h2>
+    <h2>Version Scheme</h2>
     <p>
         In Press1MTimes we're using the next version scheme - <b>vX.Y.Z</b>, where
         <table align="center">
@@ -52,8 +58,10 @@
     </p>
 </div>
 
-<div align="center">
-    <h2 align="center">More Information</h2>
+<hr/>
+
+<div>
+    <h2>More Information</h2>
     <p>
         More information you can find on <a href="https://merive.herokuapp.com/P1MT/">Press1MTimes Website</a>. 
         There you can find Press1MTimes APK file.
