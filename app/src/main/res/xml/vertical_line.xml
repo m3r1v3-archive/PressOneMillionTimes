@@ -4,9 +4,9 @@
     android:toDegrees="90">
     <shape android:shape="line">
         <stroke
-            android:width="2dp"
+            android:width="@dimen/size_2dp"
             android:color="?colorAccent" />
-        <size android:width="128sp" />
-        <corners android:radius="16sp" />
+        <size android:width="@dimen/size_128dp" />
+        <corners android:radius="@dimen/radius_16dp" />
     </shape>
 </rotate>

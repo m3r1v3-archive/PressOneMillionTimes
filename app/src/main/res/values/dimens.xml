@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="font_large_size">46sp</dimen>
+    <dimen name="font_medium_size">36sp</dimen>
+    <dimen name="font_small_size">26sp</dimen>
+
+    <dimen name="margin_48dp">48dp</dimen>
+    <dimen name="margin_36dp">36dp</dimen>
+    <dimen name="margin_24dp">24dp</dimen>
+    <dimen name="margin_12dp">12dp</dimen>
+    <dimen name="margin_6dp">6dp</dimen>
+    <dimen name="margin_0dp">0dp</dimen>
+
+    <dimen name="size_324dp">324dp</dimen>
+    <dimen name="size_204dp">204dp</dimen>
+    <dimen name="size_192dp">192dp</dimen>
+    <dimen name="size_148dp">148dp</dimen>
+    <dimen name="size_136dp">136dp</dimen>
+    <dimen name="size_128dp">128dp</dimen>
+    <dimen name="size_72dp">72dp</dimen>
+    <dimen name="size_56dp">56dp</dimen>
+    <dimen name="size_48dp">48dp</dimen>
+    <dimen name="size_36dp">36dp</dimen>
+    <dimen name="size_24dp">24dp</dimen>
+    <dimen name="size_12dp">12dp</dimen>
+    <dimen name="size_2dp">2dp</dimen>
+    <dimen name="size_0dp">0dp</dimen>
+    <dimen name="size_minus_2d">-2dp</dimen>
+
+    <dimen name="padding_12dp">12dp</dimen>
+    <dimen name="padding_8dp">8dp</dimen>
+    <dimen name="padding_4dp">4dp</dimen>
+    <dimen name="padding_2dp">2dp</dimen>
+
+    <dimen name="radius_16dp">16dp</dimen>
+    <dimen name="radius_0dp">0dp</dimen>
+</resources>

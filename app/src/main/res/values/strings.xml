@@ -44,7 +44,6 @@
     <string name="download">Download</string>
 
     <!--  SplashMessageFragment  -->
-    <string name="splash_message">Splash Message</string>
     <string name="splash_position_changed">Splash Position was changed</string>
     <string name="left">Left</string>
     <string name="right">Right</string>
