@@ -156,11 +156,9 @@ public class OptionsFragment extends Fragment {
      * @see SplashMessageFragment
      */
     private void clickCancel() {
-        if (!showTip) {
-            ((MainActivity) getActivity()).makeVibration(1);
-            ((MainActivity) getActivity()).setFragment(new SettingsFragment());
-            showTip = false;
-        }
+        ((MainActivity) getActivity()).makeVibration(1);
+        ((MainActivity) getActivity()).setFragment(new SettingsFragment());
+        showTip = false;
     }
 
     /**
