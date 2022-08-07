@@ -344,7 +344,7 @@ public class MainActivity extends AppCompatActivity {
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
         calendar.set(Calendar.HOUR_OF_DAY, 12);
-        if (calendar.get(Calendar.HOUR_OF_DAY) > 12) calendar.add(Calendar.DATE, 1);
+        if (calendar.get(Calendar.HOUR_OF_DAY) >= 12) calendar.add(Calendar.DATE, 1);
 
         ((AlarmManager) getSystemService(Context.ALARM_SERVICE)).setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
                 AlarmManager.INTERVAL_DAY, PendingIntent.getBroadcast(MainActivity.this, 0, new Intent(getBaseContext(), NotificationReceiver.class).putExtra("score", String.valueOf(preferencesManager.getScore())), PendingIntent.FLAG_CANCEL_CURRENT | PendingIntent.FLAG_IMMUTABLE));
