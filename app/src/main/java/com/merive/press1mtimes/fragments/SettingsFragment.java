@@ -21,7 +21,7 @@ import java.util.Calendar;
 public class SettingsFragment extends Fragment {
 
     TextView infoText;
-    SwitchCompat vibrationSwitch, notificationSwitch, accelerationSwitch, splashSwitch;
+    SwitchCompat vibrationSwitch, notificationSwitch, animationSwitch, splashSwitch;
     Button optionsButton;
 
     /**
@@ -65,7 +65,7 @@ public class SettingsFragment extends Fragment {
     private void initVariables() {
         vibrationSwitch = getView().findViewById(R.id.vibration_switch);
         notificationSwitch = getView().findViewById(R.id.notification_switch);
-        accelerationSwitch = getView().findViewById(R.id.animation_switch);
+        animationSwitch = getView().findViewById(R.id.animation_switch);
         splashSwitch = getView().findViewById(R.id.splash_switch);
 
         optionsButton = getView().findViewById(R.id.options_button);
@@ -81,7 +81,7 @@ public class SettingsFragment extends Fragment {
     private void setSwitchStates() {
         vibrationSwitch.setChecked(MainActivity.preferencesManager.getVibration());
         notificationSwitch.setChecked(MainActivity.preferencesManager.getNotification());
-        accelerationSwitch.setChecked(MainActivity.preferencesManager.getAnimation());
+        animationSwitch.setChecked(MainActivity.preferencesManager.getAnimation());
         splashSwitch.setChecked(MainActivity.preferencesManager.getSplash());
     }
 
@@ -92,8 +92,8 @@ public class SettingsFragment extends Fragment {
      */
     private void setSwitchClickListener() {
         vibrationSwitch.setOnClickListener(v -> MainActivity.preferencesManager.setVibration(vibrationSwitch.isChecked()));
-        notificationSwitch.setOnClickListener(v -> clickNotification(notificationSwitch.isChecked()));
-        accelerationSwitch.setOnClickListener(v -> MainActivity.preferencesManager.setAnimation(accelerationSwitch.isChecked()));
+        notificationSwitch.setOnClickListener(v -> clickNotification());
+        animationSwitch.setOnClickListener(v -> MainActivity.preferencesManager.setAnimation(animationSwitch.isChecked()));
         splashSwitch.setOnClickListener(v -> MainActivity.preferencesManager.setSplash(splashSwitch.isChecked()));
     }
 
@@ -114,10 +114,8 @@ public class SettingsFragment extends Fragment {
      * Executes after click on notification switch in SettingsFragment
      * Sets notification switch value to SharedPreferences memory and update notificationState variable value
      * If notification switch is true, will be unable alarm for notifications, else will be disabled
-     *
-     * @param value Notifications switch value
      */
-    private void clickNotification(boolean value) {
+    private void clickNotification() {
         MainActivity.preferencesManager.setNotification(notificationSwitch.isChecked());
         if (MainActivity.preferencesManager.getNotification())
             ((MainActivity) getActivity()).setAlarm();

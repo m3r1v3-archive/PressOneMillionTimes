@@ -74,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
 
         checkVersion();
         checkSplashMessage();
+        checkAnimation();
 
         try {
             checkQRPattern(getIntent().getData().toString());
@@ -300,6 +301,15 @@ public class MainActivity extends AppCompatActivity {
         makeVibrationByScore(preferencesManager.getScore());
         if (preferencesManager.getAnimation())
             makeBreathAnimation(titleText, findViewById(R.id.counter_layout), pressButton);
+    }
+
+    /**
+     * Disable coin falling animation if animation shared preference is false.
+     * Else enable it
+     */
+    public void checkAnimation() {
+        if (preferencesManager.getAnimation()) findViewById(R.id.coins).setVisibility(View.VISIBLE);
+        else findViewById(R.id.coins).setVisibility(View.INVISIBLE);
     }
 
     /**
