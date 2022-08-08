@@ -12,7 +12,6 @@
         android:id="@+id/coins"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -20,14 +19,14 @@
         app:snowflakeAlphaMax="256"
         app:snowflakeAlphaMin="128"
         app:snowflakeAngleMax="5"
-        app:snowflakeImage="@drawable/short_icon"
-        app:snowflakeSizeMax="36sp"
-        app:snowflakeSizeMin="24sp"
+        app:snowflakeImage="@drawable/ic_short_icon"
+        app:snowflakeSizeMax="@dimen/size_36dp"
+        app:snowflakeSizeMin="@dimen/size_24dp"
         app:snowflakeSpeedMax="8"
         app:snowflakeSpeedMin="2"
         app:snowflakesAlreadyFalling="false"
         app:snowflakesFadingEnabled="true"
-        app:snowflakesNum="256" />
+        app:snowflakesNum="128" />
 
     <TextView
         android:id="@+id/finish_title"
@@ -39,7 +38,7 @@
         android:text="@string/finish"
         android:textAllCaps="true"
         android:textColor="@color/red"
-        android:textSize="46sp"
+        android:textSize="@dimen/font_large_size"
         app:layout_constraintBottom_toBottomOf="@+id/coins"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -49,11 +48,11 @@
     <ImageView
         android:id="@+id/finish_title_separator"
         android:layout_width="match_parent"
-        android:layout_height="12sp"
-        android:layout_marginLeft="48sp"
-        android:layout_marginRight="48sp"
-        android:layout_marginBottom="12sp"
-        android:src="@xml/line"
+        android:layout_height="@dimen/size_12dp"
+        android:layout_marginLeft="@dimen/margin_48dp"
+        android:layout_marginRight="@dimen/margin_48dp"
+        android:layout_marginBottom="@dimen/margin_12dp"
+        android:src="@xml/horizontal_line"
         app:layout_constraintBottom_toTopOf="@+id/congratulation_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -62,30 +61,29 @@
         android:id="@+id/congratulation_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="36sp"
+        android:layout_marginTop="@dimen/margin_36dp"
         android:fontFamily="@font/odibee"
         android:gravity="center"
         android:text="@string/congratulations"
         android:textAllCaps="false"
         android:textColor="@color/red"
-        android:textSize="36sp"
+        android:textSize="@dimen/font_medium_size"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/finish_title" />
 
     <ImageButton
         android:id="@+id/close"
-        android:layout_width="200sp"
-        android:layout_height="200sp"
-        android:background="@drawable/close"
+        android:layout_width="@dimen/size_192dp"
+        android:layout_height="@dimen/size_192dp"
+        android:background="@drawable/ic_close_button"
         android:contentDescription="@string/todo"
-        android:fontFamily="sans-serif-medium"
         android:onClick="clickClose"
         android:textColor="@color/red"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.500"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.8" />
@@ -99,11 +97,11 @@
         android:text="@string/hope"
         android:textAllCaps="false"
         android:textColor="@color/red"
-        android:textSize="28sp"
+        android:textSize="@dimen/font_small_size"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.96" />
+        app:layout_constraintVertical_bias="0.95" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

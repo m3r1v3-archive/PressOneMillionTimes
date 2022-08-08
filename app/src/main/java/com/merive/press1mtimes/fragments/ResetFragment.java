@@ -18,6 +18,7 @@ public class ResetFragment extends Fragment {
 
     TextView titleText;
     Button cancelButton, confirmButton;
+    MainActivity mainActivity;
 
 
     /**
@@ -61,6 +62,7 @@ public class ResetFragment extends Fragment {
         titleText = getView().findViewById(R.id.reset_title);
         cancelButton = getView().findViewById(R.id.reset_cancel_button);
         confirmButton = getView().findViewById(R.id.reset_confirm_button);
+        mainActivity = ((MainActivity) getActivity());
     }
 
     /**
@@ -78,8 +80,8 @@ public class ResetFragment extends Fragment {
      * Makes vibration effect and closes ResetFragment
      */
     private void clickCancel() {
-        ((MainActivity) getActivity()).makeVibration(1);
-        ((MainActivity) getActivity()).setFragment(new SettingsFragment());
+        mainActivity.makeVibration(1);
+        mainActivity.setFragment(new SettingsFragment());
     }
 
     /**
@@ -87,10 +89,10 @@ public class ResetFragment extends Fragment {
      * Makes vibration, resets counter value (sets default value (default value is 000000)) and makes toast message
      */
     private void clickConfirm() {
-        ((MainActivity) getActivity()).makeVibration(1);
-        ((MainActivity) getActivity()).resetScore();
-        ((MainActivity) getActivity()).setScoreToCounter();
-        ((MainActivity) getActivity()).makeToast("The Score has been reset");
-        ((MainActivity) getActivity()).setFragment(new SettingsFragment());
+        mainActivity.makeVibration(1);
+        mainActivity.resetScore();
+        mainActivity.setScoreToCounter();
+        mainActivity.makeToast("The Score has been reset");
+        mainActivity.setFragment(new SettingsFragment());
     }
 }

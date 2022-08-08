@@ -19,7 +19,7 @@ public class SplashMessageFragment extends Fragment {
 
     ConstraintLayout leftButton, rightButton;
     Button cancel;
-
+    MainActivity mainActivity;
 
     /**
      * Called to have the fragment instantiate its user interface view
@@ -62,6 +62,7 @@ public class SplashMessageFragment extends Fragment {
         rightButton = getView().findViewById(R.id.splash_right_position_button);
         leftButton = getView().findViewById(R.id.splash_left_position_button);
         cancel = getView().findViewById(R.id.splash_message_cancel_button);
+        mainActivity = ((MainActivity) getActivity());
     }
 
     /**
@@ -80,8 +81,8 @@ public class SplashMessageFragment extends Fragment {
      * Makes vibration effect and closes SplashMessageFragment
      */
     private void clickCancel() {
-        ((MainActivity) getActivity()).makeVibration(1);
-        ((MainActivity) getActivity()).setFragment(new SettingsFragment());
+        mainActivity.makeVibration(1);
+        mainActivity.setFragment(new SettingsFragment());
     }
 
     /**
@@ -91,9 +92,9 @@ public class SplashMessageFragment extends Fragment {
      * @param vertical   Vertical float position value
      */
     private void setPosition(float horizontal, float vertical) {
-        ((MainActivity) getActivity()).makeVibration(1);
-        ((MainActivity) getActivity()).setSplashPosition(horizontal, vertical);
-        ((MainActivity) getActivity()).makeToast(getResources().getString(R.string.splash_position_changed));
-        ((MainActivity) getActivity()).setFragment(new SettingsFragment());
+        mainActivity.makeVibration(1);
+        mainActivity.setSplashPosition(horizontal, vertical);
+        mainActivity.makeToast(getResources().getString(R.string.splash_position_changed));
+        mainActivity.setFragment(new SettingsFragment());
     }
 }

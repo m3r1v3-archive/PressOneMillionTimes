@@ -74,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
 
         checkVersion();
         checkSplashMessage();
+        checkAnimation();
 
         try {
             checkQRPattern(getIntent().getData().toString());
@@ -299,7 +300,16 @@ public class MainActivity extends AppCompatActivity {
         setScoreToCounter();
         makeVibrationByScore(preferencesManager.getScore());
         if (preferencesManager.getAnimation())
-            makeBreathAnimation(titleText, counterText, pressButton);
+            makeBreathAnimation(titleText, findViewById(R.id.counter_layout), pressButton);
+    }
+
+    /**
+     * Disable coin falling animation if animation shared preference is false.
+     * Else enable it
+     */
+    public void checkAnimation() {
+        if (preferencesManager.getAnimation()) findViewById(R.id.coins).setVisibility(View.VISIBLE);
+        else findViewById(R.id.coins).setVisibility(View.INVISIBLE);
     }
 
     /**
@@ -344,7 +354,7 @@ public class MainActivity extends AppCompatActivity {
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
         calendar.set(Calendar.HOUR_OF_DAY, 12);
-        if (calendar.get(Calendar.HOUR_OF_DAY) > 12) calendar.add(Calendar.DATE, 1);
+        if (calendar.get(Calendar.HOUR_OF_DAY) >= 12) calendar.add(Calendar.DATE, 1);
 
         ((AlarmManager) getSystemService(Context.ALARM_SERVICE)).setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
                 AlarmManager.INTERVAL_DAY, PendingIntent.getBroadcast(MainActivity.this, 0, new Intent(getBaseContext(), NotificationReceiver.class).putExtra("score", String.valueOf(preferencesManager.getScore())), PendingIntent.FLAG_CANCEL_CURRENT | PendingIntent.FLAG_IMMUTABLE));

@@ -23,6 +23,7 @@ public class UpdateFragment extends DialogFragment {
 
     TextView versionText;
     Button downloadButton;
+    MainActivity mainActivity;
 
     /**
      * Creates new instance of UpdateFragment that will be initialized with the given arguments
@@ -80,6 +81,7 @@ public class UpdateFragment extends DialogFragment {
     private void initVariables() {
         versionText = getView().findViewById(R.id.update_version_title);
         downloadButton = getView().findViewById(R.id.update_download_button);
+        mainActivity = ((MainActivity) getActivity());
     }
 
     /**
@@ -103,7 +105,7 @@ public class UpdateFragment extends DialogFragment {
      * Makes vibration and opens P1MT web page in browser
      */
     private void clickDownload() {
-        ((MainActivity) getActivity()).makeVibration(1);
+        mainActivity.makeVibration(1);
         startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(getResources().getString(R.string.link))));
         dismiss();
     }

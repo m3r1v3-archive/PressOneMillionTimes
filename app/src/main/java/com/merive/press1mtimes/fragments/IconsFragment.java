@@ -21,6 +21,7 @@ public class IconsFragment extends Fragment {
 
     ConstraintLayout defaultIconButton, ShortIconButton, millionIconButton;
     Button cancelButton;
+    MainActivity mainActivity;
 
     /**
      * Called to have the fragment instantiate its user interface view
@@ -63,6 +64,7 @@ public class IconsFragment extends Fragment {
         ShortIconButton = getView().findViewById(R.id.short_icon_button);
         millionIconButton = getView().findViewById(R.id.million_icon_button);
         cancelButton = getView().findViewById(R.id.icons_cancel_button);
+        mainActivity = ((MainActivity) getActivity());
     }
 
     /**
@@ -80,9 +82,9 @@ public class IconsFragment extends Fragment {
      * Makes vibration and updates application icon to default icon
      */
     private void clickDefaultIcon() {
-        ((MainActivity) getActivity()).makeVibration(1);
+        mainActivity.makeVibration(1);
         setIcon(Icons.DEFAULT.getValue());
-        ((MainActivity) getActivity()).setFragment(new SettingsFragment());
+        mainActivity.setFragment(new SettingsFragment());
     }
 
     /**
@@ -90,9 +92,9 @@ public class IconsFragment extends Fragment {
      * Makes vibration and updates application icon to Short icon
      */
     private void clickShortIcon() {
-        ((MainActivity) getActivity()).makeVibration(1);
+        mainActivity.makeVibration(1);
         setIcon(Icons.SHORT.getValue());
-        ((MainActivity) getActivity()).setFragment(new SettingsFragment());
+        mainActivity.setFragment(new SettingsFragment());
     }
 
     /**
@@ -100,9 +102,9 @@ public class IconsFragment extends Fragment {
      * Makes vibration and updates application icon to Million icon
      **/
     private void clickMillionIcon() {
-        ((MainActivity) getActivity()).makeVibration(1);
+        mainActivity.makeVibration(1);
         setIcon(Icons.MILLION.getValue());
-        ((MainActivity) getActivity()).setFragment(new SettingsFragment());
+        mainActivity.setFragment(new SettingsFragment());
     }
 
     /**
@@ -110,8 +112,8 @@ public class IconsFragment extends Fragment {
      * Makes vibration effect and closes IconsFragment
      */
     private void clickCancel() {
-        ((MainActivity) getActivity()).makeVibration(1);
-        ((MainActivity) getActivity()).setFragment(new SettingsFragment());
+        mainActivity.makeVibration(1);
+        mainActivity.setFragment(new SettingsFragment());
     }
 
     /**
@@ -124,7 +126,7 @@ public class IconsFragment extends Fragment {
         disablePreviousIcon();
         setNewIcon(iconName);
         MainActivity.preferencesManager.setIcon(iconName);
-        ((MainActivity) getActivity()).makeToast(getResources().getString(R.string.icon_changed));
+        mainActivity.makeToast(getResources().getString(R.string.icon_changed));
     }
 
     /**

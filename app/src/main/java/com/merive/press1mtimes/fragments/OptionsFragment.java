@@ -15,8 +15,9 @@ import com.merive.press1mtimes.activities.MainActivity;
 
 public class OptionsFragment extends Fragment {
 
-    Button resetButton, scoreShareButton, iconsButton, splashMessageButton, cancelButton;
+    Button resetButton, scoreShareButton, iconsButton, splashButton, cancelButton;
     TextView tipText;
+    MainActivity mainActivity;
     boolean showTip = false;
 
     /**
@@ -59,9 +60,10 @@ public class OptionsFragment extends Fragment {
         resetButton = getView().findViewById(R.id.reset_button);
         scoreShareButton = getView().findViewById(R.id.score_share_button);
         iconsButton = getView().findViewById(R.id.icons_button);
-        splashMessageButton = getView().findViewById(R.id.splash_button);
+        splashButton = getView().findViewById(R.id.splash_button);
         cancelButton = getView().findViewById(R.id.options_cancel_button);
         tipText = getView().findViewById(R.id.options_tip_text);
+        mainActivity = ((MainActivity) getActivity());
     }
 
     /**
@@ -73,7 +75,7 @@ public class OptionsFragment extends Fragment {
         resetButton.setOnClickListener(v -> clickReset());
         scoreShareButton.setOnClickListener(v -> clickScoreShare());
         iconsButton.setOnClickListener(v -> clickIcons());
-        splashMessageButton.setOnClickListener(v -> clickSplash());
+        splashButton.setOnClickListener(v -> clickSplash());
         cancelButton.setOnClickListener(v -> clickCancel());
     }
 
@@ -98,7 +100,7 @@ public class OptionsFragment extends Fragment {
             resetTip();
             return true;
         });
-        splashMessageButton.setOnLongClickListener(v -> {
+        splashButton.setOnLongClickListener(v -> {
             longClickSplash();
             resetTip();
             return true;
@@ -112,8 +114,8 @@ public class OptionsFragment extends Fragment {
      * @see ResetFragment
      */
     private void clickReset() {
-        ((MainActivity) getActivity()).makeVibration(1);
-        ((MainActivity) getActivity()).setFragment(new ResetFragment());
+        mainActivity.makeVibration(1);
+        mainActivity.setFragment(new ResetFragment());
     }
 
     /**
@@ -123,8 +125,8 @@ public class OptionsFragment extends Fragment {
      * @see ScoreShareFragment
      */
     private void clickScoreShare() {
-        ((MainActivity) getActivity()).makeVibration(1);
-        ((MainActivity) getActivity()).setFragment(new ScoreShareFragment());
+        mainActivity.makeVibration(1);
+        mainActivity.setFragment(new ScoreShareFragment());
     }
 
     /**
@@ -134,8 +136,8 @@ public class OptionsFragment extends Fragment {
      * @see IconsFragment
      */
     private void clickIcons() {
-        ((MainActivity) getActivity()).makeVibration(1);
-        ((MainActivity) getActivity()).setFragment(new IconsFragment());
+        mainActivity.makeVibration(1);
+        mainActivity.setFragment(new IconsFragment());
     }
 
     /**
@@ -145,8 +147,8 @@ public class OptionsFragment extends Fragment {
      * @see SplashMessageFragment
      */
     private void clickSplash() {
-        ((MainActivity) getActivity()).makeVibration(1);
-        ((MainActivity) getActivity()).setFragment(new SplashMessageFragment());
+        mainActivity.makeVibration(1);
+        mainActivity.setFragment(new SplashMessageFragment());
     }
 
     /**
@@ -156,11 +158,9 @@ public class OptionsFragment extends Fragment {
      * @see SplashMessageFragment
      */
     private void clickCancel() {
-        if (!showTip) {
-            ((MainActivity) getActivity()).makeVibration(1);
-            ((MainActivity) getActivity()).setFragment(new SettingsFragment());
-            showTip = false;
-        }
+        mainActivity.makeVibration(1);
+        mainActivity.setFragment(new SettingsFragment());
+        showTip = false;
     }
 
     /**
