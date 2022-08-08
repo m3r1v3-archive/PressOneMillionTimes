@@ -1,9 +1,9 @@
 name: Build Release APK
 
 on:
-  pull_request:
-    branches:
-      - 'main'
+  push:
+    tags:
+      - 'v*'
 
 jobs:
   build:
@@ -20,19 +20,21 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
-      - uses: r0adkll/sign-android-release@v1
-        name: Sign app APK
-        id: sign_app
+      - name: Build APK
+        id: build
+        run: bash ./gradlew assembleRelease
+
+      - name: Sign APK
+        id: sign_apk
+        uses: r0adkll/sign-android-release@v1
         with:
-          releaseDirectory: app/release/
+          releaseDirectory: app/build/outputs/apk/release
           signingKeyBase64: ${{ secrets.KEYSTORE }}
           alias: ${{ secrets.SIGNING_KEY_ALIAS }}
           keyStorePassword: ${{ secrets.SIGNING_STORE_PASSWORD }}
           keyPassword: ${{ secrets.SIGNING_KEY_PASSWORD }}
-        env:
-          BUILD_TOOLS_VERSION: "30.0.2"
 
       - uses: actions/upload-artifact@v2
         with:
           name: Upload APK
-          path: ${{steps.sign_app.outputs.signedReleaseFile}}
+          path: ${{steps.sign_apk.outputs.signedReleaseFile}}
