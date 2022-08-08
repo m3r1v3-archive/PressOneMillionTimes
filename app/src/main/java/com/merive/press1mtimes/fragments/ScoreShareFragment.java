@@ -28,6 +28,7 @@ public class ScoreShareFragment extends Fragment {
 
     ImageView QRCodeImage;
     Button scanButton, cancel;
+    MainActivity mainActivity;
 
     /**
      * Called to have the fragment instantiate its user interface view
@@ -71,6 +72,7 @@ public class ScoreShareFragment extends Fragment {
         QRCodeImage = getView().findViewById(R.id.score_share_qr_code);
         scanButton = getView().findViewById(R.id.score_share_scan_button);
         cancel = getView().findViewById(R.id.score_share_cancel_button);
+        mainActivity = ((MainActivity) getActivity());
     }
 
     /**
@@ -122,9 +124,9 @@ public class ScoreShareFragment extends Fragment {
      * Makes vibration effect and opens QR Code scanner
      */
     private void clickScan() {
-        ((MainActivity) getActivity()).makeVibration(1);
+        mainActivity.makeVibration(1);
         openScanner();
-        ((MainActivity) getActivity()).setFragment(new SettingsFragment());
+        mainActivity.setFragment(new SettingsFragment());
     }
 
     /**
@@ -132,8 +134,8 @@ public class ScoreShareFragment extends Fragment {
      * Makes vibration effect and closes ScoreShareFragment
      */
     private void clickCancel() {
-        ((MainActivity) getActivity()).makeVibration(1);
-        ((MainActivity) getActivity()).setFragment(new SettingsFragment());
+        mainActivity.makeVibration(1);
+        mainActivity.setFragment(new SettingsFragment());
     }
 
     /**

@@ -23,6 +23,7 @@ public class SettingsFragment extends Fragment {
     TextView infoText;
     SwitchCompat vibrationSwitch, notificationSwitch, animationSwitch, splashSwitch;
     Button optionsButton;
+    MainActivity mainActivity;
 
     /**
      * Called to have the fragment instantiate its user interface view
@@ -71,6 +72,8 @@ public class SettingsFragment extends Fragment {
         optionsButton = getView().findViewById(R.id.options_button);
 
         infoText = getView().findViewById(R.id.info_text);
+
+        mainActivity = ((MainActivity) getActivity());
     }
 
     /**
@@ -105,8 +108,8 @@ public class SettingsFragment extends Fragment {
      */
     private void setOptionsListener() {
         optionsButton.setOnClickListener(v -> {
-            ((MainActivity) getActivity()).setFragment(new OptionsFragment());
-            ((MainActivity) getActivity()).makeVibration(1);
+            mainActivity.setFragment(new OptionsFragment());
+            mainActivity.makeVibration(1);
         });
     }
 
@@ -118,8 +121,8 @@ public class SettingsFragment extends Fragment {
     private void clickNotification() {
         MainActivity.preferencesManager.setNotification(notificationSwitch.isChecked());
         if (MainActivity.preferencesManager.getNotification())
-            ((MainActivity) getActivity()).setAlarm();
-        else ((MainActivity) getActivity()).offAlarm();
+            mainActivity.setAlarm();
+        else mainActivity.offAlarm();
     }
 
     /**
