@@ -7,7 +7,4 @@
         android:left="@dimen/size_0dp"
         android:right="@dimen/size_0dp"
         android:top="@dimen/size_0dp" />
-    <stroke
-        android:width="@dimen/size_2dp"
-        android:color="@color/gray" />
 </shape>
