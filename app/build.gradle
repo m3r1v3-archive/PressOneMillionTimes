@@ -18,8 +18,8 @@ android {
         applicationId "com.merive.press1mtimes"
         minSdkVersion 24
         targetSdkVersion 32
-        versionCode 54
-        versionName "2.3.2"
+        versionCode 57
+        versionName "2.3.3"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -39,10 +39,12 @@ android {
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
 
-    implementation 'androidx.appcompat:appcompat:1.4.2'
+    implementation 'androidx.appcompat:appcompat:1.5.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation "androidx.core:core:1.8.0"
     implementation 'androidx.preference:preference:1.2.0'
+    implementation "androidx.lifecycle:lifecycle-viewmodel:2.5.1"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1"
 
     implementation 'com.google.zxing:core:3.4.1'
     implementation 'com.journeyapps:zxing-android-embedded:4.2.0@aar'

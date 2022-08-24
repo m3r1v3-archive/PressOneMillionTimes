@@ -61,7 +61,7 @@
         android:layout_marginStart="@dimen/margin_48dp"
         android:layout_marginTop="@dimen/margin_12dp"
         android:layout_marginEnd="@dimen/margin_48dp"
-        android:background="@xml/background"
+        android:background="@xml/background_dark"
         android:fontFamily="@font/odibee"
         android:padding="@dimen/padding_12dp"
         android:singleLine="true"

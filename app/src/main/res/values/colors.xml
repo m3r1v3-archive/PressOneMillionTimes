@@ -4,4 +4,6 @@
     <color name="pale_red">#80B0241A</color>
     <color name="gray">#2c2c2c</color>
     <color name="pale_gray">#802B2B2B</color>
+    <color name="dark">#252525</color>
+    <color name="pale_dark">#80252525</color>
 </resources>

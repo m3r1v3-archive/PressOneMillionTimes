@@ -4,8 +4,8 @@
     android:id="@+id/fragment_score_share"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingTop="@dimen/padding_12dp"
-    android:paddingBottom="@dimen/padding_12dp">
+    android:paddingTop="@dimen/padding_24dp"
+    android:paddingBottom="@dimen/padding_24dp">
 
     <TextView
         android:id="@+id/score_share_title"
@@ -52,7 +52,7 @@
         android:layout_marginStart="@dimen/margin_12dp"
         android:layout_marginTop="@dimen/margin_12dp"
         android:layout_marginEnd="@dimen/margin_6dp"
-        android:background="@xml/background"
+        android:background="@xml/background_dark"
         android:fontFamily="@font/odibee"
         android:gravity="center_vertical|center_horizontal"
         android:padding="@dimen/padding_12dp"
@@ -73,7 +73,7 @@
         android:layout_marginStart="@dimen/margin_6dp"
         android:layout_marginTop="@dimen/margin_12dp"
         android:layout_marginEnd="@dimen/margin_12dp"
-        android:background="@xml/background"
+        android:background="@xml/background_dark"
         android:fontFamily="@font/odibee"
         android:gravity="center_vertical|center_horizontal"
         android:padding="@dimen/padding_12dp"
