@@ -1,4 +1,4 @@
-package com.merive.press1mtimes.fragments;
+package com.merive.pressonemilliontimes.fragments;
 
 import static java.util.Calendar.YEAR;
 
@@ -12,9 +12,9 @@ import android.widget.TextView;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.fragment.app.Fragment;
 
-import com.merive.press1mtimes.BuildConfig;
-import com.merive.press1mtimes.R;
-import com.merive.press1mtimes.activities.MainActivity;
+import com.merive.pressonemilliontimes.BuildConfig;
+import com.merive.pressonemilliontimes.R;
+import com.merive.pressonemilliontimes.activities.MainActivity;
 
 import java.util.Calendar;
 

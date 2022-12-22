@@ -1,4 +1,4 @@
-package com.merive.press1mtimes.fragments;
+package com.merive.pressonemilliontimes.fragments;
 
 import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
@@ -19,9 +19,9 @@ import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.qrcode.QRCodeWriter;
-import com.merive.press1mtimes.R;
-import com.merive.press1mtimes.activities.MainActivity;
-import com.merive.press1mtimes.activities.ScannerActivity;
+import com.merive.pressonemilliontimes.R;
+import com.merive.pressonemilliontimes.activities.MainActivity;
+import com.merive.pressonemilliontimes.activities.ScannerActivity;
 
 
 public class ScoreShareFragment extends Fragment {

@@ -1,11 +1,11 @@
-package com.merive.press1mtimes.preferences;
+package com.merive.pressonemilliontimes.preferences;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 
 import androidx.preference.PreferenceManager;
 
-import com.merive.press1mtimes.utils.Icons;
+import com.merive.pressonemilliontimes.utils.Icons;
 
 public class PreferencesManager {
 

@@ -1,4 +1,4 @@
-package com.merive.press1mtimes.fragments;
+package com.merive.pressonemilliontimes.fragments;
 
 import android.os.Bundle;
 import android.os.Handler;
@@ -10,8 +10,8 @@ import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
-import com.merive.press1mtimes.R;
-import com.merive.press1mtimes.activities.MainActivity;
+import com.merive.pressonemilliontimes.R;
+import com.merive.pressonemilliontimes.activities.MainActivity;
 
 public class OptionsFragment extends Fragment {
 

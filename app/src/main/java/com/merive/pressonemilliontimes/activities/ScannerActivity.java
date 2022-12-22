@@ -1,4 +1,4 @@
-package com.merive.press1mtimes.activities;
+package com.merive.pressonemilliontimes.activities;
 
 import com.journeyapps.barcodescanner.CaptureActivity;
 

@@ -1,4 +1,4 @@
-package com.merive.press1mtimes.utils;
+package com.merive.pressonemilliontimes.utils;
 
 public enum Icons {
 

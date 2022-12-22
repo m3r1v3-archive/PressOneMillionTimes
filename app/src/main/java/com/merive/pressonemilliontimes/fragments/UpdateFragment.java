@@ -1,4 +1,4 @@
-package com.merive.press1mtimes.fragments;
+package com.merive.pressonemilliontimes.fragments;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -15,8 +15,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
-import com.merive.press1mtimes.R;
-import com.merive.press1mtimes.activities.MainActivity;
+import com.merive.pressonemilliontimes.R;
+import com.merive.pressonemilliontimes.activities.MainActivity;
 
 
 public class UpdateFragment extends DialogFragment {

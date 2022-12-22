@@ -1,4 +1,4 @@
-package com.merive.press1mtimes;
+package com.merive.pressonemilliontimes;
 
 import org.junit.Test;
 

@@ -1,4 +1,4 @@
-package com.merive.press1mtimes.receivers;
+package com.merive.pressonemilliontimes.receivers;
 
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
@@ -8,8 +8,8 @@ import android.content.Intent;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
-import com.merive.press1mtimes.R;
-import com.merive.press1mtimes.activities.SplashActivity;
+import com.merive.pressonemilliontimes.R;
+import com.merive.pressonemilliontimes.activities.SplashActivity;
 
 public class NotificationReceiver extends BroadcastReceiver {
 

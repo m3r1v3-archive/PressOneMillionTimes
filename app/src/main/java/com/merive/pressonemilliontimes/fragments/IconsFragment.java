@@ -1,4 +1,4 @@
-package com.merive.press1mtimes.fragments;
+package com.merive.pressonemilliontimes.fragments;
 
 import android.content.ComponentName;
 import android.content.pm.PackageManager;
@@ -13,9 +13,9 @@ import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
-import com.merive.press1mtimes.R;
-import com.merive.press1mtimes.activities.MainActivity;
-import com.merive.press1mtimes.utils.Icons;
+import com.merive.pressonemilliontimes.R;
+import com.merive.pressonemilliontimes.activities.MainActivity;
+import com.merive.pressonemilliontimes.utils.Icons;
 
 public class IconsFragment extends Fragment {
 

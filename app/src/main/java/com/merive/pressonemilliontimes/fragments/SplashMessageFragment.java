@@ -1,25 +1,25 @@
-package com.merive.press1mtimes.fragments;
+package com.merive.pressonemilliontimes.fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextView;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
-import com.merive.press1mtimes.R;
-import com.merive.press1mtimes.activities.MainActivity;
+import com.merive.pressonemilliontimes.R;
+import com.merive.pressonemilliontimes.activities.MainActivity;
 
-public class ResetFragment extends Fragment {
+public class SplashMessageFragment extends Fragment {
 
-    TextView titleText;
-    Button cancelButton, confirmButton;
+    ConstraintLayout leftButton, rightButton;
+    Button cancel;
     MainActivity mainActivity;
-
 
     /**
      * Called to have the fragment instantiate its user interface view
@@ -33,12 +33,12 @@ public class ResetFragment extends Fragment {
      */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_reset, parent, false);
+        return inflater.inflate(R.layout.fragment_splash_message, parent, false);
     }
 
     /**
      * Called immediately after onCreateView has returned, but before any saved state has been restored in to the view
-     * There initializes basic variables, sets button listeners
+     * There initializes basic variables, sets click listeners for buttons
      *
      * @param view               The View returned by onCreateView
      * @param savedInstanceState If non-null, this fragment is being re-constructed from a previous saved state as given here
@@ -59,25 +59,26 @@ public class ResetFragment extends Fragment {
      * @see View
      */
     private void initVariables() {
-        titleText = getView().findViewById(R.id.reset_title);
-        cancelButton = getView().findViewById(R.id.reset_cancel_button);
-        confirmButton = getView().findViewById(R.id.reset_confirm_button);
+        rightButton = getView().findViewById(R.id.splash_right_position_button);
+        leftButton = getView().findViewById(R.id.splash_left_position_button);
+        cancel = getView().findViewById(R.id.splash_message_cancel_button);
         mainActivity = ((MainActivity) getActivity());
     }
 
     /**
-     * Sets button click listeners
+     * This method sets click listeners for rightButton and leftButton
      *
-     * @see Button
+     * @see ImageView
      */
     private void setListeners() {
-        cancelButton.setOnClickListener(v -> clickCancel());
-        confirmButton.setOnClickListener(v -> clickConfirm());
+        rightButton.setOnClickListener(v -> setPosition(0.98f, 0.98f));
+        leftButton.setOnClickListener(v -> setPosition(0.02f, 0.98f));
+        cancel.setOnClickListener(v -> clickCancel());
     }
 
     /**
      * Executes when clicking on cancelButton
-     * Makes vibration effect and closes ResetFragment
+     * Makes vibration effect and closes SplashMessageFragment
      */
     private void clickCancel() {
         mainActivity.makeVibration(1);
@@ -85,14 +86,15 @@ public class ResetFragment extends Fragment {
     }
 
     /**
-     * Executes when clicking on confirmButton
-     * Makes vibration, resets counter value (sets default value (default value is 000000)) and makes toast message
+     * This methods saves Splash Message Position in sharedPreferences memory
+     *
+     * @param horizontal Horizontal float position value
+     * @param vertical   Vertical float position value
      */
-    private void clickConfirm() {
+    private void setPosition(float horizontal, float vertical) {
         mainActivity.makeVibration(1);
-        mainActivity.resetScore();
-        mainActivity.setScoreToCounter();
-        mainActivity.makeToast("The Score has been reset");
+        mainActivity.setSplashPosition(horizontal, vertical);
+        mainActivity.makeToast(getResources().getString(R.string.splash_position_changed));
         mainActivity.setFragment(new SettingsFragment());
     }
 }

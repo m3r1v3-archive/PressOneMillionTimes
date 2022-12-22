@@ -11,15 +11,15 @@ android {
             keyPassword System.getenv("SIGNING_KEY_PASSWORD")
         }
     }
-    compileSdkVersion 32
+    compileSdkVersion 33
     buildToolsVersion "30.0.3"
 
     defaultConfig {
         applicationId "com.merive.press1mtimes"
         minSdkVersion 24
-        targetSdkVersion 32
-        versionCode 57
-        versionName "2.3.3"
+        targetSdkVersion 33
+        versionCode 58
+        versionName "2.4.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -34,7 +34,7 @@ android {
         sourceCompatibility JavaVersion.VERSION_11
         targetCompatibility JavaVersion.VERSION_11
     }
-    namespace 'com.merive.press1mtimes'
+    namespace 'com.merive.pressonemilliontimes'
 }
 
 dependencies {

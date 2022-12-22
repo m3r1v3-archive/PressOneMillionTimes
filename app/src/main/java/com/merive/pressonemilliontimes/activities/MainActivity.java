@@ -1,4 +1,4 @@
-package com.merive.press1mtimes.activities;
+package com.merive.pressonemilliontimes.activities;
 
 import android.app.AlarmManager;
 import android.app.NotificationChannel;
@@ -23,13 +23,13 @@ import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.fragment.app.Fragment;
 
 import com.google.zxing.integration.android.IntentIntegrator;
-import com.merive.press1mtimes.BuildConfig;
-import com.merive.press1mtimes.R;
-import com.merive.press1mtimes.fragments.SettingsFragment;
-import com.merive.press1mtimes.fragments.UpdateFragment;
-import com.merive.press1mtimes.preferences.PreferencesManager;
-import com.merive.press1mtimes.receivers.NotificationReceiver;
-import com.merive.press1mtimes.utils.SplashTexts;
+import com.merive.pressonemilliontimes.BuildConfig;
+import com.merive.pressonemilliontimes.R;
+import com.merive.pressonemilliontimes.fragments.SettingsFragment;
+import com.merive.pressonemilliontimes.fragments.UpdateFragment;
+import com.merive.pressonemilliontimes.preferences.PreferencesManager;
+import com.merive.pressonemilliontimes.receivers.NotificationReceiver;
+import com.merive.pressonemilliontimes.utils.SplashTexts;
 
 import java.io.BufferedReader;
 import java.io.IOException;
