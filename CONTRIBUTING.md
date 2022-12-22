@@ -23,4 +23,4 @@ If you want make refactoring in project you can create issue using **Refactoring
 If the past methods do not suit you, then welcome to the discussion. Here you can chat about updates, ask questions and much more.
 
 ### PS
-I hope you enjoy working on our project. Each person who will move our project forward will be a huge contribution to the development of **Press1MTimes**.
+I hope you enjoy working on our project. Each person who will move our project forward will be a huge contribution to the development of **PressOneMillionTimes**.

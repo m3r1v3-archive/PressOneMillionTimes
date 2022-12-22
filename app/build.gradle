@@ -15,7 +15,7 @@ android {
     buildToolsVersion "30.0.3"
 
     defaultConfig {
-        applicationId "com.merive.press1mtimes"
+        applicationId "com.merive.pressonemilliontimes"
         minSdkVersion 24
         targetSdkVersion 33
         versionCode 58

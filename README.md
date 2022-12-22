@@ -17,14 +17,14 @@
     <h3>You can install PressOneMillionTimes using one of the next method</h3>
     <h3>Method #1 (Using APK)</h3>
     <p>
-        1. Install Press1MTimes from our <a href="https://merive.vercel.app/pressonemilliontimes">Website</a> or from <a href="https://github.com/merive-inc/PressOneMillionTimes/releases">Releases</a> in repository<br>
-        2. Install Press1MTimes on your Android Device<br>
+        1. Install PressOneMillionTimes from our <a href="https://merive.vercel.app/pressonemilliontimes">Website</a> or from <a href="https://github.com/merive-inc/PressOneMillionTimes/releases">Releases</a> in repository<br>
+        2. Install PressOneMillionTimes on your Android Device<br>
         3. Launch the application and start playing
     </p>
     <h3>Method #2 (Build application from source code)</h3>
     <p>
         1. Download and Launch <a href="https://developer.android.com/studio">Android Studio</a><br>
-        2. Clone PressOneMillionTimes Repository (<i>git clone https://github.com/merive/Press1MTimes.git</i>) and open repository in Android Studio<br>
+        2. Clone PressOneMillionTimes Repository (<i>git clone https://github.com/merive/PressOneMillionTimes.git</i>) and open repository in Android Studio<br>
         3. Start Release Build & Run installation on your connected Android Device<br>
         4. Launch application after installation
     </p>
@@ -35,11 +35,11 @@
 <div>
     <h2>Contribution</h2>
     <p>
-        Press1MTimes using <b>MIT License</b>.
+        PressOneMillionTimes using <b>MIT License</b>.
         It means that you can do with project anything.
         If you want contribution to project, open Issues and PRs.
         Also read <b>CODE_OF_CONDUCT.md</b> and <b>CONTRIBUTING.md</b>.
-        If you have questions asking in Press1MTimes <b>GitHub Discussions</b>.
+        If you have questions asking in PressOneMillionTimes <b>GitHub Discussions</b>.
     </p>
 </div>
 

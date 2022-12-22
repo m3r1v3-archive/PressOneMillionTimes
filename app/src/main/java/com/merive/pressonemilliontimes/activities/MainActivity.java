@@ -22,8 +22,8 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.fragment.app.Fragment;
 
+import com.google.zxing.client.android.BuildConfig;
 import com.google.zxing.integration.android.IntentIntegrator;
-import com.merive.pressonemilliontimes.BuildConfig;
 import com.merive.pressonemilliontimes.R;
 import com.merive.pressonemilliontimes.fragments.SettingsFragment;
 import com.merive.pressonemilliontimes.fragments.UpdateFragment;
@@ -117,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
      * @see Pattern
      */
     private void checkQRPattern(String result) {
-        if (Pattern.compile("press1mtimes://[0-9A-F]{1,6}").matcher(result).find())
+        if (Pattern.compile("pressonemilliontimes://[0-9A-F]{1,6}").matcher(result).find())
             setScoreByQRResult(result);
         else makeToast(getResources().getString(R.string.qr_error));
     }
@@ -128,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
      * @param result Score value from QR Code result
      */
     private void setScoreByQRResult(String result) {
-        preferencesManager.setScore(Integer.parseInt(result.replace("press1mtimes://", ""), 16));
+        preferencesManager.setScore(Integer.parseInt(result.replace("pressonemilliontimes://", ""), 16));
         setScoreToCounter();
         makeVibration(1);
         makeToast(getResources().getString(R.string.score_changed));
@@ -198,15 +198,15 @@ public class MainActivity extends AppCompatActivity {
      */
     private void createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationChannel channel = new NotificationChannel("notifyPress1MTimes", "Press1MTimesChannel", NotificationManager.IMPORTANCE_DEFAULT);
-            channel.setDescription("Channel for Press1MTimes");
+            NotificationChannel channel = new NotificationChannel("notifyPressOneMillionTimes", "PressOneMillionTimesChannel", NotificationManager.IMPORTANCE_DEFAULT);
+            channel.setDescription("Channel for PressOneMillionTimes");
             getSystemService(NotificationManager.class).createNotificationChannel(channel);
         }
     }
 
     /**
      * Checks installed version and compares it with actual version on website
-     * If Press1MTimes have new version on website, will have opened UpdateFragment
+     * If PressOneMillionTimes have new version on website, will have opened UpdateFragment
      *
      * @see UpdateFragment
      */
@@ -221,7 +221,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Gets actual Press1MTimes version on official websites
+     * Gets actual PressOneMillionTimes version on official websites
      *
      * @return Actual application version string value
      * @throws IOException ignored

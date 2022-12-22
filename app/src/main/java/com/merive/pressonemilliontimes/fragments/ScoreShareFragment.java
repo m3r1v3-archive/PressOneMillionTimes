@@ -144,7 +144,7 @@ public class ScoreShareFragment extends Fragment {
     private void openScanner() {
         new IntentIntegrator(getActivity())
                 .setBarcodeImageEnabled(false)
-                .setPrompt("Find and Scan Press1MTimes QR-Code")
+                .setPrompt("Find and Scan PressOneMillionTimes QR-Code")
                 .setCameraId(0)
                 .setCaptureActivity(ScannerActivity.class)
                 .setDesiredBarcodeFormats(IntentIntegrator.QR_CODE)
@@ -161,7 +161,7 @@ public class ScoreShareFragment extends Fragment {
      */
     @SuppressLint("DefaultLocale")
     private String getQRString(String score) {
-        return "press1mtimes://" + Integer.toHexString(Integer.parseInt(score));
+        return "pressonemilliontimes://" + Integer.toHexString(Integer.parseInt(score));
     }
 
 }

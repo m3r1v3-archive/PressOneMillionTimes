@@ -134,11 +134,11 @@ public class IconsFragment extends Fragment {
      */
     private void disablePreviousIcon() {
         if (MainActivity.preferencesManager.getIcon() == Icons.DEFAULT.getValue())
-            disableIcon("com.merive.press1mtimes.activities.SplashActivity");
+            disableIcon("com.merive.pressonemilliontimes.activities.SplashActivity");
         else if (MainActivity.preferencesManager.getIcon() == Icons.SHORT.getValue())
-            disableIcon("com.merive.press1mtimes.Short");
+            disableIcon("com.merive.pressonemilliontimes.Short");
         else if (MainActivity.preferencesManager.getIcon() == Icons.MILLION.getValue())
-            disableIcon("com.merive.press1mtimes.Million");
+            disableIcon("com.merive.pressonemilliontimes.Million");
     }
 
     /**
@@ -157,11 +157,11 @@ public class IconsFragment extends Fragment {
      */
     private void setNewIcon(int iconName) {
         if (iconName == Icons.DEFAULT.getValue())
-            enableIcon("com.merive.press1mtimes.activities.SplashActivity");
+            enableIcon("com.merive.pressonemilliontimes.activities.SplashActivity");
         else if (iconName == Icons.SHORT.getValue())
-            enableIcon("com.merive.press1mtimes.Short");
+            enableIcon("com.merive.pressonemilliontimes.Short");
         else if (iconName == Icons.MILLION.getValue())
-            enableIcon("com.merive.press1mtimes.Million");
+            enableIcon("com.merive.pressonemilliontimes.Million");
     }
 
     /**

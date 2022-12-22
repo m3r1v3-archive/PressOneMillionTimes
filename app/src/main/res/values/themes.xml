@@ -1,6 +1,6 @@
 <resources>
     <!--    Splash theme    -->
-    <style name="Theme.Press1MTimes.SplashScreen" parent="Theme.AppCompat.NoActionBar">
+    <style name="Theme.PressOneMillionTimes.SplashScreen" parent="Theme.AppCompat.NoActionBar">
         <!--    Set splash    -->
         <item name="android:windowBackground">@xml/splash</item>
 
@@ -14,7 +14,7 @@
     </style>
 
     <!--    Base application theme    -->
-    <style name="Theme.Press1MTimes" parent="Theme.AppCompat.NoActionBar">
+    <style name="Theme.PressOneMillionTimes" parent="Theme.AppCompat.NoActionBar">
 
         <!--    App Theme   -->
         <item name="colorAccent">@color/red</item>
@@ -25,7 +25,7 @@
     </style>
 
     <!--    DialogFragment Animation    -->
-    <style name="Theme.Press1MTimes.Animation">
+    <style name="Theme.PressOneMillionTimes.Animation">
         <item name="android:windowEnterAnimation">@anim/breath_in</item>
         <item name="android:windowExitAnimation">@anim/breath_out</item>
     </style>

@@ -23,7 +23,7 @@ public class NotificationReceiver extends BroadcastReceiver {
      */
     @Override
     public void onReceive(Context context, Intent intent) {
-        NotificationManagerCompat.from(context).notify(0, new NotificationCompat.Builder(context, "notifyPress1MTimes")
+        NotificationManagerCompat.from(context).notify(0, new NotificationCompat.Builder(context, "notifyPressOneMillionTimes")
                 .setSmallIcon(R.drawable.ic_stat_name)
                 .setColor(context.getResources().getColor(R.color.red))
                 .setContentTitle("The 1M is near")
