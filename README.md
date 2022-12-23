@@ -1,5 +1,5 @@
 <div align="center">
-    <img src="https://github.com/merive-inc/PressOneMillionTimes/blob/main/assets/P1MT.svg" width="64">
+    <img src="https://github.com/merive-inc/PressOneMillionTimes/blob/main/assets/PressOneMillionTimes.svg" width="64">
     <h1 align="center">PressOneMillionTimes</h1>
     <p>
         This game haven't hardcore gameplay.
