@@ -139,6 +139,6 @@ public class SettingsFragment extends Fragment {
      * Returns project info string
      */
     private String getInfo() {
-        return ("P1MT / " + BuildConfig.VERSION_NAME + "\nmerive_ inc. / MIT License, " + Calendar.getInstance().get(YEAR));
+        return ("PressOneMillionTimes / v" + BuildConfig.VERSION_NAME + "\nmerive inc. / MIT License, " + Calendar.getInstance().get(YEAR));
     }
 }
