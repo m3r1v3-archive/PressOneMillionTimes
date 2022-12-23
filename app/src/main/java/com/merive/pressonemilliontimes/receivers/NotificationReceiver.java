@@ -25,7 +25,7 @@ public class NotificationReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         NotificationManagerCompat.from(context).notify(0, new NotificationCompat.Builder(context, "notifyPressOneMillionTimes")
                 .setSmallIcon(R.drawable.ic_stat_name)
-                .setColor(context.getResources().getColor(R.color.red))
+                .setColor(context.getResources().getColor(R.color.primary))
                 .setContentTitle("The One Million is near")
                 .setContentText("You have already pressed " + intent.getStringExtra("score") + " times")
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)

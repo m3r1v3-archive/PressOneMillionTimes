@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingTop="@dimen/padding_24dp"
-    android:paddingBottom="@dimen/padding_24dp">
+    android:paddingBottom="@dimen/padding_12dp">
 
     <TextView
         android:id="@+id/settings_title"
@@ -16,7 +16,7 @@
         android:singleLine="true"
         android:text="@string/settings"
         android:textAllCaps="true"
-        android:textColor="@color/red"
+        android:textColor="@color/primary"
         android:textSize="@dimen/font_medium_size"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -47,13 +47,13 @@
         android:padding="@dimen/padding_12dp"
         android:singleLine="true"
         android:text="@string/vibration"
-        android:textColor="@color/red"
+        android:textColor="@color/primary"
         android:textSize="@dimen/font_small_size"
         app:layout_constraintEnd_toStartOf="@+id/notification_switch"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/settings_title"
-        app:thumbTint="@color/red"
-        app:trackTint="@color/pale_red" />
+        app:thumbTint="@color/primary"
+        app:trackTint="@color/on_primary" />
 
     <androidx.appcompat.widget.SwitchCompat
         android:id="@+id/notification_switch"
@@ -68,13 +68,13 @@
         android:padding="@dimen/padding_12dp"
         android:singleLine="true"
         android:text="@string/notification"
-        android:textColor="@color/red"
+        android:textColor="@color/primary"
         android:textSize="@dimen/font_small_size"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/vibration_switch"
         app:layout_constraintTop_toBottomOf="@+id/settings_title"
-        app:thumbTint="@color/red"
-        app:trackTint="@color/pale_red" />
+        app:thumbTint="@color/primary"
+        app:trackTint="@color/on_primary" />
 
     <androidx.appcompat.widget.SwitchCompat
         android:id="@+id/animation_switch"
@@ -89,13 +89,13 @@
         android:padding="@dimen/padding_12dp"
         android:singleLine="true"
         android:text="@string/animation"
-        android:textColor="@color/red"
+        android:textColor="@color/primary"
         android:textSize="@dimen/font_small_size"
         app:layout_constraintEnd_toStartOf="@+id/splash_switch"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/vibration_switch"
-        app:thumbTint="@color/red"
-        app:trackTint="@color/pale_red" />
+        app:thumbTint="@color/primary"
+        app:trackTint="@color/on_primary" />
 
     <androidx.appcompat.widget.SwitchCompat
         android:id="@+id/splash_switch"
@@ -110,13 +110,13 @@
         android:padding="@dimen/padding_12dp"
         android:singleLine="true"
         android:text="@string/splash"
-        android:textColor="@color/red"
+        android:textColor="@color/primary"
         android:textSize="@dimen/font_small_size"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/animation_switch"
         app:layout_constraintTop_toBottomOf="@+id/notification_switch"
-        app:thumbTint="@color/red"
-        app:trackTint="@color/pale_red" />
+        app:thumbTint="@color/primary"
+        app:trackTint="@color/on_primary" />
 
     <Button
         android:id="@+id/options_button"
@@ -132,7 +132,7 @@
         android:stateListAnimator="@null"
         android:text="@string/options"
         android:textAllCaps="false"
-        android:textColor="@color/red"
+        android:textColor="@color/primary"
         android:textSize="@dimen/font_small_size"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -159,7 +159,7 @@
         android:layout_marginEnd="@dimen/margin_12dp"
         android:fontFamily="@font/odibee"
         android:gravity="center"
-        android:textColor="@color/red"
+        android:textColor="@color/primary"
         android:textSize="@dimen/font_small_size"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

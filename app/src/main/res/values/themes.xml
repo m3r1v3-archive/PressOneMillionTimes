@@ -5,9 +5,9 @@
         <item name="android:windowBackground">@xml/splash</item>
 
         <!--    Theme colors    -->
-        <item name="colorAccent">@color/red</item>
-        <item name="colorPrimary">@color/red</item>
-        <item name="colorPrimaryDark">@color/gray</item>
+        <item name="colorAccent">@color/on_primary</item>
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryDark">@color/background</item>
 
         <!--    Hide action bar    -->
         <item name="android:windowFullscreen">true</item>
@@ -17,11 +17,9 @@
     <style name="Theme.PressOneMillionTimes" parent="Theme.AppCompat.NoActionBar">
 
         <!--    App Theme   -->
-        <item name="colorAccent">@color/red</item>
-        <item name="colorPrimary">@color/red</item>
-        <item name="colorPrimaryDark">@color/red</item>
-        <!--    Set action bar color    -->
-        <item name="android:actionBarStyle">@color/gray</item>
+        <item name="colorAccent">@color/on_primary</item>
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryDark">@color/background</item>
     </style>
 
     <!--    DialogFragment Animation    -->
