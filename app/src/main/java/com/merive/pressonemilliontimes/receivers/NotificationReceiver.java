@@ -26,7 +26,7 @@ public class NotificationReceiver extends BroadcastReceiver {
         NotificationManagerCompat.from(context).notify(0, new NotificationCompat.Builder(context, "notifyPressOneMillionTimes")
                 .setSmallIcon(R.drawable.ic_stat_name)
                 .setColor(context.getResources().getColor(R.color.red))
-                .setContentTitle("The 1M is near")
+                .setContentTitle("The One Million is near")
                 .setContentText("You have already pressed " + intent.getStringExtra("score") + " times")
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 .setContentIntent(PendingIntent.getActivity(context, 0, new Intent(context, SplashActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK), PendingIntent.FLAG_CANCEL_CURRENT | PendingIntent.FLAG_IMMUTABLE))
