@@ -76,7 +76,7 @@
         android:id="@+id/close"
         android:layout_width="@dimen/size_192dp"
         android:layout_height="@dimen/size_192dp"
-        android:background="@drawable/ic_close_button"
+        android:background="@drawable/ic_icon"
         android:contentDescription="@string/todo"
         android:onClick="clickClose"
         android:textColor="@color/primary"

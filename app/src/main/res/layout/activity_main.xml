@@ -114,7 +114,7 @@
         android:id="@+id/button"
         android:layout_width="@dimen/size_192dp"
         android:layout_height="@dimen/size_192dp"
-        android:background="@drawable/ic_button"
+        android:background="@drawable/ic_icon"
         android:contentDescription="@string/todo"
         android:gravity="center"
         android:onClick="clickButton"
