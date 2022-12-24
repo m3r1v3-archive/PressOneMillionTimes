@@ -29,7 +29,7 @@
         android:layout_marginRight="@dimen/margin_36dp"
         android:layout_marginBottom="@dimen/margin_12dp"
         android:src="@xml/horizontal_line"
-        app:layout_constraintBottom_toTopOf="@+id/short_icon_button"
+        app:layout_constraintBottom_toTopOf="@+id/one_icon_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -41,7 +41,7 @@
         android:layout_marginTop="@dimen/margin_24dp"
         android:background="@xml/background_dark"
         android:padding="@dimen/padding_8dp"
-        app:layout_constraintEnd_toStartOf="@+id/short_icon_button"
+        app:layout_constraintEnd_toStartOf="@+id/one_icon_button"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/icons_title">
 
@@ -84,7 +84,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/short_icon_button"
+        android:id="@+id/one_icon_button"
         android:layout_width="@dimen/size_0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_12dp"
@@ -92,12 +92,12 @@
         android:layout_marginEnd="@dimen/margin_12dp"
         android:background="@xml/background_dark"
         android:padding="@dimen/padding_8dp"
-        app:layout_constraintEnd_toStartOf="@+id/million_icon_button"
+        app:layout_constraintEnd_toStartOf="@+id/minimalistic_icon_button"
         app:layout_constraintStart_toEndOf="@+id/default_icon_button"
         app:layout_constraintTop_toBottomOf="@+id/icons_title">
 
         <ImageView
-            android:id="@+id/short_icon"
+            android:id="@+id/one_icon"
             android:layout_width="@dimen/size_72dp"
             android:layout_height="@dimen/size_72dp"
             android:layout_marginTop="@dimen/margin_6dp"
@@ -107,35 +107,35 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_icon" />
+            app:srcCompat="@drawable/ic_icon_one" />
 
         <ImageView
-            android:id="@+id/short_icon_separator"
+            android:id="@+id/one_icon_separator"
             android:layout_width="@dimen/size_0dp"
             android:layout_height="@dimen/size_12dp"
             android:layout_marginBottom="@dimen/margin_6dp"
             android:src="@xml/horizontal_line"
-            app:layout_constraintBottom_toTopOf="@+id/short_icon_text"
+            app:layout_constraintBottom_toTopOf="@+id/one_icon_text"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
-            android:id="@+id/short_icon_text"
+            android:id="@+id/one_icon_text"
             android:layout_width="@dimen/size_0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_24dp"
             android:fontFamily="@font/odibee"
             android:gravity="center"
-            android:text="@string/short_icon"
+            android:text="@string/one_icon"
             android:textColor="@color/primary"
             android:textSize="@dimen/font_small_size"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/short_icon" />
+            app:layout_constraintTop_toBottomOf="@+id/one_icon" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/million_icon_button"
+        android:id="@+id/minimalistic_icon_button"
         android:layout_width="@dimen/size_0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_24dp"
@@ -143,11 +143,11 @@
         android:background="@xml/background_dark"
         android:padding="@dimen/padding_8dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/short_icon_button"
+        app:layout_constraintStart_toEndOf="@+id/one_icon_button"
         app:layout_constraintTop_toBottomOf="@+id/icons_title">
 
         <ImageView
-            android:id="@+id/million_icon"
+            android:id="@+id/minimalistic_icon"
             android:layout_width="@dimen/size_72dp"
             android:layout_height="@dimen/size_72dp"
             android:layout_marginTop="@dimen/margin_6dp"
@@ -157,31 +157,31 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_icon" />
+            app:srcCompat="@drawable/ic_icon_minimalistic" />
 
         <ImageView
-            android:id="@+id/million_icon_separator"
+            android:id="@+id/minimalistic_icon_separator"
             android:layout_width="@dimen/size_0dp"
             android:layout_height="@dimen/size_12dp"
             android:layout_marginBottom="@dimen/margin_6dp"
             android:src="@xml/horizontal_line"
-            app:layout_constraintBottom_toTopOf="@+id/million_icon_text"
+            app:layout_constraintBottom_toTopOf="@+id/minimalistic_icon_text"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
-            android:id="@+id/million_icon_text"
+            android:id="@+id/minimalistic_icon_text"
             android:layout_width="@dimen/size_0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_24dp"
             android:fontFamily="@font/odibee"
             android:gravity="center"
-            android:text="@string/million_icon"
+            android:text="@string/minimalistic_icon"
             android:textColor="@color/primary"
             android:textSize="@dimen/font_small_size"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/million_icon" />
+            app:layout_constraintTop_toBottomOf="@+id/minimalistic_icon" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <Button
@@ -202,7 +202,7 @@
         android:textSize="@dimen/font_small_size"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/short_icon_button" />
+        app:layout_constraintTop_toBottomOf="@+id/one_icon_button" />
 
     <ImageView
         android:id="@+id/icons_cancel_button_separator"

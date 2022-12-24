@@ -19,7 +19,7 @@ import com.merive.pressonemilliontimes.utils.Icons;
 
 public class IconsFragment extends Fragment {
 
-    ConstraintLayout defaultIconButton, ShortIconButton, millionIconButton;
+    ConstraintLayout defaultIconButton, OneIconButton, millionIconButton;
     Button cancelButton;
     MainActivity mainActivity;
 
@@ -61,8 +61,8 @@ public class IconsFragment extends Fragment {
      */
     private void initVariables() {
         defaultIconButton = getView().findViewById(R.id.default_icon_button);
-        ShortIconButton = getView().findViewById(R.id.short_icon_button);
-        millionIconButton = getView().findViewById(R.id.million_icon_button);
+        OneIconButton = getView().findViewById(R.id.one_icon_button);
+        millionIconButton = getView().findViewById(R.id.minimalistic_icon_button);
         cancelButton = getView().findViewById(R.id.icons_cancel_button);
         mainActivity = ((MainActivity) getActivity());
     }
@@ -72,8 +72,8 @@ public class IconsFragment extends Fragment {
      */
     private void setListeners() {
         defaultIconButton.setOnClickListener(v -> clickDefaultIcon());
-        ShortIconButton.setOnClickListener(v -> clickShortIcon());
-        millionIconButton.setOnClickListener(v -> clickMillionIcon());
+        OneIconButton.setOnClickListener(v -> clickOneIcon());
+        millionIconButton.setOnClickListener(v -> clickMinimalisticIcon());
         cancelButton.setOnClickListener(v -> clickCancel());
     }
 
@@ -88,22 +88,22 @@ public class IconsFragment extends Fragment {
     }
 
     /**
-     * Executes after click on ShortIconButton
-     * Makes vibration and updates application icon to Short icon
+     * Executes after click on OneIconButton
+     * Makes vibration and updates application icon to One icon
      */
-    private void clickShortIcon() {
+    private void clickOneIcon() {
         mainActivity.makeVibration(1);
-        setIcon(Icons.SHORT.getValue());
+        setIcon(Icons.ONE.getValue());
         mainActivity.setFragment(new SettingsFragment());
     }
 
     /**
-     * Executes after click on MillionIconButton
-     * Makes vibration and updates application icon to Million icon
+     * Executes after click on MinimalisticIconButton
+     * Makes vibration and updates application icon to Minimalistic icon
      **/
-    private void clickMillionIcon() {
+    private void clickMinimalisticIcon() {
         mainActivity.makeVibration(1);
-        setIcon(Icons.MILLION.getValue());
+        setIcon(Icons.MINIMALISTIC.getValue());
         mainActivity.setFragment(new SettingsFragment());
     }
 
@@ -135,10 +135,10 @@ public class IconsFragment extends Fragment {
     private void disablePreviousIcon() {
         if (MainActivity.preferencesManager.getIcon() == Icons.DEFAULT.getValue())
             disableIcon("com.merive.pressonemilliontimes.activities.SplashActivity");
-        else if (MainActivity.preferencesManager.getIcon() == Icons.SHORT.getValue())
-            disableIcon("com.merive.pressonemilliontimes.Short");
-        else if (MainActivity.preferencesManager.getIcon() == Icons.MILLION.getValue())
-            disableIcon("com.merive.pressonemilliontimes.Million");
+        else if (MainActivity.preferencesManager.getIcon() == Icons.ONE.getValue())
+            disableIcon("com.merive.pressonemilliontimes.One");
+        else if (MainActivity.preferencesManager.getIcon() == Icons.MINIMALISTIC.getValue())
+            disableIcon("com.merive.pressonemilliontimes.Minimalistic");
     }
 
     /**
@@ -158,10 +158,10 @@ public class IconsFragment extends Fragment {
     private void setNewIcon(int iconName) {
         if (iconName == Icons.DEFAULT.getValue())
             enableIcon("com.merive.pressonemilliontimes.activities.SplashActivity");
-        else if (iconName == Icons.SHORT.getValue())
-            enableIcon("com.merive.pressonemilliontimes.Short");
-        else if (iconName == Icons.MILLION.getValue())
-            enableIcon("com.merive.pressonemilliontimes.Million");
+        else if (iconName == Icons.ONE.getValue())
+            enableIcon("com.merive.pressonemilliontimes.One");
+        else if (iconName == Icons.MINIMALISTIC.getValue())
+            enableIcon("com.merive.pressonemilliontimes.Minimalistic");
     }
 
     /**

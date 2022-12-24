@@ -34,8 +34,8 @@
     <!-- IconsFragment -->
     <string name="icons">Icons</string>
     <string name="default_icon">Default</string>
-    <string name="short_icon">Short</string>
-    <string name="million_icon">Million</string>
+    <string name="one_icon">One</string>
+    <string name="minimalistic_icon">Minimalistic</string>
     <string name="icon_changed">Application icon was changed</string>
 
     <!-- UpdateFragment -->
