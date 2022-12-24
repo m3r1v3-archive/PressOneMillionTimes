@@ -19,9 +19,8 @@
     </queries>
 
     <application
-        android:icon="@mipmap/ic_launcher_default"
+        android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_default_round"
         android:theme="@style/Theme.PressOneMillionTimes">
         <activity
             android:name=".activities.SplashActivity"
@@ -65,34 +64,6 @@
             android:stateNotNeeded="true"
             android:theme="@style/zxing_CaptureTheme"
             android:windowSoftInputMode="stateAlwaysHidden" />
-
-        <activity-alias
-            android:name="Short"
-            android:enabled="false"
-            android:exported="true"
-            android:icon="@mipmap/ic_launcher_short"
-            android:label="@string/app_name"
-            android:roundIcon="@mipmap/ic_launcher_short_round"
-            android:targetActivity=".activities.SplashActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity-alias>
-
-        <activity-alias
-            android:name="Million"
-            android:enabled="false"
-            android:exported="true"
-            android:icon="@mipmap/ic_launcher_million"
-            android:label="@string/app_name"
-            android:roundIcon="@mipmap/ic_launcher_million_round"
-            android:targetActivity=".activities.SplashActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity-alias>
 
         <receiver
             android:name=".receivers.NotificationReceiver"

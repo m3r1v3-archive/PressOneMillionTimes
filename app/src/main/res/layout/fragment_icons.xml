@@ -107,7 +107,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_short_icon" />
+            app:srcCompat="@drawable/ic_icon" />
 
         <ImageView
             android:id="@+id/short_icon_separator"
@@ -157,7 +157,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_million_icon" />
+            app:srcCompat="@drawable/ic_icon" />
 
         <ImageView
             android:id="@+id/million_icon_separator"

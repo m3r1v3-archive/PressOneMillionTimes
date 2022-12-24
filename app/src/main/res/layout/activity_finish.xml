@@ -19,7 +19,7 @@
         app:snowflakeAlphaMax="256"
         app:snowflakeAlphaMin="128"
         app:snowflakeAngleMax="5"
-        app:snowflakeImage="@drawable/ic_short_icon"
+        app:snowflakeImage="@drawable/ic_icon"
         app:snowflakeSizeMax="@dimen/size_36dp"
         app:snowflakeSizeMin="@dimen/size_24dp"
         app:snowflakeSpeedMax="8"
