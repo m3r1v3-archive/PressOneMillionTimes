@@ -12,6 +12,7 @@
     <dimen name="margin_0dp">0dp</dimen>
 
     <dimen name="size_324dp">324dp</dimen>
+    <dimen name="size_224dp">224dp</dimen>
     <dimen name="size_204dp">204dp</dimen>
     <dimen name="size_192dp">192dp</dimen>
     <dimen name="size_148dp">148dp</dimen>

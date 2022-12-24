@@ -30,20 +30,35 @@
         android:layout_marginRight="@dimen/margin_48dp"
         android:layout_marginBottom="@dimen/margin_12dp"
         android:src="@xml/horizontal_line"
-        app:layout_constraintBottom_toTopOf="@+id/score_share_qr_code"
+        app:layout_constraintBottom_toTopOf="@+id/score_share_qr_code_layout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <ImageView
-        android:id="@+id/score_share_qr_code"
-        android:layout_width="@dimen/size_148dp"
-        android:layout_height="@dimen/size_148dp"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/score_share_qr_code_layout"
+        android:layout_width="@dimen/size_0dp"
+        android:layout_height="@dimen/size_224dp"
+        android:layout_marginStart="@dimen/margin_12dp"
         android:layout_marginTop="@dimen/margin_24dp"
-        android:background="@xml/filled_background"
-        android:cropToPadding="true"
+        android:layout_marginEnd="@dimen/margin_12dp"
+        android:layout_marginBottom="13dp"
+        android:background="@xml/background_dark"
+        app:layout_constraintBottom_toTopOf="@+id/score_share_cancel_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/score_share_title" />
+        app:layout_constraintTop_toBottomOf="@+id/score_share_title">
+
+        <ImageView
+            android:id="@+id/score_share_qr_code"
+            android:layout_width="@dimen/size_192dp"
+            android:layout_height="@dimen/size_192dp"
+            android:background="@xml/filled_background"
+            android:cropToPadding="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <Button
         android:id="@+id/score_share_cancel_button"
@@ -64,7 +79,7 @@
         android:textSize="@dimen/font_small_size"
         app:layout_constraintEnd_toStartOf="@id/score_share_scan_button"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/score_share_qr_code" />
+        app:layout_constraintTop_toBottomOf="@+id/score_share_qr_code_layout" />
 
     <Button
         android:id="@+id/score_share_scan_button"
@@ -85,7 +100,7 @@
         android:textSize="@dimen/font_small_size"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/score_share_cancel_button"
-        app:layout_constraintTop_toBottomOf="@id/score_share_qr_code" />
+        app:layout_constraintTop_toBottomOf="@id/score_share_qr_code_layout" />
 
     <ImageView
         android:id="@+id/score_share_cancel_button_separator"
