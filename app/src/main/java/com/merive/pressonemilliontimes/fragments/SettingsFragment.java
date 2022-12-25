@@ -109,7 +109,7 @@ public class SettingsFragment extends Fragment {
     private void setOptionsListener() {
         optionsButton.setOnClickListener(v -> {
             mainActivity.setFragment(new OptionsFragment());
-            mainActivity.makeVibration(1);
+            mainActivity.makeVibration();
         });
     }
 

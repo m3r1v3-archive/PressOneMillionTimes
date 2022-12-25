@@ -47,9 +47,6 @@
     <string name="left">Left</string>
     <string name="right">Right</string>
 
-    <!-- Website Link -->
-    <string name="link">https://merive.herokuapp.com/P1MT</string>
-
     <string name="error">Something went wrong!</string>
 
     <!-- TODO -->

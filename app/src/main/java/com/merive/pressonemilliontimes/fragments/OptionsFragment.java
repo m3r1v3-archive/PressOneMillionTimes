@@ -114,7 +114,7 @@ public class OptionsFragment extends Fragment {
      * @see ResetFragment
      */
     private void clickReset() {
-        mainActivity.makeVibration(1);
+        mainActivity.makeVibration();
         mainActivity.setFragment(new ResetFragment());
     }
 
@@ -125,7 +125,7 @@ public class OptionsFragment extends Fragment {
      * @see ScoreShareFragment
      */
     private void clickScoreShare() {
-        mainActivity.makeVibration(1);
+        mainActivity.makeVibration();
         mainActivity.setFragment(new ScoreShareFragment());
     }
 
@@ -136,7 +136,7 @@ public class OptionsFragment extends Fragment {
      * @see IconsFragment
      */
     private void clickIcons() {
-        mainActivity.makeVibration(1);
+        mainActivity.makeVibration();
         mainActivity.setFragment(new IconsFragment());
     }
 
@@ -147,7 +147,7 @@ public class OptionsFragment extends Fragment {
      * @see SplashMessageFragment
      */
     private void clickSplash() {
-        mainActivity.makeVibration(1);
+        mainActivity.makeVibration();
         mainActivity.setFragment(new SplashMessageFragment());
     }
 
@@ -158,7 +158,7 @@ public class OptionsFragment extends Fragment {
      * @see SplashMessageFragment
      */
     private void clickCancel() {
-        mainActivity.makeVibration(1);
+        mainActivity.makeVibration();
         mainActivity.setFragment(new SettingsFragment());
         showTip = false;
     }

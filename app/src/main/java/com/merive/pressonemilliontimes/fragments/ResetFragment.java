@@ -80,7 +80,7 @@ public class ResetFragment extends Fragment {
      * Makes vibration effect and closes ResetFragment
      */
     private void clickCancel() {
-        mainActivity.makeVibration(1);
+        mainActivity.makeVibration();
         mainActivity.setFragment(new SettingsFragment());
     }
 
@@ -89,7 +89,7 @@ public class ResetFragment extends Fragment {
      * Makes vibration, resets counter value (sets default value (default value is 000000)) and makes toast message
      */
     private void clickConfirm() {
-        mainActivity.makeVibration(1);
+        mainActivity.makeVibration();
         mainActivity.resetScore();
         mainActivity.setScoreToCounter();
         mainActivity.makeToast("The Score has been reset");

@@ -81,7 +81,7 @@ public class SplashMessageFragment extends Fragment {
      * Makes vibration effect and closes SplashMessageFragment
      */
     private void clickCancel() {
-        mainActivity.makeVibration(1);
+        mainActivity.makeVibration();
         mainActivity.setFragment(new SettingsFragment());
     }
 
@@ -92,7 +92,7 @@ public class SplashMessageFragment extends Fragment {
      * @param vertical   Vertical float position value
      */
     private void setPosition(float horizontal, float vertical) {
-        mainActivity.makeVibration(1);
+        mainActivity.makeVibration();
         mainActivity.setSplashPosition(horizontal, vertical);
         mainActivity.makeToast(getResources().getString(R.string.splash_position_changed));
         mainActivity.setFragment(new SettingsFragment());

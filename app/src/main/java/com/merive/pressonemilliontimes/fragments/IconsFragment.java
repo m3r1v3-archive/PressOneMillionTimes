@@ -82,7 +82,7 @@ public class IconsFragment extends Fragment {
      * Makes vibration and updates application icon to default icon
      */
     private void clickDefaultIcon() {
-        mainActivity.makeVibration(1);
+        mainActivity.makeVibration();
         setIcon(Icons.DEFAULT.getValue());
         mainActivity.setFragment(new SettingsFragment());
     }
@@ -92,7 +92,7 @@ public class IconsFragment extends Fragment {
      * Makes vibration and updates application icon to One icon
      */
     private void clickOneIcon() {
-        mainActivity.makeVibration(1);
+        mainActivity.makeVibration();
         setIcon(Icons.ONE.getValue());
         mainActivity.setFragment(new SettingsFragment());
     }
@@ -102,7 +102,7 @@ public class IconsFragment extends Fragment {
      * Makes vibration and updates application icon to Minimalistic icon
      **/
     private void clickMinimalisticIcon() {
-        mainActivity.makeVibration(1);
+        mainActivity.makeVibration();
         setIcon(Icons.MINIMALISTIC.getValue());
         mainActivity.setFragment(new SettingsFragment());
     }
@@ -112,7 +112,7 @@ public class IconsFragment extends Fragment {
      * Makes vibration effect and closes IconsFragment
      */
     private void clickCancel() {
-        mainActivity.makeVibration(1);
+        mainActivity.makeVibration();
         mainActivity.setFragment(new SettingsFragment());
     }
 

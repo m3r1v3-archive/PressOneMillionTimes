@@ -7,7 +7,6 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.view.View;
@@ -16,7 +15,6 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
@@ -25,17 +23,17 @@ import androidx.fragment.app.Fragment;
 import com.google.zxing.client.android.BuildConfig;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.merive.pressonemilliontimes.R;
+import com.merive.pressonemilliontimes.api.API;
 import com.merive.pressonemilliontimes.fragments.SettingsFragment;
 import com.merive.pressonemilliontimes.fragments.UpdateFragment;
 import com.merive.pressonemilliontimes.preferences.PreferencesManager;
 import com.merive.pressonemilliontimes.receivers.NotificationReceiver;
 import com.merive.pressonemilliontimes.utils.SplashTexts;
 
-import java.io.BufferedReader;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.URL;
-import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Calendar;
@@ -56,7 +54,6 @@ public class MainActivity extends AppCompatActivity {
      *
      * @param savedInstanceState Using by super.onCreate method
      */
-    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -102,11 +99,10 @@ public class MainActivity extends AppCompatActivity {
      */
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
         super.onActivityResult(requestCode, resultCode, intent);
-        if (IntentIntegrator.parseActivityResult(requestCode, resultCode, intent) != null)
-            try {
-                checkQRPattern(intent.getStringExtra("SCAN_RESULT"));
-            } catch (NullPointerException ignore) {
-            }
+        if (IntentIntegrator.parseActivityResult(requestCode, resultCode, intent) != null) try {
+            checkQRPattern(intent.getStringExtra("SCAN_RESULT"));
+        } catch (NullPointerException ignore) {
+        }
     }
 
     /**
@@ -130,18 +126,16 @@ public class MainActivity extends AppCompatActivity {
     private void setScoreByQRResult(String result) {
         preferencesManager.setScore(Integer.parseInt(result.replace("pressonemilliontimes://", ""), 16));
         setScoreToCounter();
-        makeVibration(1);
+        makeVibration();
         makeToast(getResources().getString(R.string.score_changed));
     }
 
     /**
      * Makes vibration on device
-     *
-     * @param times Vibration times (Using for make vibration longer)
      */
-    public void makeVibration(int times) {
+    public void makeVibration() {
         if (preferencesManager.getVibration())
-            ((Vibrator) getSystemService(Context.VIBRATOR_SERVICE)).vibrate(75L * times);
+            ((Vibrator) getSystemService(Context.VIBRATOR_SERVICE)).vibrate(75L);
     }
 
     /**
@@ -168,11 +162,7 @@ public class MainActivity extends AppCompatActivity {
      * @param fragment Future fragment in pad_fragment component
      */
     public void setFragment(Fragment fragment) {
-        getSupportFragmentManager()
-                .beginTransaction()
-                .setCustomAnimations(R.anim.breath_in, R.anim.breath_out)
-                .setReorderingAllowed(true)
-                .replace(R.id.pad_fragment, fragment, null).commit();
+        getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.breath_in, R.anim.breath_out).setReorderingAllowed(true).replace(R.id.pad_fragment, fragment, null).commit();
     }
 
     /**
@@ -187,7 +177,6 @@ public class MainActivity extends AppCompatActivity {
      *
      * @return Return true if season is winter
      */
-    @RequiresApi(api = Build.VERSION_CODES.O)
     private boolean checkWinter() {
         LocalDate localDate = new Date().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         return localDate.getMonthValue() == 12 || localDate.getMonthValue() == 1 || localDate.getMonthValue() == 2;
@@ -197,11 +186,9 @@ public class MainActivity extends AppCompatActivity {
      * Creates notification channel (needs for notifications)
      */
     private void createNotificationChannel() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationChannel channel = new NotificationChannel("notifyPressOneMillionTimes", "PressOneMillionTimesChannel", NotificationManager.IMPORTANCE_DEFAULT);
-            channel.setDescription("Channel for PressOneMillionTimes");
-            getSystemService(NotificationManager.class).createNotificationChannel(channel);
-        }
+        NotificationChannel channel = new NotificationChannel("notifyPressOneMillionTimes", "PressOneMillionTimesChannel", NotificationManager.IMPORTANCE_DEFAULT);
+        channel.setDescription("Channel for PressOneMillionTimes");
+        getSystemService(NotificationManager.class).createNotificationChannel(channel);
     }
 
     /**
@@ -213,49 +200,26 @@ public class MainActivity extends AppCompatActivity {
     private void checkVersion() {
         new Thread(() -> {
             try {
-                if (!getActualVersion().equals(BuildConfig.VERSION_NAME))
-                    openUpdateFragment(getActualVersion());
+                if (!((String) new JSONObject(new API().get()).get("version")).equals(BuildConfig.VERSION_NAME))
+                    openUpdateFragment(new JSONObject(new API().get()));
             } catch (IOException ignored) {
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
         }).start();
     }
 
     /**
-     * Gets actual PressOneMillionTimes version on official websites
-     *
-     * @return Actual application version string value
-     * @throws IOException ignored
-     * @see UpdateFragment
-     */
-    private String getActualVersion() throws IOException {
-        BufferedReader reader = null;
-        StringBuilder builder = new StringBuilder();
-        try {
-            reader = new BufferedReader(new InputStreamReader(new URL(getResources().getString(R.string.link)).openStream(), StandardCharsets.UTF_8));
-            for (String line; (line = reader.readLine()) != null; ) builder.append(line.trim());
-        } finally {
-            if (reader != null) try {
-                reader.close();
-            } catch (IOException ignored) {
-            }
-        }
-        return builder.substring(builder.indexOf("<i>") + "<i>".length()).substring(1, builder.substring(builder.indexOf("<i>") + "<i>".length()).indexOf("</i>"));
-    }
-
-    /**
      * Open UpdateFragment
-     *
-     * @param actualVersion Actual application version value
      */
-    private void openUpdateFragment(String actualVersion) {
-        UpdateFragment.newInstance(BuildConfig.VERSION_NAME, actualVersion).show(getSupportFragmentManager(), "update_fragment");
+    private void openUpdateFragment(JSONObject jsonObject) throws JSONException {
+        UpdateFragment.newInstance(BuildConfig.VERSION_NAME, (String) jsonObject.get("version"), (String) jsonObject.get("changelog"), (String) jsonObject.get("link")).show(getSupportFragmentManager(), "update_fragment");
     }
 
     /**
      * Checks splashState value
      * If value is true, sets splash position and starts splash animation
      */
-    @RequiresApi(api = Build.VERSION_CODES.O)
     private void checkSplashMessage() {
         if (preferencesManager.getSplash()) {
             splashText = findViewById(R.id.splash);
@@ -278,7 +242,6 @@ public class MainActivity extends AppCompatActivity {
     /**
      * Makes SplashMessage animation, sets TextView value and makes it visible
      */
-    @RequiresApi(api = Build.VERSION_CODES.O)
     private void makeSplashAnimation() {
         splashText.setText(("#" + SplashTexts.values()[new Random().nextInt(SplashTexts.values().length - (checkWinter() ? 0 : 1))]));
         splashText.setVisibility(View.VISIBLE);
@@ -298,7 +261,7 @@ public class MainActivity extends AppCompatActivity {
             openFinish();
         } else preferencesManager.setScore(preferencesManager.getScore() + 1);
         setScoreToCounter();
-        makeVibrationByScore(preferencesManager.getScore());
+        makeVibration();
         if (preferencesManager.getAnimation())
             makeBreathAnimation(titleText, findViewById(R.id.counter_layout), pressButton);
     }
@@ -329,15 +292,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Sets number of vibration times by round value of score.
-     *
-     * @param score Score value
-     */
-    private void makeVibrationByScore(int score) {
-        makeVibration(score % 100000 == 0 ? 3 : score % 10000 == 0 ? 2 : 1);
-    }
-
-    /**
      * Makes BreathAnimation for views
      *
      * @param views Views what will be animated
@@ -356,8 +310,7 @@ public class MainActivity extends AppCompatActivity {
         calendar.set(Calendar.HOUR_OF_DAY, 12);
         if (calendar.get(Calendar.HOUR_OF_DAY) >= 12) calendar.add(Calendar.DATE, 1);
 
-        ((AlarmManager) getSystemService(Context.ALARM_SERVICE)).setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
-                AlarmManager.INTERVAL_DAY, PendingIntent.getBroadcast(MainActivity.this, 0, new Intent(getBaseContext(), NotificationReceiver.class).putExtra("score", String.valueOf(preferencesManager.getScore())), PendingIntent.FLAG_CANCEL_CURRENT | PendingIntent.FLAG_IMMUTABLE));
+        ((AlarmManager) getSystemService(Context.ALARM_SERVICE)).setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, PendingIntent.getBroadcast(MainActivity.this, 0, new Intent(getBaseContext(), NotificationReceiver.class).putExtra("score", String.valueOf(preferencesManager.getScore())), PendingIntent.FLAG_CANCEL_CURRENT | PendingIntent.FLAG_IMMUTABLE));
     }
 
     /**

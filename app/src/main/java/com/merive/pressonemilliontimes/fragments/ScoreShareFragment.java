@@ -124,7 +124,7 @@ public class ScoreShareFragment extends Fragment {
      * Makes vibration effect and opens QR Code scanner
      */
     private void clickScan() {
-        mainActivity.makeVibration(1);
+        mainActivity.makeVibration();
         openScanner();
         mainActivity.setFragment(new SettingsFragment());
     }
@@ -134,7 +134,7 @@ public class ScoreShareFragment extends Fragment {
      * Makes vibration effect and closes ScoreShareFragment
      */
     private void clickCancel() {
-        mainActivity.makeVibration(1);
+        mainActivity.makeVibration();
         mainActivity.setFragment(new SettingsFragment());
     }
 

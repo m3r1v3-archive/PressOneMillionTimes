@@ -9,7 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextView;
+import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -21,7 +21,7 @@ import com.merive.pressonemilliontimes.activities.MainActivity;
 
 public class UpdateFragment extends DialogFragment {
 
-    TextView versionText;
+    EditText changelogText;
     Button downloadButton;
     MainActivity mainActivity;
 
@@ -30,11 +30,13 @@ public class UpdateFragment extends DialogFragment {
      *
      * @return New instance of UpdateFragment with necessary arguments
      */
-    public static UpdateFragment newInstance(String oldVersion, String newVersion) {
+    public static UpdateFragment newInstance(String oldVersion, String newVersion, String changelog, String link) {
         UpdateFragment frag = new UpdateFragment();
         Bundle args = new Bundle();
         args.putString("old_version", oldVersion);
         args.putString("new_version", newVersion);
+        args.putString("changelog", changelog);
+        args.putString("link", link);
         frag.setArguments(args);
         return frag;
     }
@@ -70,7 +72,7 @@ public class UpdateFragment extends DialogFragment {
 
         initVariables();
         setListeners();
-        setVersion();
+        setChangelog();
     }
 
     /**
@@ -79,7 +81,7 @@ public class UpdateFragment extends DialogFragment {
      * @see View
      */
     private void initVariables() {
-        versionText = getView().findViewById(R.id.update_version_title);
+        changelogText = getView().findViewById(R.id.update_changelog);
         downloadButton = getView().findViewById(R.id.update_download_button);
         mainActivity = ((MainActivity) getActivity());
     }
@@ -96,8 +98,9 @@ public class UpdateFragment extends DialogFragment {
     /**
      * Sets text to versionText TextView
      */
-    private void setVersion() {
-        versionText.setText(("Installed - " + getArguments().getString("old_version") + " / Actual - " + getArguments().getString("new_version")));
+    private void setChangelog() {
+        changelogText.setText(String.format("Changelog (%s)\n%s", getArguments().getString("new_version"),
+                getArguments().getString("changelog").replace("\\n", "\n")));
     }
 
     /**
@@ -105,8 +108,8 @@ public class UpdateFragment extends DialogFragment {
      * Makes vibration and opens P1MT web page in browser
      */
     private void clickDownload() {
-        mainActivity.makeVibration(1);
-        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(getResources().getString(R.string.link))));
+        mainActivity.makeVibration();
+        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(getArguments().getString("link"))));
         dismiss();
     }
 }
