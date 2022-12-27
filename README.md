@@ -50,7 +50,7 @@
     <p>
         In PressOneMillionTimes we're using the next version scheme - <b>vX.Y.Z</b>, where
         <table align="center">
-            <tr><th>X</th><th>Major Update Version</th></tr>
+            <tr><td>X</td><td>Major Update Version</td></tr>
             <tr><td>Y</td><td>Minor Update Version</td></tr>
             <tr><td>Z</td><td>Patch Update Version</td></tr>
         </table>
