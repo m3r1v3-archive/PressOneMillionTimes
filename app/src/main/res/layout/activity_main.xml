@@ -5,7 +5,7 @@
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/dark"
+    android:background="@color/background"
     app:layoutDescription="@xml/activity_main_scene"
     tools:context=".activities.MainActivity">
 
@@ -20,7 +20,7 @@
         app:snowflakeAlphaMax="256"
         app:snowflakeAlphaMin="128"
         app:snowflakeAngleMax="5"
-        app:snowflakeImage="@drawable/ic_short_icon"
+        app:snowflakeImage="@drawable/ic_icon"
         app:snowflakeSizeMax="@dimen/size_36dp"
         app:snowflakeSizeMin="@dimen/size_24dp"
         app:snowflakeSpeedMax="8"
@@ -38,7 +38,7 @@
         android:singleLine="true"
         android:text="@string/app_name"
         android:textAllCaps="true"
-        android:textColor="@color/red"
+        android:textColor="@color/primary"
         android:textSize="@dimen/font_large_size"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -74,12 +74,12 @@
             android:layout_width="@dimen/size_36dp"
             android:layout_height="@dimen/size_36dp"
             android:layout_marginStart="@dimen/margin_12dp"
-            android:src="@drawable/ic_short_icon"
+            android:src="@drawable/ic_icon"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/counter_separator"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:tint="@color/gray" />
+            app:tint="@color/on_background" />
 
         <ImageView
             android:id="@+id/counter_separator"
@@ -90,7 +90,7 @@
             app:layout_constraintEnd_toStartOf="@id/counter"
             app:layout_constraintStart_toEndOf="@id/counter_icon"
             app:layout_constraintTop_toTopOf="parent"
-            app:tint="@color/gray" />
+            app:tint="@color/on_background" />
 
         <TextView
             android:id="@+id/counter"
@@ -101,7 +101,7 @@
             android:gravity="center"
             android:letterSpacing="0.1"
             android:paddingTop="@dimen/padding_4dp"
-            android:textColor="@color/gray"
+            android:textColor="@color/on_background"
             android:textSize="@dimen/font_medium_size"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -114,7 +114,7 @@
         android:id="@+id/button"
         android:layout_width="@dimen/size_192dp"
         android:layout_height="@dimen/size_192dp"
-        android:background="@drawable/ic_button"
+        android:background="@drawable/ic_icon"
         android:contentDescription="@string/todo"
         android:gravity="center"
         android:onClick="clickButton"
@@ -130,7 +130,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/odibee"
-        android:textColor="@color/red"
+        android:textColor="@color/primary"
         android:textSize="@dimen/font_small_size"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"

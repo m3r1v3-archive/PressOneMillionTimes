@@ -1,10 +1,9 @@
 <resources>
     <!--  MainActivity  -->
-    <string name="app_name">Press1MTimes</string>
+    <string name="app_name">PressOneMillionTimes</string>
 
     <!--  FinishActivity  -->
-    <string name="finish">Finish Press1MTimes</string>
-    <string name="congratulations">Congratulations,\nyou completed Press1MTimes!</string>
+    <string name="congratulations">Congratulations,\nyou completed PressOneMillionTimes!</string>
     <string name="hope">I hope you enjoyed it</string>
 
     <!--  SettingsFragment  -->
@@ -30,13 +29,13 @@
     <string name="scoreshare">ScoreShare</string>
     <string name="scan">Scan QR</string>
     <string name="qr_error">QR-Code cannot be scanning</string>
-    <string name="score_changed">Press1MTimes Score was changed</string>
+    <string name="score_changed">PressOneMillionTimes Score was changed</string>
 
     <!-- IconsFragment -->
     <string name="icons">Icons</string>
     <string name="default_icon">Default</string>
-    <string name="short_icon">Short</string>
-    <string name="million_icon">Million</string>
+    <string name="one_icon">One</string>
+    <string name="minimalistic_icon">Minimalistic</string>
     <string name="icon_changed">Application icon was changed</string>
 
     <!-- UpdateFragment -->
@@ -47,9 +46,6 @@
     <string name="splash_position_changed">Splash Position was changed</string>
     <string name="left">Left</string>
     <string name="right">Right</string>
-
-    <!-- Website Link -->
-    <string name="link">https://merive.herokuapp.com/P1MT</string>
 
     <string name="error">Something went wrong!</string>
 

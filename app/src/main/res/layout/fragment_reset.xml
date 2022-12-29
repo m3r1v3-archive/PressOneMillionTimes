@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingTop="@dimen/padding_24dp"
-    android:paddingBottom="@dimen/padding_24dp">
+    android:paddingBottom="@dimen/padding_12dp">
 
     <TextView
         android:id="@+id/reset_title"
@@ -16,7 +16,7 @@
         android:singleLine="true"
         android:text="@string/reset"
         android:textAllCaps="true"
-        android:textColor="@color/red"
+        android:textColor="@color/primary"
         android:textSize="@dimen/font_medium_size"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -49,7 +49,7 @@
         android:stateListAnimator="@null"
         android:text="@string/cancel"
         android:textAllCaps="false"
-        android:textColor="@color/red"
+        android:textColor="@color/primary"
         android:textSize="@dimen/font_small_size"
         app:layout_constraintEnd_toStartOf="@id/reset_confirm_button"
         app:layout_constraintStart_toStartOf="parent"
@@ -61,7 +61,7 @@
         android:layout_height="@dimen/size_56dp"
         android:layout_marginStart="@dimen/margin_12dp"
         android:layout_marginTop="@dimen/margin_24dp"
-        android:layout_marginEnd="@dimen/margin_6dp"
+        android:layout_marginEnd="@dimen/margin_12dp"
         android:background="@xml/background_dark"
         android:fontFamily="@font/odibee"
         android:gravity="center_vertical|center_horizontal"
@@ -70,7 +70,7 @@
         android:stateListAnimator="@null"
         android:text="@string/reset"
         android:textAllCaps="false"
-        android:textColor="@color/red"
+        android:textColor="@color/primary"
         android:textSize="@dimen/font_small_size"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/reset_cancel_button"
