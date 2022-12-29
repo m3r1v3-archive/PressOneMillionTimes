@@ -1,8 +1,6 @@
 package com.merive.pressonemilliontimes.fragments;
 
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -13,16 +11,19 @@ import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.Fragment;
 
 import com.merive.pressonemilliontimes.R;
 import com.merive.pressonemilliontimes.activities.MainActivity;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 
-public class UpdateFragment extends DialogFragment {
+
+public class UpdateFragment extends Fragment {
 
     EditText changelogText;
-    Button downloadButton;
+    Button downloadButton, cancelButton;
     MainActivity mainActivity;
 
     /**
@@ -30,13 +31,14 @@ public class UpdateFragment extends DialogFragment {
      *
      * @return New instance of UpdateFragment with necessary arguments
      */
-    public static UpdateFragment newInstance(String oldVersion, String newVersion, String changelog, String link) {
+    public static UpdateFragment newInstance(JSONObject jsonObject) throws JSONException {
         UpdateFragment frag = new UpdateFragment();
+
         Bundle args = new Bundle();
-        args.putString("old_version", oldVersion);
-        args.putString("new_version", newVersion);
-        args.putString("changelog", changelog);
-        args.putString("link", link);
+        args.putString("version", (String) jsonObject.get("version"));
+        args.putString("changelog", (String) jsonObject.get("changelog"));
+        args.putString("link", (String) jsonObject.get("link"));
+
         frag.setArguments(args);
         return frag;
     }
@@ -53,7 +55,6 @@ public class UpdateFragment extends DialogFragment {
      */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
-        getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         return inflater.inflate(R.layout.fragment_update, parent);
     }
 
@@ -68,7 +69,6 @@ public class UpdateFragment extends DialogFragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        getDialog().getWindow().getAttributes().windowAnimations = R.style.Theme_PressOneMillionTimes_Animation;
 
         initVariables();
         setListeners();
@@ -83,6 +83,7 @@ public class UpdateFragment extends DialogFragment {
     private void initVariables() {
         changelogText = getView().findViewById(R.id.update_changelog);
         downloadButton = getView().findViewById(R.id.update_download_button);
+        cancelButton = getView().findViewById(R.id.update_cancel_button);
         mainActivity = ((MainActivity) getActivity());
     }
 
@@ -93,13 +94,14 @@ public class UpdateFragment extends DialogFragment {
      */
     private void setListeners() {
         downloadButton.setOnClickListener(v -> clickDownload());
+        cancelButton.setOnClickListener(v -> clickCancel());
     }
 
     /**
      * Sets text to versionText TextView
      */
     private void setChangelog() {
-        changelogText.setText(String.format("Changelog (%s)\n%s", getArguments().getString("new_version"),
+        changelogText.setText(String.format("Changelog (%s)\n%s", getArguments().getString("version"),
                 getArguments().getString("changelog").replace("\\n", "\n")));
     }
 
@@ -110,7 +112,15 @@ public class UpdateFragment extends DialogFragment {
     private void clickDownload() {
         mainActivity.makeVibration();
         startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(getArguments().getString("link"))));
-        dismiss();
+    }
+
+    /**
+     * Executes when clicking on cancelButton
+     * Makes vibration effect and closes SplashMessageFragment
+     */
+    private void clickCancel() {
+        mainActivity.makeVibration();
+        mainActivity.setFragment(new SettingsFragment());
     }
 }
 

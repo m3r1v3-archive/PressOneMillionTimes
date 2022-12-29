@@ -200,20 +200,10 @@ public class MainActivity extends AppCompatActivity {
     private void checkVersion() {
         new Thread(() -> {
             try {
-                if (!((String) new JSONObject(new API().get()).get("version")).equals(BuildConfig.VERSION_NAME))
-                    openUpdateFragment(new JSONObject(new API().get()));
-            } catch (IOException ignored) {
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+                if (!new JSONObject(new API().get()).get("version").equals(BuildConfig.VERSION_NAME))
+                    setFragment(UpdateFragment.newInstance(new JSONObject(new API().get())));
+            } catch (IOException | JSONException ignored) {}
         }).start();
-    }
-
-    /**
-     * Open UpdateFragment
-     */
-    private void openUpdateFragment(JSONObject jsonObject) throws JSONException {
-        UpdateFragment.newInstance(BuildConfig.VERSION_NAME, (String) jsonObject.get("version"), (String) jsonObject.get("changelog"), (String) jsonObject.get("link")).show(getSupportFragmentManager(), "update_fragment");
     }
 
     /**
