@@ -55,7 +55,7 @@ public class UpdateFragment extends Fragment {
      */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_update, parent);
+        return inflater.inflate(R.layout.fragment_update, parent, false);
     }
 
     /**
@@ -101,7 +101,7 @@ public class UpdateFragment extends Fragment {
      * Sets text to versionText TextView
      */
     private void setChangelog() {
-        changelogText.setText(String.format("Changelog (%s)\n%s", getArguments().getString("version"),
+        changelogText.setText(String.format("Changelog (%s)\n\n%s", getArguments().getString("version"),
                 getArguments().getString("changelog").replace("\\n", "\n")));
     }
 

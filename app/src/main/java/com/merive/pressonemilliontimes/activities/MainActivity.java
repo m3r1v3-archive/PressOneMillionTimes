@@ -75,8 +75,7 @@ public class MainActivity extends AppCompatActivity {
 
         try {
             checkQRPattern(getIntent().getData().toString());
-        } catch (NullPointerException ignored) {
-        }
+        } catch (NullPointerException ignored) {}
     }
 
     /**
