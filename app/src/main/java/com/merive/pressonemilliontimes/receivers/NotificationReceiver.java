@@ -1,5 +1,6 @@
 package com.merive.pressonemilliontimes.receivers;
 
+import android.annotation.SuppressLint;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -21,15 +22,16 @@ public class NotificationReceiver extends BroadcastReceiver {
      * @see Context
      * @see Intent
      */
+    @SuppressLint({"WrongConstant", "UnspecifiedImmutableFlag"})
     @Override
     public void onReceive(Context context, Intent intent) {
         NotificationManagerCompat.from(context).notify(0, new NotificationCompat.Builder(context, "notifyPressOneMillionTimes")
-                .setSmallIcon(R.drawable.ic_stat_name)
-                .setColor(context.getResources().getColor(R.color.primary))
+                .setSmallIcon(R.drawable.ic_stat_name).setColor(context.getResources().getColor(R.color.primary))
                 .setContentTitle("The One Million is near")
                 .setContentText("You have already pressed " + intent.getStringExtra("score") + " times")
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                .setContentIntent(PendingIntent.getActivity(context, 0, new Intent(context, SplashActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK), PendingIntent.FLAG_CANCEL_CURRENT | PendingIntent.FLAG_IMMUTABLE))
+                .setContentIntent(PendingIntent.getActivity(context, 0, new Intent(context, SplashActivity.class),
+                        Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK))
                 .setAutoCancel(true).build());
     }
 }
