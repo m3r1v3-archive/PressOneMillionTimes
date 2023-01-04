@@ -20,8 +20,8 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.fragment.app.Fragment;
 
-import com.google.zxing.client.android.BuildConfig;
 import com.google.zxing.integration.android.IntentIntegrator;
+import com.merive.pressonemilliontimes.BuildConfig;
 import com.merive.pressonemilliontimes.R;
 import com.merive.pressonemilliontimes.api.API;
 import com.merive.pressonemilliontimes.fragments.SettingsFragment;
@@ -75,7 +75,8 @@ public class MainActivity extends AppCompatActivity {
 
         try {
             checkQRPattern(getIntent().getData().toString());
-        } catch (NullPointerException ignored) {}
+        } catch (NullPointerException ignored) {
+        }
     }
 
     /**
@@ -199,9 +200,10 @@ public class MainActivity extends AppCompatActivity {
     private void checkVersion() {
         new Thread(() -> {
             try {
-                if (!new JSONObject(new API().get()).get("version").equals(BuildConfig.VERSION_NAME))
+                if (!(new JSONObject(new API().get()).get("version")).toString().substring(1).equals(BuildConfig.VERSION_NAME))
                     setFragment(UpdateFragment.newInstance(new JSONObject(new API().get())));
-            } catch (IOException | JSONException ignored) {}
+            } catch (IOException | JSONException ignored) {
+            }
         }).start();
     }
 
