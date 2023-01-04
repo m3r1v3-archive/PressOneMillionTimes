@@ -271,7 +271,7 @@ public class MainActivity extends AppCompatActivity {
      * Updates score value in SharedPreferences memory and sets default value to counter
      */
     public void resetScore() {
-        preferencesManager.setScore(0);
+        preferencesManager.setScore();
     }
 
     /**
