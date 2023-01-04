@@ -3,7 +3,7 @@
     <string name="app_name">PressOneMillionTimes</string>
 
     <!--  FinishActivity  -->
-    <string name="congratulations">Congratulations,\nyou completed PressOneMillionTimes!</string>
+    <string name="congratulations">Congratulations,\nyou have reached the million clicks!</string>
     <string name="hope">I hope you enjoyed it</string>
 
     <!--  SettingsFragment  -->

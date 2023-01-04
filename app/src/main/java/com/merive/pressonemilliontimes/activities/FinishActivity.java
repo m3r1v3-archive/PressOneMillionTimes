@@ -2,7 +2,6 @@ package com.merive.pressonemilliontimes.activities;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Vibrator;
@@ -10,7 +9,6 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.merive.pressonemilliontimes.R;
@@ -27,7 +25,6 @@ public class FinishActivity extends AppCompatActivity {
      *
      * @param savedInstanceState Using by super.onCreate method
      */
-    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,7 +49,6 @@ public class FinishActivity extends AppCompatActivity {
      *
      * @see com.jetradarmobile.snowfall.SnowfallView
      */
-    @RequiresApi(api = Build.VERSION_CODES.O)
     private void setCoinsVisibility() {
         findViewById(R.id.coins).setVisibility(View.VISIBLE);
     }
@@ -65,7 +61,6 @@ public class FinishActivity extends AppCompatActivity {
      * @param view View object.
      * @see android.widget.Button
      */
-    @RequiresApi(api = Build.VERSION_CODES.O)
     public void clickClose(View view) {
         if (!clicked) {
             clicked = true;
