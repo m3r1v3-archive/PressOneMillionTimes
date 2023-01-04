@@ -92,4 +92,16 @@
         app:layout_constraintStart_toEndOf="@id/update_cancel_button"
         app:layout_constraintTop_toBottomOf="@+id/update_changelog" />
 
+    <ImageView
+        android:id="@+id/update_cancel_button_separator"
+        android:layout_width="@dimen/size_0dp"
+        android:layout_height="@dimen/size_12dp"
+        android:layout_marginLeft="@dimen/margin_36dp"
+        android:layout_marginTop="@dimen/margin_12dp"
+        android:layout_marginRight="@dimen/margin_36dp"
+        android:src="@xml/horizontal_line"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/update_download_button" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
