@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.merive.pressonemilliontimes.R;
@@ -45,7 +46,7 @@ public class OptionsFragment extends Fragment {
      * @see Bundle
      */
     @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         initVariables();
         setListeners();
         setLongListeners();

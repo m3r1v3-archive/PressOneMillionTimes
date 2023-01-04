@@ -20,8 +20,8 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.fragment.app.Fragment;
 
-import com.google.zxing.client.android.BuildConfig;
 import com.google.zxing.integration.android.IntentIntegrator;
+import com.merive.pressonemilliontimes.BuildConfig;
 import com.merive.pressonemilliontimes.R;
 import com.merive.pressonemilliontimes.api.API;
 import com.merive.pressonemilliontimes.fragments.SettingsFragment;
@@ -75,7 +75,8 @@ public class MainActivity extends AppCompatActivity {
 
         try {
             checkQRPattern(getIntent().getData().toString());
-        } catch (NullPointerException ignored) {}
+        } catch (NullPointerException ignored) {
+        }
     }
 
     /**
@@ -199,9 +200,10 @@ public class MainActivity extends AppCompatActivity {
     private void checkVersion() {
         new Thread(() -> {
             try {
-                if (!new JSONObject(new API().get()).get("version").equals(BuildConfig.VERSION_NAME))
+                if (!(new JSONObject(new API().get()).get("version")).toString().substring(1).equals(BuildConfig.VERSION_NAME))
                     setFragment(UpdateFragment.newInstance(new JSONObject(new API().get())));
-            } catch (IOException | JSONException ignored) {}
+            } catch (IOException | JSONException ignored) {
+            }
         }).start();
     }
 
@@ -269,7 +271,7 @@ public class MainActivity extends AppCompatActivity {
      * Updates score value in SharedPreferences memory and sets default value to counter
      */
     public void resetScore() {
-        preferencesManager.setScore(0);
+        preferencesManager.setScore();
     }
 
     /**
@@ -299,7 +301,10 @@ public class MainActivity extends AppCompatActivity {
         calendar.set(Calendar.HOUR_OF_DAY, 12);
         if (calendar.get(Calendar.HOUR_OF_DAY) >= 12) calendar.add(Calendar.DATE, 1);
 
-        ((AlarmManager) getSystemService(Context.ALARM_SERVICE)).setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, PendingIntent.getBroadcast(MainActivity.this, 0, new Intent(getBaseContext(), NotificationReceiver.class).putExtra("score", String.valueOf(preferencesManager.getScore())), PendingIntent.FLAG_CANCEL_CURRENT | PendingIntent.FLAG_IMMUTABLE));
+        ((AlarmManager) getSystemService(Context.ALARM_SERVICE))
+                .setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY,
+                        PendingIntent.getBroadcast(MainActivity.this, 0, new Intent(getBaseContext(), NotificationReceiver.class)
+                                .putExtra("score", String.valueOf(preferencesManager.getScore())), PendingIntent.FLAG_CANCEL_CURRENT | PendingIntent.FLAG_IMMUTABLE));
     }
 
     /**
