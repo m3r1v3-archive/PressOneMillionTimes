@@ -25,7 +25,7 @@
         <activity
             android:name=".activities.SplashActivity"
             android:exported="true"
-            android:screenOrientation="portrait"
+            android:screenOrientation="fullSensor"
             android:theme="@style/Theme.PressOneMillionTimes.SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
